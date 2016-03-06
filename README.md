@@ -18,12 +18,12 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
 
 ## Quick Install
 
-  The quickest way to get started with UPRM CMS is to utilize it like this:
+  The quickest way to get started with UPRM-CMS is to utilize it like this:
 
   Clone & Run:
 
     git clone https://github.com/ebreijo/UPRM-CMS.git
-    cd uprm_cms
+    cd UPRM-CMS
     npm install && bower install
     grunt serve
 
