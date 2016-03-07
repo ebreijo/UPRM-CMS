@@ -7,10 +7,12 @@ UPRM Career Management System (UPRM-CMS) is a web application designed to provid
 
 ## Prerequisites
 
-* Node.js - Download and Install [Node.js](http://www.nodejs.org/download/).
+* Node.js - Download and Install [Node.js](https://nodejs.org/en/download/).
 * Grunt - [grunt-cli](http://gruntjs.com/getting-started)
+* Bower - [bower](http://bower.io/) 
 * Make sure you install grunt-cli globally using `npm install -g grunt-cli`.
-* MariaDB - Download and install [MariaDB] (https://downloads.mariadb.org/).
+* Make sure you install bower globally using `npm install -g bower`.
+* MariaDB - Download and install [MariaDB](https://downloads.mariadb.org/).
 
 ### Additional Packages
 
