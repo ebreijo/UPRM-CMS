@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `company_location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `company_location` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(63) NOT NULL,
   `street_address` varchar(255) NOT NULL,
   `city` varchar(45) NOT NULL,
@@ -243,7 +243,6 @@ CREATE TABLE `job_fair_company_information` (
   `collecting_resumes_before_job_fair` tinyint(1) NOT NULL DEFAULT '0',
   `must_fill_online` tinyint(1) NOT NULL DEFAULT '0',
   `interviews_during_weekend` tinyint(1) NOT NULL DEFAULT '0',
-  `job_position` enum('internship','co-op','full-time','part-time') NOT NULL DEFAULT 'internship',
   `attending` tinyint(1) NOT NULL DEFAULT '0',
   `website_application` varchar(255) NOT NULL,
   PRIMARY KEY (`company_name`),
@@ -270,7 +269,7 @@ DROP TABLE IF EXISTS `job_fair_company_looking_for`;
 CREATE TABLE `job_fair_company_looking_for` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(63) NOT NULL,
-  `type` enum('Internship','Full-Time','Part-Time','CO-OP') NOT NULL,
+  `job_position` enum('Internship','Full-Time','Part-Time','CO-OP') NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `job_fair_company_looking_for_company_name_idx` (`company_name`),
@@ -325,22 +324,21 @@ DROP TABLE IF EXISTS `job_offer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `job_offer` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(63) NOT NULL,
   `title` varchar(63) NOT NULL,
   `description` varchar(511) NOT NULL,
-  `job_position` enum('Internship','Co-op','Full-Time','Part-Time') NOT NULL DEFAULT 'Internship',
+  `job_position` enum('Internship','CO-OP','Full-Time','Part-Time') NOT NULL DEFAULT 'Internship',
   `education_level` enum('Bachelors','Masters','PhD') NOT NULL,
   `recent_graduate` tinyint(1) NOT NULL DEFAULT '0',
-  `expiration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `expiration_date` timestamp NOT NULL,
   `announcement_number` varchar(45) DEFAULT NULL,
   `flyer_path` varchar(255) DEFAULT NULL,
   `job_offer_status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
-  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `recruiter_email` varchar(255) NOT NULL,
   `location` varchar(127) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `expiration_date_UNIQUE` (`expiration_date`),
   KEY `job_offers_company_name_idx` (`company_name`),
   KEY `job_offers_recruiter_email_idx` (`recruiter_email`),
   CONSTRAINT `job_offers_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -437,7 +435,7 @@ DROP TABLE IF EXISTS `policies`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `policies` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `policy` varchar(127) NOT NULL,
+  `policy` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -459,11 +457,11 @@ DROP TABLE IF EXISTS `promotional_material`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `promotional_material` (
-  `flyer_id` int(11) unsigned NOT NULL,
+  `flyer_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(63) NOT NULL,
   `title` varchar(63) NOT NULL,
   `file_path` varchar(255) NOT NULL,
-  `expiration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `expiration_date` timestamp NOT NULL,
   `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`flyer_id`),
   KEY `promotional_materials_company_name_idx` (`company_name`),
@@ -521,7 +519,6 @@ CREATE TABLE `recruiter` (
   `account_status` enum('pending','activated','deactivated') NOT NULL DEFAULT 'pending',
   `company_location` int(11) unsigned NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `password_recovery` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`email`),
   KEY `company_name_idx` (`company_name`),
   KEY `recruiter_company_location_idx` (`company_location`),
