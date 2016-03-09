@@ -39,7 +39,7 @@ CREATE TABLE `about_us` (
 DROP TABLE IF EXISTS `administrator`;
 CREATE TABLE `administrator` (
   `email` varchar(255) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(63) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),

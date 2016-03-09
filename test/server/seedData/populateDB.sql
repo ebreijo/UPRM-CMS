@@ -10,11 +10,20 @@ VALUES ('placement@uprm.edu', 1, 'active');
 INSERT INTO administrator_access (email, is_root, admin_account_status)
 VALUES ('juan.rodriguez@upr.edu', 0, 'active');
 
+INSERT INTO administrator_access (email, is_root, admin_account_status)
+VALUES ('pedro.rivera@upr.edu', 0, 'pending');
+
+INSERT INTO administrator_access (email, is_root, admin_account_status)
+VALUES ('maria.hernandez@upr.edu', 0, 'inactive');
+
 INSERT INTO administrator (email, password, first_name, last_name)
 VALUES ('placement@uprm.edu', 'pass', 'Placement', 'Office');
 
 INSERT INTO administrator (email, password, first_name, last_name)
 VALUES ('juan.rodriguez@upr.edu', 'pass', 'Juan', 'Rodriguez');
+
+INSERT INTO administrator (email, password, first_name, last_name)
+VALUES ('maria.hernandez@upr.edu', 'pass', 'Maria', 'Hernandez');
 
 INSERT INTO company (name, website_url, company_description, company_status)
 VALUES ('IBM', 'http://www.ibm.com/us-en/', 'This is IBM', 'activated');
