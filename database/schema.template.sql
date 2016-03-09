@@ -44,7 +44,7 @@ CREATE TABLE `administrator` (
   `last_name` varchar(45) NOT NULL,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  CONSTRAINT `administrator_administrator_access_email` FOREIGN KEY (`email`) REFERENCES `administrator_access` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `administrator_administrator_access_email` FOREIGN KEY (`email`) REFERENCES `administrator_access` (`email`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -297,7 +297,7 @@ CREATE TABLE `public_documents` (
 DROP TABLE IF EXISTS `recruiter`;
 CREATE TABLE `recruiter` (
   `email` varchar(255) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(63) NOT NULL,
   `company_name` varchar(63) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
