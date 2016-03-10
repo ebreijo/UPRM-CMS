@@ -102,13 +102,10 @@ describe('Administrators Controller: ', function() {
   });
 
   describe('Update access to an admin', function() {
-    var admin = null;
-    beforeEach(function() {
-      admin = request(app).put('/api/adminsAccess/maria.hernandez@upr.edu');
-    });
 
     describe('with a valid admin object sent', function() {
       it('should update the email and admin access status and return a 200 status code', function (done) {
+        var admin = request(app).put('/api/adminsAccess/maria.hernandez@upr.edu');
         var updatedAdmin = {
           "email": "maria.picapiedras@upr.edu",
           "adminAccountStatus": "pending"
@@ -131,6 +128,30 @@ describe('Administrators Controller: ', function() {
             }
           });
       });
+
+      it('should not update admin account status to active if the admin is still pending to register', function (done) {
+        var admin = request(app).put('/api/adminsAccess/pedro.rivera@upr.edu');
+        var updatedAdmin = {
+          "adminAccountStatus": "active"
+        };
+        var expectedAdmin = {
+          "email": "pedro.rivera@upr.edu",
+          "isRoot": false,
+          "adminAccountStatus": "pending"
+        };
+        admin.send(updatedAdmin)
+          .expect('Content-Type', /json/)
+          .expect(401)
+          .end(function (err) {
+            if (err) {
+              done(err);
+            } else {
+              request(app).get('/api/adminsAccess/' + expectedAdmin.email)
+                .expect(200)
+                .end(help.isBodyEqual(expectedAdmin, done));
+            }
+          });
+      });
     });
   });
 
@@ -142,7 +163,6 @@ describe('Administrators Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual({
           "email": "placement@uprm.edu",
-          "password": "pass",
           "firstName": "Placement",
           "lastName": 'Office'
         }, done));
@@ -228,6 +248,41 @@ describe('Administrators Controller: ', function() {
             } else {
               expect(res.body.message).to.match(/Not authorized to register or account is already activated/);
               done();
+            }
+          });
+      });
+    });
+  });
+
+  describe('Update admin information', function() {
+    var admin = null;
+    beforeEach(function() {
+      admin = request(app).put('/api/admins/juan.rodriguez@upr.edu');
+    });
+
+    describe('with a valid admin object sent', function() {
+      it('should update the firstName, lastName and password but not the email, and return a 200 status code', function (done) {
+        var updatedAdmin = {
+          "email": "j.r@upr.edu",
+          "password": "mipassword1",
+          "firstName": "John",
+          "lastName": "Rod"
+        };
+        var expectedAdmin = {
+          "email": "juan.rodriguez@upr.edu",
+          "firstName": "John",
+          "lastName": "Rod"
+        };
+        admin.send(updatedAdmin)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function (err) {
+            if (err) {
+              done(err);
+            } else {
+              request(app).get('/api/admins/' + expectedAdmin.email)
+                .expect(200)
+                .end(help.isBodyEqual(expectedAdmin, done));
             }
           });
       });
