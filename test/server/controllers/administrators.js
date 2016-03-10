@@ -288,4 +288,96 @@ describe('Administrators Controller: ', function() {
       });
     });
   });
+
+
+  describe('Get latest job fair dates', function() {
+    it('should find an admin with an email placement@uprm.edu', function(done) {
+      request(app)
+        .get('/api/jobFairDates')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([{
+          "id": 2,
+          "headerEnglish": "8th Spring Job Fair",
+          "locationEnglish": "Mayaguez Resort & Casino",
+          "dateEnglish": "Friday, February 19, 2016",
+          "time": "8:30am - 2:30pm",
+          "headerSpanish": "8va Feria de Empleo de Primavera",
+          "locationSpanish": "Hotel Mayaguez Resort & Casino",
+          "dateSpanish": "viernes, 19 de febrero de 2016",
+          "resumeDeadlineDate": "2016-02-19T00:00:00.000Z"
+        }], done));
+    });
+  });
+
+  describe('Add a new job fair date', function() {
+    var jobFairDates = null;
+    beforeEach(function() {
+      jobFairDates = request(app).post('/api/jobFairDates');
+    });
+
+    describe('with a valid job fair date object sent', function() {
+      it('should add job fair dates correctly and return a 201 status code', function (done) {
+        var newJobFairDates = {
+          "headerEnglish": "30th Fall Job Fair",
+          "locationEnglish": "Coliseum Rafael Mangual",
+          "dateEnglish": "Friday, October 1, 2016",
+          "time": "8:30am - 2:30pm",
+          "headerSpanish": "30ma Feria de Empleo de Otono",
+          "locationSpanish": "Coliseo Rafael Mangual",
+          "dateSpanish": "viernes, 1 de octubre de 2016",
+          "resumeDeadlineDate": "2016-09-29"
+        };
+        var expectedJobFairDates = [{
+          "id": 3,
+          "headerEnglish": "30th Fall Job Fair",
+          "locationEnglish": "Coliseum Rafael Mangual",
+          "dateEnglish": "Friday, October 1, 2016",
+          "time": "8:30am - 2:30pm",
+          "headerSpanish": "30ma Feria de Empleo de Otono",
+          "locationSpanish": "Coliseo Rafael Mangual",
+          "dateSpanish": "viernes, 1 de octubre de 2016",
+          "resumeDeadlineDate": "2016-09-29T00:00:00.000Z"
+        }];
+        jobFairDates.send(newJobFairDates)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(function (err) {
+            if (err) {
+              done(err);
+            } else {
+              request(app).get('/api/jobFairDates/')
+                .expect(200)
+                .end(help.isBodyEqual(expectedJobFairDates, done));
+            }
+          });
+      });
+    });
+
+    describe('with an invalid attributes in the job fair date object sent', function() {
+      it('should get a validation error and return a 401 status code', function (done) {
+        var newJobFairDates = {
+          "headerEnglish": "30th Fall Job Fair",
+          "locationEnglish": "",
+          "dateEnglish": "Friday, October 1, 2016",
+          "time": "8:30am - 2:30pm",
+          "headerSpanish": "30ma Feria de Empleo de Otono",
+          "locationSpanish": "Coliseo Rafael Mangual",
+          "dateSpanish": "viernes, 1 de octubre de 2016",
+          "resumeDeadlineDate": "2016-09-29"
+        };
+        jobFairDates.send(newJobFairDates)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation error/);
+              done();
+            }
+          });
+      });
+    });
+  });
 });
