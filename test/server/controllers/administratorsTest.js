@@ -11,7 +11,8 @@ describe('Administrators Controller: ', function() {
   describe('Get an admin from the access list', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
       request(app)
-        .get('/api/adminsAccess/placement@uprm.edu')
+        .post('/api/adminsAccessGet')
+        .send({"email": "placement@uprm.edu"})
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -23,7 +24,8 @@ describe('Administrators Controller: ', function() {
 
     it('should return 404 for an admin not found in the access list', function(done) {
       request(app)
-        .get('/api/adminsAccess/zzzz@upr.edu')
+        .post('/api/adminsAccessGet')
+        .send({"email": "zzzz@upr.edu"})
         .expect('Content-Type', /json/)
         .expect(404, done);
     });
@@ -41,18 +43,12 @@ describe('Administrators Controller: ', function() {
         var newAdminAccess = {
           "email": "eduardo@upr.edu"
         };
-        var expectedAdminAccess = 'eduardo@upr.edu';
         adminAccess.send(newAdminAccess)
           .expect('Content-Type', /json/)
           .expect(201)
-          .end(function(err) {
-            if(err) {
-              done(err);
-            } else {
-              request(app).get('/api/adminsAccess/' + expectedAdminAccess)
-                .expect(200, done);
-            }
-          });
+          .end(help.isBodyEqual({
+            "email": "eduardo@upr.edu"
+          }, done));
       });
 
       it('should not give access to an admin that exists already', function(done) {
@@ -105,50 +101,35 @@ describe('Administrators Controller: ', function() {
 
     describe('with a valid admin object sent', function() {
       it('should update the email and admin access status and return a 200 status code', function (done) {
-        var admin = request(app).put('/api/adminsAccess/maria.hernandez@upr.edu');
+        var admin = request(app).put('/api/adminsAccess');
         var updatedAdmin = {
           "email": "maria.picapiedras@upr.edu",
+          "currentEmail": "maria.hernandez@upr.edu",
           "adminAccountStatus": "pending"
         };
-        var expectedAdmin = {
-          "email": "maria.picapiedras@upr.edu",
-          "isRoot": false,
-          "adminAccountStatus": "pending"
-        };
+
         admin.send(updatedAdmin)
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err) {
-            if (err) {
-              done(err);
-            } else {
-              request(app).get('/api/adminsAccess/' + expectedAdmin.email)
-                .expect(200)
-                .end(help.isBodyEqual(expectedAdmin, done));
-            }
-          });
+          .end(help.isBodyEqual({"message": "Admin Successfully Updated"}, done));
       });
 
       it('should not update admin account status to active if the admin is still pending to register', function (done) {
-        var admin = request(app).put('/api/adminsAccess/pedro.rivera@upr.edu');
+        var admin = request(app).put('/api/adminsAccess');
         var updatedAdmin = {
+          "currentEmail": "pedro.rivera@upr.edu",
           "adminAccountStatus": "active"
         };
-        var expectedAdmin = {
-          "email": "pedro.rivera@upr.edu",
-          "isRoot": false,
-          "adminAccountStatus": "pending"
-        };
+
         admin.send(updatedAdmin)
           .expect('Content-Type', /json/)
           .expect(401)
-          .end(function (err) {
-            if (err) {
+          .end(function (err, res) {
+            if(err) {
               done(err);
             } else {
-              request(app).get('/api/adminsAccess/' + expectedAdmin.email)
-                .expect(200)
-                .end(help.isBodyEqual(expectedAdmin, done));
+              expect(res.body.message).to.match(/Cannot activate the Administrator, it is still pending to register/);
+              done();
             }
           });
       });
@@ -158,7 +139,8 @@ describe('Administrators Controller: ', function() {
   describe('Get an admin', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
       request(app)
-        .get('/api/admins/placement@uprm.edu')
+        .post('/api/admins')
+        .send({"email": "placement@uprm.edu"})
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -170,7 +152,8 @@ describe('Administrators Controller: ', function() {
 
     it('should return 404 for an admin not found', function(done) {
       request(app)
-        .get('/api/admins/zzzz@upr.edu')
+        .post('/api/admins')
+        .send({"email": "zzzz@upr.edu"})
         .expect('Content-Type', /json/)
         .expect(404, done);
     });
@@ -191,18 +174,15 @@ describe('Administrators Controller: ', function() {
           "firstName": "Pedro",
           "lastName": "Rivera"
         };
-        var expectedAdmin = 'pedro.rivera@upr.edu';
+
         admin.send(newAdmin)
           .expect('Content-Type', /json/)
           .expect(201)
-          .end(function(err) {
-            if(err) {
-              done(err);
-            } else {
-              request(app).get('/api/admins/' + expectedAdmin)
-                .expect(200, done);
-            }
-          });
+          .end(help.isBodyEqual({
+            "email": "pedro.rivera@upr.edu",
+            "firstName": "Pedro",
+            "lastName": 'Rivera'
+          }, done));
       });
 
       it('should not let admin to register if account is active or inactive', function(done) {
@@ -257,38 +237,71 @@ describe('Administrators Controller: ', function() {
   describe('Update admin information', function() {
     var admin = null;
     beforeEach(function() {
-      admin = request(app).put('/api/admins/juan.rodriguez@upr.edu');
+      admin = request(app).put('/api/admins');
     });
 
     describe('with a valid admin object sent', function() {
       it('should update the firstName, lastName and password but not the email, and return a 200 status code', function (done) {
         var updatedAdmin = {
-          "email": "j.r@upr.edu",
+          "email": "juan.rodriguez@upr.edu",
           "password": "mipassword1",
           "firstName": "John",
           "lastName": "Rod"
         };
-        var expectedAdmin = {
-          "email": "juan.rodriguez@upr.edu",
-          "firstName": "John",
-          "lastName": "Rod"
-        };
+
         admin.send(updatedAdmin)
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err) {
-            if (err) {
+          .end(help.isBodyEqual({"message": "Update was successful"}, done));
+      });
+    });
+
+    describe('with invalid attributes sent', function() {
+      it('should not make the update and return a 400 status code', function (done) {
+        var updatedAdmin = {
+          "email": "zzzz@upr.edu",
+          "password": "mipassword1",
+          "firstName": "ZZZZ",
+          "lastName": ""
+        };
+
+        admin.send(updatedAdmin)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
               done(err);
             } else {
-              request(app).get('/api/admins/' + expectedAdmin.email)
-                .expect(200)
-                .end(help.isBodyEqual(expectedAdmin, done));
+              expect(res.body.message).to.match(/Validation error/);
+              done();
             }
           });
       });
+
+      describe('with invalid email', function() {
+        it('should not make the update and return a 404 status code', function (done) {
+          var updatedAdmin = {
+            "email": "zzzz@upr.edu",
+            "password": "mipassword1",
+            "firstName": "ZZZZ",
+            "lastName": "sadfasf"
+          };
+
+          admin.send(updatedAdmin)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end(function (err, res) {
+              if (err) {
+                done(err);
+              } else {
+                expect(res.body.message).to.match(/Admin not found/);
+                done();
+              }
+            });
+        });
+      });
     });
   });
-
 
   describe('Get latest job fair dates', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
