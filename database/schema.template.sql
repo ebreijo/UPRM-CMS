@@ -70,7 +70,7 @@ CREATE TABLE `company` (
   `website_url` varchar(255) NOT NULL,
   `logo_path` varchar(255) DEFAULT NULL,
   `company_description` varchar(511) NOT NULL,
-  `company_status` enum('pending','activated','deactivated') NOT NULL DEFAULT 'pending',
+  `company_status` enum('pending','active','inactive') NOT NULL DEFAULT 'pending',
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`name`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC)
@@ -150,7 +150,7 @@ CREATE TABLE `job_fair_company_information` (
   `website_application` varchar(255) NOT NULL,
   PRIMARY KEY (`company_name`),
   UNIQUE INDEX `company_name_UNIQUE` (`company_name` ASC),
-  CONSTRAINT `job_fair_company_information_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `job_fair_company_information_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -165,7 +165,7 @@ CREATE TABLE `job_fair_company_looking_for` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `job_fair_company_looking_for_company_name_idx` (`company_name`),
-  CONSTRAINT `job_fair_company_looking_for_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `job_fair_company_looking_for_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -302,7 +302,7 @@ CREATE TABLE `recruiter` (
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `phone_number` varchar(15) NOT NULL,
-  `account_status` enum('pending','activated','deactivated') NOT NULL DEFAULT 'pending',
+  `account_status` enum('pending','active','inactive') NOT NULL DEFAULT 'pending',
   `company_location` int(11) unsigned NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`email`),
@@ -348,5 +348,5 @@ CREATE TABLE `temporary_contact` (
   `phone_number` varchar(15) NOT NULL,
   PRIMARY KEY (`email`),
   KEY `temporary_contact_company_name_idx` (`company_name`),
-  CONSTRAINT `temporary_contact_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `temporary_contact_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

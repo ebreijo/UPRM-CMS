@@ -26,13 +26,13 @@ INSERT INTO administrator (email, password, first_name, last_name)
 VALUES ('maria.hernandez@upr.edu', 'pass', 'Maria', 'Hernandez');
 
 INSERT INTO company (name, website_url, company_description, company_status)
-VALUES ('IBM', 'http://www.ibm.com/us-en/', 'This is IBM', 'activated');
+VALUES ('IBM', 'http://www.ibm.com/us-en/', 'This is IBM', 'active');
 
 INSERT INTO company (name, website_url, company_description)
 VALUES ('Google', 'https://www.google.com/', 'This is Google');
 
 INSERT INTO company (name, website_url, company_description, company_status)
-VALUES ('EVERTEC', 'https://www.evertecinc.com/', 'This is EVERTEC', 'deactivated');
+VALUES ('EVERTEC', 'https://www.evertecinc.com/', 'This is EVERTEC', 'inactive');
 
 INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
 VALUES ('IBM', '3039 E Cornwallis Road', 'Durham', 'NC', 'United States', '27709');
@@ -89,13 +89,13 @@ INSERT INTO job_fair_dates (header_en, location_en, date_en, time, header_es, lo
 VALUES ('8th Spring Job Fair', 'Mayaguez Resort & Casino', 'Friday, February 19, 2016', '8:30am - 2:30pm', '8va Feria de Empleo de Primavera', 'Hotel Mayaguez Resort & Casino', 'viernes, 19 de febrero de 2016', '2016-02-19');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
-VALUES ('sscosta@us.ibm.com', 'pass', 'IBM', 'Sergio', 'Costa', '787-555-5555', 'activated', '1');
+VALUES ('sscosta@us.ibm.com', 'pass', 'IBM', 'Sergio', 'Costa', '787-555-5555', 'active', '1');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, company_location)
 VALUES ('juanito@gmail.com', 'pass', 'Google', 'Juanito', 'Perez', '787-555-5555', '2');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
-VALUES ('pancho@evertec.com', 'pass', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'deactivated', '3');
+VALUES ('pancho@evertec.com', 'pass', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '3');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
 VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
