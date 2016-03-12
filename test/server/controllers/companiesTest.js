@@ -62,23 +62,15 @@ describe('Companies Controller: ', function() {
           "companyDescription": "This is Google Updated",
           "companyStatus": "active"
         };
-        var expectedCompany = {
-          "name": "Google INC",
-          "websiteUrl": "https://www.google.com/",
-          "logoPath": null,
-          "companyDescription": "This is Google Updated",
-          "companyStatus": "pending"
-        };
         company.send(updatedCompany)
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err) {
-            if (err) {
+          .end(function (err, res) {
+            if(err) {
               done(err);
             } else {
-              request(app).get('/api/companies/' + expectedCompany.name)
-                .expect(200)
-                .end(help.isBodyEqual(expectedCompany, done));
+              expect(res.body.message).to.match(/Company Successfully Updated/);
+              done();
             }
           });
       });
@@ -208,24 +200,15 @@ describe('Companies Controller: ', function() {
           "lastName": "Costa",
           "phoneNumber": "787-888-5555"
         };
-        var expectedRecruiter = {
-          "email": "sscosta@us.ibm.com",
-          "companyName": "IBM",
-          "firstName": "Mariano",
-          "lastName": "Costa",
-          "phoneNumber": "787-888-5555"
-        };
         recruiter.send(updatedRecruiter)
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err) {
-            if (err) {
+          .end(function (err, res) {
+            if(err) {
               done(err);
             } else {
-              request(app).post('/api/companies/IBM/recruiters')
-                .send({"email": expectedRecruiter.email})
-                .expect(200)
-                .end(help.isBodyEqual(expectedRecruiter, done));
+              expect(res.body.message).to.match(/Update was successful/);
+              done();
             }
           });
       });
@@ -275,6 +258,127 @@ describe('Companies Controller: ', function() {
               done(err);
             } else {
               expect(res.body.message).to.match(/Recruiter not found for this company/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  describe('Get all company locations for a given company', function() {
+    it('should find all company locations for IBM and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/companyLocations')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            "id": 1,
+            "companyName": "IBM",
+            "streetAddress": "3039 E Cornwallis Road",
+            "city": "Durham",
+            "state": "NC",
+            "country": "United States",
+            "zipCode": "27709",
+            "phoneNumber": null
+          },
+          {
+            "id": 2,
+            "companyName": "IBM",
+            "streetAddress": "1 New Orchard Road",
+            "city": "Armonk",
+            "state": "NY",
+            "country": "United States",
+            "zipCode": "10504",
+            "phoneNumber": null
+          }
+        ], done));
+    });
+  });
+
+  describe('Get a company location given its company and location ID', function() {
+    it('should find an IBM company location with ID 1', function(done) {
+      request(app)
+        .get('/api/companies/IBM/companyLocations/1')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual({
+          "id": 1,
+          "companyName": "IBM",
+          "streetAddress": "3039 E Cornwallis Road",
+          "city": "Durham",
+          "state": "NC",
+          "country": "United States",
+          "zipCode": "27709",
+          "phoneNumber": null
+        }, done));
+    });
+
+    it('should return 404 for a company location not found for IBM', function(done) {
+      request(app)
+        .get('/api/companies/IBM/companyLocations/6')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+  describe('Update company location for a given company', function() {
+
+    var companyLocation = null;
+    beforeEach(function() {
+      companyLocation = request(app).put('/api/companies/IBM/companyLocations/1');
+    });
+
+    describe('with a valid company location object sent', function() {
+      it('should update the company street address, city, states, among other things but not the company name', function (done) {
+        var updatedCompanyLocation = {
+          "companyName": "RECsfd",
+          "streetAddress": "La Calle",
+          "city": "San Juan",
+          "state": "PR",
+          "country": "Puerto Rico",
+          "zipCode": "27709",
+          "phoneNumber": "787-555-5555"
+        };
+        companyLocation.send(updatedCompanyLocation)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company Location Successfully Updated/);
+              done();
+            }
+          });
+      });
+    });
+
+    describe('with an invalid company location object sent', function() {
+      it('should not update the company location and return a 500 status code', function (done) {
+        companyLocation.send({})
+          .expect('Content-Type', /json/)
+          .expect(500, done);
+      });
+
+      it('should not update the company location because of validation error and return a 400 status code', function (done) {
+        var updatedCompanyLocation = {
+          "companyName": "RECsfd",
+          "streetAddress": "4545",
+          "city": "San Juan",
+          "state": "PR",
+          "country": "454545",
+          "zipCode": "27709",
+          "phoneNumber": "787-555-5555"
+        };
+        companyLocation.send(updatedCompanyLocation)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation error/);
               done();
             }
           });

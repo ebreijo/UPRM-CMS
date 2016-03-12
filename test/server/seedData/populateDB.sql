@@ -38,6 +38,9 @@ INSERT INTO company_location (company_name, street_address, city, state, country
 VALUES ('IBM', '3039 E Cornwallis Road', 'Durham', 'NC', 'United States', '27709');
 
 INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
+VALUES ('IBM', '1 New Orchard Road', 'Armonk', 'NY', 'United States', '10504');
+
+INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
 VALUES ('Google', '1600 Amphitheatre Parkway', 'Mountain View', 'CA', 'United States', '94043');
 
 INSERT INTO company_location (company_name, street_address, city, country, zip_code)
