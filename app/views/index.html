@@ -1,67 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <base href="/">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>UPRM Placement Office</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
 
-    <!-- endbuild -->
-    <link
-    href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic'
-    rel='stylesheet' type='text/css'>
-  </head>
-  <body ng-app="uprmcmsApp" ng-controller="ApplicationCtrl">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="views/assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" href="views/assets/plugins/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="views/assets/plugins/flexslider/flexslider.css">
+  <link rel="stylesheet" href="views/assets/plugins/pretty-photo/css/prettyPhoto.css">
+  <link rel="stylesheet" href="views/assets/css/custom.css">
+  <!-- Theme CSS -->
+  <link id="theme-style" rel="stylesheet" href="views/assets/css/styles.css">
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css({.tmp,app}) styles/main.css -->
+</head>
+<body ng-app="uprmcmsApp" ng-controller="ApplicationCtrl" class="home-page">
 
-    <div ui-view></div>
+<div ui-view></div>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-ui-utils/jq.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.js"></script>
-    <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
-    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/restangular/dist/restangular.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-utils/jq.js"></script>
+<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/restangular/dist/restangular.js"></script>
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
+<script type="text/javascript" src="views/assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="views/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="views/assets/plugins/bootstrap-hover-dropdown.min.js"></script>
+<script type="text/javascript" src="views/assets/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="views/assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+<script type="text/javascript" src="views/assets/plugins/pretty-photo/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="views/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="views/assets/plugins/jflickrfeed/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="views/assets/js/main.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-    <!-- controllers -->
-    <script src="scripts/controllers/application.js"></script>
-    <script src="scripts/controllers/aboutUs.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+
+<!-- controllers -->
+<script src="scripts/controllers/application.js"></script>
+<script src="scripts/controllers/aboutUs.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/companies/companyProfile.js"></script>
+
+<!-- directives -->
 
 
-    <!-- directives -->
+<!-- services -->
+<script src="scripts/services/userRoles.js"></script>
+<script src="scripts/services/aboutUs.js"></script>
 
-
-    <!-- services -->
-    <script src="scripts/services/userRoles.js"></script>
-    <script src="scripts/services/aboutUs.js"></script>
-
-    <!-- endbuild -->
-  </body>
+<!-- endbuild -->
+</body>
 </html>

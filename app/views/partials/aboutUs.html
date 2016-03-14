@@ -1,4 +1,251 @@
-<div class="row">
+<div class="">
+  <!-- ******HEADER****** -->
+  <header class="header">
+    <!--//to-bar-->
+    <div class="top-bar">
+      <div class="container">
+        <ul class="social-icons col-md-6 col-sm-6 col-xs-12 hidden-xs" style="color:#1E8A0D">
+          <li>
+          </li>
+        </ul>
+        <!-- Barrita de arriba-->
+        <!--//social-icons-->
+      </div>
+    </div>
+    <div class="header-main container">
+      <h1 class="logo col-md-4 col-sm-4"><a ui-sref="landingPage">
+        <img id="logo" src="views/assets/images/logo.png" alt="Logo">
+      </a></h1>
+      <!--//logo-->
+      <div class="info col-md-8 col-sm-8">
+        <ul class="menu-top navbar-right hidden-xs">
+          <li class="divider">
+            <a ui-sref="landingPage">Home</a>
+          </li>
+          <li>
+            <a ui-sref="aboutUs">About Us</a>
+          </li>
+        </ul>
+        <!--//menu-top-->
+        <br/>
+
+        <div class="contact pull-right">
+          <p class="phone"><i class="fa fa-phone"></i>Call us today 787 265 3898</p>
+
+          <p class="email"><i class="fa fa-envelope"></i><a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
+        </div>
+        <!--//contact-->
+      </div>
+      <!--//info-->
+    </div>
+    <!--//header-main-->
+  </header>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <nav class="main-nav" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--//nav-toggle-->
+      </div>
+      <!--//navbar-header-->
+      <div class="navbar-collapse collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a ui-sref="landingPage">Home</a>
+          </li>
+          <li class="nav-item">
+            <a ui-sref="calendar">Calendar</a>
+          </li>
+          <!--//dropdown-->
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0"
+               data-close-others="false" href="#">Documents <i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="typography.html">Job Fair Dress Code</a>
+              </li>
+              <li>
+                <a href="typography.html">Resume Template</a>
+              </li>
+              <li>
+                <a href="buttons.html">8th Job Fair</a>
+              </li>
+              <li>
+                <a href="components.html">Interview Tips</a>
+              </li>
+            </ul>
+          </li>
+          <!--//dropdown-->
+          <li class="nav-item">
+            <a ui-sref="aboutUs">About Us</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0"
+               data-close-others="false" href="#">Sign In <i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a ui-sref="login">Companies</a>
+              </li>
+              <li>
+                <a href="tables.html"> Students</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!--//nav-->
+      </div>
+      <!--//navabr-collapse-->
+    </div>
+    <!--//container-->
+  </nav>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">About</h1>
+
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a ui-sref="landingPage">Home</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">About</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row page-row">
+          <article class="welcome col-md-8 col-sm-7">
+            <h3 class="title">Vision<br></h3>
+
+            <p>{{aboutus.aboutUs[0].vision}}<br></p>
+
+            <h3 class="title">Mission</h3>
+
+            <p>{{aboutus.aboutUs[0].missionDesc}}<br></p>
+
+            <h3 class="title">Student Services</h3>
+            <ul class="custom-list-style">
+              <li ng-repeat="item in aboutus.studentServices">
+                <i class="fa fa-check"></i>{{item.service}}
+              </li>
+              <li>
+                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                Every student is responsible for maintaining his/her file updated and with enough copies at the
+                Placement Office.
+              </li>
+            </ul>
+            <h3 class="title">Company Services</h3>
+            <ul class="custom-list-style">
+              <li ng-repeat="item in aboutus.companyServices">
+                <i class="fa fa-check"></i>{{item.service}}
+              </li>
+              <li>
+                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                We refer resumes of recent graduates with minimum experience.
+              </li>
+            </ul>
+            <h3 class="title">Our Staff</h3>
+
+            <div class="table-responsive">
+              <table class="table table-boxed">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Position</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in aboutus.ourStaff">
+                  <td>{{item.name}}</td>
+                  <td>{{item.position}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <!--//table-->
+            </div>
+          </article>
+          <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">
+            <!--//widget-->
+            <!--//widget-->
+            <section class="widget">
+              <h3 class="title">All Enquiries</h3>
+
+              <p class="tel"><i class="fa fa-phone"></i>Phones:</p>
+              <span class="tel">(787) 265-3898, (787) 265-3858, or (787) 832-4040:&nbsp;</span>
+
+              <p class="tel">ext. 2070, 2074, 3691, 3898, 3858</p>
+
+              <p class="tel"><i class="fa fa-fax"></i>Fax: (787) 834-5115</p>
+
+              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
+            </section>
+            <section class="widget has-divider">
+              <h3 class="title">Postal Address</h3>
+
+              <p class="adr"><span class="adr-group"> <span class="street-address">Student Center, 5th Floor - Office 508</span><br><span
+                class="region">University of Puerto Rico Mayaguez Campus</span><br><span
+                class="country-name">Mayaguez</span><br><span class="country-name">Puerto Rico</span><br><span
+                class="postal-code">00681</span></span></p>
+            </section>
+          </aside>
+          <!--//page-content-->
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <div class="page-row">
+      <article class="map-section">
+        <h3 class="title">How to find us</h3>
+        <article class="welcome col-md-12 col-sm-12" style="margin-bottom:10px">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1490.3079326503766!2d-67.14124061552592!3d18.21070118501364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDEyJzM3LjEiTiA2N8KwMDgnMjkuMCJX!5e0!3m2!1sen!2spr!4v1457839879455" style="overflow: hidden;
+        width: 100%;" width="100%" width="auto" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </article>
+        <!--//map-->
+      </article>
+      <!--//map-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<footer class="footer">
+  <!--//footer-content-->
+  <div class="bottom-bar">
+    <div class="container">
+      <div class="row">
+        <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de
+          Colocaciones UPRM RUM
+        </small>
+        <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
+          <li>
+            <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
+          </li>
+        </ul>
+        <!--//social-->
+      </div>
+      <!--//row-->
+    </div>
+    <!--//container-->
+  </div>
+  <!--//bottom-bar-->
+</footer>
+<!--<div class="row">
   <div ng-repeat="aboutUsInfo in aboutUs" class="col-md-5 col-md-offset-4">
     <br/>
     {{aboutUsInfo.vision}}
@@ -11,3 +258,5 @@
     <br/>
   </div>
 </div>
+-->
+
