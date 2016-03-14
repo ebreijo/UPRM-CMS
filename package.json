@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "repository": "https://github.com/ebreijo/UPRM-CMS.git",
   "dependencies": {
+    "async": "1.5.2",
     "bcrypt": "^0.8.5",
+    "bluebird": "^3.3.4",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
