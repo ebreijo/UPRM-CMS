@@ -1,0 +1,223 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <header class="header">
+    <!--//to-bar-->
+    <div class="top-bar">
+      <div class="container">
+        <ul class="social-icons col-md-6 col-sm-6 col-xs-12 hidden-xs" style="color:#1E8A0D">
+          <li>
+          </li>
+        </ul>
+        <!-- Barrita de arriba-->
+        <!--//social-icons-->
+      </div>
+    </div>
+    <div class="header-main container">
+      <h1 class="logo col-md-4 col-sm-4"><a ui-sref="landingPage">
+        <img id="logo" src="views/assets/images/logo.png" alt="Logo">
+      </a></h1>
+      <!--//logo-->
+      <div class="info col-md-8 col-sm-8">
+        <ul class="menu-top navbar-right hidden-xs">
+          <li class="divider">
+            <a ui-sref="landingPage">Home</a>
+          </li>
+          <li>
+            <a ui-sref="aboutUs">About Us</a>
+          </li>
+        </ul>
+        <!--//menu-top-->
+        <br/>
+
+        <div class="contact pull-right">
+          <p class="phone"><i class="fa fa-phone"></i>Call us today 787 265 3898</p>
+
+          <p class="email"><i class="fa fa-envelope"></i><a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
+        </div>
+        <!--//contact-->
+      </div>
+      <!--//info-->
+    </div>
+    <!--//header-main-->
+  </header>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <nav class="main-nav" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--//nav-toggle-->
+      </div>
+      <!--//navbar-header-->
+      <div class="navbar-collapse collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a ui-sref="landingPage">Home</a>
+          </li>
+          <li class="nav-item">
+            <a ui-sref="calendar">Calendar</a>
+          </li>
+          <!--//dropdown-->
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0"
+               data-close-others="false" href="#">Documents <i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="typography.html">Job Fair Dress Code</a>
+              </li>
+              <li>
+                <a href="typography.html">Resume Template</a>
+              </li>
+              <li>
+                <a href="buttons.html">8th Job Fair</a>
+              </li>
+              <li>
+                <a href="components.html">Interview Tips</a>
+              </li>
+            </ul>
+          </li>
+          <!--//dropdown-->
+          <li class="nav-item">
+            <a ui-sref="aboutUs">About Us</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0"
+               data-close-others="false" href="#">Sign In <i class="fa fa-angle-down"></i></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="company-login.html"> Companies</a>
+              </li>
+              <li>
+                <a href="tables.html"> Students</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!--//nav-->
+      </div>
+      <!--//navabr-collapse-->
+    </div>
+    <!--//container-->
+  </nav>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Recruiter Login</h1>
+        <div class="breadcrumbs pull-right">
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="row">
+                        <span><p class="text-center" style="padding-top:5px"><span style="font-family: arial; color: #004D13;"><strong>
+                          Registered Recruiters:</strong></span>
+                          Enter you username and password below and click Login.</p><p class="text-center" style="padding-top:2px"><span style="font-family: arial; color: #004D13;"><strong>
+                          New Recruiters:</strong></span>
+                          If you have not registered with this website before, click the Registrate Here option below.</p></span>
+      </div>
+      <div class="row" style="padding-top:20px">
+        <div class="col-md-6" style="float: none; margin: 0 auto;">
+          <div style="margin-top: 10px">
+            <div class="box box-theme">
+              <div class="panel-body">
+                <form class="form-horizontal" name="userForm" novalidate>
+                  <div class="input-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                    <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                    <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
+                  </div>
+                  <div style="margin-bottom: 25px">
+                    <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block"><b>Enter a valid email address</b></p>
+                  </div>
+                  <div class="input-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                    <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input ng-model="user.password" name="password" type="password" ng-minlength="3" ng-maxlength="10" class="form-control" placeholder="Password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}$/"/>
+                  </div>
+                  <div style="margin-bottom: 25px">
+                    <p ng-show="userForm.password.$error.minlength" class="help-block"><b>Password is too short</b></p>
+                    <p ng-show="userForm.password.$error.maxlength" class="help-block"><b>Password is too long</b></p>
+                    <p ng-show="userForm.password.$error.pattern" class="help-block"><b>Password must contain at least one: special character, lowercase & letter and digit</b></p>
+                  </div>
+                  <div class="alert alert-danger">
+                    <p><strong>Oh snap!</strong> Change a few things up and try submitting again.</p>
+                  </div>
+                  <div class="form-group buttomBox" style="text-align: center">
+                    <!-- Button -->
+                    <div class="col-md-6" style="padding-top:5px">
+                      <a type="submit" ng-click="submitForm(userForm.$valid)" class="btn btn-success" ng-disabled="userForm.$invalid">Login</a>
+                    </div>
+                    <div class="col-md-6" style="padding-top:5px">
+                      <a href="company-search.html" class="btn btn-primary">Register</a>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <a href="company-login.html" data-toggle="modal" data-target="#myModal" style="color:white">Forgot your Password?</a>
+                    <div id="myModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title pull-left" style="color:black">Recover Password</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form role="form">
+                              <p class="text-center" style="padding-top:5px">Enter the email address you use to access your account.</p>
+                              <div style="margin-bottom: 10px" class="input-group">
+                                <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="email" class="form-control" placeholder="Email" style="border-radius:0;" />
+                              </div>
+                              <div class="row">
+                                <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                                  <button type="submit" class="btn btn-theme">Recover</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-top:20px">
+        <p class="text-center" style="padding-top:10px"><span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+          If you need more asistance don't hesitate to contact our office at (787) 265-3898 or <a href="mailto:placement@uprm.edu" tabindex="0">placement@uprm.edu</a>.</p>
+      </div>
+    </div>
+  </div>
+  <!--//content-->
+</div>
+<footer class="footer">
+  <!--//footer-content-->
+  <div class="bottom-bar">
+    <div class="container">
+      <div class="row">
+        <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de Colocaciones UPRM RUM</small>
+        <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
+          <li>
+            <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
+          </li>
+        </ul>
+        <!--//social-->
+      </div>
+      <!--//row-->
+    </div>
+    <!--//container-->
+  </div>
+  <!--//bottom-bar-->
+</footer>
