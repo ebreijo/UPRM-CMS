@@ -306,7 +306,7 @@ describe('Administrators Controller: ', function() {
   describe('Get latest job fair dates', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
       request(app)
-        .get('/api/jobFairDates')
+        .get('/api/admins/jobFairDates')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -326,7 +326,7 @@ describe('Administrators Controller: ', function() {
   describe('Update job fair date', function() {
     var jobFairDates = null;
     beforeEach(function() {
-      jobFairDates = request(app).put('/api/jobFairDates');
+      jobFairDates = request(app).put('/api/admins/jobFairDates');
     });
 
     describe('with a valid job fair date object sent', function() {

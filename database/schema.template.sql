@@ -210,7 +210,7 @@ CREATE TABLE `job_offer` (
   KEY `job_offers_company_name_idx` (`company_name`),
   KEY `job_offers_recruiter_email_idx` (`recruiter_email`),
   CONSTRAINT `job_offers_company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `job_offers_recruiter_email` FOREIGN KEY (`recruiter_email`) REFERENCES `recruiter` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `job_offers_recruiter_email` FOREIGN KEY (`recruiter_email`) REFERENCES `recruiter` (`email`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
