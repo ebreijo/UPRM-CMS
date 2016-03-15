@@ -7,11 +7,11 @@ var app = angular.module('uprmcmsApp');
 app.controller('LoginCtrl', function($scope, $state) {
 
   //emails
-    //user1@ibm.com
-    //user34@foundation.org
+     //user1@ibm.com
+     //user34@foundation.org
   //Passwords
-    //jwjefW@34
-    //9Tbfdh#ld
+     //jwjefW@34
+     //9Tbfdh#ld
 
 
   $scope.submitForm = function(isValid) {
