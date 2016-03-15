@@ -11,21 +11,22 @@
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
-
-  <link rel="shortcut icon" href="favicon.ico">
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="views/assets/plugins/bootstrap/css/bootstrap.min.css">
-  <!-- Plugins CSS -->
-  <link rel="stylesheet" href="views/assets/plugins/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="views/assets/plugins/flexslider/flexslider.css">
-  <link rel="stylesheet" href="views/assets/plugins/pretty-photo/css/prettyPhoto.css">
-  <link rel="stylesheet" href="views/assets/css/custom.css">
-  <!-- Theme CSS -->
-  <link id="theme-style" rel="stylesheet" href="views/assets/css/styles.css">
+  <link rel="stylesheet" href="bower_components/flexslider/flexslider.css" />
   <!-- endbower -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="bower_components/jquery-prettyPhoto/css/prettyPhoto.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <!-- endbuild -->
-  <!-- build:css({.tmp,app}) styles/main.css -->
+
+  <!-- build:css({.tmp,app}) -->
+  <!--  Global CSS -->
+  <link rel="stylesheet" href="styles/custom.css">
+
+  <!-- Theme CSS -->
+  <link id="theme-style" rel="stylesheet" href="styles/styles.css">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <!-- endbuild -->
 </head>
 <body ng-app="uprmcmsApp" ng-controller="ApplicationCtrl" class="home-page">
 
@@ -37,6 +38,7 @@
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -49,16 +51,10 @@
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
 <script src="bower_components/lodash/lodash.js"></script>
 <script src="bower_components/restangular/dist/restangular.js"></script>
-
-<script type="text/javascript" src="views/assets/plugins/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="views/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="views/assets/plugins/bootstrap-hover-dropdown.min.js"></script>
-<script type="text/javascript" src="views/assets/plugins/back-to-top.js"></script>
-<script type="text/javascript" src="views/assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
-<script type="text/javascript" src="views/assets/plugins/pretty-photo/js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="views/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
-<script type="text/javascript" src="views/assets/plugins/jflickrfeed/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="views/assets/js/main.js"></script>
+<script src="bower_components/gmaps/gmaps.js"></script>
+<script src="bower_components/flexslider/jquery.flexslider.js"></script>
+<script src="bower_components/jflickrfeed/jflickrfeed.js"></script>
+<script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 <script>(function(d, s, id) {

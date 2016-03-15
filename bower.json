@@ -6,7 +6,7 @@
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
     "jquery": "~1.11.3",
-    "bootstrap": "~3.0.3",
+    "bootstrap": "^3.3.6",
     "angular-resource": "1.5.0",
     "angular-cookies": "1.5.0",
     "angular-sanitize": "1.5.0",
@@ -18,6 +18,12 @@
     "angular-loading-bar": "~0.4.0",
     "protractor": "^3.1.1",
     "angular-mocks": "1.5.0",
-    "restangular": "^1.5.2"
+    "restangular": "^1.5.2",
+    "gmaps": "~0.4.9",
+    "flexslider": "~2.6.0",
+    "font-awesome": "~4.5.0",
+    "jflickrfeed": "*",
+    "jquery-placeholder": "~2.0.8",
+    "jquery-prettyPhoto": "~3.1.4"
   }
 }
