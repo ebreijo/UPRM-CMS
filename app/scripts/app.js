@@ -21,11 +21,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   }).state('company', {
     url: '/company',
     templateUrl: 'partials/companies/company-main.html',
-    controller: 'CompanyCtrl',
+    controller: 'CompanyCtrl'
   }).state('login', {
     url: '/login',
     templateUrl: 'partials/company-login.html',
-    controller: 'LoginCtrl',
+    controller: 'LoginCtrl'
   }).state('aboutUs', {
     url: '/aboutUs',
     templateUrl: 'partials/aboutUs.html',

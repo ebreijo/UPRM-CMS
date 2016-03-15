@@ -20,10 +20,11 @@ app.controller('LoginCtrl', function($scope, $state) {
     if (isValid) {
       for (var i = 0; i < $scope.users.length; i++) {
         if (($scope.user.email === $scope.users[i].email) && ($scope.user.password === $scope.users[i].password)){
+          $scope.show = false;
           $state.go('company');
         }
         else {
-          //alert('EL biiiiiiiiiiiiiiiiiiiiiii')
+          $scope.show = true;
         }
       }
     }
