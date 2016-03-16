@@ -109,26 +109,25 @@ describe('Majors Controller: ', function() {
   describe('Update a major', function() {
     var major = null;
     beforeEach(function() {
-      major = request(app).put('/api/majors/ICOM');
+      major = request(app).put('/api/majors/CISO');
     });
 
     describe('with a valid major object sent', function() {
       it('should update the majorCode and return a 200 status code', function (done) {
         var updatedMajor = {
           "majorCode": "COEN",
-          "nameEnglish": "New ICOM",
-          "nameSpanish": "Nuevo ICOM"
+          "nameEnglish": "New CISO",
+          "nameSpanish": "Nuevo CISO"
         };
-        var expectedMajorCode = 'COEN';
         major.send(updatedMajor)
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(function (err) {
-            if (err) {
+          .end(function (err, res) {
+            if(err) {
               done(err);
             } else {
-              request(app).get('/api/majors/' + expectedMajorCode)
-                .expect(200, done);
+              expect(res.body.message).to.match(/Major Successfully Updated./);
+              done();
             }
           });
       });

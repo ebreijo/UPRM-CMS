@@ -16,6 +16,9 @@ describe('Companies Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual([
           {
+            "name": "Apple"
+          },
+          {
             "name": "EVERTEC"
           },
           {

@@ -115,14 +115,23 @@ VALUES ('juanito@gmail.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4n
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('pancho@evertec.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '3');
 
+INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
+VALUES ('pepe@apple.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Apple', 'Pepe', 'Tembleque', '787-555-5555', 'active', '4');
+
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2015-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
+VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, creation_date, recruiter_email, location)
 VALUES ('IBM', 'Different Job Offer', 'This is a job offer which is different', 'CO-OP', 'Bachelors', '0', '2016-07-22 12:12:12', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
 VALUES ('IBM', 'Another different Job Offer', 'This is a job offer which is different from all the job offers', 'Internship', 'Bachelors', '0', '2016-07-22 12:12:12', 'rejected', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
+
+INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
+VALUES ('Apple', 'Apple Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
+
+INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
+VALUES ('Apple', 'Apple Different Job Offer', 'This is a job offer', 'Part-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
 
 INSERT INTO major (major_code, name_english, name_spanish)
 VALUES ('ICOM', 'Computer Engineering', 'Ingenieria en Computadoras');
