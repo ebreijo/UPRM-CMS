@@ -28,6 +28,9 @@ VALUES ('maria.hernandez@upr.edu', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qx
 INSERT INTO company (name, website_url, company_description, company_status)
 VALUES ('IBM', 'http://www.ibm.com/us-en/', 'This is IBM', 'active');
 
+INSERT INTO company (name, website_url, company_description, company_status)
+VALUES ('Apple', 'http://www.apple.com/', 'This is Apple', 'active');
+
 INSERT INTO company (name, website_url, company_description)
 VALUES ('Google', 'https://www.google.com/', 'This is Google');
 
@@ -39,6 +42,9 @@ VALUES ('IBM', '3039 E Cornwallis Road', 'Durham', 'NC', 'United States', '27709
 
 INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
 VALUES ('IBM', '1 New Orchard Road', 'Armonk', 'NY', 'United States', '10504');
+
+INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
+VALUES ('Apple', '1 Infinite Loop', 'Cupertino', 'CA', 'United States', '95014');
 
 INSERT INTO company_location (company_name, street_address, city, state, country, zip_code)
 VALUES ('Google', '1600 Amphitheatre Parkway', 'Mountain View', 'CA', 'United States', '94043');
@@ -79,6 +85,9 @@ VALUES ('photo3', '/lib/pictures');
 INSERT INTO job_fair_company_information (company_name, min_gpa, extra_information, collecting_resumes_before_job_fair, must_fill_online, interviews_during_weekend, attending, website_application)
 VALUES ('IBM', '3.30', 'This is a company attending the Job Fair', '1', '0', '1', '1', 'http://www-03.ibm.com/employment/us/');
 
+INSERT INTO job_fair_company_information (company_name, min_gpa, extra_information, collecting_resumes_before_job_fair, must_fill_online, interviews_during_weekend, attending, website_application)
+VALUES ('Apple', '3.40', 'This is Apple attending the Job Fair', '1', '0', '1', '1', 'http://www.apple.com/jobs/us/');
+
 INSERT INTO job_fair_company_looking_for (company_name, job_position, status)
 VALUES ('IBM', 'Internship', '1');
 
@@ -87,6 +96,12 @@ VALUES ('IBM', 'Full-Time', '1');
 
 INSERT INTO job_fair_company_looking_for (company_name, job_position, status)
 VALUES ('IBM', 'Part-Time', '0');
+
+INSERT INTO job_fair_company_looking_for (company_name, job_position, status)
+VALUES ('Apple', 'Internship', '1');
+
+INSERT INTO job_fair_company_looking_for (company_name, job_position, status)
+VALUES ('Apple', 'Full-Time', '1');
 
 INSERT INTO job_fair_dates (header_en, location_en, date_en, time, header_es, location_es, date_es, resume_deadline_date)
 VALUES ('8th Spring Job Fair', 'Mayaguez Resort & Casino', 'Friday, February 19, 2016', '8:30am - 2:30pm', '8va Feria de Empleo de Primavera', 'Hotel Mayaguez Resort & Casino', 'viernes, 19 de febrero de 2016', '2016-02-19');
@@ -101,7 +116,7 @@ INSERT INTO recruiter (email, password, company_name, first_name, last_name, pho
 VALUES ('pancho@evertec.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '3');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
+VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2015-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, creation_date, recruiter_email, location)
 VALUES ('IBM', 'Different Job Offer', 'This is a job offer which is different', 'CO-OP', 'Bachelors', '0', '2016-07-22 12:12:12', '2016-02-22 12:12:12', 'sscosta@us.ibm.com', 'Durham, NC');
@@ -126,6 +141,12 @@ VALUES ('IBM', 'CCOM');
 
 INSERT INTO company_interested_majors (company_name, major_code)
 VALUES ('IBM', 'INSO');
+
+INSERT INTO company_interested_majors (company_name, major_code)
+VALUES ('Apple', 'ICOM');
+
+INSERT INTO company_interested_majors (company_name, major_code)
+VALUES ('Apple', 'CCOM');
 
 INSERT INTO our_staff (name, position)
 VALUES ('Sra. Nancy Nieves Arán', 'Director');
