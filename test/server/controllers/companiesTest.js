@@ -395,7 +395,7 @@ describe('Companies Controller: ', function() {
 
   describe('Get all pending promotional material', function() {
     it('should find all pending company promotional' +
-        'material  and return a 200 status code', function(done) {
+      'material  and return a 200 status code', function(done) {
       request(app)
         .get('/api/companies/IBM/promotionalMaterial?status=pending')
         .expect('Content-Type', /json/)
@@ -466,18 +466,18 @@ describe('Companies Controller: ', function() {
         .expect('Content-Type', /json/)
         .expect(201)
         .end(help.isBodyEqual({
-          "status": "pending",
-          "id": 4,
-          "companyName": "IBM",
-          "title": "doc1",
-          "filePath": "testPath"
+          status: 'pending',
+          id: 5,
+          companyName: 'IBM',
+          title: 'doc1',
+          filePath: 'testPath'
         }, done));
     });
   });
 
   describe('Modify a Company Promotional Material', function() {
     it('should modify an existing promotional material ' +
-        'for IBM (given its ID) and return a 200 status code', function(done) {
+      'for IBM (given its ID) and return a 200 status code', function(done) {
       request(app)
         .put('/api/companies/IBM/promotionalMaterial/3')
         .send(
@@ -507,12 +507,12 @@ describe('Companies Controller: ', function() {
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual( {
-            id: 3,
-            companyName: 'IBM',
-            title: 'new title',
-            filePath: '/lib/promotionalMaterial',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'rejected'
+          id: 3,
+          companyName: 'IBM',
+          title: 'new title',
+          filePath: '/lib/promotionalMaterial',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'rejected'
         } ,done));
     });
   });
