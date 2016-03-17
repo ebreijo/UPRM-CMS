@@ -18,7 +18,6 @@ describe('Students Controller: ', function() {
           {
             "id": 1,
             "companyName": "IBM",
-            "email": "sscosta@us.ibm.com",
             "title": "New Job Offer",
             "description": "This is a job offer",
             "jobPosition": "Full-Time",
@@ -32,7 +31,6 @@ describe('Students Controller: ', function() {
           {
             "id": 4,
             "companyName": "Apple",
-            "email": "pepe@apple.com",
             "title": "Apple Job Offer",
             "description": "This is a job offer",
             "jobPosition": "Full-Time",
@@ -46,7 +44,6 @@ describe('Students Controller: ', function() {
           {
             "id": 5,
             "companyName": "Apple",
-            "email": "pepe@apple.com",
             "title": "Apple Different Job Offer",
             "description": "This is a job offer",
             "jobPosition": "Part-Time",
@@ -70,7 +67,6 @@ describe('Students Controller: ', function() {
         .end(help.isBodyEqual({
           "id": 1,
           "companyName": "IBM",
-          "email": "sscosta@us.ibm.com",
           "title": "New Job Offer",
           "description": "This is a job offer",
           "jobPosition": "Full-Time",
@@ -195,33 +191,27 @@ describe('Students Controller: ', function() {
           {
             "id": 4,
             "companyName": "Apple",
-            "email": "pepe@apple.com",
             "title": "Apple Job Offer",
             "description": "This is a job offer",
             "jobPosition": "Full-Time",
             "educationLevel": "Bachelors",
             "recentGraduate": true,
-            "creationDate": "2016-02-22T16:12:12.000Z",
             "expirationDate": "2016-07-22T16:12:12.000Z",
             "announcementNumber": null,
             "flyerPath": null,
-            "jobOfferStatus": "approved",
             "location": "Cupertino, CA"
           },
           {
             "id": 5,
             "companyName": "Apple",
-            "email": "pepe@apple.com",
             "title": "Apple Different Job Offer",
             "description": "This is a job offer",
             "jobPosition": "Part-Time",
             "educationLevel": "Bachelors",
             "recentGraduate": true,
-            "creationDate": "2016-02-22T16:12:12.000Z",
             "expirationDate": "2016-07-22T16:12:12.000Z",
             "announcementNumber": null,
             "flyerPath": null,
-            "jobOfferStatus": "approved",
             "location": "Cupertino, CA"
           }
         ], done));
@@ -237,17 +227,14 @@ describe('Students Controller: ', function() {
         .end(help.isBodyEqual({
           "id": 4,
           "companyName": "Apple",
-          "email": "pepe@apple.com",
           "title": "Apple Job Offer",
           "description": "This is a job offer",
           "jobPosition": "Full-Time",
           "educationLevel": "Bachelors",
           "recentGraduate": true,
-          "creationDate": "2016-02-22T16:12:12.000Z",
           "expirationDate": "2016-07-22T16:12:12.000Z",
           "announcementNumber": null,
           "flyerPath": null,
-          "jobOfferStatus": "approved",
           "location": "Cupertino, CA"
         }, done));
     });

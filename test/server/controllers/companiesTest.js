@@ -139,10 +139,10 @@ describe('Companies Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual([
           {
-            "email": "sscosta@us.ibm.com",
+            "email": "sergio@ibm.com",
             "companyName": "IBM",
             "firstName": "Sergio",
-            "lastName": "Costa",
+            "lastName": "Rivera",
             "phoneNumber": "787-555-5555"
           }
         ], done));
@@ -155,14 +155,14 @@ describe('Companies Controller: ', function() {
       it('should find an recruiter from IBM and return a 200 status code', function(done) {
         request(app)
           .post('/api/companies/IBM/recruiters')
-          .send({"email": "sscosta@us.ibm.com"})
+          .send({"email": "sergio@ibm.com"})
           .expect('Content-Type', /json/)
           .expect(200)
           .end(help.isBodyEqual({
-            "email": "sscosta@us.ibm.com",
+            "email": "sergio@ibm.com",
             "companyName": "IBM",
             "firstName": "Sergio",
-            "lastName": "Costa",
+            "lastName": "Rivera",
             "phoneNumber": "787-555-5555"
           }, done));
       });
@@ -197,7 +197,7 @@ describe('Companies Controller: ', function() {
     describe('with a valid recruiter object sent', function() {
       it('should update the recruiter information from IBM but not the recruiter email, company, account status and registration date', function (done) {
         var updatedRecruiter = {
-          "email": "sscosta@us.ibm.com",
+          "email": "sergio@ibm.com",
           "companyName": "EVERTEC",
           "firstName": "Mariano",
           "lastName": "Costa",
@@ -226,7 +226,7 @@ describe('Companies Controller: ', function() {
 
       it('with invalid attributes should not update the recruiter information because of validation error and return a 400 status code', function (done) {
         var updatedRecruiter = {
-          "email": "sscosta@us.ibm.com",
+          "email": "sergio@ibm.com",
           "companyName": "EVERTEC",
           "firstName": "576",
           "lastName": "asf",
