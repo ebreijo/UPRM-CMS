@@ -44,11 +44,9 @@ require('./lib/angular')(router);
 app.use(router);
 
 // Error handler
-/*
 app.use(function(err, req, res, next) {
   res.status(err.status).json(err);
 });
-*/
 
 db.sequelize.authenticate().then(function() {
   // Start server
