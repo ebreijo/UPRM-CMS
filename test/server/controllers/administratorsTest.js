@@ -304,7 +304,7 @@ describe('Administrators Controller: ', function() {
   });
 
   describe('Get latest job fair dates', function() {
-    it('should find an admin with an email placement@uprm.edu', function(done) {
+    it('should find job fair dates and return a 200 status code', function(done) {
       request(app)
         .get('/api/admins/jobFairDates')
         .expect('Content-Type', /json/)

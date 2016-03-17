@@ -263,7 +263,7 @@ describe('Students Controller: ', function() {
   describe('Get all promo materials from a company for students', function () {
     it('should find all active promo materials from a company and return a 200 status code', function (done) {
       request(app)
-        .get('/api/students/companies/IBM/promotionalMaterials')
+        .get('/api/students/companies/IBM/promotionalMaterial')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual([
@@ -281,7 +281,7 @@ describe('Students Controller: ', function() {
   describe('Get a specific promo material given its ID', function () {
     it('should find a specific promo material with a promo Id of 1', function (done) {
       request(app)
-        .get('/api/students/companies/IBM/promotionalMaterials/1')
+        .get('/api/students/companies/IBM/promotionalMaterial/1')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -295,7 +295,7 @@ describe('Students Controller: ', function() {
 
     it('should return 404 for a job offer not found', function (done) {
       request(app)
-        .get('/api/students/companies/IBM/promotionalMaterials/1234')
+        .get('/api/students/companies/IBM/promotionalMaterial/1234')
         .expect('Content-Type', /json/)
         .expect(404, done);
     });
