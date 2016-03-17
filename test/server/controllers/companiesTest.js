@@ -517,5 +517,85 @@ describe('Companies Controller: ', function() {
     });
   });
 
+  /**
+   * Company Job Offers Tests
+   */
+
+  describe('Get all Approved Job Offers', function() {
+    it('should find all approved job offers and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/jobOffers?status=approved')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 1,
+            companyName: 'IBM',
+            email: 'sergio@ibm.com',
+            title: 'New Job Offer',
+            description: 'This is a job offer',
+            jobPosition: 'Full-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: true,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'approved',
+            location: 'Durham, NC'
+          } ], done));
+    });
+  });
+
+  describe('Get all Pending Job Offers', function() {
+    it('should find all pending job offers and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/jobOffers?status=pending')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 2,
+            companyName: 'IBM',
+            email: 'sergio@ibm.com',
+            title: 'Different Job Offer',
+            description: 'This is a job offer which is different',
+            jobPosition: 'CO-OP',
+            educationLevel: 'Bachelors',
+            recentGraduate: false,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'pending',
+            location: 'Durham, NC'
+          }], done));
+    });
+  });
+
+  describe('Get a specific Job Offer', function() {
+    it('should find a job offers with its ID and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/jobOffers/1')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual({
+          id: 1,
+          companyName: 'IBM',
+          email: 'sergio@ibm.com',
+          title: 'New Job Offer',
+          description: 'This is a job offer',
+          jobPosition: 'Full-Time',
+          educationLevel: 'Bachelors',
+          recentGraduate: true,
+          creationDate: '2016-02-22T16:12:12.000Z',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          announcementNumber: null,
+          flyerPath: null,
+          jobOfferStatus: 'approved',
+          location: 'Durham, NC'
+        }, done));
+    });
+  });
 
 });
