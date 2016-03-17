@@ -596,6 +596,101 @@ describe('Companies Controller: ', function() {
           location: 'Durham, NC'
         }, done));
     });
+
+    it('should get a not found message and return a 404 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/jobOffers/1234')
+        .expect('Content-Type', /json/)
+        .expect(404)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Job Offer not found/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Create a new job offer for IBM', function() {
+    var adminAccess = null;
+    beforeEach(function () {
+      adminAccess = request(app).post('/api/companies/IBM/jobOffers');
+    });
+
+    describe('with a valid job offer object sent', function () {
+
+      it('should create the job offer and return a 201 status code', function (done) {
+        var newJoboffer = {
+          "id": 1,
+          "companyName": "IBM",
+          "email": "sergio@ibm.com",
+          "title": "Another Job Offer",
+          "description": "This is a job offer",
+          "jobPosition": "Part-Time",
+          "educationLevel": "Bachelors",
+          "recentGraduate": false,
+          "creationDate": "2016-02-22 16:12:12",
+          "expirationDate": "2016-07-22 16:12:12",
+          "announcementNumber": null,
+          "flyerPath": null,
+          "jobOfferStatus": "approved",
+          "location": "Durham, NC"
+        };
+        adminAccess.send(newJoboffer)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(help.isBodyEqual({
+            "jobOfferStatus": "pending",
+            "id": 6,
+            "companyName": "IBM",
+            "email": "sergio@ibm.com",
+            "title": "Another Job Offer",
+            "description": "This is a job offer",
+            "jobPosition": "Part-Time",
+            "educationLevel": "Bachelors",
+            "recentGraduate": false,
+            "expirationDate": "2016-07-22 16:12:12",
+            "announcementNumber": null,
+            "flyerPath": null,
+            "location": "Durham, NC"
+          }, done));
+      });
+    });
+
+    describe('with an invalid job offer object sent', function () {
+
+      it('should not create the job offer and return a 404 status code if recruiter email is not found', function (done) {
+        var newJoboffer = {
+          "id": 1,
+          "companyName": "IBM",
+          "email": "seo@ibm.com",
+          "title": "Another Job Offer",
+          "description": "This is a job offer",
+          "jobPosition": "Part-Time",
+          "educationLevel": "Bachelors",
+          "recentGraduate": false,
+          "creationDate": "2016-02-22 16:12:12",
+          "expirationDate": "2016-07-22 16:12:12",
+          "announcementNumber": null,
+          "flyerPath": null,
+          "jobOfferStatus": "approved",
+          "location": "Durham, NC"
+        };
+        adminAccess.send(newJoboffer)
+          .expect('Content-Type', /json/)
+          .expect(404)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Recruiter not found/);
+              done();
+            }
+          });
+      });
+    });
   });
 
 });

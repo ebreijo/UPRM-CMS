@@ -617,8 +617,7 @@ describe('Administrators Controller: ', function() {
     it('should modify an existing job offer (given its ID) and return a 200 status code', function(done) {
       request(app)
         .put('/api/admins/jobOffers/3')
-        .send(
-          {
+        .send({
             "companyName": "IBM",
             "email": "sergio@ibm.com",
             "title": "changed title by admin",
@@ -632,14 +631,12 @@ describe('Administrators Controller: ', function() {
             "flyerPath": null,
             "jobOfferStatus": "rejected",
             "location": "Durham, NC"
-          }
-        )
+        })
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual(
-          {
-            "message": "Job Offer Updated."
-          } ,done));
+        .end(help.isBodyEqual({
+            "message": "Job Offer Successfully Updated"
+        } ,done));
     });
   });
 
