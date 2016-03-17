@@ -500,4 +500,147 @@ describe('Administrators Controller: ', function() {
         .expect(200,done);
     });
   });
+
+
+  /**
+   * Administrator Job Offer Tests
+   */
+
+  describe('Get all Approved Job Offers', function() {
+    it('should find all approved job offers and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/jobOffers?status=approved')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          { id: 1,
+            companyName: 'IBM',
+            email: 'sergio@ibm.com',
+            title: 'New Job Offer',
+            description: 'This is a job offer',
+            jobPosition: 'Full-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: true,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'approved',
+            location: 'Durham, NC'
+          },
+          { id: 4,
+            companyName: 'Apple',
+            email: 'pepe@apple.com',
+            title: 'Apple Job Offer',
+            description: 'This is a job offer',
+            jobPosition: 'Full-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: true,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'approved',
+            location: 'Cupertino, CA'
+          },
+          { id: 5,
+            companyName: 'Apple',
+            email: 'pepe@apple.com',
+            title: 'Apple Different Job Offer',
+            description: 'This is a job offer',
+            jobPosition: 'Part-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: true,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'approved',
+            location: 'Cupertino, CA'
+          } ], done));
+    });
+  });
+
+  describe('Get all Pending Job Offers', function() {
+    it('should find all pending job offers and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/jobOffers?status=pending')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 2,
+            companyName: 'IBM',
+            email: 'sergio@ibm.com',
+            title: 'Different Job Offer',
+            description: 'This is a job offer which is different',
+            jobPosition: 'CO-OP',
+            educationLevel: 'Bachelors',
+            recentGraduate: false,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'pending',
+            location: 'Durham, NC'
+          } ], done));
+    });
+  });
+
+  describe('Get all Rejected Job Offers', function() {
+    it('should find all rejected job offers and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/jobOffers?status=rejected')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 3,
+            companyName: 'IBM',
+            email: 'sergio@ibm.com',
+            title: 'Another different Job Offer',
+            description: 'This is a job offer which is different from all the job offers',
+            jobPosition: 'Internship',
+            educationLevel: 'Bachelors',
+            recentGraduate: false,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: null,
+            flyerPath: null,
+            jobOfferStatus: 'rejected',
+            location: 'Durham, NC'
+          } ], done));
+    });
+  });
+
+  describe('Modify a Job Offer', function() {
+    it('should modify an existing job offer (given its ID) and return a 200 status code', function(done) {
+      request(app)
+        .put('/api/admins/jobOffers/3')
+        .send(
+          {
+            "companyName": "IBM",
+            "email": "sergio@ibm.com",
+            "title": "changed title by admin",
+            "description": "This is a job offer which is different from all the job offers",
+            "jobPosition": "Internship",
+            "educationLevel": "Bachelors",
+            "recentGraduate": false,
+            "creationDate": "2016-02-22T16:12:12.000Z",
+            "expirationDate": "2016-07-22T16:12:12.000Z",
+            "announcementNumber": null,
+            "flyerPath": null,
+            "jobOfferStatus": "rejected",
+            "location": "Durham, NC"
+          }
+        )
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual(
+          {
+            "message": "Job Offer Updated."
+          } ,done));
+    });
+  });
+
 });
