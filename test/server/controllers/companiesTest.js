@@ -389,4 +389,133 @@ describe('Companies Controller: ', function() {
     });
   });
 
+  /**
+   * Company Promotional Material Tests
+   */
+
+  describe('Get all pending promotional material', function() {
+    it('should find all pending company promotional' +
+        'material  and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/promotionalMaterial?status=pending')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 2,
+            companyName: "IBM",
+            title: "Promotion2",
+            filePath: "/lib/promotionalMaterial",
+            expirationDate: "2016-07-22T16:12:12.000Z",
+            status: "pending"
+          }
+        ], done));
+    });
+  });
+
+  describe('Get all approved promotional material', function() {
+    it('should find all approved company promotional' +
+      'material  and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/promotionalMaterial?status=approved')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 1,
+            companyName: "IBM",
+            title: "Promotion1",
+            filePath: "/lib/promotionalMaterial",
+            expirationDate: "2016-07-22T16:12:12.000Z",
+            status: "approved"
+          }
+        ], done));
+    });
+  });
+
+  describe('Get all approved promotional material (again)', function() {
+    it('should convert "rejected" to "approved" in the URL', function(done) {
+      request(app)
+        .get('/api/companies/IBM/promotionalMaterial?status=rejected')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            id: 1,
+            companyName: "IBM",
+            title: "Promotion1",
+            filePath: "/lib/promotionalMaterial",
+            expirationDate: "2016-07-22T16:12:12.000Z",
+            status: "approved"
+          }
+        ], done));
+    });
+  });
+
+  describe('Add a Company Promotional Material', function() {
+    it('should add a promotional material for IBM and return a 201 status code', function(done) {
+      request(app)
+        .post('/api/companies/IBM/promotionalMaterial')
+        .send(
+          {
+            "companyName": "IBM",
+            "title" : "doc1",
+            "filePath" : "testPath"
+          }
+        )
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(help.isBodyEqual({
+          "status": "pending",
+          "id": 4,
+          "companyName": "IBM",
+          "title": "doc1",
+          "filePath": "testPath"
+        }, done));
+    });
+  });
+
+  describe('Modify a Company Promotional Material', function() {
+    it('should modify an existing promotional material ' +
+        'for IBM (given its ID) and return a 200 status code', function(done) {
+      request(app)
+        .put('/api/companies/IBM/promotionalMaterial/3')
+        .send(
+          {
+            "id": 3,
+            "companyName": "IBM",
+            "title": "new title",
+            "filePath": "/lib/promotionalMaterial",
+            "expirationDate": "2016-07-22T16:12:12.000Z",
+            "status": "rejected"
+          }
+        )
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual(
+          {
+            "message": "Promotional Material Updated."
+          } ,done));
+    });
+  });
+
+  describe('Delete a Company Promotional Material', function() {
+    it('should delete an existing promotional material ' +
+      'for IBM (given its ID) and return a 200 status code', function(done) {
+      request(app)
+        .del('/api/companies/IBM/promotionalMaterial/3')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual( {
+            id: 3,
+            companyName: 'IBM',
+            title: 'new title',
+            filePath: '/lib/promotionalMaterial',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'rejected'
+        } ,done));
+    });
+  });
+
+
 });

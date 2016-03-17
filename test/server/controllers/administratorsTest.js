@@ -381,4 +381,5 @@ describe('Administrators Controller: ', function() {
       });
     });
   });
+
 });
