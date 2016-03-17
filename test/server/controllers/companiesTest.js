@@ -394,8 +394,7 @@ describe('Companies Controller: ', function() {
    */
 
   describe('Get all pending promotional material', function() {
-    it('should find all pending company promotional' +
-      'material  and return a 200 status code', function(done) {
+    it('should find all pending company promotional material and return a 200 status code', function(done) {
       request(app)
         .get('/api/companies/IBM/promotionalMaterial?status=pending')
         .expect('Content-Type', /json/)
@@ -405,7 +404,6 @@ describe('Companies Controller: ', function() {
             id: 2,
             companyName: "IBM",
             title: "Promotion2",
-            filePath: "/lib/promotionalMaterial",
             expirationDate: "2016-07-22T16:12:12.000Z",
             status: "pending"
           }
@@ -414,8 +412,7 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all approved promotional material', function() {
-    it('should find all approved company promotional' +
-      'material  and return a 200 status code', function(done) {
+    it('should find all approved company promotional material  and return a 200 status code', function(done) {
       request(app)
         .get('/api/companies/IBM/promotionalMaterial?status=approved')
         .expect('Content-Type', /json/)
@@ -425,7 +422,6 @@ describe('Companies Controller: ', function() {
             id: 1,
             companyName: "IBM",
             title: "Promotion1",
-            filePath: "/lib/promotionalMaterial",
             expirationDate: "2016-07-22T16:12:12.000Z",
             status: "approved"
           }
@@ -444,7 +440,6 @@ describe('Companies Controller: ', function() {
             id: 1,
             companyName: "IBM",
             title: "Promotion1",
-            filePath: "/lib/promotionalMaterial",
             expirationDate: "2016-07-22T16:12:12.000Z",
             status: "approved"
           }
@@ -467,10 +462,9 @@ describe('Companies Controller: ', function() {
         .expect(201)
         .end(help.isBodyEqual({
           status: 'pending',
-          id: 5,
+          id: 6,
           companyName: 'IBM',
-          title: 'doc1',
-          filePath: 'testPath'
+          title: 'doc1'
         }, done));
     });
   });
@@ -510,10 +504,55 @@ describe('Companies Controller: ', function() {
           id: 3,
           companyName: 'IBM',
           title: 'new title',
-          filePath: '/lib/promotionalMaterial',
           expirationDate: '2016-07-22T16:12:12.000Z',
           status: 'rejected'
         } ,done));
+    });
+  });
+
+  describe('Add a lot of Company Promotional Material until reach a maximum of 5', function() {
+    it('should add one promotional material and return a 201 status code', function(done) {
+      request(app)
+        .post('/api/companies/IBM/promotionalMaterial')
+        .send({
+          "companyName": "IBM",
+          "title": "doc1",
+          "filePath": "testPath"
+        })
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+
+    it('should add another promotional material and return a 201 status code', function(done) {
+      request(app)
+        .post('/api/companies/IBM/promotionalMaterial')
+        .send({
+          "companyName": "IBM",
+          "title" : "doc1",
+          "filePath" : "testPath"
+        })
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+
+    it('should get a message saying that the maximum amount of promotional material have reached return a 401 status code', function(done) {
+      request(app)
+        .post('/api/companies/IBM/promotionalMaterial')
+        .send({
+          "companyName": "IBM",
+          "title" : "doc1",
+          "filePath" : "testPath"
+        })
+        .expect('Content-Type', /json/)
+        .expect(401)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/You have reached the maximum capacity to upload promotional material/);
+            done();
+          }
+        });
     });
   });
 

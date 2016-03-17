@@ -193,6 +193,9 @@ VALUES ('IBM', 'Promotion2', '/lib/promotionalMaterial', '2016-07-22 12:12:12');
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
 VALUES ('IBM', 'Promotion3', '/lib/promotionalMaterial', '2016-07-22 12:12:12', 'rejected');
 
+INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
+VALUES ('Apple', 'Promotion4', '/lib/promotionalMaterial', '2016-07-22 12:12:12', 'approved');
+
 INSERT INTO public_documents (file_label, file_path)
 VALUES ('document1', '/lib/documents');
 

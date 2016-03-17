@@ -398,7 +398,6 @@ describe('Administrators Controller: ', function() {
             id: 2,
             companyName: "IBM",
             title: "Promotion2",
-            filePath: "/lib/promotionalMaterial",
             expirationDate: "2016-07-22T16:12:12.000Z",
             status: "pending"
           }
@@ -418,9 +417,15 @@ describe('Administrators Controller: ', function() {
             id: 1,
             companyName: "IBM",
             title: "Promotion1",
-            filePath: "/lib/promotionalMaterial",
             expirationDate: "2016-07-22T16:12:12.000Z",
             status: "approved"
+          },
+          {
+            id: 4,
+            companyName: 'Apple',
+            title: 'Promotion4',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'approved'
           }
         ], done));
     });
@@ -437,7 +442,6 @@ describe('Administrators Controller: ', function() {
             id: 3,
             companyName: 'IBM',
             title: 'Promotion3',
-            filePath: '/lib/promotionalMaterial',
             expirationDate: '2016-07-22T16:12:12.000Z',
             status: 'rejected'
           }
@@ -456,7 +460,6 @@ describe('Administrators Controller: ', function() {
             "id": 3,
             "companyName": "IBM",
             "title": "new title",
-            "filePath": "/lib/promotionalMaterial",
             "expirationDate": "2016-07-22T16:12:12.000Z",
             "status": "rejected"
           }
@@ -485,17 +488,16 @@ describe('Administrators Controller: ', function() {
         .expect(201)
         .end(help.isBodyEqual({
           "status": "pending",
-          "id": 4,
+          "id": 5,
           "companyName": "IBM",
-          "title": "doc1",
-          "filePath": "testPath"
+          "title": "doc1"
         }, done));
     });
 
     it('should delete an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
       request(app)
-        .del('/api/admins/promotionalMaterial/4')
+        .del('/api/admins/promotionalMaterial/5')
         .expect('Content-Type', /json/)
         .expect(200,done);
     });
