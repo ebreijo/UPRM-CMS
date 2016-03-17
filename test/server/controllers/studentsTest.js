@@ -103,12 +103,24 @@ describe('Students Controller: ', function() {
             "interviewsDuringWeekend": true,
             "websiteApplication": "http://www.apple.com/jobs/us/",
             "lookingFor": [
-              "Internship",
-              "Full-Time"
+              {
+                "companyName": "Apple",
+                "jobPosition": "Internship"
+              },
+              {
+                "companyName": "Apple",
+                "jobPosition": "Full-Time"
+              }
             ],
             "interestedMajors": [
-              "ICOM",
-              "CCOM"
+              {
+                "companyName": "Apple",
+                "majorCode": "ICOM"
+              },
+              {
+                "companyName": "Apple",
+                "majorCode": "CCOM"
+              }
             ]
           },
           {
@@ -120,13 +132,28 @@ describe('Students Controller: ', function() {
             "interviewsDuringWeekend": true,
             "websiteApplication": "http://www-03.ibm.com/employment/us/",
             "lookingFor": [
-              "Internship",
-              "Full-Time"
+              {
+                "companyName": "IBM",
+                "jobPosition": "Internship"
+              },
+              {
+                "companyName": "IBM",
+                "jobPosition": "Full-Time"
+              }
             ],
             "interestedMajors": [
-              "ICOM",
-              "CCOM",
-              "INSO"
+              {
+                "companyName": "IBM",
+                "majorCode": "ICOM"
+              },
+              {
+                "companyName": "IBM",
+                "majorCode": "CCOM"
+              },
+              {
+                "companyName": "IBM",
+                "majorCode": "INSO"
+              }
             ]
           }
         ], done));

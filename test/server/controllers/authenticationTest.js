@@ -198,7 +198,7 @@ describe('Authentication Controller: ', function() {
         this.session.destroy();
       });
 
-      it('should allow me to request myself after being logged in', function (done) {
+      it('should allow me to request myself as recruiter after being logged in', function (done) {
         this.session.get('/api/recruiters/me')
           .expect(200)
           .end(help.isBodyEqual({
@@ -215,7 +215,7 @@ describe('Authentication Controller: ', function() {
   });
 
   describe('logout', function () {
-    describe('with an admin logged in', function () {
+    describe('with a recruiter logged in', function () {
       beforeEach(function (done) {
         this.session = new Session();
         this.session.post('/api/login')
