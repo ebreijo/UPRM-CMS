@@ -5,6 +5,9 @@ var request = require('supertest'),
   help = require('../help.js'),
   app = require('../../../server');
 
+var Session = require('supertest-session')({
+  app: app
+});
 
 describe('Companies Controller: ', function() {
 
@@ -138,6 +141,12 @@ describe('Companies Controller: ', function() {
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual([
+          { email: 'leonardo@ibm.com',
+            companyName: 'IBM',
+            firstName: 'Leonardo',
+            lastName: 'Dicaprio',
+            phoneNumber: '787-555-5555'
+          },
           {
             "email": "sergio@ibm.com",
             "companyName": "IBM",
@@ -187,7 +196,71 @@ describe('Companies Controller: ', function() {
     });
   });
 
-  describe('Update recruiter information from a given company, in this case IBM', function() {
+  describe('Login as a recruiter', function() {
+    describe('with a valid email and password object sent', function() {
+
+      before(function (done) {
+        this.session = new Session();
+        this.session.post('/api/login')
+          .send({
+            "email": "leonardo@ibm.com",
+            "password": "pass"
+          }).expect(200)
+          .end(help.isBodyEqual({
+            "email": "leonardo@ibm.com",
+            "companyName": "IBM",
+            "companyLocation": 1,
+            "firstName": "Leonardo",
+            "lastName": "Dicaprio",
+            "phoneNumber": "787-555-5555",
+            "authType": "recruiter"
+          }, done));
+      });
+
+      after(function () {
+        this.session.destroy();
+      });
+
+      it('should be able to change their personal information', function(done) {
+        var recruiterChange = {
+          "email": "leonardo@upr.edu",
+          "lastName": "Da Vinci"
+        };
+        this.session.post('/api/recruiters/me')
+          .send(recruiterChange)
+          .expect('Content-Type', /json/)
+          .expect(200, done);
+      });
+
+      it('should verify the changes of personal information', function(done) {
+        this.session.get('/api/recruiters/me')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(help.isBodyEqual({
+            "email": "leonardo@ibm.com",
+            "companyName": "IBM",
+            "companyLocation": 1,
+            "firstName": "Leonardo",
+            "lastName": "Da Vinci",
+            "phoneNumber": "787-555-5555",
+            "authType": "recruiter"
+          }, done));
+      });
+
+      it('should get a 401 if recruiter change account status to pending', function(done) {
+        var recruiterChange = {
+          "email": "leonardo@upr.edu",
+          "accountStatus": "pending"
+        };
+        this.session.post('/api/recruiters/me')
+          .send(recruiterChange)
+          .expect('Content-Type', /json/)
+          .expect(401, done);
+      });
+    });
+  });
+
+  describe('Remove a recruiter from a given company, in this case IBM', function() {
 
     var recruiter = null;
     beforeEach(function() {
@@ -195,22 +268,19 @@ describe('Companies Controller: ', function() {
     });
 
     describe('with a valid recruiter object sent', function() {
-      it('should update the recruiter information from IBM but not the recruiter email, company, account status and registration date', function (done) {
-        var updatedRecruiter = {
-          "email": "sergio@ibm.com",
-          "companyName": "EVERTEC",
-          "firstName": "Mariano",
-          "lastName": "Costa",
-          "phoneNumber": "787-888-5555"
+      it('should remove the recruiter from IBM and return a 200 status code', function (done) {
+        var removedRecruiter = {
+          "email": "leonardo@ibm.com",
+          "accountStatus": "inactive"
         };
-        recruiter.send(updatedRecruiter)
+        recruiter.send(removedRecruiter)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function (err, res) {
             if(err) {
               done(err);
             } else {
-              expect(res.body.message).to.match(/Update was successful/);
+              expect(res.body.message).to.match(/Recruiter was successfully removed/);
               done();
             }
           });
@@ -218,42 +288,40 @@ describe('Companies Controller: ', function() {
     });
 
     describe('with an invalid recruiter object sent', function() {
-      it('with an empty object, should not update the recruiter information and return a 500 status code', function (done) {
+      it('with an empty object, should not remove the recruiter and return a 500 status code', function (done) {
         recruiter.send({})
           .expect('Content-Type', /json/)
           .expect(500, done);
       });
 
-      it('with invalid attributes should not update the recruiter information because of validation error and return a 400 status code', function (done) {
-        var updatedRecruiter = {
+      it('with invalid attributes should not remove the recruiter because of validation error and return a 400 status code', function (done) {
+        var removedRecruiter = {
           "email": "sergio@ibm.com",
           "companyName": "EVERTEC",
           "firstName": "576",
           "lastName": "asf",
-          "phoneNumber": "787-888-5555"
+          "phoneNumber": "787-888-5555",
+          "accountStatus": "pending"
         };
-        recruiter.send(updatedRecruiter)
+        recruiter.send(removedRecruiter)
           .expect('Content-Type', /json/)
-          .expect(400)
+          .expect(401)
           .end(function(err, res) {
             if(err) {
               done(err);
             } else {
-              expect(res.body.message).to.match(/Validation error/);
+              expect(res.body.message).to.match(/Unauthorized/);
               done();
             }
           });
       });
 
-      it('with invalid email should not update the recruiter information because of 404 status code', function (done) {
-        var updatedRecruiter = {
+      it('with invalid email should not remove the recruiter because of 404 status code', function (done) {
+        var removedRecruiter = {
           "email": "zzzz@us.ibm.com",
-          "companyName": "IBM",
-          "firstName": "Mariano",
-          "lastName": "Rodriguez",
-          "phoneNumber": "787-888-5555"
+          "accountStatus": "inactive"
         };
-        recruiter.send(updatedRecruiter)
+        recruiter.send(removedRecruiter)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -661,7 +729,7 @@ describe('Companies Controller: ', function() {
     describe('with a valid job offer object sent', function () {
 
       it('should create the job offer and return a 201 status code', function (done) {
-        var newJoboffer = {
+        var newJobOffer = {
           "id": 1,
           "companyName": "IBM",
           "email": "sergio@ibm.com",
@@ -677,7 +745,7 @@ describe('Companies Controller: ', function() {
           "jobOfferStatus": "approved",
           "location": "Durham, NC"
         };
-        jobOffer.send(newJoboffer)
+        jobOffer.send(newJobOffer)
           .expect('Content-Type', /json/)
           .expect(201)
           .end(help.isBodyEqual({

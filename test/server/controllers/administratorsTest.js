@@ -5,6 +5,9 @@ var request = require('supertest'),
   help = require('../help.js'),
   app = require('../../../server');
 
+var Session = require('supertest-session')({
+  app: app
+});
 
 describe('Administrators Controller: ', function() {
 
@@ -136,29 +139,6 @@ describe('Administrators Controller: ', function() {
     });
   });
 
-  describe('Get an admin', function() {
-    it('should find an admin with an email placement@uprm.edu', function(done) {
-      request(app)
-        .post('/api/admins')
-        .send({"email": "placement@uprm.edu"})
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end(help.isBodyEqual({
-          "email": "placement@uprm.edu",
-          "firstName": "Placement",
-          "lastName": 'Office'
-        }, done));
-    });
-
-    it('should return 404 for an admin not found', function(done) {
-      request(app)
-        .post('/api/admins')
-        .send({"email": "zzzz@upr.edu"})
-        .expect('Content-Type', /json/)
-        .expect(404, done);
-    });
-  });
-
   describe('Register as a new admin', function() {
     var admin = null;
     beforeEach(function() {
@@ -234,71 +214,49 @@ describe('Administrators Controller: ', function() {
     });
   });
 
-  describe('Update admin information', function() {
-    var admin = null;
-    beforeEach(function() {
-      admin = request(app).put('/api/admins');
-    });
+  describe('Login as an admin', function() {
+    describe('with a valid email and password object sent', function() {
 
-    describe('with a valid admin object sent', function() {
-      it('should update the firstName, lastName and password but not the email, and return a 200 status code', function (done) {
-        var updatedAdmin = {
-          "email": "juan.rodriguez@upr.edu",
-          "password": "mipassword1",
-          "firstName": "John",
-          "lastName": "Rod"
+      before(function (done) {
+        this.session = new Session();
+        this.session.post('/api/login/admin')
+          .send({
+            email: 'pedro.rivera@upr.edu',
+            password: 'pedro123'
+          }).expect(200)
+          .end(help.isBodyEqual({
+            "email": "pedro.rivera@upr.edu",
+            "firstName": "Pedro",
+            "lastName": "Rivera",
+            "authType": "admin"
+          }, done));
+      });
+
+      after(function () {
+        this.session.destroy();
+      });
+
+      it('should be able to change their personal information', function(done) {
+        var adminChange = {
+          "email": "pedro.rivera@upr.edu",
+          "firstName": "Papo"
         };
+        this.session.post('/api/administrators/me')
+          .send(adminChange)
+          .expect('Content-Type', /json/)
+          .expect(200, done);
+      });
 
-        admin.send(updatedAdmin)
+      it('should verify the changes of personal information', function(done) {
+        this.session.get('/api/administrators/me')
           .expect('Content-Type', /json/)
           .expect(200)
-          .end(help.isBodyEqual({"message": "Update was successful"}, done));
-      });
-    });
-
-    describe('with invalid attributes sent', function() {
-      it('should not make the update and return a 400 status code', function (done) {
-        var updatedAdmin = {
-          "email": "zzzz@upr.edu",
-          "password": "mipassword1",
-          "firstName": "ZZZZ",
-          "lastName": ""
-        };
-
-        admin.send(updatedAdmin)
-          .expect('Content-Type', /json/)
-          .expect(400)
-          .end(function (err, res) {
-            if(err) {
-              done(err);
-            } else {
-              expect(res.body.message).to.match(/Validation error/);
-              done();
-            }
-          });
-      });
-
-      describe('with invalid email', function() {
-        it('should not make the update and return a 404 status code', function (done) {
-          var updatedAdmin = {
-            "email": "zzzz@upr.edu",
-            "password": "mipassword1",
-            "firstName": "ZZZZ",
-            "lastName": "sadfasf"
-          };
-
-          admin.send(updatedAdmin)
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end(function (err, res) {
-              if (err) {
-                done(err);
-              } else {
-                expect(res.body.message).to.match(/Admin not found/);
-                done();
-              }
-            });
-        });
+          .end(help.isBodyEqual({
+            "email": "pedro.rivera@upr.edu",
+            "firstName": "Papo",
+            "lastName": "Rivera",
+            "authType": "admin"
+          }, done));
       });
     });
   });

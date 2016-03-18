@@ -109,6 +109,9 @@ VALUES ('8th Spring Job Fair', 'Mayaguez Resort & Casino', 'Friday, February 19,
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('sergio@ibm.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'IBM', 'Sergio', 'Rivera', '787-555-5555', 'active', '1');
 
+INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
+VALUES ('leonardo@ibm.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'IBM', 'Leonardo', 'Dicaprio', '787-555-5555', 'active', '1');
+
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, company_location)
 VALUES ('juanito@gmail.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Google', 'Juanito', 'Perez', '787-555-5555', '2');
 

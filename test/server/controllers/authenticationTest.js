@@ -82,7 +82,7 @@ describe('Authentication Controller: ', function() {
       });
 
       it('should allow me to request myself after being logged in', function (done) {
-        this.session.get('/api/admins/me')
+        this.session.get('/api/administrators/me')
           .expect(200)
           .end(help.isBodyEqual({
             "email": "placement@uprm.edu",
@@ -117,7 +117,7 @@ describe('Authentication Controller: ', function() {
             if (err) {
               done(err);
             } else {
-              sess.get('/api/admins/me')
+              sess.get('/api/administrators/me')
                 .expect(401, done);
             }
           });
