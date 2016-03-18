@@ -653,9 +653,9 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Create a new job offer for IBM', function() {
-    var adminAccess = null;
+    var jobOffer = null;
     beforeEach(function () {
-      adminAccess = request(app).post('/api/companies/IBM/jobOffers');
+      jobOffer = request(app).post('/api/companies/IBM/jobOffers');
     });
 
     describe('with a valid job offer object sent', function () {
@@ -677,7 +677,7 @@ describe('Companies Controller: ', function() {
           "jobOfferStatus": "approved",
           "location": "Durham, NC"
         };
-        adminAccess.send(newJoboffer)
+        jobOffer.send(newJoboffer)
           .expect('Content-Type', /json/)
           .expect(201)
           .end(help.isBodyEqual({
@@ -717,7 +717,7 @@ describe('Companies Controller: ', function() {
           "jobOfferStatus": "approved",
           "location": "Durham, NC"
         };
-        adminAccess.send(newJoboffer)
+        jobOffer.send(newJoboffer)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -725,6 +725,179 @@ describe('Companies Controller: ', function() {
               done(err);
             } else {
               expect(res.body.message).to.match(/Recruiter not found/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  describe('Get all interested majors from a specific company', function() {
+    it('should find all interested majors given IBM as company and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/IBM/companyInterestedMajors')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            "id": 1,
+            "companyName": "IBM",
+            "majorCode": "ICOM"
+          },
+          {
+            "id": 2,
+            "companyName": "IBM",
+            "majorCode": "CCOM"
+          },
+          {
+            "id": 3,
+            "companyName": "IBM",
+            "majorCode": "INSO"
+          }
+        ], done));
+    });
+  });
+
+  describe('Add a new interested major', function() {
+    var interestedMajor = null;
+    beforeEach(function () {
+      interestedMajor = request(app).post('/api/companies/IBM/companyInterestedMajors');
+    });
+
+    describe('with a valid object sent', function () {
+
+      it('should add the interested major to the company and return a 201 status code', function (done) {
+        var newInterestedMajor = {
+          "id": 1,
+          "companyName": "IBM",
+          "majorCode": "INME"
+        };
+        interestedMajor.send(newInterestedMajor)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(help.isBodyEqual({
+            "id": 6,
+            "companyName": "IBM",
+            "majorCode": "INME"
+          }, done));
+      });
+    });
+
+    describe('with an invalid object sent', function () {
+
+      it('should not add the interested major and return a 404 status code if the major is not found', function (done) {
+        var newInterestedMajor = {
+          "id": 1,
+          "companyName": "IBM",
+          "majorCode": "ZZZZ"
+        };
+        interestedMajor.send(newInterestedMajor)
+          .expect('Content-Type', /json/)
+          .expect(404)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Major not found/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  describe('Remove a company interested major', function() {
+    it('should remove an existing company interested major for IBM (given its ID) and return a 200 status code', function(done) {
+      request(app)
+        .del('/api/companies/IBM/companyInterestedMajors/6')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual({
+          "id": 6,
+          "companyName": "IBM",
+          "majorCode": "INME"
+        } ,done));
+    });
+  });
+
+
+  describe('Get all positions a company is looking for', function() {
+    it('should find all positions Apple is looking for and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/companies/Apple/companyLookingFor')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            "jobPosition": "Internship"
+          },
+          {
+            "jobPosition": "Full-Time"
+          }
+        ], done));
+    });
+  });
+
+  describe('Add a position to look for', function() {
+    var positionLookingFor = null;
+    beforeEach(function () {
+      positionLookingFor = request(app).post('/api/companies/Apple/companyLookingFor');
+    });
+
+    describe('with a valid object sent', function () {
+
+      it('should add the new position to look for in the company and return a 200 status code', function (done) {
+        var newPositionLookingFor = {
+          "jobPosition": "Part-Time",
+          "status": true
+        };
+        positionLookingFor.send(newPositionLookingFor)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Change successful/);
+              done();
+            }
+          });
+      });
+
+      it('should remove the new position to look for in the company and return a 200 status code', function (done) {
+        var newPositionLookingFor = {
+          "jobPosition": "Part-Time",
+          "status": false
+        };
+        positionLookingFor.send(newPositionLookingFor)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Change successful/);
+              done();
+            }
+          });
+      });
+    });
+
+    describe('with an invalid object sent', function () {
+
+      it('should not add the new position to look for and return a 400 status code because of validation error', function (done) {
+        var newPositionLookingFor = {
+          "jobPosition": "Time",
+          "status": false
+        };
+        positionLookingFor.send(newPositionLookingFor)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation error/);
               done();
             }
           });

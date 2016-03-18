@@ -142,6 +142,12 @@ VALUES ('CCOM', 'Computer Science', 'Ciencias de Computos');
 INSERT INTO major (major_code, name_english, name_spanish)
 VALUES ('INSO', 'Software Engineering', 'Ingenieria de Software');
 
+INSERT INTO major (major_code, name_english, name_spanish)
+VALUES ('INME', 'Mechanical Engineering', 'Ingenieria Mecanica');
+
+INSERT INTO major (major_code, name_english, name_spanish)
+VALUES ('ININ', 'Industrial Engineering', 'Ingenieria Industrial');
+
 INSERT INTO company_interested_majors (company_name, major_code)
 VALUES ('IBM', 'ICOM');
 
