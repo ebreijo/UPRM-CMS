@@ -141,7 +141,7 @@ describe('Authentication Controller: ', function() {
         .end(help.isBodyEqual({
           "email": "sergio@ibm.com",
           "companyName": "IBM",
-          "companyLocation": 1,
+          "companyLocationId": 1,
           "firstName": "Sergio",
           "lastName": "Rivera",
           "phoneNumber": "787-555-5555",
@@ -204,7 +204,7 @@ describe('Authentication Controller: ', function() {
           .end(help.isBodyEqual({
             "email": "sergio@ibm.com",
             "companyName": "IBM",
-            "companyLocation": 1,
+            "companyLocationId": 1,
             "firstName": "Sergio",
             "lastName": "Rivera",
             "phoneNumber": "787-555-5555",

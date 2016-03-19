@@ -141,18 +141,35 @@ describe('Companies Controller: ', function() {
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual([
-          { email: 'leonardo@ibm.com',
-            companyName: 'IBM',
-            firstName: 'Leonardo',
-            lastName: 'Dicaprio',
-            phoneNumber: '787-555-5555'
+          {
+            "email": "leonardo@ibm.com",
+            "firstName": "Leonardo",
+            "lastName": "Dicaprio",
+            "phoneNumber": "787-555-5555",
+            "companyLocation": {
+              "id": 2,
+              "streetAddress": "1 New Orchard Road",
+              "city": "Armonk",
+              "state": "NY",
+              "country": "United States",
+              "zipCode": "10504",
+              "phoneNumber": null
+            }
           },
           {
             "email": "sergio@ibm.com",
-            "companyName": "IBM",
             "firstName": "Sergio",
             "lastName": "Rivera",
-            "phoneNumber": "787-555-5555"
+            "phoneNumber": "787-555-5555",
+            "companyLocation": {
+              "id": 1,
+              "streetAddress": "3039 E Cornwallis Road",
+              "city": "Durham",
+              "state": "NC",
+              "country": "United States",
+              "zipCode": "27709",
+              "phoneNumber": null
+            }
           }
         ], done));
     });
@@ -169,10 +186,18 @@ describe('Companies Controller: ', function() {
           .expect(200)
           .end(help.isBodyEqual({
             "email": "sergio@ibm.com",
-            "companyName": "IBM",
             "firstName": "Sergio",
             "lastName": "Rivera",
-            "phoneNumber": "787-555-5555"
+            "phoneNumber": "787-555-5555",
+            "companyLocation": {
+              "id": 1,
+              "streetAddress": "3039 E Cornwallis Road",
+              "city": "Durham",
+              "state": "NC",
+              "country": "United States",
+              "zipCode": "27709",
+              "phoneNumber": null
+            }
           }, done));
       });
     });
@@ -209,7 +234,7 @@ describe('Companies Controller: ', function() {
           .end(help.isBodyEqual({
             "email": "leonardo@ibm.com",
             "companyName": "IBM",
-            "companyLocation": 1,
+            "companyLocationId": 2,
             "firstName": "Leonardo",
             "lastName": "Dicaprio",
             "phoneNumber": "787-555-5555",
@@ -239,7 +264,7 @@ describe('Companies Controller: ', function() {
           .end(help.isBodyEqual({
             "email": "leonardo@ibm.com",
             "companyName": "IBM",
-            "companyLocation": 1,
+            "companyLocationId": 2,
             "firstName": "Leonardo",
             "lastName": "Da Vinci",
             "phoneNumber": "787-555-5555",

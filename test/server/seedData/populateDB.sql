@@ -110,16 +110,16 @@ INSERT INTO recruiter (email, password, company_name, first_name, last_name, pho
 VALUES ('sergio@ibm.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'IBM', 'Sergio', 'Rivera', '787-555-5555', 'active', '1');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
-VALUES ('leonardo@ibm.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'IBM', 'Leonardo', 'Dicaprio', '787-555-5555', 'active', '1');
+VALUES ('leonardo@ibm.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'IBM', 'Leonardo', 'Dicaprio', '787-555-5555', 'active', '2');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, company_location)
-VALUES ('juanito@gmail.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Google', 'Juanito', 'Perez', '787-555-5555', '2');
+VALUES ('juanito@gmail.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Google', 'Juanito', 'Perez', '787-555-5555', '4');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
-VALUES ('pancho@evertec.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '3');
+VALUES ('pancho@evertec.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '5');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
-VALUES ('pepe@apple.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Apple', 'Pepe', 'Tembleque', '787-555-5555', 'active', '4');
+VALUES ('pepe@apple.com', '$2a$08$IA2R7uGJON4f89wOEQLibu9TGtrCfZEIsC7qxCwYL4nuAs.feG4MC', 'Apple', 'Pepe', 'Tembleque', '787-555-5555', 'active', '3');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
 VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
