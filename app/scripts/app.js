@@ -9,7 +9,8 @@ var app = angular.module('uprmcmsApp', [
   'ui.jq',
   'ngStorage',
   'restangular',
-  'chieffancypants.loadingBar'
+  'chieffancypants.loadingBar',
+  'dropzone'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
