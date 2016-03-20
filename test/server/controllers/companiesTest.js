@@ -56,6 +56,280 @@ describe('Companies Controller: ', function() {
     });
   });
 
+  describe('Register as a recruiter', function() {
+    var recruiter = null;
+    beforeEach(function() {
+      recruiter = request(app).post('/api/companies/register');
+    });
+
+    describe('with a new company and company location', function () {
+
+      it('should not register if some required fields are empty and return a 400 status code along with a Validation Error message', function(done) {
+        var newRegistration = {
+          "companyInfo": {
+            "name": "COMPANY",
+            "websiteUrl": "",
+            "companyDescription": "this is a company"
+          },
+          "companyLocation": {
+            "streetAddress": "company address",
+            "city": "company city",
+            "state": "NY",
+            "country": "",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "pepito@company.com",
+            "password": "pass",
+            "firstName": "Pepe",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation Error: Please make sure all the recruiter info fields are correct/);
+              done();
+            }
+          });
+      });
+
+
+      it('should register with valid information and return a 201 status code along with a registration message', function(done) {
+        var newRegistration = {
+          "companyInfo": {
+            "name": "COMPANY",
+            "websiteUrl": "company.com",
+            "companyDescription": "this is a company"
+          },
+          "companyLocation": {
+            "streetAddress": "company address",
+            "city": "company city",
+            "state": "NY",
+            "country": "United States",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "pepito@company.com",
+            "password": "pass",
+            "firstName": "Pepe",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Registration Completed. We will review your information before you can LogIn/);
+              done();
+            }
+          });
+      });
+
+      it('should not register if company already exists and return a 400 status code', function(done) {
+        var newRegistration = {
+          "companyInfo": {
+            "name": "COMPANY",
+            "websiteUrl": "company.com",
+            "companyDescription": "this is a company"
+          },
+          "companyLocation": {
+            "streetAddress": "company address",
+            "city": "company city",
+            "state": "NY",
+            "country": "United States",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "pepito@company.com",
+            "password": "pass",
+            "firstName": "Pepe",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company already exists/);
+              done();
+            }
+          });
+      });
+
+      it('should not register if email already exists and return a 400 status code', function(done) {
+        var newRegistration = {
+          "companyInfo": {
+            "name": "La Nasa",
+            "websiteUrl": "nasa.com",
+            "companyDescription": "nasa is a company"
+          },
+          "companyLocation": {
+            "streetAddress": "nasa address",
+            "city": "nasa city",
+            "state": "CA",
+            "country": "United States",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "sergio@ibm.com",
+            "password": "pass",
+            "firstName": "Sergio",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Email already exists/);
+              done();
+            }
+          });
+      });
+    });
+
+    describe('with a new company location, company has been registered previously', function () {
+      it('should register with valid information and return a 201 status code along with a registration message', function(done) {
+        var newRegistration = {
+          "companyLocation": {
+            "companyName": "EVERTEC",
+            "streetAddress": "evertec company address",
+            "city": "evertec company city",
+            "state": "NY",
+            "country": "Puerto Rico",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "pancho@evertec.com",
+            "password": "pass",
+            "firstName": "Pancho",
+            "lastName": "Del Toro",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Registration Completed. We will review your information before you can LogIn/);
+              done();
+            }
+          });
+      });
+
+      it('should not register if email already exists and return a 400 status code', function(done) {
+        var newRegistration = {
+          "companyLocation": {
+            "companyName": "IBM",
+            "streetAddress": "IBM address",
+            "city": "IBM city",
+            "state": "NY",
+            "country": "United States",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "sergio@ibm.com",
+            "password": "pass",
+            "firstName": "Sergio",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Email already exists/);
+              done();
+            }
+          });
+      });
+    });
+
+    describe('with a new recruiter info, company and company location have been registered previously', function () {
+      it('should register with valid information and return a 201 status code along with a registration message', function(done) {
+        var newRegistration = {
+          "recruiterInfo": {
+            "companyName": "IBM",
+            "companyLocationId": 1,
+            "email": "ed@ibm.com",
+            "password": "pass",
+            "firstName": "Ed",
+            "lastName": "Ramos",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Registration Completed. We will review your information before you can LogIn/);
+              done();
+            }
+          });
+      });
+
+      it('should not register if email already exists and return a 400 status code', function(done) {
+        var newRegistration = {
+          "recruiterInfo": {
+            "companyName": "IBM",
+            "companyLocationId": 1,
+            "email": "sergio@ibm.com",
+            "password": "pass",
+            "firstName": "Sergio",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Email already exists/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+
   describe('Update company information', function() {
 
     describe('with a valid company object sent', function() {
