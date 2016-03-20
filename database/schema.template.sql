@@ -310,7 +310,7 @@ CREATE TABLE `recruiter` (
   KEY `company_name_idx` (`company_name`),
   KEY `recruiter_company_location_idx` (`company_location`),
   CONSTRAINT `company_name` FOREIGN KEY (`company_name`) REFERENCES `company` (`name`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `recruiter_company_location` FOREIGN KEY (`company_location`) REFERENCES `company_location` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `recruiter_company_location` FOREIGN KEY (`company_location`) REFERENCES `company_location` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
