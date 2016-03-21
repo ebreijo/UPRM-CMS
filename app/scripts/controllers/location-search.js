@@ -6,36 +6,41 @@ app.controller('LocationSearchCtrl', function($scope, $state, localStorageServic
 
   //$scope.companyNames = companySearchService.get();
   $scope.companyName = localStorageService.get('companyToRegister');
-  // To remove a local storage
 
-  $scope.submitForm = function(isValid) {
+  $scope.selectLocation = function(isValid) {
     // check to make sure the form is completely valid
     if (isValid) {
-      for (var i = 0; i < $scope.users.length; i++) {
-        if (($scope.user.email === $scope.users[i].email) && ($scope.user.password === $scope.users[i].password)){
-          $scope.show = false;
-          $state.go('company');
-        }
-        else {
-          $scope.show = true;
+      for (var i = 0; i < $scope.apple.length; i++) {
+        if ($scope.apple[i].city + ', ' + $scope.apple[i].country === $scope.companyLocation){
+          // To add to local storage
+          localStorageService.set('companyLocationToRegister',$scope.companyLocation);
+          $state.go('recruiterRegistration');
         }
       }
     }
+
   };
 
-  $scope.users = [
+  $scope.apple = [
     {
-      'email': 'user1@ibm.com',
-      'password': 'jwjefW@34',
-      //'isRoot': false,
-      //'adminAccountStatus': 'active'
+      id: 2,
+      companyName: 'Apple',
+      streetAddress: 'Street 2nd',
+      city: 'Durham',
+      state: 'NY',
+      country: 'United States',
+      zipCode: '10504',
+      phoneNumber: null
     },
     {
-      'email': 'user34@foundation.org',
-      'password': '9Tbfdh#ld',
-      //'email': 'placement@uprm.edu',
-      //'isRoot': true,
-      //'adminAccountStatus': 'active'
+      id: 2,
+      companyName: 'Apple',
+      streetAddress: 'Street 1rst',
+      city: 'Armonk',
+      state: 'NY',
+      country: 'United States',
+      zipCode: '10504',
+      phoneNumber: null
     }
   ];
 

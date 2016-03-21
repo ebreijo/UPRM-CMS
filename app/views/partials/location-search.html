@@ -143,19 +143,15 @@
       </div>
       <div class="row">
         <article class="contact-form col-md-7" style="padding-top:13px; float: none; margin-right: auto; margin-left: auto;">
-          <form class="form-inline" role="form" action="" method="post">
+          <form class="form-inline" role="form">
             <div class="input-group">
                                     <span><label>
                                       <span style="font-family: arial; color: #004D13;"><h5><strong>Select Your Company Location : &nbsp</strong></h5></span>
                                     </label></span>
               <div class="form-group" style="text-align:center">
                 <div class="sort">
-                  <select class="sort-options form-control">
-                    <option>None</option>
-                    <option>Seattle, Washington</option>
-                    <option>San Francisco, California</option>
-                    <option>Boston, Massachusetts</option>
-                    <option>Tampa, Florida</option>
+                  <select class="sort-options form-control" ng-model="companyLocation">
+                    <option ng-repeat="item in apple">{{item.city}}, {{item.country}}</option>
                   </select>
                 </div>
               </div>
@@ -169,11 +165,7 @@
             <div class="row" style="padding-bottom:15px">
               <div class="col-md-6" style="padding-top:2px">
                 <div style="text-align: center">
-                  <a href="recruiter-registration.html" style="color: #FFFFFF;">
-                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                      Continue
-                    </button>
-                  </a>
+                  <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme" ng-disabled="!companyLocation">Continue</a>
                 </div>
               </div>
               <div class="col-md-6" style="padding-top:2px">

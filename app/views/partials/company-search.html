@@ -170,7 +170,6 @@
               <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in companies | filter:companySearch">
                   <label class="control-label">
-                    <!--<input type="radio" name="group" ng-model="confirmed">&nbsp;{{item.name}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;-->
                     <input type="radio" ng-model="$parent.companyName" name="companyName" value="{{item.name}}" />&nbsp;{{item.name}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                   </label>
                 </li>
