@@ -11,6 +11,9 @@ var Session = require('supertest-session')({
 
 describe('Administrators Controller: ', function() {
 
+  /**
+   * Admins Access List tests
+   */
   describe('Get an admin from the access list', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
       request(app)
@@ -139,6 +142,9 @@ describe('Administrators Controller: ', function() {
     });
   });
 
+  /**
+   * Admins register tests
+   */
   describe('Register as a new admin', function() {
     var admin = null;
     beforeEach(function() {
@@ -214,6 +220,9 @@ describe('Administrators Controller: ', function() {
     });
   });
 
+  /**
+   * Admin personal information changes tests
+   */
   describe('Login as an admin', function() {
     describe('with a valid email and password object sent', function() {
 
@@ -261,6 +270,9 @@ describe('Administrators Controller: ', function() {
     });
   });
 
+  /**
+   * Job Fair Dates tests
+   */
   describe('Get latest job fair dates', function() {
     it('should find job fair dates and return a 200 status code', function(done) {
       request(app)
@@ -337,6 +349,154 @@ describe('Administrators Controller: ', function() {
             }
           });
       });
+    });
+  });
+
+  /**
+   * Job Fair information tests
+   */
+  describe('Get all job fair information', function() {
+    it('should find the job fair information of all companies that have attended', function(done) {
+      request(app)
+        .get('/api/admins/jobFairInformation')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([
+          {
+            "companyName": "Apple",
+            "minGpa": 3.4,
+            "extraInformation": "This is Apple attending the Job Fair",
+            "collectingResumesBeforeJobFair": true,
+            "mustFillOnline": false,
+            "interviewsDuringWeekend": true,
+            "attending": true,
+            "websiteApplication": "http://www.apple.com/jobs/us/"
+          },
+          {
+            "companyName": "IBM",
+            "minGpa": 3.3,
+            "extraInformation": "This is a company attending the Job Fair",
+            "collectingResumesBeforeJobFair": true,
+            "mustFillOnline": false,
+            "interviewsDuringWeekend": true,
+            "attending": true,
+            "websiteApplication": "http://www-03.ibm.com/employment/us/"
+          }
+        ], done));
+    });
+  });
+
+  describe('Get only one job fair information for a given company', function() {
+    it('should find the job fair information of IBM that has attended', function(done) {
+      request(app)
+        .get('/api/admins/jobFairInformation/IBM')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual({
+          "companyName": "IBM",
+          "minGpa": 3.3,
+          "extraInformation": "This is a company attending the Job Fair",
+          "collectingResumesBeforeJobFair": true,
+          "mustFillOnline": false,
+          "interviewsDuringWeekend": true,
+          "attending": true,
+          "websiteApplication": "http://www-03.ibm.com/employment/us/"
+        }, done));
+    });
+
+    it('should not find the job fair information of EVERTEC since they has not attended', function(done) {
+      request(app)
+        .get('/api/admins/jobFairInformation/EVERTEC')
+        .expect('Content-Type', /json/)
+        .expect(404)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/No Job Fair information found for this company/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Add or update job fair information for a given company', function() {
+    it('should set the job fair information for IBM', function(done) {
+      var jobFairInfo = {
+        "minGpa": 3.7,
+        "extraInformation": "This is IBM attending the Job Fair",
+        "collectingResumesBeforeJobFair": true,
+        "mustFillOnline": false,
+        "interviewsDuringWeekend": false,
+        "attending": true,
+        "websiteApplication": "IBM.COM"
+      };
+
+      request(app)
+        .post('/api/admins/jobFairInformation/IBM')
+        .send(jobFairInfo)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Job Fair information added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should set the job fair information for EVERTEC', function(done) {
+      var jobFairInfo = {
+        "minGpa": 3.0,
+        "extraInformation": "EVERTEC from PR",
+        "collectingResumesBeforeJobFair": true,
+        "mustFillOnline": true,
+        "interviewsDuringWeekend": false,
+        "attending": false,
+        "websiteApplication": "EVERTEC.COM"
+      };
+
+      request(app)
+        .post('/api/admins/jobFairInformation/EVERTEC')
+        .send(jobFairInfo)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Job Fair information added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should not set the job fair information for ZZZZZ', function(done) {
+      var jobFairInfo = {
+        "minGpa": 3.0,
+        "extraInformation": "ZZZZZ",
+        "collectingResumesBeforeJobFair": true,
+        "mustFillOnline": true,
+        "interviewsDuringWeekend": false,
+        "attending": false,
+        "websiteApplication": "ZZZZZ.COM"
+      };
+
+      request(app)
+        .post('/api/admins/jobFairInformation/ZZZZZ')
+        .send(jobFairInfo)
+        .expect('Content-Type', /json/)
+        .expect(404)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Company not found/);
+            done();
+          }
+        });
     });
   });
 
