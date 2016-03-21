@@ -6,5 +6,4 @@ app.controller('RecruiterRegistrationCtrl', function($scope, $state, localStorag
 
   $scope.companyName = localStorageService.get('companyToRegister');
 
-
 });

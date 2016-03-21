@@ -94,7 +94,7 @@
               <li>
                 <a ui-sref="login">Companies</a>
               </li>
-              <li>
+              <li>ß
                 <a href="tables.html"> Students</a>
               </li>
             </ul>
@@ -117,7 +117,7 @@
       <div class="page-content">
         <div class="row">
           <div class="col-md-12" style="text-align:center; padding-bottom:5px">
-            <p><b>1. Since you are not registrated on this website, please fill all the blanks to registrate yourself as a recruiter.</b></p>
+            <p><b>1. Since you are not registered on this website, please fill all the blanks to registrate yourself as a recruiter.</b></p>
             <p><b>2. After filling all the blanks, click the Register button at the end of the page.</b></p>
           </div>
         </div>
@@ -154,16 +154,31 @@
             </form>
           </article>
           <article class="contact-form col-md-6 col-sm-6">
-            <form>
-              <div class="form-group password">
-                <label for="password">New Password&nbsp;
+            <form name="rightForm">
+              <div class="form-group password" ng-class="{ 'has-error' : rightForm.newPassword.$invalid && !rightForm.newPassword.$pristine }">
+                <label>New Password&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input id="password" type="password" class="form-control" placeholder="Enter your new password">
+                <input ng-model="newPassword" name="newPassword" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+              </div>
+              <div>
+                <p ng-show="rightForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password is too short</b></p>
+                <p ng-show="rightForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password is too long</b></p>
+                <p ng-show="rightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password must contain at least one: special character, lowercase & letter and digit</b></p>
+                <p ng-show="rightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' < > ?</b></p>
+              </div>
+              <div class="form-group password" ng-class="{ 'has-error' : rightForm.newPassword.$viewValue!=rightForm.confirmPassword.$viewValue && !rightForm.confirmPassword.$pristine}">
+                <label>Confirm Password&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="confirmPassword" name="confirmPassword" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Re-enter your new password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+              </div>
+              <div>
+                <p ng-show="(rightForm.newPassword.$viewValue!=rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine" style="color:#843534" class="help-block"><b>Passwords don't match</b></p>
               </div>
               <!--//form-group-->
               <div class="form-group name">
-                <label for="name">Recruiter Last Name&nbsp;
+                <label>Recruiter Last Name&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input type="name" class="form-control" placeholder="Enter your last name">
@@ -179,11 +194,7 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom:10px">
             <div style="text-align: center">
-              <a href="company-main.html" style="color: #FFFFFF;">
-                <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                  Register
-                </button>
-              </a>
+              <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme" ng-disabled="!companyLocation">Register</a>
             </div>
           </div>
         </div>
