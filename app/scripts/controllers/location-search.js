@@ -11,7 +11,8 @@ app.controller('LocationSearchCtrl', function($scope, $state, companySearchServi
   //jwjefW@34
   //9Tbfdh#ld
 
-  $scope.companyName = companySearchService.get();
+  $scope.companyNames = companySearchService.get();
+  $scope.companyName = companySearchService.getIBM();
 
   $scope.submitForm = function(isValid) {
     // check to make sure the form is completely valid
@@ -26,7 +27,6 @@ app.controller('LocationSearchCtrl', function($scope, $state, companySearchServi
         }
       }
     }
-
   };
 
   $scope.users = [
