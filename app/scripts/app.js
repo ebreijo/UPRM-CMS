@@ -22,6 +22,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/company',
     templateUrl: 'partials/companies/company-main.html',
     controller: 'CompanyCtrl'
+  }).state('locationSearch', {
+    url: '/locationSearch',
+    templateUrl: 'partials/location-search.html',
+    controller: 'LocationSearchCtrl'
+  }).state('companySearch', {
+    url: '/companySearch',
+    templateUrl: 'partials/company-search.html',
+    controller: 'CompanySearchCtrl'
   }).state('login', {
     url: '/login',
     templateUrl: 'partials/company-login.html',

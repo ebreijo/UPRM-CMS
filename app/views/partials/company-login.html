@@ -87,12 +87,12 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="nav-item dropdown">
+          <li class="active nav-item dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0"
                data-close-others="false" href="#">Sign In <i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu">
               <li>
-                <a href="company-login.html"> Companies</a>
+                <a ui-sref="login">Companies</a>
               </li>
               <li>
                 <a href="tables.html"> Students</a>
@@ -121,7 +121,7 @@
                           Registered Recruiters:</strong></span>
                           Enter you username and password below and click Login.</p><p class="text-center" style="padding-top:2px"><span style="font-family: arial; color: #004D13;"><strong>
                           New Recruiters:</strong></span>
-                          If you have not registered with this website before, click the Registrate Here option below.</p></span>
+                          If you have not registered with this website before, click the Register option below.</p></span>
       </div>
       <div class="row" style="padding-top:20px">
         <div class="col-md-6" style="float: none; margin: 0 auto;">
@@ -130,10 +130,10 @@
               <div class="panel-body">
                 <form class="form-horizontal" name="userForm" novalidate>
                   <div class="alert alert-danger alert-dismissable" ng-show="show">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" ng-click="show=false" aria-hidden="true">&times;</button>
                     <strong class="alert-link">The account doesn't exists. Enter a Different Account or Register</strong>
                   </div>
-                  <div class="input-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                  <div class="input-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
                     <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
                     <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
                   </div>
@@ -142,58 +142,63 @@
                   </div>
                   <div class="input-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
                     <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input ng-model="user.password" name="password" type="password" ng-minlength="3" ng-maxlength="15" class="form-control" placeholder="Password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}$/"/>
+                    <input ng-model="user.password" name="password" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
                   </div>
                   <div style="margin-bottom: 25px">
                     <p ng-show="userForm.password.$error.minlength" class="help-block"><b>Password is too short</b></p>
                     <p ng-show="userForm.password.$error.maxlength" class="help-block"><b>Password is too long</b></p>
                     <p ng-show="userForm.password.$error.pattern" class="help-block"><b>Password must contain at least one: special character, lowercase & letter and digit</b></p>
+                    <p ng-show="userForm.password.$error.pattern" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' < > ?</b></p>
                   </div>
-                  <div class="form-group buttomBox" style="text-align: center">
+                  <div class="form-group bottomBox" style="text-align: center">
                     <!-- Button -->
                     <div class="col-md-6" style="padding-top:5px">
-                      <a type="submit" ng-click="submitForm(userForm.email.$valid && userForm.password.$valid)" class="btn btn-success" ng-disabled="(userForm.email.$invalid || userForm.password.$invalid)">Login</a>
+                      <a type="submit" ng-click="submitForm(userForm.email.$valid && userForm.password.$valid, 'page')" class="btn btn-success" ng-disabled="(userForm.email.$invalid || userForm.password.$invalid)">Login</a>
                     </div>
                     <div class="col-md-6" style="padding-top:5px">
-                      <a href="company-search.html" class="btn btn-primary">Register</a>
+                      <a ui-sref="companySearch" class="btn btn-primary">Register</a>
                     </div>
                   </div>
                   <div class="text-center">
                     <a href="#" data-toggle="modal" data-target="#myModal" style="color:white">Forgot your Password?</a>
-                    <div id="myModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title pull-left" style="color:black">Recover Password</h4>
-                          </div>
-                          <div class="modal-body">
-                            <form name ="modalForm" role="form" novalidate>
-                              <p class="text-center" style="margin-bottom: 10px">Enter the email address you use to access your account.</p>
-                              <div class="input-group text-center" style="padding-top:5px" ng-class="{ 'has-error' : modalForm.modal_email.$invalid && !modalForm.modal_email.$pristine }">
-                                <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                                <input ng-model="modal.email" name="modal_email" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
-                              </div>
-                              <div style="margin-bottom: 10px">
-                                <p ng-show="modalForm.modal_email.$invalid && !modalForm.modal_email.$pristine" class="help-block"><b>Enter a valid email address</b></p>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                                  <button type="submit" class="btn btn-theme">Recover</button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </form>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title pull-left" style="color:black">Recover Password</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" name ="modalForm" novalidate>
+                <p class="text-center" style="margin-bottom: 10px">Enter the email address you use to access your account.</p>
+                <div class="alert alert-danger alert-dismissable" ng-show="modalShow">
+                  <button type="button" class="close" ng-click="modalShow=false" aria-hidden="true">&times;</button>
+                  <strong class="alert-link">The account doesn't exists. Enter a Different Account or Register</strong>
+                </div>
+                <div class="input-group text-center" ng-class="{ 'has-error' : modalForm.modalEmail.$invalid && !modalForm.modalEmail.$pristine }">
+                  <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                  <input ng-model="modalEmail" name="modalEmail" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
+                </div>
+                <div style="margin-bottom: 10px">
+                  <p ng-show="modalForm.modalEmail.$invalid && !modalForm.modalEmail.$pristine" class="help-block"><b>Enter a valid email address</b></p>
+                </div>
+                <div class="row">
+                  <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                    <button type="button" class="btn btn-theme" ng-click="submitForm(modalForm.modalEmail.$valid, 'modal')" ng-disabled="(modalForm.modalEmail.$invalid)">Recover</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@
     </div>
     <div class="header-main container">
       <h1 class="logo col-md-4 col-sm-4"><a ui-sref="landingPage">
-        <img id="logo" src="../../images/logo.png" alt="Logo">
+        <img id="logo" src="../../../images/logo.png" alt="Logo">
       </a></h1>
       <!--//logo-->
       <div class="info col-md-8 col-sm-8">
@@ -59,7 +59,7 @@
           <li class="nav-item">
             <a ui-sref="landingPage">Home</a>
           </li>
-          <li class="active nav-item">
+          <li class="nav-item">
             <a ui-sref="calendar">Calendar</a>
           </li>
           <!--//dropdown-->
@@ -106,37 +106,84 @@
     </div>
     <!--//container-->
   </nav>
-  <!--//main-nav-->
-  <!-- ******CONTENT****** -->
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title pull-left">Events Calendar</h1>
-
+        <h1 class="heading-title pull-left">Registration</h1>
         <div class="breadcrumbs pull-right">
-          <ul class="breadcrumbs-list">
-            <li class="breadcrumbs-label">You are here:</li>
-            <li>
-              <a ui-sref="landingPage">Home</a>
-              <i class="fa fa-angle-right"></i>
-            </li>
-            <li class="current">Calendar</li>
-          </ul>
         </div>
         <!--//breadcrumbs-->
       </header>
-      <div class="page-content">
-        <div class="row page-row">
-          <article class="welcome col-md-12 col-sm-12">
-            <iframe src="https://calendar.google.com/calendar/embed?height=591&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=en.usa%23holiday%40group.v.calendar.google.com&amp;color=%2329527A&amp;ctz=America%2FPuerto_Rico" style="border-width:0" width="812" height="591" frameborder="0" scrolling="no"></iframe>
-          </article>
-          <!--//page-content-->
+      <div class="row" style="float: none; margin-right: auto; margin-left: auto">
+        <p class="text-center" style="padding-top:15px"><b>1. Start by typing the name of your company/organization in the Search Company/Organization search field below</b></p>
+        <div class="container">
+          <div class="row ">
+            <div class="col-md-1" style="padding-top:15px"></div>
+            <div class="col-md-4" style="padding-top:15px; border-right: 1px solid #ffffff;">
+              <p><b>2. If your company/organization name IS listed:</b></p>
+              <li>
+                <p style="margin-left:2em">Check the radio button next to your company/organization name</p>
+              </li>
+              <li>
+                <p style="margin-left:2em">Click the continue button below</p>
+              </li>
+            </div>
+            <div class="col-md-2" style="padding-top:15px">
+              <p style="text-align: center"><b>OR</b></p>
+            </div>
+            <div class="col-md-4" style="padding-top:15px">
+              <p><b>2. If your company/organization name is NOT listed:</b></p>
+              <li>
+                <p style="margin-left:2em">Click the Can't Find my Company/Organization button below</p>
+              </li>
+            </div>
+            <div class="col-md-1" style="padding-top:15px"> </div>
+          </div>
         </div>
-        <!--//page-row-->
       </div>
-      <!--//page-content-->
+      <div class="row" style="padding-top:10px">
+        <div class="col-md-6" style="float: none; margin-right: auto; margin-left: auto;">
+          <form>
+            <div class="form-group" style="text-align: center">
+              <label class="control-label">
+                <span style="font-family: arial; color: #004D13;"><h5><strong>Search Your Company/Organization:</strong></h5></span>
+              </label>
+              <input type="text" ng-model="companySearch" class="form-control" placeholder="Enter your company/organization name">
+            </div>
+            <div class="row" style="padding-bottom:15px">
+              <div class="col-md-6" style="padding-top:2px">
+                <div style="text-align: center">
+                  <a type="submit" ng-click="selectCompany(companyName)" class="btn btn-theme" ng-disabled="!companyName">Continue</a>
+                </div>
+              </div>
+              <div class="col-md-6" style="padding-top:2px">
+                <div style="text-align: center">
+                  <a href="company-registration.html" style="color: #FFFFFF;">
+                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                      Can't find my Company/Organization
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9" style="float: none; margin-right: auto; margin-left: auto;">
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in companies | filter:companySearch">
+                  <label class="control-label">
+                    <!--<input type="radio" name="group" ng-model="confirmed">&nbsp;{{item.name}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;-->
+                    <input type="radio" ng-model="$parent.companyName" name="companyName" value="{{item.name}}" />&nbsp;{{item.name}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row" style="padding-top:20px">
+        <p class="text-center" style="padding-top:10px"><span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+          If you need more asistance don't hesitate to contact our office at (787) 265-3898 or <a href="mailto:placement@uprm.edu" tabindex="0">placement@uprm.edu</a>.</p>
+      </div>
     </div>
-    <!--//page-->
   </div>
   <!--//content-->
 </div>
@@ -147,12 +194,10 @@
   <div class="bottom-bar">
     <div class="container">
       <div class="row">
-        <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de
-          Colocaciones UPRM RUM
-        </small>
+        <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de Colocaciones UPRM RUM</small>
         <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
           <li>
-            <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
           </li>
         </ul>
         <!--//social-->
@@ -163,5 +208,3 @@
   </div>
   <!--//bottom-bar-->
 </footer>
-<!--//footer-->
-</div>
