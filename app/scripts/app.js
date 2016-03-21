@@ -9,8 +9,13 @@ var app = angular.module('uprmcmsApp', [
   'ui.jq',
   'ngStorage',
   'restangular',
-  'chieffancypants.loadingBar'
+  'chieffancypants.loadingBar',
+  'LocalStorageModule'
 ]);
+
+app.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+  localStorageServiceProvider.setPrefix('uprmcmsApp');
+}]);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -49,5 +54,4 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   });
 
   $urlRouterProvider.otherwise('/');
-})
-;
+});

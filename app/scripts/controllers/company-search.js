@@ -5,7 +5,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanySearchCtrl', function($scope, $state, companySearchService) {
+app.controller('CompanySearchCtrl', function($scope, $state, localStorageService) {
 
   $scope.selectCompany = function(isValid) {
 
@@ -13,7 +13,9 @@ app.controller('CompanySearchCtrl', function($scope, $state, companySearchServic
     if (isValid) {
       for (var i = 0; i < $scope.companies.length; i++) {
         if ($scope.companies[i].name === $scope.companyName){
-          companySearchService.set($scope.companyName);
+          // To add to local storage
+          localStorageService.set('companyToRegister',$scope.companyName);
+          //companySearchService.add($scope.companyName);
           $state.go('locationSearch');
         }
       }

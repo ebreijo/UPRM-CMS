@@ -4,15 +4,12 @@ var app = angular.module('uprmcmsApp');
 
 app.factory('companySearchService', function() {
 
-  var savedData = 'First';
-  var company = 'IBM';
+  var savedData = {};
 
   function set(data) {
     savedData = data;
   }
-  function getIBM(){
-    return company;
-  }
+
   function get() {
     return savedData;
   }
@@ -20,7 +17,6 @@ app.factory('companySearchService', function() {
   return {
     set: set,
     get: get,
-    getIBM: getIBM
   };
 
 });

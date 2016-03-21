@@ -2,17 +2,11 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('LocationSearchCtrl', function($scope, $state, companySearchService) {
+app.controller('LocationSearchCtrl', function($scope, $state, localStorageService) {
 
-  //emails
-  //user1@ibm.com
-  //user34@foundation.org
-  //Passwords
-  //jwjefW@34
-  //9Tbfdh#ld
-
-  $scope.companyNames = companySearchService.get();
-  $scope.companyName = companySearchService.getIBM();
+  //$scope.companyNames = companySearchService.get();
+  $scope.companyName = localStorageService.get('companyToRegister');
+  // To remove a local storage
 
   $scope.submitForm = function(isValid) {
     // check to make sure the form is completely valid
