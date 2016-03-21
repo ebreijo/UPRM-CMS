@@ -125,12 +125,12 @@ describe('Students Controller: ', function() {
           },
           {
             "companyName": "IBM",
-            "minGpa": 3.3,
-            "extraInformation": "This is a company attending the Job Fair",
+            "minGpa": 3.7,
+            "extraInformation": "This is IBM attending the Job Fair",
             "collectingResumesBeforeJobFair": true,
             "mustFillOnline": false,
-            "interviewsDuringWeekend": true,
-            "websiteApplication": "http://www-03.ibm.com/employment/us/",
+            "interviewsDuringWeekend": false,
+            "websiteApplication": "IBM.COM",
             "lookingFor": [
               {
                 "companyName": "IBM",
