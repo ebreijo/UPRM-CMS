@@ -47,13 +47,15 @@ describe('Administrators Controller: ', function() {
 
       it('should grant access to admin and return a 201 status code', function(done) {
         var newAdminAccess = {
-          "email": "eduardo@upr.edu"
+          "email": "zzzz@zzzz.edu",
+          "isRoot": false
         };
         adminAccess.send(newAdminAccess)
           .expect('Content-Type', /json/)
           .expect(201)
           .end(help.isBodyEqual({
-            "email": "eduardo@upr.edu"
+            "email": "zzzz@zzzz.edu",
+            "isRoot": false
           }, done));
       });
 
