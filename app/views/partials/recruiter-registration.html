@@ -150,14 +150,19 @@
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="leftForm.firstName.$invalid && !leftForm.firstName.$pristine"></i>
               </div>
               <div>
-                <p ng-show="leftForm.firstName.$error.pattern && !leftForm.firstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid First Name</b></p>
+                <p ng-show="leftForm.firstName.$invalid && !leftForm.firstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid First Name</b></p>
               </div>
               <!--//form-group-->
-              <div class="form-group phone">
-                <label for="phone">Recruiter Phone Number
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : leftForm.lastName.$invalid && !leftForm.lastName.$pristine}">
+                <label>Recruiter Last Name&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input id="phone" type="tel" class="form-control" placeholder="Enter your office fax number">
+                <input ng-model="lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="leftForm.lastName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="leftForm.lastName.$invalid && !leftForm.lastName.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="leftForm.lastName.$invalid && !leftForm.lastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Last Name</b></p>
               </div>
               <!--//form-group-->
               <!--//form-group-->
@@ -185,18 +190,30 @@
                 </label>
                 <input ng-model="confirmPassword" name="confirmPassword" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Re-enter your new password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="rightForm.confirmPassword.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="rightForm.newPassword.$invalid && !rightForm.newPassword.$pristine"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="(rightForm.newPassword.$viewValue!=rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine && rightForm.confirmPassword.$invalid"></i>
               </div>
               <div>
                 <p ng-show="(rightForm.newPassword.$viewValue!=rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine && rightForm.confirmPassword.$invalid" style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
               </div>
-              <!--//form-group-->
-              <div class="form-group name">
-                <label>Recruiter Last Name&nbsp;
+              <div class="form-group phone">
+                <label for="phone">Recruiter Phone Number
                   <span class="required">*</span>
                 </label>
-                <input type="name" class="form-control" placeholder="Enter your last name">
+                <input id="phone" type="tel" class="form-control" placeholder="Enter your office fax number">
               </div>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : rightForm.phone.$invalid && !rightForm.phone.$pristine}">
+                <label>Recruiter Phone Number&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="phone" name="phone" type="tel" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" required ng-pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="rightForm.phone.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="rightForm.phone.$invalid && !rightForm.phone.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="rightForm.phone.$invalid && !rightForm.phone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number</b></p>
+              </div>
+              <!--//form-group-->
+
               <!--//form-group-->
               <!--//form-group-->
               <!--//form-group-->
