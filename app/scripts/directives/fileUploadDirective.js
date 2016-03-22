@@ -1,5 +1,3 @@
-/* global Dropzone */
-
 'use strict';
 
 // FOR REFERENCE:
@@ -13,8 +11,10 @@ app.directive('uprmFileUploader', function () {
 
     config = scope[attrs.uprmFileUploader];
 
+    /* jshint ignore:start */
     // create a Dropzone for the element with the given options
     dropzone = new Dropzone(element[0], config.options);
+    /* jshint ignore:end */
 
     // bind the given event handlers
     angular.forEach(config.eventHandlers, function (handler, event) {

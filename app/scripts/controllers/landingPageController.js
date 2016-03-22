@@ -22,4 +22,10 @@ app.controller('LandingPageCtrl', function($scope) {
     }
   };
 
+  $scope.$on('$viewContentLoaded', function() {
+    /* jshint ignore:start */
+    FB.XFBML.parse(document.getElementById('promo-facebook-plugin'));
+    /* jshint ignore:end */
+  });
+
 });
