@@ -61,6 +61,7 @@
 <!-- endbower -->
 <!-- endbuild -->
 
+<!-- Facebook plugin -->
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -78,6 +79,15 @@
     fjs.parentNode.insertBefore(js, fjs);
     FB.XFBML.parse(document.getElementById('promo-facebook'));
   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Slider: Flexslider-->
+<script>
+  $(window).load(function() {
+    $('.flexslider').flexslider({
+      animation: "slide"
+    });
+  });
 </script>
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
