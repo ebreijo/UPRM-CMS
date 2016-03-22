@@ -195,17 +195,11 @@
               <div>
                 <p ng-show="(rightForm.newPassword.$viewValue!=rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine && rightForm.confirmPassword.$invalid" style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
               </div>
-              <div class="form-group phone">
-                <label for="phone">Recruiter Phone Number
-                  <span class="required">*</span>
-                </label>
-                <input id="phone" type="tel" class="form-control" placeholder="Enter your office fax number">
-              </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : rightForm.phone.$invalid && !rightForm.phone.$pristine}">
                 <label>Recruiter Phone Number&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="phone" name="phone" type="tel" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" required ng-pattern="^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"/>
+                <input ng-model="phone" name="phone" type="tel" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" required ng-pattern="/^[\s()+-]*([0-9][\s()+-]*){6,20}(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="rightForm.phone.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="rightForm.phone.$invalid && !rightForm.phone.$pristine"></i>
               </div>
@@ -225,7 +219,7 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom:10px">
             <div style="text-align: center">
-              <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme" ng-disabled="!companyLocation">Register</a>
+              <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme" ng-disabled="leftForm.$invalid || rightForm.$invalid">Register</a>
             </div>
           </div>
         </div>
