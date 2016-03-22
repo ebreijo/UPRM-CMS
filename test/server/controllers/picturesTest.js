@@ -78,4 +78,18 @@ describe('Pictures Controller: ', function() {
     });
   });
 
+  /*
+  describe('Create a Picture.', function() {
+    it('should create a new picture, given the picture name.', function(done) {
+      request(app)
+        .post('/api/pictures')
+        .send({
+          fileLabel : "new picture name"
+        })
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+  });
+  */
+
 });

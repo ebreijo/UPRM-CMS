@@ -1,10 +1,12 @@
 'use strict';
 
+/* global Dropzone */
+
 // FOR REFERENCE:
 // https://gist.github.com/compact/8118670#file-dropzone-directive-js-L37
 
-// TODO: Integrate this Directive with this project's structure.
-/*
+var app = angular.module('uprmcmsApp');
+
 app.directive('uprmFileUploader', function () {
   return function (scope, element, attrs) {
     var config, dropzone;
@@ -20,7 +22,6 @@ app.directive('uprmFileUploader', function () {
     });
   };
 });
-*/
 
 /**
  * USAGE:

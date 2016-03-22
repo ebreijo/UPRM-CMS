@@ -22,7 +22,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider.state('landingPage', {
     url: '/',
-    templateUrl: 'partials/landing.html'
+    templateUrl: 'partials/landing.html',
+    controller: 'LandingPageCtrl'
   }).state('company', {
     url: '/company',
     templateUrl: 'partials/companies/company-main.html',
