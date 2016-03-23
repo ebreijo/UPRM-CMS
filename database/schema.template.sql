@@ -246,6 +246,7 @@ DROP TABLE IF EXISTS `password_recovery`;
 CREATE TABLE `password_recovery` (
   `email` varchar(255) NOT NULL,
   `password_recovery_code` varchar(40) DEFAULT NULL,
+  `type_of_user` enum('admin','recruiter') NOT NULL,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
