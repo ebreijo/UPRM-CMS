@@ -28,6 +28,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/company',
     templateUrl: 'partials/companies/company-main.html',
     controller: 'CompanyCtrl'
+  }).state('locationRegistration', {
+    url: '/locationRegistration',
+    templateUrl: 'partials/location-registration.html',
+    controller: 'LocationRegistrationCtrl'
   }).state('recruiterRegistration', {
     url: '/recruiterRegistration',
     templateUrl: 'partials/recruiter-registration.html',
