@@ -21,7 +21,7 @@ describe('Authentication Controller: ', function() {
     it('should login an active admin email placement@uprm.edu', function (done) {
       login.send({
         "email": "placement@uprm.edu",
-        "password": "pass"
+        "password": "1q@W#e"
       }).expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -73,7 +73,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: 'placement@uprm.edu',
-            password: 'pass'
+            password: '1q@W#e'
           }).expect(200, done);
       });
 
@@ -101,7 +101,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: "placement@uprm.edu",
-            password: "pass"
+            password: "1q@W#e"
           }).expect(200, done);
       });
 
@@ -135,7 +135,7 @@ describe('Authentication Controller: ', function() {
     it('should login an active recruiter with email sergio@ibm.com', function (done) {
       login.send({
         "email": "sergio@ibm.com",
-        "password": "pass"
+        "password": "1q@W#e"
       }).expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -190,7 +190,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login')
           .send({
             email: 'sergio@ibm.com',
-            password: 'pass'
+            password: '1q@W#e'
           }).expect(200, done);
       });
 
@@ -221,7 +221,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login')
           .send({
             email: "sergio@ibm.com",
-            password: "pass"
+            password: "1q@W#e"
           }).expect(200, done);
       });
 
