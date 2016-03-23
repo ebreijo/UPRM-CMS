@@ -128,83 +128,83 @@
         </div>
         <div class="row">
           <article class="contact-form col-md-6 col-sm-6">
-            <form name="leftForm">
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : leftForm.email.$invalid && !leftForm.email.$pristine}">
+            <form name="recruiterLeftForm">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : recruiterLeftForm.email.$invalid && !recruiterLeftForm.email.$pristine}">
                 <label>Recruiter Email&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="email" name="email" type="email" class="form-control" placeholder="Enter your email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="leftForm.email.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="leftForm.email.$invalid && !leftForm.email.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.email.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.email.$invalid && !recruiterLeftForm.email.$pristine"></i>
               </div>
               <div>
-                <p ng-show="leftForm.email.$invalid && !leftForm.email.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
+                <p ng-show="recruiterLeftForm.email.$invalid && !recruiterLeftForm.email.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
               </div>
               <!--//form-group-->
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : leftForm.firstName.$invalid && !leftForm.firstName.$pristine}">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : recruiterLeftForm.firstName.$invalid && !recruiterLeftForm.firstName.$pristine}">
                 <label>Recruiter First Name&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="firstName" name="firstName" type="text" class="form-control" placeholder="Enter your first name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="leftForm.firstName.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="leftForm.firstName.$invalid && !leftForm.firstName.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.firstName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.firstName.$invalid && !recruiterLeftForm.firstName.$pristine"></i>
               </div>
               <div>
-                <p ng-show="leftForm.firstName.$invalid && !leftForm.firstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid First Name</b></p>
+                <p ng-show="recruiterLeftForm.firstName.$invalid && !recruiterLeftForm.firstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid First Name</b></p>
               </div>
               <!--//form-group-->
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : leftForm.lastName.$invalid && !leftForm.lastName.$pristine}">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine}">
                 <label>Recruiter Last Name&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="leftForm.lastName.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="leftForm.lastName.$invalid && !leftForm.lastName.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.lastName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine"></i>
               </div>
               <div>
-                <p ng-show="leftForm.lastName.$invalid && !leftForm.lastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Last Name</b></p>
+                <p ng-show="recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Last Name</b></p>
               </div>
               <!--//form-group-->
               <!--//form-group-->
             </form>
           </article>
           <article class="contact-form col-md-6 col-sm-6">
-            <form name="rightForm">
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : rightForm.newPassword.$invalid && !rightForm.newPassword.$pristine }">
+            <form name="recruiterRightForm">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : recruiterRightForm.newPassword.$invalid && !recruiterRightForm.newPassword.$pristine }">
                 <label>New Password&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="newPassword" name="newPassword" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="rightForm.newPassword.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="rightForm.newPassword.$invalid && !rightForm.newPassword.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterRightForm.newPassword.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterRightForm.newPassword.$invalid && !recruiterRightForm.newPassword.$pristine"></i>
               </div>
               <div>
-                <p ng-show="rightForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password is too short. Use at least 6 characters.</b></p>
-                <p ng-show="rightForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password is too long. Use less than 40 characters.</b></p>
-                <p ng-show="rightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
-                <p ng-show="rightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' < > ?</b></p>
+                <p ng-show="recruiterRightForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password is too short. Use at least 6 characters.</b></p>
+                <p ng-show="recruiterRightForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password is too long. Use less than 40 characters.</b></p>
+                <p ng-show="recruiterRightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
+                <p ng-show="recruiterRightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' < > ?</b></p>
               </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : (rightForm.newPassword.$viewValue!==rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine }">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : (recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue) && !recruiterRightForm.confirmPassword.$pristine }">
                 <label>Confirm Password&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="confirmPassword" name="confirmPassword" type="password" ng-minlength="6" ng-maxlength="40" class="form-control" placeholder="Re-enter your new password" style="border-radius: 0;" required ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="(rightForm.newPassword.$viewValue===rightForm.confirmPassword.$viewValue) && rightForm.confirmPassword.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="(rightForm.newPassword.$viewValue!==rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="(recruiterRightForm.newPassword.$viewValue===recruiterRightForm.confirmPassword.$viewValue) && recruiterRightForm.confirmPassword.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="(recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue) && !recruiterRightForm.confirmPassword.$pristine"></i>
               </div>
               <div>
-                <p ng-show="(rightForm.newPassword.$viewValue!==rightForm.confirmPassword.$viewValue) && !rightForm.confirmPassword.$pristine" style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
+                <p ng-show="(recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue) && !recruiterRightForm.confirmPassword.$pristine" style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
               </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : rightForm.phone.$invalid && !rightForm.phone.$pristine}">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : recruiterRightForm.phone.$invalid && !recruiterRightForm.phone.$pristine}">
                 <label>Recruiter Phone Number&nbsp;
                   <span class="required">*</span>
                 </label>
                 <input ng-model="phone" name="phone" type="tel" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" required ng-pattern="/^[\s()+-]*([0-9][\s()+-]*){6,20}(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="rightForm.phone.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="rightForm.phone.$invalid && !rightForm.phone.$pristine"></i>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterRightForm.phone.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterRightForm.phone.$invalid && !recruiterRightForm.phone.$pristine"></i>
               </div>
               <div>
-                <p ng-show="rightForm.phone.$invalid && !rightForm.phone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number</b></p>
+                <p ng-show="recruiterRightForm.phone.$invalid && !recruiterRightForm.phone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number</b></p>
               </div>
               <!--//form-group-->
 
@@ -223,14 +223,30 @@
         </div>
         <div class="row">
           <article class="contact-form col-md-6 col-sm-6">
-            <form>
+            <form name="locationLeftForm">
               <!--//form-group-->
               <!--//form-group-->
-              <div class="form-group address">
-                <label>Company Street Address
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationLeftForm.address.$invalid && !locationLeftForm.address.$pristine}">
+                <label>Company Street Address&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input type="address" class="form-control" placeholder="Enter the street address for your company">
+                <input ng-model="address" name="address" type="text" class="form-control" placeholder="Enter the street address for your company" style="border-radius:0;" required ng-pattern="/^[-a-z0-9-. ]+(\.)?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="locationLeftForm.address.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.address.$invalid && !locationLeftForm.address.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="locationLeftForm.address.$invalid && !locationLeftForm.address.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Street Address</b></p>
+              </div>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationLeftForm.state.$invalid && !locationLeftForm.state.$pristine}">
+                <label>Company State (Optional)&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="state" name="state" type="text" class="form-control" placeholder="Enter the state for your company" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!locationLeftForm.$error.pattern && locationLeftForm.state.$pristine"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.$error.pattern && !locationLeftForm.state.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="locationLeftForm.state.$invalid && !locationLeftForm.state.$pristine" style="color:#843534" class="help-block"><b>Enter a valid State</b></p>
               </div>
               <div class="form-group address">
                 <label>Company State (Optional)</label>
@@ -300,7 +316,7 @@
           <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de Colocaciones UPRM RUM</small>
           <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
             <li>
-              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
             </li>
           </ul>
           <!--//social-->
