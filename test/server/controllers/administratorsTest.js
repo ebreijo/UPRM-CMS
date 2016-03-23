@@ -155,10 +155,28 @@ describe('Administrators Controller: ', function() {
 
     describe('with a valid admin object sent', function() {
 
+      it('should not register if password is invalid password and respond with 400 and invalid password', function(done) {
+        var newAdmin = {
+          "email": "pedro.rivera@upr.edu",
+          "password": "fal"
+        };
+        admin.send(newAdmin)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Invalid password/);
+              done();
+            }
+          });
+      });
+
       it('should register and return a 201 status code', function(done) {
         var newAdmin = {
           "email": "pedro.rivera@upr.edu",
-          "password": "pedro123",
+          "password": "1q@W#e",
           "firstName": "Pedro",
           "lastName": "Rivera"
         };
@@ -176,7 +194,7 @@ describe('Administrators Controller: ', function() {
       it('should not let admin to register if account is active or inactive', function(done) {
         var newAdmin = {
           "email": "pedro.rivera@upr.edu",
-          "password": "pedro123",
+          "password": "1q@W#e",
           "firstName": "Pedro",
           "lastName": "Rivera"
         };
@@ -202,7 +220,7 @@ describe('Administrators Controller: ', function() {
           .expect(401, done);
       });
 
-      it('with invalid attributes should respond with 401 which is not authorized', function(done) {
+      it('with invalid email should respond with 401 which is not authorized', function(done) {
         var newAdmin = {
           "email": "ZZZZ",
           "password": "fal"
@@ -233,7 +251,7 @@ describe('Administrators Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: 'pedro.rivera@upr.edu',
-            password: 'pedro123'
+            password: '1q@W#e'
           }).expect(200)
           .end(help.isBodyEqual({
             "email": "pedro.rivera@upr.edu",

@@ -81,7 +81,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "pepito@company.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Pepe",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -95,6 +95,42 @@ describe('Companies Controller: ', function() {
               done(err);
             } else {
               expect(res.body.message).to.match(/Validation Error: Please make sure all the recruiter info fields are correct/);
+              done();
+            }
+          });
+      });
+
+      it('should not register if password is invalid and return a 400 status code along with a Validation Error message', function(done) {
+        var newRegistration = {
+          "companyInfo": {
+            "name": "COMPANY",
+            "websiteUrl": "",
+            "companyDescription": "this is a company"
+          },
+          "companyLocation": {
+            "streetAddress": "company address",
+            "city": "company city",
+            "state": "NY",
+            "country": "",
+            "zipCode": "27709",
+            "phoneNumber": "787-344-4444"
+          },
+          "recruiterInfo": {
+            "email": "pepito@company.com",
+            "password": "hola1",
+            "firstName": "Pepe",
+            "lastName": "Perez",
+            "phoneNumber": "787-555-5555"
+          }
+        };
+        recruiter.send(newRegistration)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Invalid password/);
               done();
             }
           });
@@ -118,7 +154,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "pepito@company.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Pepe",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -154,7 +190,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "pepito@company.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Pepe",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -190,7 +226,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "sergio@ibm.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Sergio",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -224,7 +260,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "pancho@evertec.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Pancho",
             "lastName": "Del Toro",
             "phoneNumber": "787-555-5555"
@@ -256,7 +292,7 @@ describe('Companies Controller: ', function() {
           },
           "recruiterInfo": {
             "email": "sergio@ibm.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Sergio",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -283,7 +319,7 @@ describe('Companies Controller: ', function() {
             "companyName": "IBM",
             "companyLocationId": 1,
             "email": "ed@ibm.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Ed",
             "lastName": "Ramos",
             "phoneNumber": "787-555-5555"
@@ -308,7 +344,7 @@ describe('Companies Controller: ', function() {
             "companyName": "IBM",
             "companyLocationId": 1,
             "email": "sergio@ibm.com",
-            "password": "pass",
+            "password": "1q@W#e",
             "firstName": "Sergio",
             "lastName": "Perez",
             "phoneNumber": "787-555-5555"
@@ -503,7 +539,7 @@ describe('Companies Controller: ', function() {
         this.session.post('/api/login')
           .send({
             "email": "leonardo@ibm.com",
-            "password": "pass"
+            "password": "1q@W#e"
           }).expect(200)
           .end(help.isBodyEqual({
             "email": "leonardo@ibm.com",
