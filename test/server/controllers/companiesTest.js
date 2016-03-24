@@ -29,6 +29,9 @@ describe('Companies Controller: ', function() {
           },
           {
             "name": "IBM"
+          },
+          {
+            "name": "Pepe Company"
           }
         ], done));
     });
