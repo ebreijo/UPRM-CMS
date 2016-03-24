@@ -109,7 +109,7 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title pull-left">Recruiter & Location Registration for {{companyName}}</h1>
+        <h1 class="heading-title pull-left">New Company &amp; Recruiter Registration</h1>
         <div class="breadcrumbs pull-right">
         </div>
         <!--//breadcrumbs-->
@@ -117,7 +117,7 @@
       <div class="page-content">
         <div class="row">
           <div class="col-md-12" style="text-align:center; padding-bottom:5px">
-            <p><b>1. Since you are not registrated on this website, please fill all the blanks to register yourself as a recruiter.</b></p>
+            <p><b>1. Since the company is not registrated on this website, please fill all the blanks to register the company and yourself as a recruiter.</b></p>
             <p><b>2. After filling all the blanks, click the Register button at the end of the page.</b></p>
           </div>
         </div>
@@ -211,6 +211,84 @@
         </div>
         <div class="row" style="padding-bottom:15px; padding-top:15px">
           <div class="col-md-12">
+            <h3 class="title">New Company Registration</h3>
+          </div>
+        </div>
+        <div class="row">
+          <article class="contact-form col-md-6 col-sm-6">
+            <form name="companyLeftForm">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : companyLeftForm.companyName.$invalid && !companyLeftForm.companyName.$pristine}">
+                <label>Company Name&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="companyName" name="companyName" type="text" class="form-control" placeholder="Enter your company name" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 ,.'`-$?&@!^%()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="companyLeftForm.companyName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="companyLeftForm.companyName.$invalid && !companyLeftForm.companyName.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="companyLeftForm.companyName.$invalid && !companyLeftForm.companyName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
+              </div>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : companyLeftForm.description.$invalid && !companyLeftForm.description.$pristine}">
+                <label>Brief Company Description (Optional) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                </label>
+                <textarea id="message" class="form-control" rows="6" placeholder="Enter a brief description of your company..."></textarea>
+              </div>
+              <!--//form-group-->
+              <!--//form-group-->
+            </form>
+          </article>
+          <article class="contact-form col-md-6 col-sm-6">
+            <form name="companyRightForm">
+              <div class="form-group name">
+                <label for="name" class="control-label">Company Website URL&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input id="name" type="text" class="form-control" placeholder="Enter your company website URL">
+              </div>
+              <div class="row">
+                <div class="col-md-6" style="padding-top:2px">
+                  <div style="text-align: center">
+                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Add Interested Majors (Optional)</button>
+                  </div>
+                  <ul class="list-group" style="padding-top:8px">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        ICOM
+                      </label>
+                    </li>
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        INEL
+                      </label>
+                    </li>
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        INQU
+                        <br>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6" style="padding-top:2px; padding-bottom:10px">
+                  <div style="text-align: center">
+                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Upload Company Logo (Optional)</button>
+                  </div>
+                  <div class="col-md-12" style="padding-top:8px; text-align:center">
+                    <img id="complogo" src="assets/images/company.png" width="100px" alt="compLogo">
+                  </div>
+                </div>
+              </div>
+              <!--//form-group-->
+              <!--//form-group-->
+              <!--//form-group-->
+              <!--//form-group-->
+            </form>
+          </article>
+          <!--//contact-form-->
+          <!--//page-sidebar-->
+        </div>
+        <div class="row" style="padding-bottom:15px; padding-top:15px">
+          <div class="col-md-12">
             <h3 class="title">New Company Location Registration</h3>
           </div>
         </div>
@@ -287,8 +365,12 @@
         </div>
         <div class="row">
           <div class="col-md-12" style="padding-bottom:10px">
-            <div style="text-align: center" class="">
-              <a type="submit" ng-click="registerLocation(locationLeftForm.$valid && locationRightForm.$valid && recruiterLeftForm.$valid && recruiterRightForm.$valid && (recruiterRightForm.newPassword.$viewValue===recruiterRightForm.confirmPassword.$viewValue))" class="btn btn-theme" ng-disabled="locationLeftForm.$invalid || locationRightForm.$invalid || recruiterLeftForm.$invalid || recruiterRightForm.$invalid || (recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue)">Register</a>
+            <div style="text-align: center">
+              <a href="company-main.html" style="color: #FFFFFF;">
+                <button type="button" class="btn btn-theme" style="text-align: center;">
+                  Register
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -299,6 +381,7 @@
     </div>
   </div>
   </div>
+</div>
   <!--//main-nav-->
   <footer class="footer">
     <!--//footer-content-->
@@ -308,7 +391,7 @@
           <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de Colocaciones UPRM RUM</small>
           <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
             <li>
-              <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-facebook"></i></a>
             </li>
           </ul>
           <!--//social-->

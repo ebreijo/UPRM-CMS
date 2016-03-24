@@ -2,9 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('LocationRegistrationCtrl', function($scope, $state, localStorageService) {
-
-  $scope.companyName = localStorageService.get('companyToRegister');
+app.controller('CompanyRegistrationCtrl', function($scope, $state) {
 
   $scope.registerLocation = function(isValid) {
     // check to make sure the form is completely valid
@@ -12,5 +10,6 @@ app.controller('LocationRegistrationCtrl', function($scope, $state, localStorage
       $state.go('company');
     }
   };
+
 
 });
