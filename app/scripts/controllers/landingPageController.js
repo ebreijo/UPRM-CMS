@@ -8,7 +8,7 @@ app.controller('LandingPageCtrl', function($scope) {
     'options': { // passed into the Dropzone constructor
       'url': '/api/pictures',
       'paramName' : 'image', // The name that will be used to transfer the file
-      'maxFilesize': 1 // MB
+      'maxFilesize': 10 // MB
     },
     'eventHandlers': {
       'sending': function (file, xhr, formData) {
