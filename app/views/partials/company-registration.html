@@ -228,13 +228,16 @@
               <div>
                 <p ng-show="companyLeftForm.companyName.$invalid && !companyLeftForm.companyName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
               </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : companyLeftForm.description.$invalid && !companyLeftForm.description.$pristine}">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : companyLeftForm.description.$error.pattern}">
                 <label>Brief Company Description (Optional) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                 </label>
                 <textarea id="message" class="form-control" rows="6" placeholder="Enter a brief description of your company..."></textarea>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="companyLeftForm.description.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="companyLeftForm.description.$error.pattern"></i>
               </div>
-              <!--//form-group-->
-              <!--//form-group-->
+              <div>
+                <p ng-show="companyLeftForm.description.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
+              </div>
             </form>
           </article>
           <article class="contact-form col-md-6 col-sm-6">
