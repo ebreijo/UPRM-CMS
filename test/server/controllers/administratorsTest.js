@@ -806,9 +806,180 @@ describe('Administrators Controller: ', function() {
   });
 
   /**
+   * Manage recruiters by admins
+   */
+  describe('Get all pending recruiter registrations', function() {
+    it('should find all pending recruiter registrations and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/pendingRecruiters')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].firstName).to.match(/Juanito/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Get a pending recruiter registration', function() {
+    it('should find a pending recruiter registration and return a 200 status code', function(done) {
+      request(app)
+        .post('/api/admins/pendingRecruiters')
+        .send({"email": "juanito@gmail.com"})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.firstName).to.match(/Juanito/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Update status registration of a recruiter', function() {
+
+    var admin = null;
+    beforeEach(function() {
+      admin = request(app).put('/api/admins/recruiters');
+    });
+
+    describe('with a valid status object sent', function() {
+      it('should update the status registration to active and a 200 status code', function (done) {
+        var statusUpdated = {
+          "email": "juanito@gmail.com",
+          "accountStatus": "active"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(help.isBodyEqual({"message": "Status successfully changed"}, done));
+      });
+    });
+
+    describe('with an invalid status object sent', function() {
+      it('should not update status of a recruiter with an empty object and return a 500', function (done) {
+        var statusUpdated = {};
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(500)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.explanation).to.match(/Something went wrong/);
+              done();
+            }
+          });
+      });
+
+      it('should not update status of a recruiter to pending and return a 401', function (done) {
+        var statusUpdated = {
+          "email": "juanito@gmail.com",
+          "accountStatus": "pending"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(401)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Unauthorized/);
+              done();
+            }
+          });
+      });
+
+      it('should not update status of a recruiter that does not exists and return a 400', function (done) {
+        var statusUpdated = {
+          "email": "zzzz@gmail.com",
+          "accountStatus": "active"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Status was not successfully changed/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  /**
+   * Get recruiters per company for admins to see tests
+   */
+  describe('Get all active or inactive recruiter per company', function() {
+    it('should find all active recruiter from IBM and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/companies/IBM/recruiters?status=active')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].firstName).to.match(/Leonardo/);
+            expect(res.body[1].firstName).to.match(/Sergio/);
+            done();
+          }
+        });
+    });
+
+    it('should find all active recruiter from IBM and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/companies/IBM/recruiters?status=inactive')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([], done));
+    });
+  });
+
+  describe('Get a recruiter for a given company', function() {
+    it('should find a recruiter for IBM and return a 200 status code', function(done) {
+      request(app)
+        .post('/api/admins/companies/IBM/recruiters')
+        .send({"email": "sergio@ibm.com"})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.firstName).to.match(/Sergio/);
+            done();
+          }
+        });
+    });
+
+    it('should not find a recruiter with an invalid email for IBM and return a 404 status code', function(done) {
+      request(app)
+        .post('/api/admins/companies/IBM/recruiters')
+        .send({"email": "zzzzz@ibm.com"})
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+
+  /**
    * Administrators Promotional Material Tests
    */
-
   describe('Get all pending promotional material', function() {
     it('should find all pending company promotional' +
       'material  and return a 200 status code', function(done) {
