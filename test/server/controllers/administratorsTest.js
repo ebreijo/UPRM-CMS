@@ -521,6 +521,291 @@ describe('Administrators Controller: ', function() {
   });
 
   /**
+   * Manage companies by admins test
+   */
+  describe('Get all companies registered for admins to see', function () {
+    it('should find all active companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=active')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/Apple/);
+            expect(res.body[1].name).to.match(/IBM/);
+            done();
+          }
+        });
+    });
+
+    it('should find all pending companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=pending')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/Google/);
+            done();
+          }
+        });
+    });
+
+    it('should find all inactive companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=inactive')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/EVERTEC/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Get a company registered for admins to see', function () {
+    it('should find a company named IBM and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/IBM')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body.name).to.match(/IBM/);
+            done();
+          }
+        });
+    });
+
+    it('should not find a company not registered and return a 404 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/ZZZZ')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+  describe('Update company basic information', function() {
+
+    describe('with a valid company object sent', function() {
+      it('should update the company description and return a 200 status code', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "Apple",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "This is Apple a good company"
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(help.isBodyEqual({"message": "Company Successfully Updated"}, done));
+      });
+    });
+
+    describe('with an invalid company object sent', function() {
+      it('should not update the company with invalid fields', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "Apple",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": ""
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation error/);
+              done();
+            }
+          });
+      });
+
+      it('should not update the company with a name that already exists', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "EVERTEC",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "asdffdf"
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company already exists/);
+              done();
+            }
+          });
+      });
+    });
+
+  });
+
+  describe('Create a company with basic information', function() {
+
+    var admin = null;
+    beforeEach(function() {
+      admin = request(app).post('/api/admins/companies');
+    });
+
+    describe('with a valid company object sent', function() {
+      it('should create the company with and return a 201 status code', function (done) {
+        var createdCompany = {
+          "name": "Pepe Company",
+          "websiteUrl": "http://www.pepecompany.com/",
+          "logoPath": null,
+          "companyDescription": "Pepe is a company"
+        };
+
+        admin.send(createdCompany)
+          .expect('Content-Type', /json/)
+          .expect(201, done);
+      });
+    });
+
+    describe('with an invalid company object sent', function() {
+      it('should not create the company with a name that already exists', function (done) {
+        var createdCompany = {
+          "name": "EVERTEC",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "asdffdf"
+        };
+
+        admin.send(createdCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company already exists/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  /**
+   * Manage a temporary contact per company tests
+   */
+  describe('Get a company temporary contact for admins to see', function () {
+    it('should find a temporary contact from Google and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/Google/tempContact')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([{
+          "email": "chencho@gmail.com",
+          "companyName": "Google",
+          "firstName": "Chencho",
+          "lastName": "Ramos",
+          "phoneNumber": "787-555-5555"
+        }], done));
+    });
+
+    it('should not find a temporary contact for a company that does not exists and return a 404 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/ZZZZ/tempContact')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+  describe('Add or update a company temporary contact for admins to see', function () {
+    it('should add a new temporary contact for IBM and return a 200 status code', function (done) {
+      var newTempContact = {
+        "email": "pablo@ibm.com",
+        "firstName": "Pablo",
+        "lastName": "Pronto",
+        "phoneNumber": "787-555-5555"
+      };
+
+      request(app)
+        .post('/api/admins/companies/IBM/tempContact')
+        .send(newTempContact)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Temporary Contact added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should update the temporary contact from Google and return a 200 status code', function (done) {
+      var updatedTempContact = {
+        "email": "chencho@gmail.com",
+        "firstName": "Chencho",
+        "lastName": "Ramos",
+        "phoneNumber": "787-555-8888"
+      };
+
+      request(app)
+        .post('/api/admins/companies/Google/tempContact')
+        .send(updatedTempContact)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Temporary Contact added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should not update the temporary contact from Google and return a 400 status code', function (done) {
+      var updatedTempContact = {
+        "email": "chencho@gmail.com",
+        "firstName": "",
+        "lastName": "Ramos",
+        "phoneNumber": "787-555-8888"
+      };
+
+      request(app)
+        .post('/api/admins/companies/Google/tempContact')
+        .send(updatedTempContact)
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Validation error/);
+            done();
+          }
+        });
+    });
+  });
+
+  /**
    * Administrators Promotional Material Tests
    */
 
