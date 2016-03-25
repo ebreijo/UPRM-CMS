@@ -231,7 +231,7 @@
               <div class="form-group has-feedback">
                 <label>Brief Company Description (Optional) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                 </label>
-                <textarea ng-model="description" name="description" type="text" class="form-control" rows="6" placeholder="Enter a brief description of your company..." ng-pattern="/^[-a-z0-9 ,.'`-$?&@!/^%()ñÑáéíóúÁÉÍÓÚ]{1,10}(\.)?$/i"></textarea>
+                <textarea ng-model="description" name="description" type="text" class="form-control" rows="6" placeholder="Enter a brief description of your company..." ng-pattern="/^[-a-z0-9 ,.'`$?&@!/^%-()ñÑáéíóúÁÉÍÓÚ]{1,10}(\.)?$/i"></textarea>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!companyLeftForm.description.$modelValue === false"></i>
               </div>
               <div>
@@ -240,17 +240,23 @@
           </article>
           <article class="contact-form col-md-6 col-sm-6">
             <form name="companyRightForm">
-              <div class="form-group name">
-                <label for="name" class="control-label">Company Website URL&nbsp;
-                  <span class="required">*</span>
-                </label>
-                <input id="name" type="text" class="form-control" placeholder="Enter your company website URL">
-              </div>
+                <div class="form-group has-feedback" ng-class="{ 'has-error' : companyRightForm.url.$invalid && !companyRightForm.url.$pristine}">
+                  <label>Company Website URL&nbsp;
+                    <span class="required">*</span>
+                  </label>
+                  <input ng-model="url" name="url" type="text" class="form-control" placeholder="Enter your company website URL" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                  <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="companyRightForm.url.$valid"></i>
+                  <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="companyRightForm.url.$invalid && !companyRightForm.url.$pristine"></i>
+                </div>
+                <div>
+                  <p ng-show="companyRightForm.url.$invalid && !companyRightForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                </div>
               <div class="row">
                 <div class="col-md-6" style="padding-top:2px">
                   <div style="text-align: center">
-                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Add Interested Majors (Optional)</button>
+                    <button data-toggle="modal" data-target="#interestedMajors" type="button" class="btn btn-theme btn-sm" style="text-align: center;">Add Interested Majors (Optional)</button>
                   </div>
+                  <p>{{majorList}}</p>
                   <ul class="list-group" style="padding-top:8px">
                     <li class="list-group-item">
                       <label class="control-label">
@@ -382,6 +388,55 @@
     </div>
   </div>
   </div>
+
+<div id="interestedMajors" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Interested Majors</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="displayMajors">
+                  <label ng-repeat="item in majorList">
+                    <input type="checkbox" ng-model="item.value" name="major" value="item.value">{{item.name}}
+                    <p>{{item.value}}</p>
+                  </label>
+                  <button type="button" class="btn btn-theme btn-sm text-center" ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
+                </form>
+                <p>{{majorList}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="selectedMajors">
+                  &nbsp; <label ng-repeat="item in majorsSelected">
+                  &nbsp;<input type="checkbox">&nbsp;{{item.name}}&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                </label>&nbsp;
+                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Remove Major(s)</button>
+                </form>
+                <p>{{majorsSelected}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
   <!--//main-nav-->
   <footer class="footer">
