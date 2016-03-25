@@ -1,11 +1,10 @@
 <div class="">
   <!-- ******HEADER****** -->
-  <div ng-include src="'views/partials/header.html'"></div>
+  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
   <!--//header-->
   <!-- ******NAV****** -->
-  <div ng-include src="'views/partials/navbar.html'"></div>
+  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
   <!--//main-nav-->
-
   <!-- ******CONTENT****** -->
   <div class="content container">
     <div class="page-wrapper">
@@ -16,7 +15,7 @@
           <ul class="breadcrumbs-list">
             <li class="breadcrumbs-label">You are here:</li>
             <li>
-              <a ui-sref="landingPage">Home</a>
+              <a ui-sref="adminProfile">Profile</a>
               <i class="fa fa-angle-right"></i>
             </li>
             <li class="current">About</li>
@@ -29,16 +28,55 @@
           <article class="welcome col-md-8 col-sm-7">
             <h3 class="title">Vision<br></h3>
 
-            <p>{{aboutus.aboutUs[0].vision}}<br></p>
+            <p>Serve as liaison between students and businesses while providing the best and most effective service to
+              all.<br></p>
 
             <h3 class="title">Mission</h3>
 
-            <p>{{aboutus.aboutUs[0].missionDesc}}<br></p>
+            <p>Provide students the necessary tools that will help achieve an effective job search, while maintaining
+              lines of communication with businesses and the College community.<br></p>
 
             <h3 class="title">Student Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutus.studentServices">
-                <i class="fa fa-check"></i>{{item.service}}
+              <li>
+                <i class="fa fa-check"></i>Register students and alumni, creating records for our files.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Assist students and alumni explore the job market.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Help with the correction of resumes.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Offer talks to groups of students on resume writing, interviews, job search,
+                etc.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Coordinate on campus interviews.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Refer resumes to companies and or agencies.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Announce job opportunities (part-time, summer and permanent).
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Keep a list of companies and agencies with their addresses.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Coordinate meetings between student organizations and companies.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Prepare salary statistics.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Prepare annual employment statistics.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Organize Annual Job Fair.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Work with student organizations.
               </li>
               <li>
                 <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
@@ -48,8 +86,23 @@
             </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutus.companyServices">
-                <i class="fa fa-check"></i>{{item.service}}
+              <li>
+                <i class="fa fa-check"></i>Announce any job offers (part time, summer and permanent).
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Collect and send resumes of students and alumni.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Coordinate on-campus interviews.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Organize the Annual Job Fair.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Organize information sessions.
+              </li>
+              <li>
+                <i class="fa fa-check"></i>Coordinate meetings with faculty and student organizations.
               </li>
               <li>
                 <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
@@ -67,9 +120,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in aboutus.ourStaff">
-                  <td>{{item.name}}</td>
-                  <td>{{item.position}}</td>
+                <tr>
+                  <td>Sra. Nancy Nieves Aran</td>
+                  <td>Director</td>
+                </tr>
+                <tr>
+                  <td>Antonio Ramos</td>
+                  <td>Administrative Assistant</td>
+                </tr>
+                <tr>
+                  <td>Srta. Margarita Carlo</td>
+                  <td>Employment Interviewer</td>
+                </tr>
+                <tr>
+                  <td>Sr. William Pacheco</td>
+                  <td>Employment Interviewer</td>
+                </tr>
+                <tr>
+                  <td>Sra. Eva E. Troche Morales</td>
+                  <td>Administrative Secretary</td>
                 </tr>
                 </tbody>
               </table>
@@ -89,7 +158,7 @@
 
               <p class="tel"><i class="fa fa-fax"></i>Fax: (787) 834-5115</p>
 
-              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
+              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="#">placement@uprm.edu</a></p>
             </section>
             <section class="widget has-divider">
               <h3 class="title">Postal Address</h3>
@@ -109,7 +178,7 @@
     <div class="page-row">
       <article class="map-section">
         <h3 class="title">How to find us</h3>
-        <article class="welcome col-md-12 col-sm-12" style="margin-bottom:10px">
+        <article class="welcome col-md-12 col-sm-12">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1490.3079326503766!2d-67.14124061552592!3d18.21070118501364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDEyJzM3LjEiTiA2N8KwMDgnMjkuMCJX!5e0!3m2!1sen!2spr!4v1457839879455" style="overflow: hidden;
         width: 100%;" width="100%" width="auto" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
         </article>
@@ -124,18 +193,4 @@
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
 <div ng-include src="'views/partials/footer.html'"></div>
-<!--<div class="row">
-  <div ng-repeat="aboutUsInfo in aboutUs" class="col-md-5 col-md-offset-4">
-    <br/>
-    {{aboutUsInfo.vision}}
-    <br/>
-    {{aboutUsInfo.missionDesc}}
-    <br/>
-    {{aboutUsInfo.policiesDesc}}
-    <br/>
-    {{aboutUsInfo.requirementsDesc}}
-    <br/>
-  </div>
-</div>
--->
 
