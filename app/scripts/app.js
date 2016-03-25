@@ -64,7 +64,18 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   }).state('calendar', {
     url: '/calendar',
     templateUrl: 'partials/calendar.html'
-  });
+  })
+  // Administrator views
+    .state('adminProfile', {
+      url: '/adminProfile',
+      templateUrl: 'partials/administrators/admin-main.html'
+    }).state('adminCalendar', {
+      url: '/adminCalendar',
+      templateUrl: 'partials/administrators/calendar.html'
+    }).state('adminAboutUs', {
+      url: '/adminAboutUS',
+      templateUrl: 'partials/administrators/about.html'
+    });
 
   $urlRouterProvider.otherwise('/');
 });

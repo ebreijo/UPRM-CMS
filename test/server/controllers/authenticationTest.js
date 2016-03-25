@@ -21,7 +21,7 @@ describe('Authentication Controller: ', function() {
     it('should login an active admin email placement@uprm.edu', function (done) {
       login.send({
         "email": "placement@uprm.edu",
-        "password": "pass"
+        "password": "1q@W#e"
       }).expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -73,7 +73,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: 'placement@uprm.edu',
-            password: 'pass'
+            password: '1q@W#e'
           }).expect(200, done);
       });
 
@@ -101,7 +101,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: "placement@uprm.edu",
-            password: "pass"
+            password: "1q@W#e"
           }).expect(200, done);
       });
 
@@ -135,7 +135,7 @@ describe('Authentication Controller: ', function() {
     it('should login an active recruiter with email sergio@ibm.com', function (done) {
       login.send({
         "email": "sergio@ibm.com",
-        "password": "pass"
+        "password": "1q@W#e"
       }).expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -190,7 +190,7 @@ describe('Authentication Controller: ', function() {
         this.session.post('/api/login')
           .send({
             email: 'sergio@ibm.com',
-            password: 'pass'
+            password: '1q@W#e'
           }).expect(200, done);
       });
 
@@ -214,14 +214,14 @@ describe('Authentication Controller: ', function() {
     });
   });
 
-  describe('logout', function () {
+  describe('Logout', function () {
     describe('with a recruiter logged in', function () {
       beforeEach(function (done) {
         this.session = new Session();
         this.session.post('/api/login')
           .send({
             email: "sergio@ibm.com",
-            password: "pass"
+            password: "1q@W#e"
           }).expect(200, done);
       });
 
@@ -242,6 +242,39 @@ describe('Authentication Controller: ', function() {
             }
           });
       });
+    });
+  });
+
+  describe('Forgot password', function () {
+    var forgot = null;
+    beforeEach(function() {
+      forgot = request(app).post('/api/forgot');
+    });
+
+    it('should allow a recruiter to enter the email address and receive a response back', function (done) {
+      forgot.send({"email": "pepe@apple.com"})
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/An e-mail has been sent to pepe@apple.com with further instructions/);
+            done();
+          }
+        });
+    });
+
+    it('should not allow an invalid email address and a 404 status code back', function (done) {
+      forgot.send({"email": "xzx@sdz.com"})
+        .expect(404)
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/No account found with that email address/);
+            done();
+          }
+        });
     });
   });
 

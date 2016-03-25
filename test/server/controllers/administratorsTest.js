@@ -155,10 +155,28 @@ describe('Administrators Controller: ', function() {
 
     describe('with a valid admin object sent', function() {
 
+      it('should not register if password is invalid password and respond with 400 and invalid password', function(done) {
+        var newAdmin = {
+          "email": "pedro.rivera@upr.edu",
+          "password": "fal"
+        };
+        admin.send(newAdmin)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Invalid password/);
+              done();
+            }
+          });
+      });
+
       it('should register and return a 201 status code', function(done) {
         var newAdmin = {
           "email": "pedro.rivera@upr.edu",
-          "password": "pedro123",
+          "password": "1q@W#e",
           "firstName": "Pedro",
           "lastName": "Rivera"
         };
@@ -176,7 +194,7 @@ describe('Administrators Controller: ', function() {
       it('should not let admin to register if account is active or inactive', function(done) {
         var newAdmin = {
           "email": "pedro.rivera@upr.edu",
-          "password": "pedro123",
+          "password": "1q@W#e",
           "firstName": "Pedro",
           "lastName": "Rivera"
         };
@@ -202,7 +220,7 @@ describe('Administrators Controller: ', function() {
           .expect(401, done);
       });
 
-      it('with invalid attributes should respond with 401 which is not authorized', function(done) {
+      it('with invalid email should respond with 401 which is not authorized', function(done) {
         var newAdmin = {
           "email": "ZZZZ",
           "password": "fal"
@@ -233,7 +251,7 @@ describe('Administrators Controller: ', function() {
         this.session.post('/api/login/admin')
           .send({
             email: 'pedro.rivera@upr.edu',
-            password: 'pedro123'
+            password: '1q@W#e'
           }).expect(200)
           .end(help.isBodyEqual({
             "email": "pedro.rivera@upr.edu",
@@ -503,9 +521,465 @@ describe('Administrators Controller: ', function() {
   });
 
   /**
+   * Manage companies by admins test
+   */
+  describe('Get all companies registered for admins to see', function () {
+    it('should find all active companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=active')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/Apple/);
+            expect(res.body[1].name).to.match(/IBM/);
+            done();
+          }
+        });
+    });
+
+    it('should find all pending companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=pending')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/Google/);
+            done();
+          }
+        });
+    });
+
+    it('should find all inactive companies and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies?status=inactive')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body[0].name).to.match(/EVERTEC/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Get a company registered for admins to see', function () {
+    it('should find a company named IBM and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/IBM')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          } else {
+            expect(res.body.name).to.match(/IBM/);
+            done();
+          }
+        });
+    });
+
+    it('should not find a company not registered and return a 404 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/ZZZZ')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+  describe('Update company basic information', function() {
+
+    describe('with a valid company object sent', function() {
+      it('should update the company description and return a 200 status code', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "Apple",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "This is Apple a good company"
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(help.isBodyEqual({"message": "Company Successfully Updated"}, done));
+      });
+    });
+
+    describe('with an invalid company object sent', function() {
+      it('should not update the company with invalid fields', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "Apple",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": ""
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Validation error/);
+              done();
+            }
+          });
+      });
+
+      it('should not update the company with a name that already exists', function (done) {
+        var admin = request(app).put('/api/admins/companies/Apple');
+        var updatedCompany = {
+          "name": "EVERTEC",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "asdffdf"
+        };
+
+        admin.send(updatedCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company already exists/);
+              done();
+            }
+          });
+      });
+    });
+
+  });
+
+  describe('Create a company with basic information', function() {
+
+    var admin = null;
+    beforeEach(function() {
+      admin = request(app).post('/api/admins/companies');
+    });
+
+    describe('with a valid company object sent', function() {
+      it('should create the company with and return a 201 status code', function (done) {
+        var createdCompany = {
+          "name": "Pepe Company",
+          "websiteUrl": "http://www.pepecompany.com/",
+          "logoPath": null,
+          "companyDescription": "Pepe is a company"
+        };
+
+        admin.send(createdCompany)
+          .expect('Content-Type', /json/)
+          .expect(201, done);
+      });
+    });
+
+    describe('with an invalid company object sent', function() {
+      it('should not create the company with a name that already exists', function (done) {
+        var createdCompany = {
+          "name": "EVERTEC",
+          "websiteUrl": "http://www.apple.com/",
+          "logoPath": null,
+          "companyDescription": "asdffdf"
+        };
+
+        admin.send(createdCompany)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Company already exists/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  /**
+   * Manage a temporary contact per company tests
+   */
+  describe('Get a company temporary contact for admins to see', function () {
+    it('should find a temporary contact from Google and return a 200 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/Google/tempContact')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([{
+          "email": "chencho@gmail.com",
+          "companyName": "Google",
+          "firstName": "Chencho",
+          "lastName": "Ramos",
+          "phoneNumber": "787-555-5555"
+        }], done));
+    });
+
+    it('should not find a temporary contact for a company that does not exists and return a 404 status code', function (done) {
+      request(app)
+        .get('/api/admins/companies/ZZZZ/tempContact')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+  describe('Add or update a company temporary contact for admins to see', function () {
+    it('should add a new temporary contact for IBM and return a 200 status code', function (done) {
+      var newTempContact = {
+        "email": "pablo@ibm.com",
+        "firstName": "Pablo",
+        "lastName": "Pronto",
+        "phoneNumber": "787-555-5555"
+      };
+
+      request(app)
+        .post('/api/admins/companies/IBM/tempContact')
+        .send(newTempContact)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Temporary Contact added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should update the temporary contact from Google and return a 200 status code', function (done) {
+      var updatedTempContact = {
+        "email": "chencho@gmail.com",
+        "firstName": "Chencho",
+        "lastName": "Ramos",
+        "phoneNumber": "787-555-8888"
+      };
+
+      request(app)
+        .post('/api/admins/companies/Google/tempContact')
+        .send(updatedTempContact)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Temporary Contact added successfully/);
+            done();
+          }
+        });
+    });
+
+    it('should not update the temporary contact from Google and return a 400 status code', function (done) {
+      var updatedTempContact = {
+        "email": "chencho@gmail.com",
+        "firstName": "",
+        "lastName": "Ramos",
+        "phoneNumber": "787-555-8888"
+      };
+
+      request(app)
+        .post('/api/admins/companies/Google/tempContact')
+        .send(updatedTempContact)
+        .expect('Content-Type', /json/)
+        .expect(400)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/Validation error/);
+            done();
+          }
+        });
+    });
+  });
+
+  /**
+   * Manage recruiters by admins
+   */
+  describe('Get all pending recruiter registrations', function() {
+    it('should find all pending recruiter registrations and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/pendingRecruiters')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].firstName).to.match(/Juanito/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Get a pending recruiter registration', function() {
+    it('should find a pending recruiter registration and return a 200 status code', function(done) {
+      request(app)
+        .post('/api/admins/pendingRecruiters')
+        .send({"email": "juanito@gmail.com"})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.firstName).to.match(/Juanito/);
+            done();
+          }
+        });
+    });
+  });
+
+  describe('Update status registration of a recruiter', function() {
+
+    var admin = null;
+    beforeEach(function() {
+      admin = request(app).put('/api/admins/recruiters');
+    });
+
+    describe('with a valid status object sent', function() {
+      it('should update the status registration to active and a 200 status code', function (done) {
+        var statusUpdated = {
+          "email": "juanito@gmail.com",
+          "accountStatus": "active"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(help.isBodyEqual({"message": "Status successfully changed"}, done));
+      });
+    });
+
+    describe('with an invalid status object sent', function() {
+      it('should not update status of a recruiter with an empty object and return a 500', function (done) {
+        var statusUpdated = {};
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(500)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.explanation).to.match(/Something went wrong/);
+              done();
+            }
+          });
+      });
+
+      it('should not update status of a recruiter to pending and return a 401', function (done) {
+        var statusUpdated = {
+          "email": "juanito@gmail.com",
+          "accountStatus": "pending"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(401)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Unauthorized/);
+              done();
+            }
+          });
+      });
+
+      it('should not update status of a recruiter that does not exists and return a 400', function (done) {
+        var statusUpdated = {
+          "email": "zzzz@gmail.com",
+          "accountStatus": "active"
+        };
+
+        admin.send(statusUpdated)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Status was not successfully changed/);
+              done();
+            }
+          });
+      });
+    });
+  });
+
+  /**
+   * Get recruiters per company for admins to see tests
+   */
+  describe('Get all active or inactive recruiter per company', function() {
+    it('should find all active recruiter from IBM and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/companies/IBM/recruiters?status=active')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].firstName).to.match(/Leonardo/);
+            expect(res.body[1].firstName).to.match(/Sergio/);
+            done();
+          }
+        });
+    });
+
+    it('should find all active recruiter from IBM and return a 200 status code', function(done) {
+      request(app)
+        .get('/api/admins/companies/IBM/recruiters?status=inactive')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(help.isBodyEqual([], done));
+    });
+  });
+
+  describe('Get a recruiter for a given company', function() {
+    it('should find a recruiter for IBM and return a 200 status code', function(done) {
+      request(app)
+        .post('/api/admins/companies/IBM/recruiters')
+        .send({"email": "sergio@ibm.com"})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.firstName).to.match(/Sergio/);
+            done();
+          }
+        });
+    });
+
+    it('should not find a recruiter with an invalid email for IBM and return a 404 status code', function(done) {
+      request(app)
+        .post('/api/admins/companies/IBM/recruiters')
+        .send({"email": "zzzzz@ibm.com"})
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    });
+  });
+
+
+  /**
    * Administrators Promotional Material Tests
    */
-
   describe('Get all pending promotional material', function() {
     it('should find all pending company promotional' +
       'material  and return a 200 status code', function(done) {

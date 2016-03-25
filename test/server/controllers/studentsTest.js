@@ -171,7 +171,7 @@ describe('Students Controller: ', function() {
             "name": "Apple",
             "websiteUrl": "http://www.apple.com/",
             "logoPath": null,
-            "companyDescription": "This is Apple",
+            "companyDescription": "This is Apple a good company",
             "companyStatus": "active"
           },
           {
@@ -195,7 +195,7 @@ describe('Students Controller: ', function() {
           "name": "Apple",
           "websiteUrl": "http://www.apple.com/",
           "logoPath": null,
-          "companyDescription": "This is Apple",
+          "companyDescription": "This is Apple a good company",
           "companyStatus": "active"
         }, done));
     });

@@ -145,7 +145,7 @@
                 <label>Recruiter First Name&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="firstName" name="firstName" type="text" class="form-control" placeholder="Enter your first name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="firstName" name="firstName" type="text" class="form-control" placeholder="Enter your first name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.firstName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.firstName.$invalid && !recruiterLeftForm.firstName.$pristine"></i>
               </div>
@@ -157,13 +157,15 @@
                 <label>Recruiter Last Name&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.lastName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine"></i>
               </div>
               <div>
                 <p ng-show="recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Last Name</b></p>
               </div>
+              <!--//form-group-->
+              <!--//form-group-->
             </form>
           </article>
           <article class="contact-form col-md-6 col-sm-6">
@@ -204,6 +206,11 @@
               <div>
                 <p ng-show="recruiterRightForm.phone.$invalid && !recruiterRightForm.phone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number</b></p>
               </div>
+              <!--//form-group-->
+
+              <!--//form-group-->
+              <!--//form-group-->
+              <!--//form-group-->
             </form>
           </article>
           <!--//contact-form-->
@@ -223,60 +230,57 @@
                 <label>Company Street Address&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="address" name="address" type="text" class="form-control" placeholder="Enter the street address for your company" style="border-radius:0;" required ng-pattern="/^[-a-z0-9-,`'ñÑáéíóúÁÉÍÓÚ. ]+(\.)?$/i"/>
+                <input ng-model="address" name="address" type="text" class="form-control" placeholder="Enter the street address for your company" style="border-radius:0;" required ng-pattern="/^[-a-z0-9-. ]+(\.)?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="locationLeftForm.address.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.address.$invalid && !locationLeftForm.address.$pristine"></i>
               </div>
               <div>
                 <p ng-show="locationLeftForm.address.$invalid && !locationLeftForm.address.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Street Address</b></p>
               </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationLeftForm.state.$error.pattern}">
-                <label>Company State (Optional)</label>
-                <input ng-model="state" name="state" type="text" class="form-control" placeholder="Enter the state for your company" style="border-radius:0;" ng-pattern="/^([A-Z][A-Za-z ,.'`-]{0,30})$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!locationLeftForm.state.$error.pattern && !locationLeftForm.state.$modelValue === false"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.state.$error.pattern"></i>
-              </div>
-              <div>
-                <p ng-show="locationLeftForm.state.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid name for a State</b></p>
-              </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationLeftForm.postalCode.$invalid && !locationLeftForm.postalCode.$pristine}">
-                <label>Postal Code (Zip Code)&nbsp;
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationLeftForm.state.$invalid && !locationLeftForm.state.$pristine}">
+                <label>Company State (Optional)&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="postalCode" name="postalCode" type="text" class="form-control" placeholder="Enter your company postal code" style="border-radius:0;" required ng-pattern="/^[-a-z0-9- ]{0,10}(\.)?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="locationLeftForm.postalCode.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.postalCode.$invalid && !locationLeftForm.postalCode.$pristine"></i>
+                <input ng-model="state" name="state" type="text" class="form-control" placeholder="Enter the state for your company" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!locationLeftForm.$error.pattern && locationLeftForm.state.$pristine"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationLeftForm.$error.pattern && !locationLeftForm.state.$pristine"></i>
               </div>
               <div>
-                <p ng-show="locationLeftForm.postalCode.$invalid && !locationLeftForm.postalCode.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Postal Code</b></p>
+                <p ng-show="locationLeftForm.state.$invalid && !locationLeftForm.state.$pristine" style="color:#843534" class="help-block"><b>Enter a valid State</b></p>
               </div>
+              <div class="form-group address">
+                <label>Company State (Optional)</label>
+                <input type="tel" class="form-control" placeholder="Enter the state for your company">
+              </div>
+              <div class="form-group address">
+                <label>Company Zip Code
+                  <span class="required">*</span>
+                </label>
+                <input type="address" class="form-control" placeholder="Enter your company zip code">
+              </div>
+              <!--//form-group-->
+              <!--//form-group-->
             </form>
           </article>
           <article class="contact-form col-md-6 col-sm-6">
-            <form name="locationRightForm">
+            <form>
               <!--//form-group-->
               <!--//form-group-->
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationRightForm.city.$invalid && !locationRightForm.city.$pristine}">
-                <label>Company City&nbsp;
+              <div class="form-group address">
+                <label>Company City
                   <span class="required">*</span>
                 </label>
-                <input ng-model="city" name="city" type="text" class="form-control" placeholder="Enter the city for your company" style="border-radius:0;" required ng-pattern="/^[-a-z- ]{0,30}(\.)?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="locationRightForm.city.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationRightForm.city.$invalid && !locationRightForm.city.$pristine"></i>
+                <input type="address" class="form-control" placeholder="Enter the city for your company">
               </div>
-              <div>
-                <p ng-show="locationRightForm.city.$invalid && !locationRightForm.city.$pristine" style="color:#843534" class="help-block"><b>Enter a valid name for a City</b></p>
-              </div>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : locationRightForm.country.$invalid && !locationRightForm.country.$pristine}">
-                <label>Company Country&nbsp;
+              <div class="form-group phone">
+                <label>Company Country
                   <span class="required">*</span>
                 </label>
-                <input ng-model="country" name="country" type="text" class="form-control" placeholder="Enter the country for your company" style="border-radius:0;" required ng-pattern="/^[-a-z- ]{0,30}(\.)?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="locationRightForm.country.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="locationRightForm.country.$invalid && !locationRightForm.country.$pristine"></i>
+                <input type="tel" class="form-control" placeholder="Enter the country for your company">
               </div>
-              <div>
-                <p ng-show="locationRightForm.country.$invalid && !locationRightForm.country.$pristine" style="color:#843534" class="help-block"><b>Enter a valid name for a Country</b></p>
+              <div class="form-group phone">
+                <label>Company Phone Number &nbsp;(Optional)</label>
+                <input type="tel" class="form-control" placeholder="Enter your office phone number">
               </div>
               <!--//form-group-->
               <!--//form-group-->
@@ -288,7 +292,11 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom:10px">
             <div style="text-align: center" class="">
-              <a type="submit" ng-click="registerLocation(locationLeftForm.$valid && locationRightForm.$valid && recruiterLeftForm.$valid && recruiterRightForm.$valid && (recruiterRightForm.newPassword.$viewValue===recruiterRightForm.confirmPassword.$viewValue))" class="btn btn-theme" ng-disabled="locationLeftForm.$invalid || locationRightForm.$invalid || recruiterLeftForm.$invalid || recruiterRightForm.$invalid || (recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue)">Register</a>
+              <a href="company-main.html" style="color: #FFFFFF;">
+                <button type="button" class="btn btn-theme" style="text-align: center;">
+                  Register
+                </button>
+              </a>
             </div>
           </div>
         </div>

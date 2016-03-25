@@ -1,0 +1,976 @@
+<div class="">
+  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title"><img ng-src="../../../images/admin.png" alt="adminLogo" width="150" height="150"
+                                       pull-left style="vertical-align: text-bottom"/><b style="padding-left:15px"><big>Admin</big></b>
+        </h1>
+      </header>
+      <div class="page-content">
+        <div class="row page-row">
+          <div class="courses-wrapper col-md-12 col-sm-7">
+            <div class="featured-courses tabbed-info page-row">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#tab1" data-toggle="tab">Companies</a>
+                </li>
+                <li>
+                  <a href="#tab2" data-toggle="tab">Admins</a>
+                </li>
+                <li>
+                  <a href="#tab3" data-toggle="tab">Majors</a>
+                </li>
+                <li>
+                  <a href="#tab4" data-toggle="tab">Recruiter Registration <span class="badge badge-theme">5</span></a>
+                </li>
+                <li>
+                  <a href="#tab5" data-toggle="tab">Job Offers <span class="badge badge-theme">3</span></a>
+                </li>
+                <li>
+                  <a href="#tab6" data-toggle="tab">Promotional Documents <span class="badge badge-theme">3</span></a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                  <div class="page-content">
+                    <div class="row page-row">
+                      <article class="welcome" style="padding-top:15px">
+                        <h3 class="title">Company List</h3>
+
+                        <div class="row" style="margin-bottom:20px">
+                          <div class="col-md-2">
+                          </div>
+                          <div class="col-md-5">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                <span><label class="control-label">Search:&nbsp</label></span>
+
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Enter the company name">
+                                                                  <span class="input-group-btn"><button
+                                                                    class="btn btn-theme" type="button">
+                                                                    <i class="fa fa-search"></i>
+                                                                  </button></span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-3">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                <span><label class="control-label">Company Status:&nbsp</label></span>
+
+                                <div class="form-group">
+                                  <div class="sort">
+                                    <select class="sort-options form-control">
+                                      <option>All</option>
+                                      <option>Active</option>
+                                      <option>Inactive</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-2">
+                          </div>
+                        </div>
+                        <div class="course-item-header row-divider">
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                <th>Company Name</th>
+                                <th>Status</th>
+                                <th>Change Status</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>
+                                  <a href="#">IBM</a>
+                                </td>
+                                <td><span class="label label-success">Active</span></td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Change
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a href="#">Harris</a>
+                                </td>
+                                <td><span class="label label-danger">Inactive</span></td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Change
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a href="#">Procter &amp; Gamble</a>
+                                </td>
+                                <td><span class="label label-danger">Inactive</span></td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Change
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a href="#">Google</a>
+                                </td>
+                                <td><span class="label label-success">Active</span></td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Change
+                                  </button>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                            <!--//table-->
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                  <!--//row-->
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <div class="row" style="padding-top:15px">
+                    <h3 class="title" style="margin-bottom:25px">Add New Admin</h3>
+                  </div>
+                  <div class="row" style="margin-bottom:15px">
+                    <article class="contact-form col-md-4">
+                      <form class="form-inline" role="form" action="" method="post">
+                        <div class="input-group">
+                                                  <span><label class="control-label">Admin First Name&nbsp;
+                                                    <span class="required">*</span> :
+                                                  </label></span>
+                          <input id="name" type="text" class="form-control" placeholder="Enter the Admin First Name">
+                        </div>
+                      </form>
+                    </article>
+                    <article class="contact-form col-md-4">
+                      <form class="form-inline" role="form" action="" method="post">
+                        <div class="input-group">
+                                                  <span><label class="control-label">Admin Last Name&nbsp;
+                                                    <span class="required">*</span> :
+                                                  </label></span>
+                          <input id="name" type="text" class="form-control" placeholder="Enter the Admin Last Name">
+                        </div>
+                      </form>
+                    </article>
+                    <article class="contact-form col-md-4">
+                      <form class="form-inline" role="form" action="" method="post">
+                        <div class="input-group">
+                                                  <span><label class="control-label">Admin Email&nbsp;
+                                                    <span class="required">*</span> :
+                                                  </label></span>
+                          <input id="name" type="text" class="form-control" placeholder="Enter the Admin Email">
+                        </div>
+                      </form>
+                    </article>
+                  </div>
+                  <div class="row" style="margin-bottom:25px">
+                    <div class="col-md-12 text-center">
+                      <button type="button" class="btn btn-theme btn-sm">Add Admin</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--//course-list-header-->
+                    <div class="course-item-header row-divider hidden-sm hidden-xs">
+                      <div class="row">
+                        <div class="col-title col-md-12 col-sm-12">
+                          <h3 class="title" style="margin-bottom:25px">Admin List</h3>
+                        </div>
+                        <div class="col-title col-md-4 col-sm-6">
+                          <strong>Name</strong>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">
+                              <strong>Email</strong>
+                            </div>
+                            <div class="col-level col-md-2">
+                              <strong>Edit</strong>
+                            </div>
+                            <div class="col-location col-md-2">
+                              <strong>Delete</strong>
+                            </div>
+                            <div class="col-duration col-md-3">
+                            </div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!---//row-->
+                    </div>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <!--//course-item-header-->
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <article class="course-item row-divider">
+                      <div class="details row">
+                        <div class="col-title col-md-4 col-sm-6">
+                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        </div>
+                        <div class="col-meta col-md-8 col-sm-6">
+                          <div class="row">
+                            <div class="col-start col-md-4">smendoza@upr.edu</div>
+                            <div class="col-level col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                            </div>
+                            <div class="col-location col-md-2" style="padding-top:2px">
+                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            </div>
+                            <div class="col-duration col-md-3"></div>
+                          </div>
+                        </div>
+                        <!--//col-meta-->
+                      </div>
+                      <!--//details-->
+                    </article>
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                    <!--//course-item-->
+                  </div>
+                  <!--//row-->
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <div class="row" style="margin-top:15px">
+                    <!--//course-list-header-->
+                    <div class="course-item-header row-divider">
+                      <div class="jobs-wrapper col-md-12">
+                        <h3 class="title" style="margin-bottom:25px">Add New Major</h3>
+
+                        <div class="row" style="margin-bottom:15px">
+                          <article class="contact-form col-md-4">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                                              <span><label class="control-label">Major Code&nbsp;
+                                                                <span class="required">*</span> :
+                                                              </label></span>
+                                <input id="name" type="text" class="form-control" placeholder="Enter the Major Code">
+                              </div>
+                            </form>
+                          </article>
+                          <article class="contact-form col-md-4">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                                              <span><label class="control-label">Major Name in English&nbsp;
+                                                                <span class="required">*</span> :
+                                                              </label></span>
+                                <input id="name" type="text" class="form-control"
+                                       placeholder="Enter the Major Name in English">
+                              </div>
+                            </form>
+                          </article>
+                          <article class="contact-form col-md-4">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                                              <span><label class="control-label">Major Name in Spanish&nbsp;
+                                                                <span class="required">*</span> :
+                                                              </label></span>
+                                <input id="name" type="text" class="form-control"
+                                       placeholder="Enter the Major Name in Spanish">
+                              </div>
+                            </form>
+                          </article>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-center" style="margin-bottom:20px">
+                            <button type="button" class="btn btn-theme btn-sm">Add Major</button>
+                          </div>
+                        </div>
+                        <h3 class="title" style="margin-bottom:25px">Major List</h3>
+
+                        <div class="course-item-header row-divider">
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                <th>Major Code</th>
+                                <th>Major Name in English</th>
+                                <th>Major Name in Spanish</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>ICOM</td>
+                                <td>Computer Engineering</td>
+                                <td>Ingenieria de Computadoras</td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Edit
+                                  </button>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Delete
+
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>INEL</td>
+                                <td>Electrical Engineering</td>
+                                <td>Ingenieria Electrica</td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Edit
+                                  </button>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Delete
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>INQU</td>
+                                <td>Chemical Engineering</td>
+                                <td>Ingenieria Quimica</td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Edit
+                                  </button>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Delete
+                                  </button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>INME</td>
+                                <td>Mechanical Engineering</td>
+                                <td>Ingenieria Mecanica</td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Edit
+                                  </button>
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                    Delete
+                                  </button>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                            <!--//table-->
+                          </div>
+                        </div>
+                        <!--//panel-->
+                        <!--//panel-->
+                        <!--//panel-->
+                        <!--//panel-->
+                        <!--//pagination-->
+                      </div>
+                      <div class="row"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab4">
+                  <div class="row" style="margin-top:15px">
+                    <div class="col-md-12" style="padding-bottom:5px">
+                      <h3 class="title">Status of Recruiter Registration Requests</h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--//course-list-header-->
+                    <article class="contact-form col-md-12  page-row">
+                      <h4 class="title text-center">Pending Requests</h4>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Accept</th>
+                            <th>Reject</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td>
+                              <a href="#">Info</a>:
+                              <ul>
+                                <li>New Company: IBM</li>
+                                <li>New Recruiter: John Connor</li>
+                                <li>New Company Location: North Carolina, US</li>
+                              </ul>
+                            </td>
+                            <td style="text-align:center"><span class="label label-warning">Pending</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Info</a>:
+                              <ul>
+                                <li>New Recruiter: John Connor</li>
+                              </ul>
+                            </td>
+                            <td style="text-align:center"><span class="label label-warning">Pending</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Info</a>:
+                              <ul>
+                                <li>New Recruiter: John Connor</li>
+                                <li>New Company Location: North Carolina, US</li>
+                              </ul>
+                            </td>
+                            <td style="text-align:center"><span class="label label-warning">Pending</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Info</a>:
+                              <ul>
+                                <li>New Company: IBM</li>
+                                <li>New Recruiter: John Connor</li>
+                                <li>New Company Location: North Carolina, US</li>
+                              </ul>
+                            </td>
+                            <td style="text-align:center"><span class="label label-warning">Pending</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <!--//table-->
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab5">
+                  <div class="row">
+                    <div class="col-md-12" style="padding-top:15px">
+                      <h3 class="title">Status of Job Offers Requests</h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--//course-list-header-->
+                    <div class="course-item-header row-divider">
+                      <div class="jobs-wrapper col-md-10 col-sm-9">
+                        <div class="panel panel-default page-row">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
+                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
+                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                          </div>
+                          <div class="panel-body">
+                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
+                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
+                            blandit. **For Recent Graduates**
+                          </div>
+                          <ul class="list-group">
+                            <li class="list-group-item">
+                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Location:</strong> North Carolina, United States
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Promotional Document:</strong>&nbsp;
+                              <a href="#">engineering_support_assitant.pdf</a>
+                            </li>
+                          </ul>
+                          <div class="panel-footer">
+                            <div class="row">
+                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                                <button type="button" class="btn btn-theme btn-sm"
+                                        style="margin-right:10px; margin-top:5px">Accept
+                                </button>
+                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
+                                </button>
+                              </ul>
+                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                                <small>Open until 5/4/2016</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel panel-default page-row">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
+                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
+                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                          </div>
+                          <div class="panel-body">
+                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
+                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
+                            blandit. **For Recent Graduates**
+                          </div>
+                          <ul class="list-group">
+                            <li class="list-group-item">
+                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Location:</strong> North Carolina, United States
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Promotional Document:</strong>&nbsp;
+                              <a href="#">engineering_support_assitant.pdf</a>
+                            </li>
+                          </ul>
+                          <div class="panel-footer">
+                            <div class="row">
+                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                                <button type="button" class="btn btn-theme btn-sm"
+                                        style="margin-right:10px; margin-top:5px">Accept
+                                </button>
+                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
+                                </button>
+                              </ul>
+                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                                <small>Open until 5/4/2016</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel panel-default page-row">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
+                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
+                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                          </div>
+                          <div class="panel-body">
+                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
+                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
+                            blandit. **For Recent Graduates**
+                          </div>
+                          <ul class="list-group">
+                            <li class="list-group-item">
+                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Location:</strong> North Carolina, United States
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Promotional Document:</strong>&nbsp;
+                              <a href="#">engineering_support_assitant.pdf</a>
+                            </li>
+                          </ul>
+                          <div class="panel-footer">
+                            <div class="row">
+                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                                <button type="button" class="btn btn-theme btn-sm"
+                                        style="margin-right:10px; margin-top:5px">Accept
+                                </button>
+                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
+                                </button>
+                              </ul>
+                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                                <small>Open until 5/4/2016</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel panel-default page-row">
+                          <div class="panel-heading">
+                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
+                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
+                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                          </div>
+                          <div class="panel-body">
+                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
+                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
+                            blandit. **For Recent Graduates**
+                          </div>
+                          <ul class="list-group">
+                            <li class="list-group-item">
+                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Location:</strong> North Carolina, United States
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Promotional Document:</strong>&nbsp;
+                              <a href="#">engineering_support_assitant.pdf</a>
+                            </li>
+                          </ul>
+                          <div class="panel-footer">
+                            <div class="row">
+                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                                <button type="button" class="btn btn-theme btn-sm"
+                                        style="margin-right:10px; margin-top:5px">Accept
+                                </button>
+                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
+                                </button>
+                              </ul>
+                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                                <small>Open until 5/4/2016</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--//panel-->
+                        <!--//panel-->
+                        <!--//panel-->
+                        <!--//panel-->
+                        <ul class="pagination">
+                          <li class="disabled">
+                            <a href="#">«</a>
+                          </li>
+                          <li class="active">
+                            <a href="#">1<span class="sr-only">(current)</span></a>
+                          </li>
+                          <li>
+                            <a href="#">2</a>
+                          </li>
+                          <li>
+                            <a href="#">3</a>
+                          </li>
+                          <li>
+                            <a href="#">4</a>
+                          </li>
+                          <li>
+                            <a href="#">5</a>
+                          </li>
+                          <li>
+                            <a href="#">»</a>
+                          </li>
+                        </ul>
+                        <!--//pagination-->
+                      </div>
+                      <div class="row"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab6">
+                  <div class="row" style="margin-top:15px">
+                    <div class="col-md-12" style="padding-bottom:5px">
+                      <h3 class="title">Status of Promotional Documents Requests</h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--//course-list-header-->
+                    <article class="contact-form col-md-12  page-row">
+                      <h4 class="title text-center">Pending Requests</h4>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead>
+                          <tr>
+                            <th>Document</th>
+                            <th>Company Name</th>
+                            <th>Expiration Date</th>
+                            <th>Status</th>
+                            <th>Accept</th>
+                            <th>Reject</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td>
+                              <a href="#">Engineering Jobs</a>
+                            </td>
+                            <td>IBM</td>
+                            <td>10 Sept 2016</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Engineering Jobs</a>
+                            </td>
+                            <td>IBM</td>
+                            <td>10 Sept 2016</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Engineering Jobs</a>
+                            </td>
+                            <td>IBM</td>
+                            <td>10 Sept 2016</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a href="#">Engineering Jobs</a>
+                            </td>
+                            <td>IBM</td>
+                            <td>10 Sept 2016</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Accept
+                              </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
+                                Reject
+                              </button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <!--//table-->
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--//featured-courses-->
+          </div>
+          <!--//courses-wrapper-->
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>
+
