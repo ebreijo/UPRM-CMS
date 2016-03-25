@@ -40,30 +40,20 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
     $scope.majorList.push({name: majors[i].majorCode, value: false});
   }
 
-  /*
   var contains = function(element, list){
-    alert('Test');
     for (var i = 0; i < list.length; i++) {
       if (list[i].name === element){
-        alert('true');
         return true;
       }
     }
-    alert('false');
     return false;
-  }
-  */
-
-  var contains = function(){
-    //alert('test');
   };
 
   $scope.addMajors = function() {
     // check to make sure the form is completely valid
     angular.forEach($scope.majorList, function (item) {
-      if (item.value === true){
-        contains();
-        $scope.majorsSelected.push(item);
+      if (item.value === true && (contains(item.name, $scope.majorsSelected) === false)){
+        $scope.majorsSelected.push({name: majors[i].majorCode, value: false});
       }
     });
   };
