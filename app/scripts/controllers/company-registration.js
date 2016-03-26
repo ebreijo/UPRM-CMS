@@ -49,33 +49,6 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
     return false;
   };
 
-
-  /*
-  $scope.addMajors = function() {
-    angular.forEach($scope.majorList, function (item) {
-      if (item.value === true && (contains(item.name, $scope.majorsSelected) === false)){
-        $scope.majorsSelected.push({name: item.name, value: false});
-        var index = $scope.majorList.indexOf(item);
-        if (index > -1) {
-          $scope.majorList.splice(index, 1);
-        }
-      }
-    });
-  };
-
-  $scope.removeMajors = function() {
-    angular.forEach($scope.majorsSelected, function (item) {
-      if (item.value === true && (contains(item.name, $scope.majorList) === false)){
-        $scope.majorList.push({name: item.name, value: false});
-        var index = $scope.majorsSelected.indexOf(item);
-        if (index > -1) {
-          $scope.majorsSelected.splice(index, 1);
-        }
-      }
-    });
-  };
-  */
-
   $scope.addMajors = function() {
     angular.forEach($scope.majorList, function (item) {
       if (item.value === true && (contains(item.name, $scope.majorsSelected) === false)){
