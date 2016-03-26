@@ -78,7 +78,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     // Student Views
     .state('careerFair', {
-      url: '/careerFair',
+      url: '/jobFair',
       templateUrl: 'partials/students/career-fair.html',
       controller: 'CareerFairCtrl'
     });
