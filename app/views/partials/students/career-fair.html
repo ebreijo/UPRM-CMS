@@ -114,165 +114,56 @@
             <h3 class="title">Companies Attending:</h3>
           </div>
         </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
+
+        <div ng-repeat="company in jobFairCompanies">
+
+          <div class="row page-row" style="margin-bottom:0px">
+            <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+              <!--//panel-->
+              <div class="panel panel-theme page-row">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <b> {{ company.companyName }} </b>
+                    <span ng-if="company.interviewsDuringWeekend" class="label label-info pull-right" style="margin:3px">Interviewing</span>
+                    <span ng-if="company.mustFillOnline" class="label label-success pull-right" style="margin:3px">Apply Online</span>
+                    <span ng-if="company.collectingResumesBeforeJobFair" class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span>
+                  </h3>
+                </div>
+                <div class="panel-body" style="margin:0;padding:0">
+                  <ul class="list-group" style="margin-bottom:1px">
+
+                    <li class="list-group-item">
+                      <strong>Link:</strong>
+                      <a ng-href="{{ company.websiteApplication }}"> {{ company.websiteApplication }} </a>
+                    </li>
+
+                    <li class="list-group-item">
+                      <strong>Minimum GPA:</strong> {{ company.minGpa }}
+                    </li>
+
+                    <li class="list-group-item">
+                      <strong>Job Positions:</strong>&nbsp;
+                      {{ getLookingForString(company.lookingFor) }}
+                    </li>
+
+                    <li class="list-group-item">
+                      <strong>Majors:</strong>&nbsp;
+                      {{ getInterestedMajorsString(company.interestedMajors) }}
+                    </li>
+
+                  </ul>
+                </div>
               </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
+              <!--//pagination-->
             </div>
-            <!--//pagination-->
+            <!--//page-content-->
           </div>
-          <!--//page-content-->
+
         </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
-              </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!--//pagination-->
-          </div>
-          <!--//page-content-->
-        </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
-              </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!--//pagination-->
-          </div>
-          <!--//page-content-->
-        </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
-              </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!--//pagination-->
-          </div>
-          <!--//page-content-->
-        </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
-              </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!--//pagination-->
-          </div>
-          <!--//page-content-->
-        </div>
-        <div class="row page-row" style="margin-bottom:0px">
-          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0">
-            <!--//panel-->
-            <div class="panel panel-theme page-row">
-              <div class="panel-heading">
-                <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
-              </div>
-              <div class="panel-body" style="margin:0;padding:0">
-                <ul class="list-group" style="margin-bottom:1px">
-                  <li class="list-group-item">
-                    <strong>Link:</strong>
-                    <a href="#">www.doj.gov</a>
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Job Positions:</strong>&nbsp;Internship, COOP, Part-Time, Full-Time
-                  </li>
-                  <li class="list-group-item">
-                    <strong>Majors:</strong>&nbsp;AGGE, ARTE, BIOL, CIPO, CISO, CONT, ECON, EDAG, EDFI, FILO, FINA, FRAN, GERE, HIST, INCI, INGL, LITE, MBA, MERC, PMED, PSIC, QUIM, SOCI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!--//pagination-->
-          </div>
-          <!--//page-content-->
-        </div>
+
+        <!--
         <div class="row page-row">
           <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; margin-bottom:0">
-            <!--//panel-->
             <div class="panel panel-theme page-row">
               <div class="panel-heading">
                 <h3 class="panel-title"><b>Drug Enforcement Administration</b><span class="label label-info pull-right" style="margin:3px">Interviewing</span><span class="label label-success pull-right" style="margin:3px">Apply Online</span><span class="label label-danger pull-right" style="margin:3px">Collecting Resumes</span></h3>
@@ -315,14 +206,13 @@
                 <a href="#">»</a>
               </li>
             </ul>
-            <!--//pagination-->
           </div>
-          <!--//page-content-->
         </div>
-        <!--//page-row-->
       </div>
-      <!--//page-content-->
     </div>
+    -->
+
+
     <!--//page-->
   </div>
   <!--//content-->
