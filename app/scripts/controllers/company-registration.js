@@ -49,6 +49,8 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
     return false;
   };
 
+
+  /*
   $scope.addMajors = function() {
     angular.forEach($scope.majorList, function (item) {
       if (item.value === true && (contains(item.name, $scope.majorsSelected) === false)){
@@ -71,6 +73,44 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
         }
       }
     });
+  };
+  */
+
+  $scope.addMajors = function() {
+    angular.forEach($scope.majorList, function (item) {
+      if (item.value === true && (contains(item.name, $scope.majorsSelected) === false)){
+        $scope.majorsSelected.push({name: item.name, value: false});
+      }
+    });
+    updateLists($scope.majorList, $scope.majorsSelected);
+  };
+
+  $scope.removeMajors = function() {
+    angular.forEach($scope.majorsSelected, function (item) {
+      if (item.value === true && (contains(item.name, $scope.majorList) === false)){
+        $scope.majorList.push({name: item.name, value: false});
+      }
+    });
+    updateLists($scope.majorsSelected, $scope.majorList);
+  };
+
+  var updateLists = function(list1, list2) {
+    var tempList = [];
+    angular.forEach(list1, function(item) {
+      if(!contains(item.name, list2)){
+        tempList.push(item);
+      }
+    });
+    clearList(list1);
+    angular.forEach(tempList, function(item) {
+      list1.push(item);
+    });
+  };
+
+  var clearList = function(list) {
+    while(list.length > 0){
+      list.pop();
+    }
   };
 
   $scope.registerCompany = function(isValid) {

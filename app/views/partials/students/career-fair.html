@@ -25,16 +25,26 @@
       </header>
       <div class="page-content">
         <div class="row" style="color: #004D13;">
-          <h3 class="title text-center" style="margin: 2px"><b>8th Spring Job Fair</b></h3>
+          <h3 class="title text-center" style="margin: 2px">
+            <b>
+              {{ jobFairDates.headerEnglish }}
+            </b>
+          </h3>
           <div class="col-md-4" style="float: none; margin: 0 auto; padding:0">
             <div class="row text-center title" style="margin: 0">
-              <h4 style="margin:2px">Mayaguez Resort & Casino</h4>
+              <h4 style="margin:2px">
+                {{ jobFairDates.locationEnglish }}
+              </h4>
             </div>
             <div class="row text-center title" style="margin: 0">
-              <h4 style="margin:2px">Friday, February 19, 2016</h4>
+              <h4 style="margin:2px">
+                {{ jobFairDates.dateEnglish }}
+              </h4>
             </div>
             <div class="row text-center title" style="margin: 0">
-              <h4 style="margin:2px">8:30am - 2:30pm</h4>
+              <h4 style="margin:2px">
+                {{ jobFairDates.time }}
+              </h4>
             </div>
           </div>
         </div>
@@ -57,11 +67,9 @@
                   <div class="form-group" style="text-align:center">
                     <div class="sort">
                       <select class="sort-options form-control">
+                        <!-- TODO: Add the functionality to "All" option -->
                         <option>All</option>
-                        <option>ICOM</option>
-                        <option>INEL</option>
-                        <option>INQU</option>
-                        <option>ININ</option>
+                        <option ng-repeat="major in majors" > {{ major.majorCode }} </option>
                       </select>
                     </div>
                   </div>
@@ -70,16 +78,32 @@
             </article>
             <article class="contact-form col-md-7 text-left" style="margin-top:6px">
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Intership
+                <input ng-model="checkBox.internship"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Intership
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;COOP
+                <input ng-model="checkBox.coop"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;COOP
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Part-Time
+                <input ng-model="checkBox.partTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Part-Time
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Full-Time
+                <input ng-model="checkBox.fullTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Full-Time
               </label>
             </article>
             <div class="col-md-1">
