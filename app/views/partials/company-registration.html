@@ -256,39 +256,17 @@
                   <div style="text-align: center">
                     <button data-toggle="modal" data-target="#interestedMajors" type="button" class="btn btn-theme btn-sm" style="text-align: center;">Add Interested Majors (Optional)</button>
                   </div>
-                  <p>{{majorList}}</p>
-                  <ul class="list-group" style="padding-top:8px">
-                    <li class="list-group-item">
-                      <label class="control-label">
-                        ICOM
-                      </label>
-                    </li>
-                    <li class="list-group-item">
-                      <label class="control-label">
-                        INEL
-                      </label>
-                    </li>
-                    <li class="list-group-item">
-                      <label class="control-label">
-                        INQU
-                        <br>
-                      </label>
-                    </li>
-                  </ul>
                 </div>
                 <div class="col-md-6" style="padding-top:2px; padding-bottom:10px">
                   <div style="text-align: center">
-                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Upload Company Logo (Optional)</button>
+                    <button class="btn btn-theme btn-sm" style="text-align: center">Upload Company Logo (Optional)</button>
                   </div>
                   <div class="col-md-12" style="padding-top:8px; text-align:center">
-                    <img id="complogo" src="assets/images/company.png" width="100px" alt="compLogo">
+                    <img width="100px" height="100px" ng-src="images/company.png"/>
                   </div>
                 </div>
               </div>
-              <!--//form-group-->
-              <!--//form-group-->
-              <!--//form-group-->
-              <!--//form-group-->
+
             </form>
           </article>
           <!--//contact-form-->
@@ -373,11 +351,10 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom:10px">
             <div style="text-align: center">
-              <a href="company-main.html" style="color: #FFFFFF;">
-                <button type="button" class="btn btn-theme" style="text-align: center;">
-                  Register
-                </button>
-              </a>
+              <a type="submit"
+                 ng-click="registerCompany(companyLeftForm.$valid && companyRightForm.$valid && locationLeftForm.$valid && locationRightForm.$valid && recruiterLeftForm.$valid && recruiterRightForm.$valid && (recruiterRightForm.newPassword.$viewValue===recruiterRightForm.confirmPassword.$viewValue))"
+                 class="btn btn-theme"
+                 ng-disabled="companyLeftForm.$invalid || companyRightForm.$invalid || locationLeftForm.$invalid || locationRightForm.$invalid || recruiterLeftForm.$invalid || recruiterRightForm.$invalid || (recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue)">Register</a>
             </div>
           </div>
         </div>
@@ -404,11 +381,16 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <form name="displayMajors">
-                  <label ng-repeat="item in majorList">
-                    <input type="checkbox" ng-model="item.value" name="major" value="item.value">{{item.name}}
-                    <p>{{item.value}}</p>
-                  </label>
-                  <button type="button" class="btn btn-theme btn-sm text-center" ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in majorList">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm " ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
+                  </div>
                 </form>
                 <p>{{majorList}}</p>
               </div>
@@ -419,10 +401,16 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <form name="selectedMajors">
-                  &nbsp; <label ng-repeat="item in majorsSelected">
-                  &nbsp;<input type="checkbox">&nbsp;{{item.name}}&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                </label>&nbsp;
-                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">Remove Major(s)</button>
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in majorsSelected">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm" ng-click="removeMajors()">Remove Major(s)</button>
+                  </div>
                 </form>
                 <p>{{majorsSelected}}</p>
               </div>
