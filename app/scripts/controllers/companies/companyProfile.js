@@ -6,34 +6,21 @@ var app = angular.module('uprmcmsApp');
 //$scope.aboutUs = aboutUs.aboutUsInfo;
 app.controller('CompanyCtrl', function($scope) {
 
-  $scope.tempCompanyInfo = [];
-
-
   var majors = [
     {
-      'majorCode': 'CCOM',
-      'nameEnglish': 'Computer Science',
-      'nameSpanish': 'Ciencias de Computos'
+      'majorCode': 'CCOM'
     },
     {
-      'majorCode': 'ICOM',
-      'nameEnglish': 'Computer Engineering',
-      'nameSpanish': 'Ingenieria en Computadoras'
+      'majorCode': 'ICOM'
     },
     {
-      'majorCode': 'INSO',
-      'nameEnglish': 'Software Engineering',
-      'nameSpanish': 'Ingenieria de Software'
+      'majorCode': 'INSO'
     },
     {
-      'majorCode': 'INME',
-      'nameEnglish': 'Mechanical Engineering',
-      'nameSpanish': 'Ingenieria Mecanica'
+      'majorCode': 'INME'
     },
     {
-      'majorCode': 'INEL',
-      'nameEnglish': 'Electrical Engineering',
-      'nameSpanish': 'Ingenieria Electrica'
+      'majorCode': 'INEL'
     }
   ];
 
@@ -50,9 +37,7 @@ app.controller('CompanyCtrl', function($scope) {
 
     ],
     'interestedMajors':[
-      {
 
-      }
     ],
     'promotionalMaterial':[
       {
@@ -71,6 +56,10 @@ app.controller('CompanyCtrl', function($scope) {
     ]
   };
 
+  //For Edit Company Description Modal------------------------------------------------------------
+
+  $scope.tempCompanyInfo = [];
+
   $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus });
 
   $scope.tempCompanyInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus });
@@ -79,6 +68,65 @@ app.controller('CompanyCtrl', function($scope) {
     if (isValid){
       $scope.companyProfile.generalInfo[0].websiteUrl = $scope.tempCompanyInfo[0].websiteUrl;
       $scope.companyProfile.generalInfo[0].companyDescription = $scope.tempCompanyInfo[0].companyDescription;
+    }
+  };
+
+  $scope.closeCompanyDescriptionModal = function(){
+     $scope.tempCompanyInfo[0].websiteUrl = $scope.companyProfile.generalInfo[0].websiteUrl;
+     $scope.tempCompanyInfo[0].companyDescription = $scope.companyProfile.generalInfo[0].companyDescription;
+  };
+
+  //For Edit Interested Majors Modal------------------------------------------------------------
+
+  $scope.majorList = [];
+
+  for (var i = 0; i < majors.length; i++) {
+    $scope.majorList.push({name: majors[i].majorCode, value: false});
+  }
+
+  $scope.addMajors = function() {
+    angular.forEach($scope.majorList, function (item) {
+      if (item.value === true && (contains(item.name, $scope.companyProfile.interestedMajors) === false)){
+        $scope.companyProfile.interestedMajors.push({name: item.name, value: false});
+      }
+    });
+    updateLists($scope.majorList, $scope.companyProfile.interestedMajors);
+  };
+
+  $scope.removeMajors = function() {
+    angular.forEach($scope.companyProfile.interestedMajors, function (item) {
+      if (item.value === true && (contains(item.name, $scope.majorList) === false)){
+        $scope.majorList.push({name: item.name, value: false});
+      }
+    });
+    updateLists($scope.companyProfile.interestedMajors, $scope.majorList);
+  };
+
+  var updateLists = function(list1, list2) {
+    var tempList = [];
+    angular.forEach(list1, function(item) {
+      if(!contains(item.name, list2)){
+        tempList.push(item);
+      }
+    });
+    clearList(list1);
+    angular.forEach(tempList, function(item) {
+      list1.push(item);
+    });
+  };
+
+  var contains = function(element, list){
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name === element){
+        return true;
+      }
+    }
+    return false;
+  };
+
+  var clearList = function(list) {
+    while(list.length > 0){
+      list.pop();
     }
   };
 

@@ -150,40 +150,10 @@
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button class="btn btn-theme btn-xs" ng-repeat="item in companyProfile.interestedMajors" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.name}}</b></button>
                         </div>
                         <div class="col-md-12" style="text-align: center">
-                          <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-bottom:5px">Add Major</button>
-                          <button type="button" class="btn btn-theme btn-sm" style="margin-left:10px; margin-bottom:5px">Delete Major</button>
+                          <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
                         <h3 class="title">Promotional Material</h3>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
@@ -894,11 +864,11 @@
 </div>
 
 <div id="editCompanyDescriptionModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal">&times;</button>
         <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
       </div>
       <div class="modal-body">
@@ -929,8 +899,65 @@
         </div>
         <div class="row">
           <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-theme btn-sm" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+            <button class="btn btn-theme btn-sm" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editInterestedMajorsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="displayMajors">
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in majorList">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm " ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="selectedMajors">
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in companyProfile.interestedMajors">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm" ng-click="removeMajors()">Remove Major(s)</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -940,6 +967,7 @@
     </div>
   </div>
 </div>
+
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
 <footer class="footer">
