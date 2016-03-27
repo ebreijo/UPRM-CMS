@@ -108,10 +108,10 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title"> <img src="../../../images/company.png" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>IBM</big></b></h1>
-        <span class="label label-success" style="padding:5px; margin-left:5px"><big>Active</big></span>
-        <button type="button" class="btn btn-theme btn-sm  pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Edit Logo</button>
-        <button type="button" class="btn btn-theme btn-sm  pull-right" style="vertical-align: text-bottom; margin-right:5px; margin-top:5px">No se puedeEdit Company Name</button>
+        <h1 class="heading-title"> <img src="../../../images/company.png" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{companyProfile.generalInfo[0].name}}</big></b></h1>
+        <span class="label label-success" style="padding:5px; margin-left:5px"><big>{{companyProfile.generalInfo[0].companyStatus}}</big></span>
+        <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
+        <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
       <div class="page-content">
         <div class="row page-row">
@@ -140,9 +140,13 @@
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
                         <h3 class="title">Company Description<br></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.&nbsp;<br></p>
+                        <p>{{companyProfile.generalInfo[0].companyDescription}}</p>
+                        <div class ="row text-center" style="margin-bottom:15px">
+                          <span>Website: </span>
+                          <a href="{{companyProfile.generalInfo[0].websiteUrl}}">{{companyProfile.generalInfo[0].websiteUrl}}</a>
+                        </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button type="button" class="btn btn-theme btn-sm">Edit Description</button>
+                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
@@ -887,6 +891,54 @@
     <!--//page-->
   </div>
   <!--//content-->
+</div>
+
+<div id="editCompanyDescriptionModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form name="editCompanyDescriptionForm">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
+                <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
+                <textarea ng-model="tempCompanyInfo[0].companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <i style="margin-top:15px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$valid"></i>
+                <i style="margin-top:15px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+              </div>
+              <label><h5 class="title text-highlight"><b>Company Website:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
+                <input ng-model="tempCompanyInfo[0].websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="text-align: center">
+            <button type="submit" class="btn btn-theme btn-sm" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
