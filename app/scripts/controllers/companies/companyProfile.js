@@ -15,7 +15,6 @@ app.controller('CompanyCtrl', function($scope) {
 
 
   $scope.submitForm = function() {
-    console.log('HOLAAAAA');
     // check to make sure the form is completely valid
     if (isValid) {
 

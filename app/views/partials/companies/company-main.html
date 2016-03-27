@@ -1,35 +1,4 @@
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<head>
-  <title>Responsive website template for education</title>
-  <!-- Meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="shortcut icon" href="../../../favicon.ico">
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-  <!-- Plugins CSS -->
-  <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
-  <link rel="stylesheet" href="assets/plugins/pretty-photo/css/prettyPhoto.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <!-- Theme CSS -->
-  <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
-<body class="home-page">
+
 <div class="">
   <!-- ******HEADER****** -->
   <header class="header">
@@ -45,23 +14,23 @@
       </div>
     </div>
     <div class="header-main container">
-      <h1 class="logo col-md-4 col-sm-4"><a href="index.html">
+      <h1 class="logo col-md-4 col-sm-4"><a ui-sref="company">
         <img id="logo" src="../../../images/logo.png" alt="Logo">
       </a></h1>
       <!--//logo-->
       <div class="info col-md-8 col-sm-8">
         <ul class="menu-top navbar-right hidden-xs">
           <li class="divider">
-            <a href="index.html">Home</a>
+            <a ui-sref="company">Home</a>
           </li>
           <li>
-            <a href="about.html">My Profile</a>
+            <a ui-sref="company">My Profile</a>
           </li>
         </ul>
         <!--//menu-top-->
         <br />
         <div class="contact pull-right">
-          <p class="phone"><a href="#">Welcome Recruiter!</a></p>
+          <p class="phone"><a>Welcome Recruiter!</a></p>
           <p class="email"><a href="#"><i class="fa fa-sign-out"></i></a><a href="#">Sign Out</a></p>
         </div>
         <!--//contact-->
@@ -140,9 +109,9 @@
     <div class="page-wrapper">
       <header class="page-heading clearfix">
         <h1 class="heading-title"> <img src="../../../images/company.png" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>IBM</big></b></h1>
-        <span style="margin-left:5px"><button type="button" class="btn btn-success btn-xs">Active</button></span>
+        <span class="label label-success" style="padding:5px; margin-left:5px"><big>Active</big></span>
         <button type="button" class="btn btn-theme btn-sm  pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Edit Logo</button>
-        <button type="button" class="btn btn-theme btn-sm  pull-right" style="vertical-align: text-bottom; margin-right:5px; margin-top:5px">Edit Company Name</button>
+        <button type="button" class="btn btn-theme btn-sm  pull-right" style="vertical-align: text-bottom; margin-right:5px; margin-top:5px">No se puedeEdit Company Name</button>
       </header>
       <div class="page-content">
         <div class="row page-row">
@@ -753,7 +722,7 @@
                     <article class="contact-form col-md-5" style="padding-top:13px">
                       <form class="form-inline" role="form" action="" method="post">
                         <div class="input-group">
-                                                            <span><label for="text">Type of Event
+                                                            <span><label>Type of Event
                                                               <span class="required">*</span>&nbsp:&nbsp
                                                             </label></span>
                           <div class="form-group" style="text-align:center">
@@ -778,7 +747,7 @@
                                                             </label></span>
                         </div>
                       </form>
-                      <input id="name" type="text" class="form-control" placeholder="Enter description for other event">
+                      <input type="text" class="form-control" placeholder="Enter description for other event">
                     </article>
                     <div class="col-md-1">
                     </div>
@@ -792,7 +761,7 @@
                                                             <span><label class="control-label">Date&nbsp;
                                                               <span class="required">*</span> :
                                                             </label></span>
-                          <input id="name" type="text" class="form-control" placeholder="Enter the Date of Event">
+                          <input type="text" class="form-control" placeholder="Enter the Date of Event">
                         </div>
                       </form>
                     </article>
@@ -802,7 +771,7 @@
                                                             <span><label class="control-label">Hour
                                                               <span class="required">*</span> :
                                                             </label></span>
-                          <input id="name" type="text" class="form-control" placeholder="Enter the Hour of Event">
+                          <input type="text" class="form-control" placeholder="Enter the Hour of Event">
                         </div>
                       </form>
                     </article>
@@ -816,15 +785,15 @@
                       <form class="form-inline" role="form" action="" method="post">
                         <div class="input-group">
                           <span><label class="control-label">Expected Capacity (Optional) :</label></span>
-                          <input id="name" type="text" class="form-control" placeholder="Enter the Expected Capacity of Persons">
+                          <input type="text" class="form-control" placeholder="Enter the Expected Capacity of Persons">
                         </div>
                       </form>
                     </article>
                     <div class="col-md-5">
                       <div class="form-group message">
-                        <label for="message">Additional Information (Optional) :
+                        <label>Additional Information (Optional) :
                         </label>
-                        <textarea id="message" class="form-control" rows="6" placeholder="Enter additional information here..."></textarea>
+                        <textarea class="form-control" rows="6" placeholder="Enter additional information here..."></textarea>
                       </div>
                     </div>
                     <div class="col-md-1">
