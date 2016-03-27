@@ -8,8 +8,8 @@ app.controller('CompanyCtrl', function($scope) {
 
   $scope.tempCompanyInfo = [];
 
-
-  var majors = [
+  var majors = null;
+  majors = [
     {
       'majorCode': 'CCOM',
       'nameEnglish': 'Computer Science',
@@ -38,11 +38,11 @@ app.controller('CompanyCtrl', function($scope) {
   ];
 
   var companyInfo = {
-    name: "IBM",
-    websiteUrl: "http://www.ibm.com/us-en/",
+    name: 'IBM',
+    websiteUrl: 'http://www.ibm.com/us-en/',
     logoPath: null,
-    companyDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.",
-    companyStatus: "Active"
+    companyDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.',
+    companyStatus: 'Active'
   };
 
   $scope.companyProfile = {

@@ -75,6 +75,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     }).state('adminAboutUs', {
       url: '/adminAboutUS',
       templateUrl: 'partials/administrators/about.html'
+    }).state('adminCareerFair', {
+      url: '/adminJobFair',
+      templateUrl: 'partials/administrators/career-fair.html'
     })
     // Student Views
     .state('careerFair', {
