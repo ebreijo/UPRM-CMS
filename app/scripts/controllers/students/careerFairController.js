@@ -192,4 +192,6 @@ app.controller('CareerFairCtrl', function($scope) {
     //return user.User.Stats[0].active === '1';
   };
 
+  
+
 });
