@@ -103,9 +103,9 @@
                                             ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive'}">{{company.companyStatus | capitalize}}</span>
                                   </td>
                                   <td>
-                                    <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                      Change
-                                    </button>
+                                    <div class="col-level col-md-2" style="padding-top:2px">
+                                      <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editCompanyStatusModal" ng-click="editCompanyStatus(company)">Change</button>
+                                    </div>
                                   </td>
                                 </tr>
                                 </tbody>
@@ -118,6 +118,37 @@
                     </div>
                   </div>
                   <!--//row-->
+                </div>
+                <div id="editCompanyStatusModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title pull-left" style="color:black">Edit Company Status</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" name="modalCompanyStatusForm" ng-submit="submitCompanyStatusEdit(modalCompanyStatusForm)" novalidate>
+                          <h5>Company: {{tempCompany.name}}</h5>
+                          <div class="input-group text-center">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+                            <select class="sort-options form-control" ng-model="tempCompany.companyStatus" name="modalCompanyStatus" style="border-radius:0; -webkit-appearance: none;">
+                              <option value="active">Active</option>
+                              <option value="inactive">Inactive</option>
+                            </select>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+                              <button type="submit" class="btn btn-theme">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="tab-pane" id="tab2">
                   <div class="row" style="padding-top:15px">
@@ -155,7 +186,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="adminAccess in adminAccessList">
+                            <tr ng-repeat="adminAccess in adminAccessList | orderBy: 'email'">
                               <td>
                                 <p>{{adminAccess.email}}</p>
                               </td>
@@ -164,7 +195,7 @@
                               </td>
                               <td>
                                 <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#editAdminAccessModal" ng-click="editAdminAccess(adminAccess)">Edit</button>
+                                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editAdminAccessModal" ng-if="adminAccess.email !== 'placement@uprm.edu'" ng-click="editAdminAccess(adminAccess)">Edit</button>
                                 </div>
                               </td>
                             </tr>
@@ -203,7 +234,7 @@
                             </select>
                           </div>
                           <div class="row">
-                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
                               <button type="submit" class="btn btn-theme" ng-disabled="(modalAdminAccessForm.modalEmail.$invalid)">Submit</button>
                             </div>
                           </div>
@@ -787,14 +818,13 @@
   <!--//content-->
 </div>
 <!--//wrapper-->
-
 <div id="messageModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- dialog body -->
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title" style="color:black">Warning</h3>
+        <h3 class="modal-title" style="color:black">{{title}}</h3>
         <br/>
         {{message}}
       </div>
@@ -805,7 +835,6 @@
     </div>
   </div>
 </div>
-
 <!-- ******FOOTER****** -->
 <div ng-include src="'views/partials/footer.html'"></div>
 

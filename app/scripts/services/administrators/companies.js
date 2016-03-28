@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function() {
+app.factory('Companies', function(_) {
   var obj = {
     companies: [
       {
@@ -32,11 +32,21 @@ app.factory('Companies', function() {
     ]
   };
 
+  obj.getAllCompanies = function() {
+    return this.companies;
+  };
+
   // TODO: Make a request to get a specific company given the company name
   obj.getCompany = function(companyName) {
     return obj.companies.filter(function(company) {
       return company.name === companyName;
     })[0];
+  };
+
+  // TODO: Make a request to update the status of a given company
+  obj.updateCompanyStatus = function(company) {
+    var element = _.find(this.companies, { name: company.name});
+    _.merge(element, company);
   };
 
   return obj;

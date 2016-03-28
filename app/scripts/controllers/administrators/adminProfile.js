@@ -4,13 +4,32 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patterns, _) {
 
-  $scope.companies = Companies.companies;
-
-  $scope.compStatusSelection = 'active';
-
   $scope.patternEmail = Patterns.user.email;
 
-  // Admins Tab
+  /**
+   * Companies Tab
+   */
+  $scope.companies = Companies.companies;
+  $scope.compStatusSelection = 'active';
+
+  $scope.tempCompany = {};
+
+  $scope.editCompanyStatus = function(company) {
+    $scope.tempCompany.name = company.name;
+    $scope.tempCompany.companyStatus = company.companyStatus;
+  };
+
+  $scope.submitCompanyStatusEdit = function(form) {
+    if (form.$valid) {
+      Companies.updateCompanyStatus($scope.tempCompany);
+      $('#editCompanyStatusModal').modal('hide');
+    }
+  };
+
+
+  /**
+   * Admins Tab
+   */
   $scope.adminAccessList = AdminAccess.adminAccessList;
   $scope.newAdminAccess = {};
   $scope.tempAdminAccess = {};
@@ -19,13 +38,15 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patt
     if (form.$valid) {
       var element = _.find($scope.adminAccessList, { email: $scope.newAdminAccess.email});
 
-      if (element) {
-        $('#messageModal').modal('toggle');
+      if (element) { // If admin already exists, show a Warning
+        $scope.title = 'Warning';
         $scope.message = 'Admin already exists';
+        $('#messageModal').modal('toggle');
       } else {
         $scope.newAdminAccess.isRoot = false;
         $scope.newAdminAccess.adminAccountStatus = 'pending';
-        $scope.adminAccessList.push($scope.newAdminAccess);
+        AdminAccess.giveAdminAccess($scope.newAdminAccess);
+        $scope.newAdminAccess = null;
       }
     }
   };
@@ -34,6 +55,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patt
     $scope.tempAdminAccess.email = adminAccess.email;
     $scope.tempAdminAccess.currentEmail = adminAccess.email;
     $scope.tempAdminAccess.adminAccountStatus = adminAccess.adminAccountStatus;
+    $scope.tempAdminAccess.adminTempAccountStatus = adminAccess.adminAccountStatus;
   };
 
   $scope.$watch('tempAdminAccess.email', function handleEmailChange(newEmail) {
@@ -41,11 +63,22 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patt
   });
 
   $scope.submitAdminAccessEdit = function(form) {
-    if (form.$valid) {
-      $scope.tempAdminAccess.isRoot = false;
-      var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.currentEmail});
-      _.merge(element, $scope.tempAdminAccess);
-      $('#editAdminAccessModal').modal('hide');
+    if ($scope.tempAdminAccess.adminTempAccountStatus === 'pending' && $scope.tempAdminAccess.adminAccountStatus === 'active') {
+      $scope.title = 'Warning';
+      $scope.message = 'Cannot activate the Administrator, it is still pending to register';
+      $('#messageModal').modal('toggle');
+    } else if (form.$valid) {
+      var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.email});
+
+      if (element) { // If admin already exists, show a Warning
+        $scope.title = 'Warning';
+        $scope.message = 'Admin already exists';
+        $('#messageModal').modal('toggle');
+      } else {
+        $scope.tempAdminAccess.isRoot = false;
+        AdminAccess.updateAdminAccess($scope.tempAdminAccess);
+        $('#editAdminAccessModal').modal('hide');
+      }
     }
   };
 
