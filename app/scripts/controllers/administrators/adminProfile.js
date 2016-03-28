@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Patterns, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Patterns, $filter, _) {
 
   $scope.patternEmail = Patterns.user.email;
 
@@ -15,8 +15,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   $scope.tempCompany = {};
 
   $scope.editCompanyStatus = function(company) {
-    $scope.tempCompany.name = company.name;
-    $scope.tempCompany.companyStatus = company.companyStatus;
+    $scope.tempCompany = angular.copy(company);
   };
 
   $scope.submitCompanyStatusEdit = function(form) {
@@ -52,15 +51,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   };
 
   $scope.editAdminAccess = function(adminAccess) {
-    $scope.tempAdminAccess.email = adminAccess.email;
+    $scope.tempAdminAccess = angular.copy(adminAccess);
     $scope.tempAdminAccess.currentEmail = adminAccess.email;
-    $scope.tempAdminAccess.adminAccountStatus = adminAccess.adminAccountStatus;
     $scope.tempAdminAccess.adminTempAccountStatus = adminAccess.adminAccountStatus;
   };
-
-  $scope.$watch('tempAdminAccess.email', function handleEmailChange(newEmail) {
-    $scope.tempAdminAccess.email = newEmail;
-  });
 
   $scope.submitAdminAccessEdit = function(form) {
     if ($scope.tempAdminAccess.adminTempAccountStatus === 'pending' && $scope.tempAdminAccess.adminAccountStatus === 'active') {
@@ -68,17 +62,9 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       $scope.message = 'Cannot activate the Administrator, it is still pending to register';
       $('#messageModal').modal('toggle');
     } else if (form.$valid) {
-      var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.email});
-
-      if (element) { // If admin already exists, show a Warning
-        $scope.title = 'Warning';
-        $scope.message = 'Admin already exists';
-        $('#messageModal').modal('toggle');
-      } else {
-        $scope.tempAdminAccess.isRoot = false;
-        AdminAccess.updateAdminAccess($scope.tempAdminAccess);
-        $('#editAdminAccessModal').modal('hide');
-      }
+      $scope.tempAdminAccess.isRoot = false;
+      AdminAccess.updateAdminAccess($scope.tempAdminAccess);
+      $('#editAdminAccessModal').modal('hide');
     }
   };
 
@@ -88,11 +74,38 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   $scope.majors = Majors.majors;
 
   $scope.major = {};
+  $scope.tempMajor = {};
 
   $scope.submitAddMajor = function(form) {
     if(form.$valid) {
+      $scope.major.majorCode = $scope.major.majorCode.toUpperCase();
       Majors.createNewMajor($scope.major);
       $scope.major = null;
+    }
+  };
+
+  $scope.editMajor = function(major) {
+    $scope.tempMajor = angular.copy(major);
+    $scope.tempMajor.currentMajorCode = major.majorCode;
+  };
+
+  $scope.submitMajorEdit = function(form) {
+    if(form.$valid) {
+      $scope.tempMajor.majorCode = $scope.tempMajor.majorCode.toUpperCase();
+      Majors.editMajor($scope.tempMajor);
+      $('#editMajorModal').modal('hide');
+    }
+  };
+
+  $scope.deleteMajor = function(major) {
+    $scope.tempMajor = angular.copy(major);
+  };
+
+  $scope.submitMajorDelete = function(form) {
+    if(form.$valid) {
+      console.log('hola');
+      Majors.deleteMajor($scope.tempMajor);
+      $('#deleteMajorModal').modal('hide');
     }
   };
 

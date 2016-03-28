@@ -103,7 +103,7 @@
                                             ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive'}">{{company.companyStatus | capitalize}}</span>
                                   </td>
                                   <td>
-                                    <div class="col-level col-md-2" style="padding-top:2px">
+                                    <div class="col-level col-md-2">
                                       <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editCompanyStatusModal" ng-click="editCompanyStatus(company)">Change</button>
                                     </div>
                                   </td>
@@ -163,9 +163,12 @@
                           <span>
                             <label class="control-label">Admin Email: </label>
                           </span>
-                          <input type="email" ng-model="newAdminAccess.email" class="form-control" placeholder="Enter the Admin Email" required>
+                          <input type="email" ng-model="newAdminAccess.email" name="adminAccessEmail" class="form-control" ng-maxlength="255" placeholder="Enter the Admin Email" required>
                         </div>
                         <button type="submit" class="btn btn-theme btn-sm">Add Admin</button>
+                        <div>
+                          <p ng-show="giveAdminAccessForm.adminAccessEmail.$error.maxlength" style="color:#843534" class="help-block"><b>Email must be less than 255 characters long</b></p>
+                        </div>
                       </form>
                     </article>
                   </div>
@@ -194,7 +197,7 @@
                                 <span class="label label-success" ng-class="{'label-success': adminAccess.adminAccountStatus === 'active', 'label-warning': adminAccess.adminAccountStatus === 'pending', 'label-danger': adminAccess.adminAccountStatus === 'inactive'}">{{adminAccess.adminAccountStatus | capitalize}}</span>
                               </td>
                               <td>
-                                <div class="col-level col-md-2" style="padding-top:2px">
+                                <div class="col-level col-md-2">
                                   <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editAdminAccessModal" ng-if="adminAccess.email !== 'placement@uprm.edu'" ng-click="editAdminAccess(adminAccess)">Edit</button>
                                 </div>
                               </td>
@@ -220,7 +223,7 @@
                         <form class="form-horizontal" name="modalAdminAccessForm" ng-submit="submitAdminAccessEdit(modalAdminAccessForm)" novalidate>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine }">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="tempAdminAccess.email" name="modalEmail" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="patternEmail"/>
+                            <input ng-model="tempAdminAccess.email" name="modalEmail" type="email" class="form-control" ng-maxlength="255" placeholder="Email" style="border-radius:0;" required ng-pattern="patternEmail"/>
                           </div>
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
@@ -256,19 +259,22 @@
                         <div class="row" style="margin-bottom:15px">
                           <form class="form-inline" role="form" name="addMajorForm" ng-submit="submitAddMajor(addMajorForm)">
                             <article class="contact-form col-md-4">
-                                <div class="input-group">
-                                  <span>
-                                    <label class="control-label">Major Code&nbsp;<span class="required">*</span> :</label>
-                                  </span>
-                                  <input type="text" class="form-control" ng-model="major.majorCode" placeholder="Enter the Major Code" required>
-                                </div>
+                              <div class="input-group">
+                                <span>
+                                  <label class="control-label">Major Code&nbsp;<span class="required">*</span> :</label>
+                                </span>
+                                <input type="text" name="majorCode" class="form-control" ng-model="major.majorCode" ng-maxlength="4" placeholder="Enter the Major Code" required>
+                              </div>
+                              <div>
+                                <p ng-show="addMajorForm.majorCode.$error.maxlength" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
+                              </div>
                             </article>
                             <article class="contact-form col-md-4">
                               <div class="input-group">
                                 <span>
                                   <label class="control-label">Major Name in English&nbsp;<span class="required">*</span> :</label>
                                 </span>
-                                <input type="text" class="form-control" ng-model="major.nameEnglish" placeholder="Enter the Major Name in English" required>
+                                <input type="text" name="nameEnglish" class="form-control" ng-model="major.nameEnglish" placeholder="Enter the Major Name in English" required>
                               </div>
                             </article>
                             <article class="contact-form col-md-4">
@@ -276,7 +282,7 @@
                                 <span>
                                   <label class="control-label">Major Name in Spanish&nbsp;<span class="required">*</span> :</label>
                                 </span>
-                                <input type="text" class="form-control" ng-model="major.nameSpanish" placeholder="Enter the Major Name in Spanish" required>
+                                <input type="text" name="nameSpanish" class="form-control" ng-model="major.nameSpanish" placeholder="Enter the Major Name in Spanish" required>
                               </div>
                             </article>
                             <div class="col-md-12 text-center" style="margin-top:20px">
@@ -304,14 +310,14 @@
                                 <td>{{major.nameEnglish}}</td>
                                 <td>{{major.nameSpanish}}</td>
                                 <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Edit
-                                  </button>
+                                  <div class="col-level col-md-2">
+                                    <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editMajorModal" ng-click="editMajor(major)">Edit</button>
+                                  </div>
                                 </td>
                                 <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Delete
-                                  </button>
+                                  <div class="col-level col-md-2">
+                                    <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#deleteMajorModal" ng-click="deleteMajor(major)">Delete</button>
+                                  </div>
                                 </td>
                               </tr>
                               </tbody>
@@ -320,13 +326,77 @@
                           </div>
                         </div>
                         <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//pagination-->
                       </div>
                       <div class="row"></div>
                     </div>
+                  </div>
+                </div>
+                <div id="editMajorModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title pull-left" style="color:black">Edit Major</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" name="modalEditMajorForm" ng-submit="submitMajorEdit(modalEditMajorForm)" novalidate>
+                          <div class="input-group text-center" style="margin-bottom: 10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-cog"></i></span>
+                            <input ng-model="tempMajor.majorCode" name="modalMajorCode" type="text" class="form-control" ng-maxlength="4" placeholder="Major Code" style="border-radius:0;" required/>
+                          </div>
+                          <div>
+                            <p ng-show="modalEditMajorForm.modalMajorCode.$error.maxlength" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
+                            <p ng-show="modalEditMajorForm.modalMajorCode.$error.required" style="color:#843534" class="help-block"><b>Major Code is required</b></p>
+                          </div>
+                          <div class="input-group text-center" style="margin-bottom: 10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input ng-model="tempMajor.nameEnglish" name="modalNameEnglish" type="text" class="form-control" ng-maxlength="63" placeholder="Name in English" style="border-radius:0;" required/>
+                          </div>
+                          <div>
+                            <p ng-show="modalEditMajorForm.modalNameEnglish.$error.maxlength" style="color:#843534" class="help-block"><b>Name in English must be less than 63 characters long</b></p>
+                            <p ng-show="modalEditMajorForm.modalNameEnglish.$error.required" style="color:#843534" class="help-block"><b>Name in English is required</b></p>
+                          </div>
+                          <div class="input-group text-center" style="margin-bottom: 10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input ng-model="tempMajor.nameSpanish" name="modalNameSpanish" type="text" class="form-control" placeholder="Name in Spanish" style="border-radius:0;" required/>
+                          </div>
+                          <div>
+                            <p ng-show="modalEditMajorForm.modalNameSpanish.$error.maxlength" style="color:#843534" class="help-block"><b>Name in Spanish must be less than 63 characters long</b></p>
+                            <p ng-show="modalEditMajorForm.modalNameSpanish.$error.required" style="color:#843534" class="help-block"><b>Name in Spanish is required</b></p>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                              <button type="submit" class="btn btn-theme">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="deleteMajorModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalDeleteMajorForm" ng-submit="submitMajorDelete(modalDeleteMajorForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black">Confirm</h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to delete {{tempMajor.majorCode}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab4">
