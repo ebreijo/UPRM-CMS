@@ -39,7 +39,7 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
                   <div class="page-content">
-                    <div class="row page-row">
+                    <div class="row">
                       <article class="welcome" style="padding-top:15px">
                         <div class="col-md-12" style="padding-bottom:5px">
                           <h3 class="title">Company List</h3>
@@ -82,7 +82,7 @@
                           <div class="col-md-2">
                           </div>
                         </div>
-                        <article class="contact-form col-md-12  page-row">
+                        <article class="contact-form col-md-12">
 
                           <div class="course-item-header">
                             <div class="table-responsive">
@@ -173,7 +173,7 @@
                     <div class="col-title col-md-12 col-sm-12">
                       <h3 class="title" style="margin-bottom:25px">Admin List</h3>
                     </div>
-                    <article class="contact-form col-md-12  page-row">
+                    <article class="contact-form col-md-12">
 
                       <div class="course-item-header">
                         <div class="table-responsive">
@@ -249,52 +249,44 @@
                 <div class="tab-pane" id="tab3">
                   <div class="row" style="margin-top:15px">
                     <!--//course-list-header-->
-                    <div class="course-item-header row-divider">
+                    <div class="course-item-header">
                       <div class="jobs-wrapper col-md-12">
                         <h3 class="title" style="margin-bottom:25px">Add New Major</h3>
 
                         <div class="row" style="margin-bottom:15px">
-                          <article class="contact-form col-md-4">
-                            <form class="form-inline" role="form" action="" method="post">
+                          <form class="form-inline" role="form" name="addMajorForm" ng-submit="submitAddMajor(addMajorForm)">
+                            <article class="contact-form col-md-4">
+                                <div class="input-group">
+                                  <span>
+                                    <label class="control-label">Major Code&nbsp;<span class="required">*</span> :</label>
+                                  </span>
+                                  <input type="text" class="form-control" ng-model="major.majorCode" placeholder="Enter the Major Code" required>
+                                </div>
+                            </article>
+                            <article class="contact-form col-md-4">
                               <div class="input-group">
-                                                              <span><label class="control-label">Major Code&nbsp;
-                                                                <span class="required">*</span> :
-                                                              </label></span>
-                                <input id="name" type="text" class="form-control" placeholder="Enter the Major Code">
+                                <span>
+                                  <label class="control-label">Major Name in English&nbsp;<span class="required">*</span> :</label>
+                                </span>
+                                <input type="text" class="form-control" ng-model="major.nameEnglish" placeholder="Enter the Major Name in English" required>
                               </div>
-                            </form>
-                          </article>
-                          <article class="contact-form col-md-4">
-                            <form class="form-inline" role="form" action="" method="post">
+                            </article>
+                            <article class="contact-form col-md-4">
                               <div class="input-group">
-                                                              <span><label class="control-label">Major Name in English&nbsp;
-                                                                <span class="required">*</span> :
-                                                              </label></span>
-                                <input id="name" type="text" class="form-control"
-                                       placeholder="Enter the Major Name in English">
+                                <span>
+                                  <label class="control-label">Major Name in Spanish&nbsp;<span class="required">*</span> :</label>
+                                </span>
+                                <input type="text" class="form-control" ng-model="major.nameSpanish" placeholder="Enter the Major Name in Spanish" required>
                               </div>
-                            </form>
-                          </article>
-                          <article class="contact-form col-md-4">
-                            <form class="form-inline" role="form" action="" method="post">
-                              <div class="input-group">
-                                                              <span><label class="control-label">Major Name in Spanish&nbsp;
-                                                                <span class="required">*</span> :
-                                                              </label></span>
-                                <input id="name" type="text" class="form-control"
-                                       placeholder="Enter the Major Name in Spanish">
-                              </div>
-                            </form>
-                          </article>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-center" style="margin-bottom:20px">
-                            <button type="button" class="btn btn-theme btn-sm">Add Major</button>
-                          </div>
+                            </article>
+                            <div class="col-md-12 text-center" style="margin-top:20px">
+                              <button type="submit" class="btn btn-theme btn-sm">Add Major</button>
+                            </div>
+                          </form>
                         </div>
                         <h3 class="title" style="margin-bottom:25px">Major List</h3>
 
-                        <div class="course-item-header row-divider">
+                        <div class="course-item-header">
                           <div class="table-responsive">
                             <table class="table table-bordered">
                               <thead>
@@ -307,56 +299,10 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                <td>ICOM</td>
-                                <td>Computer Engineering</td>
-                                <td>Ingenieria de Computadoras</td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Edit
-                                  </button>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Delete
-
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>INEL</td>
-                                <td>Electrical Engineering</td>
-                                <td>Ingenieria Electrica</td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Edit
-                                  </button>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Delete
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>INQU</td>
-                                <td>Chemical Engineering</td>
-                                <td>Ingenieria Quimica</td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Edit
-                                  </button>
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                    Delete
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>INME</td>
-                                <td>Mechanical Engineering</td>
-                                <td>Ingenieria Mecanica</td>
+                              <tr ng-repeat="major in majors | orderBy: 'majorCode'">
+                                <td>{{major.majorCode}}</td>
+                                <td>{{major.nameEnglish}}</td>
+                                <td>{{major.nameSpanish}}</td>
                                 <td>
                                   <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
                                     Edit

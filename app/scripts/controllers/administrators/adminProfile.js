@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patterns, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Patterns, _) {
 
   $scope.patternEmail = Patterns.user.email;
 
@@ -79,6 +79,20 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Patt
         AdminAccess.updateAdminAccess($scope.tempAdminAccess);
         $('#editAdminAccessModal').modal('hide');
       }
+    }
+  };
+
+  /**
+   * Majors Tab
+   */
+  $scope.majors = Majors.majors;
+
+  $scope.major = {};
+
+  $scope.submitAddMajor = function(form) {
+    if(form.$valid) {
+      Majors.createNewMajor($scope.major);
+      $scope.major = null;
     }
   };
 
