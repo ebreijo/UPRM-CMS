@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('aboutUs', function(Restangular) {
+app.factory('AboutUs', function(Restangular) {
   var obj = {
     aboutUsInfo: []
   };
