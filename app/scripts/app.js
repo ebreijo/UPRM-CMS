@@ -13,6 +13,8 @@ var app = angular.module('uprmcmsApp', [
   'LocalStorageModule'
 ]);
 
+app.constant('_', window._);
+
 app.config(['localStorageServiceProvider', function(localStorageServiceProvider){
   localStorageServiceProvider.setPrefix('uprmcmsApp');
 }]);
