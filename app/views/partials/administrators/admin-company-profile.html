@@ -1,115 +1,16 @@
-
 <div class="">
   <!-- ******HEADER****** -->
-  <header class="header">
-    <!--//to-bar-->
-    <div class="top-bar">
-      <div class="container">
-        <ul class="social-icons col-md-6 col-sm-6 col-xs-12 hidden-xs" style="color:#1E8A0D">
-          <li>
-          </li>
-        </ul>
-        <!-- Barrita de arriba-->
-        <!--//social-icons-->
-      </div>
-    </div>
-    <div class="header-main container">
-      <h1 class="logo col-md-4 col-sm-4"><a ui-sref="company">
-        <img id="logo" src="../../../images/logo.png" alt="Logo">
-      </a></h1>
-      <!--//logo-->
-      <div class="info col-md-8 col-sm-8">
-        <ul class="menu-top navbar-right hidden-xs">
-          <li class="divider">
-            <a ui-sref="company">Home</a>
-          </li>
-          <li>
-            <a ui-sref="company">My Profile</a>
-          </li>
-        </ul>
-        <!--//menu-top-->
-        <br />
-        <div class="contact pull-right">
-          <p class="phone"><a>Welcome Recruiter!</a></p>
-          <p class="email"><a href="#"><i class="fa fa-sign-out"></i></a><a href="#">Sign Out</a></p>
-        </div>
-        <!--//contact-->
-      </div>
-      <!--//info-->
-    </div>
-    <!--//header-main-->
-  </header>
+  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
   <!--//header-->
   <!-- ******NAV****** -->
-  <nav class="main-nav" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <!--//nav-toggle-->
-      </div>
-      <!--//navbar-header-->
-      <div class="navbar-collapse collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active nav-item">
-            <a ui-sref="company">Profile</a>
-          </li>
-          <li class="active nav-item">
-          </li>
-          <li class="nav-item">
-            <a href="company-list.html">Student Catalogue</a>
-          </li>
-          <li class="nav-item">
-            <a ui-sref="calendar">Calendar</a>
-          </li>
-          <!--//dropdown-->
-          <li class="nav-item dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Documents <i class="fa fa-angle-down"></i></a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="typography.html">Job Fair Dress Code</a>
-              </li>
-              <li>
-                <a href="tables.html">Resume Template</a>
-              </li>
-              <li>
-                <a href="buttons.html">8th Job Fair</a>
-              </li>
-              <li>
-                <a href="components.html">Interview Tips</a>
-              </li>
-            </ul>
-          </li>
-          <!--//dropdown-->
-          <li class="nav-item">
-            <a ui-sref="aboutUs">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a href="../calendar.html">Settings</a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="nav-item">
-            <a href="#">Sign Out</a>
-          </li>
-        </ul>
-        <!--//nav-->
-      </div>
-      <!--//navabr-collapse-->
-    </div>
-    <!--//container-->
-  </nav>
+  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
   <!--//main-nav-->
   <!-- ******CONTENT****** -->
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title"> <img src="../../../images/company.png" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{companyProfile.generalInfo[0].name}}</big></b></h1>
-        <span class="label label-success" style="padding:5px; margin-left:5px"><big>{{companyProfile.generalInfo[0].companyStatus}}</big></span>
+        <h1 class="heading-title"> <img ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
+        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
         <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
@@ -128,10 +29,7 @@
                   <a href="#tab3" data-toggle="tab">Job Offers</a>
                 </li>
                 <li>
-                  <a href="#tab4" data-toggle="tab">Campus Services</a>
-                </li>
-                <li>
-                  <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">3</span></a>
+                  <a href="#tab4" data-toggle="tab">Requests Status <span class="badge badge-theme">3</span></a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -140,20 +38,50 @@
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
                         <h3 class="title">Company Description<br></h3>
-                        <p>{{companyProfile.generalInfo[0].companyDescription}}</p>
+                        <p>{{company.companyDescription}}</p>
                         <div class ="row text-center" style="margin-bottom:15px">
                           <span>Website: </span>
-                          <a href="{{companyProfile.generalInfo[0].websiteUrl}}">{{companyProfile.generalInfo[0].websiteUrl}}</a>
+                          <a href="{{company.websiteUrl}}">{{company.websiteUrl}}</a>
                         </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
                           <button data-toggle="modal" data-target="#editCompanyDescriptionModal" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
-                          <button class="btn btn-theme btn-xs" ng-repeat="item in companyProfile.interestedMajors" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.name}}</b></button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
                         </div>
                         <div class="col-md-12" style="text-align: center">
-                          <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
+                          <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-bottom:5px">Add Major</button>
+                          <button type="button" class="btn btn-theme btn-sm" style="margin-left:10px; margin-bottom:5px">Delete Major</button>
                         </div>
                         <h3 class="title">Promotional Material</h3>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
@@ -685,97 +613,6 @@
                 </div>
                 <div class="tab-pane" id="tab4">
                   <div class="row">
-                    <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
-                      <h3 class="title">Request on Campus Service</h3>
-                      <p>Please use this form for requesting any on campus service. One of our staff members will respond to you as quickly as possible.<br></p>
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5" style="padding-top:13px">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label>Type of Event
-                                                              <span class="required">*</span>&nbsp:&nbsp
-                                                            </label></span>
-                          <div class="form-group" style="text-align:center">
-                            <div class="sort">
-                              <select class="sort-options form-control">
-                                <option>&nbsp</option>
-                                <option>Info-session</option>
-                                <option>Workshop</option>
-                                <option>Interview</option>
-                                <option>Other</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </article>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label class="control-label">Other Description
-                                                              <span class="required">*</span> :
-                                                            </label></span>
-                        </div>
-                      </form>
-                      <input type="text" class="form-control" placeholder="Enter description for other event">
-                    </article>
-                    <div class="col-md-1">
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label class="control-label">Date&nbsp;
-                                                              <span class="required">*</span> :
-                                                            </label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Date of Event">
-                        </div>
-                      </form>
-                    </article>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label class="control-label">Hour
-                                                              <span class="required">*</span> :
-                                                            </label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Hour of Event">
-                        </div>
-                      </form>
-                    </article>
-                    <div class="col-md-1">
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                          <span><label class="control-label">Expected Capacity (Optional) :</label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Expected Capacity of Persons">
-                        </div>
-                      </form>
-                    </article>
-                    <div class="col-md-5">
-                      <div class="form-group message">
-                        <label>Additional Information (Optional) :
-                        </label>
-                        <textarea class="form-control" rows="6" placeholder="Enter additional information here..."></textarea>
-                      </div>
-                    </div>
-                    <div class="col-md-1">
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab5">
-                  <div class="row">
                     <div class="col-md-12" style="padding-bottom:5px">
                       <h3 class="title">Status of Company Requests</h3>
                     </div>
@@ -864,11 +701,11 @@
 </div>
 
 <div id="editCompanyDescriptionModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
       </div>
       <div class="modal-body">
@@ -899,65 +736,8 @@
         </div>
         <div class="row">
           <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-            <button class="btn btn-theme btn-sm" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="editInterestedMajorsModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-md">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <form name="displayMajors">
-                  <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="item in majorList">
-                      <label class="control-label">
-                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
-                      </label>
-                    </li>
-                  </ul>
-                  <div class="row text-center">
-                    <button type="button" class="btn btn-theme btn-sm " ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <form name="selectedMajors">
-                  <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="item in companyProfile.interestedMajors">
-                      <label class="control-label">
-                        <input type="checkbox" ng-model="item.value" name="major" value="item.value">&nbsp; {{item.name}}
-                      </label>
-                    </li>
-                  </ul>
-                  <div class="row text-center">
-                    <button type="button" class="btn btn-theme btn-sm" ng-click="removeMajors()">Remove Major(s)</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+            <button type="submit" class="btn btn-theme btn-sm" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
           </div>
         </div>
       </div>
@@ -967,25 +747,6 @@
     </div>
   </div>
 </div>
-
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
-<footer class="footer">
-  <!--//footer-content-->
-  <div class="bottom-bar">
-    <div class="container">
-      <div class="row">
-        <small class="copyright col-md-6 col-sm-12 col-xs-12">Copyright @ 2016 Webhunters | © Departamento de Colocaciones UPRM RUM</small>
-        <ul class="social pull-right col-md-6 col-sm-12 col-xs-12">
-          <li>
-            <a href="https://www.facebook.com/colocacionesrum"><i class="fa fa-facebook"></i></a>
-          </li>
-        </ul>
-        <!--//social-->
-      </div>
-      <!--//row-->
-    </div>
-    <!--//container-->
-  </div>
-  <!--//bottom-bar-->
-</footer>
+<div ng-include src="'views/partials/footer.html'"></div>

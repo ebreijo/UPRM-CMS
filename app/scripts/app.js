@@ -68,13 +68,27 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   // Administrator views
     .state('adminProfile', {
       url: '/adminProfile',
-      templateUrl: 'partials/administrators/admin-main.html'
+      templateUrl: 'partials/administrators/admin-main.html',
+      controller: 'AdminProfileCtrl'
     }).state('adminCalendar', {
       url: '/adminCalendar',
       templateUrl: 'partials/administrators/calendar.html'
     }).state('adminAboutUs', {
       url: '/adminAboutUS',
-      templateUrl: 'partials/administrators/about.html'
+      templateUrl: 'partials/administrators/admin-about.html'
+    }).state('adminCareerFair', {
+      url: '/adminJobFair',
+      templateUrl: 'partials/administrators/career-fair.html'
+    }).state('adminCompanyProfile', {
+      url: '/adminCompanyProfile/:companyName',
+      templateUrl: 'partials/administrators/admin-company-profile.html',
+      controller: 'AdminCompanyProfileCtrl',
+      resolve: {
+        adminCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
+          console.log($stateParams.companyName);
+          return Companies.getCompany($stateParams.companyName);
+        }]
+      }
     })
     // Student Views
     .state('careerFair', {
