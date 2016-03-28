@@ -4,6 +4,8 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('CareerFairCtrl', function($scope) {
 
+  $scope.checked = 'All';
+
   $scope.jobFairDates = {
     id: 1,
     headerEnglish: "8th Spring Job Fair",
@@ -28,6 +30,7 @@ app.controller('CareerFairCtrl', function($scope) {
     console.log($scope.checkBox.coop);
     console.log($scope.checkBox.partTime);
     console.log($scope.checkBox.fullTime);
+    console.log($scope.checked);
   };
 
   $scope.majors = [
@@ -187,9 +190,27 @@ app.controller('CareerFairCtrl', function($scope) {
   /**
    * Filter
    */
+  // TODO: Fix this Filter
   $scope.companyFilter = function(company) {
-    //return company.
-    //return user.User.Stats[0].active === "1";
+    if($scope.checked === 'All'){
+      return true;
+    } else {
+      return containsMajor(company.interestedMajors, $scope.checked);
+    }
+  };
+
+  var containsMajor = function(list, major) {
+    var tempMajor = major.replace(" ", "");
+    angular.forEach(list, function(item) {
+      if(item.majorCode === tempMajor) {
+        return true;
+      }
+    });
+    return false;
+  };
+
+  $scope.printChecked = function() {
+    console.log($scope.checked);
   };
 
 });

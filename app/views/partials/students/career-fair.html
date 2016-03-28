@@ -62,17 +62,21 @@
             <article class="contact-form col-md-3">
               <form class="form-inline" role="form" action="" method="post">
                 <div class="input-group">
-                                            <span><label for="text">Major&nbsp;:&nbsp;&nbsp;
-                                            </label></span>
+                  <span>
+                    <label for="text">
+                      Major&nbsp;:&nbsp;&nbsp;
+                  </label>
+                  </span>
                   <div class="form-group" style="text-align:center">
                     <div class="sort">
-                      <select class="sort-options form-control">
+                      <select class="sort-options form-control" ng-init="checked='All'" ng-model="checked" required ng-trim="true">
                         <!-- TODO: Add the functionality to "All" option -->
                         <option>All</option>
                         <option ng-repeat="major in majors" > {{ major.majorCode }} </option>
                       </select>
                     </div>
                   </div>
+
                 </div>
               </form>
             </article>
@@ -139,7 +143,7 @@
           </div>
         </div>
 
-        <div ng-repeat="company in jobFairCompanies">
+        <div ng-repeat="company in jobFairCompanies | filter:companyFilter">
 
           <div class="row page-row" style="margin-bottom:0px">
             <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
