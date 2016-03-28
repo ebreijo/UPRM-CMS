@@ -1,0 +1,156 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/students/student-header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/students/student-navbar.html'"></div>
+
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Job Fair</h1>
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a href="index.html">Home</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Job Fair</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row" style="color: #004D13;">
+          <h3 class="title text-center" style="margin: 2px"><b>{{generalInformation.headerEnglish}}</b></h3>
+          <div class="col-md-4" style="float: none; margin: 0 auto; padding:0">
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.locationEnglish}}</h4>
+            </div>
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.dateEnglish}}</h4>
+            </div>
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.time}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+          <div class="col-md-12 text-center" style="margin: 0">
+            <label class="control-label" style="margin: 0">
+              <span style="font-family: arial; color: #004D13;margin: 0"><strong><h6>What are you looking for?</h6></strong></span>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-9" style="float: none; margin: 0 auto; margin-top:0px">
+            <div class="col-md-1">
+            </div>
+            <article class="contact-form col-md-3">
+              <form class="form-inline" role="form" action="" method="post">
+                <div class="input-group">
+                                            <span><label>Major&nbsp;:&nbsp;&nbsp;
+                                            </label></span>
+                  <div class="form-group" style="text-align:center">
+                    <div class="sort">
+                      <select class="sort-options form-control" ng-model="majorSelected" ng-init="majorSelected='All'">
+                        <option >All</option>
+                        <option ng-repeat="item in majors">{{item.majorCode}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </article>
+            <article class="contact-form col-md-7 text-left" style="margin-top:6px">
+              <label style="margin-right:10px">
+                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Intership
+              </label>
+              <label style="margin-right:10px">
+                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;COOP
+              </label>
+              <label style="margin-right:10px">
+                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Part-Time
+              </label>
+              <label style="margin-right:10px">
+                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Full-Time
+              </label>
+            </article>
+            <div class="col-md-1">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-12" style="margin-top:10px">
+                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair (Deadline: September 11, 2016).
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><span class="label label-success">Apply Online</span> = Require the Students to Apply Online on their Website.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><span class="label label-info">Interviewing</span> = Will be Interviewing during the Weekend following the Job Fair.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        <div class="row text-center" style="margin-top:20px">
+          <div class="col-md-12">
+            <h3 class="title">Companies Attending:</h3>
+          </div>
+        </div>
+
+        <div class="row page-row" style="margin-bottom:0px" ng-repeat="item in jobFairCompanies">
+          <div class="jobs-wrapper col-md-9" ng-show="majorFilter(item.interestedMajors)" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+            <!--//panel-->
+            <div class="panel panel-theme page-row">
+              <div class="panel-heading">
+                <h3 class="panel-title"><b>{{item.companyName}}</b><span class="label label-info pull-right" style="margin:3px" ng-show="item.interviewsDuringWeekend">Interviewing</span><span class="label label-success pull-right" style="margin:3px" ng-show="item.mustFillOnline">Apply Online</span><span class="label label-danger pull-right" style="margin:3px" ng-show="item.collectingResumesBeforeJobFair">Collecting Resumes</span></h3>
+              </div>
+              <div class="panel-body" style="margin:0;padding:0">
+                <ul class="list-group" style="margin-bottom:1px">
+                  <li class="list-group-item">
+                    <strong>Link:</strong>
+                    <a href={{item.websiteApplication}}>{{item.websiteApplication}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Minimum GPA:</strong>&nbsp;{{item.minGpa}}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>Job Positions:</strong>&nbsp;
+                    {{ getLookingForString(item.lookingFor)}}
+                  </li>
+
+                  <li class="list-group-item">
+                    <strong>Majors:</strong>&nbsp;
+                    {{ getInterestedMajorsString(item.interestedMajors)}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!--//pagination-->
+          </div>
+          <!--//page-content-->
+        </div>
+
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>
