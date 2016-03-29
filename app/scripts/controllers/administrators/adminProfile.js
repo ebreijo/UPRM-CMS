@@ -9,8 +9,11 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Companies Tab
    */
-  $scope.companies = Companies.companies;
   $scope.compStatusSelection = 'active';
+  $scope.$watch('compStatusSelection', function (newValue) {
+    $scope.compStatusSelection = newValue;
+    $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+  });
 
   $scope.tempCompany = {};
 
@@ -106,6 +109,45 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       console.log('hola');
       Majors.deleteMajor($scope.tempMajor);
       $('#deleteMajorModal').modal('hide');
+    }
+  };
+
+  /**
+   * Company Registration Tab
+   */
+  $scope.pendingCompanies = Companies.getAllCompanies('pending');
+
+  $scope.acceptCompanyConfirm = function(company) {
+    $scope.tempCompany = angular.copy(company);
+  };
+
+  $scope.submitAcceptCompany = function (form) {
+    if (form.$valid) {
+      $scope.tempCompany.companyStatus = 'active';
+      Companies.updateCompanyStatus($scope.tempCompany);
+
+      // Remove element from the pending companies array once accepted
+      _.remove($scope.pendingCompanies, function(element) {
+        return element.name === $scope.tempCompany.name;
+      });
+      $('#acceptCompanyModal').modal('hide');
+    }
+  };
+
+  $scope.rejectCompanyConfirm = function(company) {
+    $scope.tempCompany = angular.copy(company);
+  };
+
+  $scope.submitRejectCompany = function (form) {
+    if (form.$valid) {
+      $scope.tempCompany.companyStatus = 'inactive';
+      Companies.updateCompanyStatus($scope.tempCompany);
+
+      // Remove element from the pending companies array once reject
+      _.remove($scope.pendingCompanies, function(element) {
+        return element.name === $scope.tempCompany.name;
+      });
+      $('#rejectCompanyModal').modal('hide');
     }
   };
 

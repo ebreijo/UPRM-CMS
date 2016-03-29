@@ -27,16 +27,20 @@
                   <a href="#tab3" data-toggle="tab">Majors</a>
                 </li>
                 <li>
-                  <a href="#tab4" data-toggle="tab">Recruiter Registration <span class="badge badge-theme">5</span></a>
+                  <a href="#tab4" data-toggle="tab">Company Registration <span class="badge badge-theme">{{pendingCompanies.length}}</span></a>
                 </li>
                 <li>
-                  <a href="#tab5" data-toggle="tab">Job Offers <span class="badge badge-theme">3</span></a>
+                  <a href="#tab5" data-toggle="tab">Recruiter Registration <span class="badge badge-theme">5</span></a>
                 </li>
                 <li>
-                  <a href="#tab6" data-toggle="tab">Promotional Documents <span class="badge badge-theme">3</span></a>
+                  <a href="#tab6" data-toggle="tab">Job Offers <span class="badge badge-theme">3</span></a>
+                </li>
+                <li>
+                  <a href="#tab7" data-toggle="tab">Promotional Documents <span class="badge badge-theme">3</span></a>
                 </li>
               </ul>
               <div class="tab-content">
+
                 <div class="tab-pane active" id="tab1">
                   <div class="page-content">
                     <div class="row">
@@ -90,6 +94,7 @@
                                 <thead>
                                 <tr>
                                   <th>Company Name</th>
+                                  <th>Registration Date</th>
                                   <th>Status</th>
                                   <th>Change Status</th>
                                 </tr>
@@ -99,6 +104,7 @@
                                   <td>
                                     <a href="/adminCompanyProfile/{{company.name}}">{{company.name}}</a>
                                   </td>
+                                  <td>{{company.registrationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}</td>
                                   <td><span class="label"
                                             ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive'}">{{company.companyStatus | capitalize}}</span>
                                   </td>
@@ -150,6 +156,8 @@
                     </div>
                   </div>
                 </div>
+
+
                 <div class="tab-pane" id="tab2">
                   <div class="row" style="padding-top:15px">
                     <div class="col-md-12" style="padding-bottom:5px">
@@ -249,6 +257,8 @@
                     </div>
                   </div>
                 </div>
+
+
                 <div class="tab-pane" id="tab3">
                   <div class="row" style="margin-top:15px">
                     <!--//course-list-header-->
@@ -399,7 +409,101 @@
                     </form>
                   </div>
                 </div>
+
+
                 <div class="tab-pane" id="tab4">
+                  <div class="row" style="margin-top:15px">
+                    <div class="col-md-12" style="padding-bottom:5px">
+                      <h3 class="title">Status of Company Registration Requests</h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--//course-list-header-->
+                    <article class="contact-form col-md-12">
+                      <h4 class="title text-center">Pending Requests</h4>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead>
+                          <tr>
+                            <th>Company</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                            <th>Accept</th>
+                            <th>Reject</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="company in pendingCompanies | filter:{companyStatus:'pending'}">
+                            <td>
+                              Information:
+                              <ul>
+                                <li>Company: <a href="/adminCompanyProfile/{{company.name}}">{{company.name}}</a></li>
+                                <li>Website URL: <a href="{{company.websiteUrl}}">{{company.websiteUrl}}</a></li>
+                                <li>Description: {{company.companyDescription}}</li>
+                              </ul>
+                            </td>
+                            <td style="text-align:center">{{company.registrationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}</td>
+                            <td style="text-align:center"><span class="label label-warning">{{company.companyStatus | capitalize}}</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptCompanyModal" ng-click="acceptCompanyConfirm(company)">Accept</button>
+                            </td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectCompanyModal" ng-click="rejectCompanyConfirm(company)">Reject</button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <!--//table-->
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div id="acceptCompanyModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalAcceptCompanyForm" ng-submit="submitAcceptCompany(modalAcceptCompanyForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black">Confirm</h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to accept registration for {{tempCompany.name}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div id="rejectCompanyModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalRejectCompanyForm" ng-submit="submitRejectCompany(modalRejectCompanyForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black">Confirm</h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to reject registration for {{tempCompany.name}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+
+                <div class="tab-pane" id="tab5">
                   <div class="row" style="margin-top:15px">
                     <div class="col-md-12" style="padding-bottom:5px">
                       <h3 class="title">Status of Recruiter Registration Requests</h3>
@@ -407,7 +511,7 @@
                   </div>
                   <div class="row">
                     <!--//course-list-header-->
-                    <article class="contact-form col-md-12  page-row">
+                    <article class="contact-form col-md-12">
                       <h4 class="title text-center">Pending Requests</h4>
 
                       <div class="table-responsive">
@@ -509,7 +613,9 @@
                     </article>
                   </div>
                 </div>
-                <div class="tab-pane" id="tab5">
+
+
+                <div class="tab-pane" id="tab6">
                   <div class="row">
                     <div class="col-md-12" style="padding-top:15px">
                       <h3 class="title">Status of Job Offers Requests</h3>
@@ -517,7 +623,7 @@
                   </div>
                   <div class="row">
                     <!--//course-list-header-->
-                    <div class="course-item-header row-divider">
+                    <div class="course-item-header">
                       <div class="jobs-wrapper col-md-10 col-sm-9">
                         <div class="panel panel-default page-row">
                           <div class="panel-heading">
@@ -684,9 +790,6 @@
                           </div>
                         </div>
                         <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
                         <ul class="pagination">
                           <li class="disabled">
                             <a href="#">«</a>
@@ -716,7 +819,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane" id="tab6">
+
+
+                <div class="tab-pane" id="tab7">
                   <div class="row" style="margin-top:15px">
                     <div class="col-md-12" style="padding-bottom:5px">
                       <h3 class="title">Status of Promotional Documents Requests</h3>
@@ -724,7 +829,7 @@
                   </div>
                   <div class="row">
                     <!--//course-list-header-->
-                    <article class="contact-form col-md-12  page-row">
+                    <article class="contact-form col-md-12">
                       <h4 class="title text-center">Pending Requests</h4>
 
                       <div class="table-responsive">
