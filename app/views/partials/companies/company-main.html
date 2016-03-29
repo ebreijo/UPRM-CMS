@@ -178,116 +178,29 @@
                             </div>
                           </div>
                         </div>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
+                        <div ng-repeat="item in companyProfile.promotionalMaterial">
+                          <article class="course-item row-divider">
+                            <div class="details row">
+                              <div class="col-title col-md-4 col-sm-6">
+                                <a href="course-single.html">{{item.title}}</a>
                               </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                              <div class="col-meta col-md-8 col-sm-6">
+                                <div class="row">
+                                  <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
+                                  <div class="col-level col-md-2" style="padding-top:2px">
+                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" class="btn btn-theme btn-xs">Edit</button>
+                                  </div>
+                                  <div class="col-location col-md-2" style="padding-top:2px">
+                                    <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                                  </div>
+                                  <div class="col-duration col-md-4"></div>
                                 </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
                               </div>
+                              <!--//col-meta-->
                             </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
+                            <!--//details-->
+                          </article>
+                        </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
                           <button type="button" class="btn btn-theme btn-sm">Add Promotional Material</button>
                         </div>
@@ -475,16 +388,6 @@
                       </div>
                       <!--//details-->
                     </article>
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
                     <!--//course-item-->
                   </div>
                   <!--//row-->
@@ -904,7 +807,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
+        <h4 class="modal-title pull-left" style="color:black">Interested Majors</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -950,6 +853,56 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editCompanyPromotionalMaterialModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Edit Company Promotional Material</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form name="editCompanyPromotionalMaterialForm">
+              <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
+                <input ng-model="promotionalMaterialList.name" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+              </div>
+              {{promotionalMaterialList}}
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
+                <input ng-model="tempCompanyInfo[0].websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="text-align: center">
+            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+            <button class="btn btn-theme btn-sm" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

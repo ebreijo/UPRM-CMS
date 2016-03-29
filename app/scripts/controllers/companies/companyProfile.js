@@ -40,9 +40,7 @@ app.controller('CompanyCtrl', function($scope) {
 
     ],
     'promotionalMaterial':[
-      {
 
-      }
     ],
     'recruiterList':[
       {
@@ -55,6 +53,37 @@ app.controller('CompanyCtrl', function($scope) {
       }
     ]
   };
+
+  var promotionalMaterial = [
+    {
+      id: 1,
+      companyName: 'IBM',
+      title: 'PromotionalMaterial1',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      status: 'approved'
+    },
+    {
+      id: 1,
+      companyName: 'IBM',
+      title: 'PromotionalMaterial2',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      status: 'approved'
+    },
+    {
+      id: 1,
+      companyName: 'IBM',
+      title: 'PromotionalMaterial3',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      status: 'approved'
+    },
+    {
+      id: 1,
+      companyName: 'IBM',
+      title: 'PromotionalMaterial4',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      status: 'approved'
+    }
+  ];
 
   //For Edit Company Description Modal------------------------------------------------------------
 
@@ -129,5 +158,13 @@ app.controller('CompanyCtrl', function($scope) {
       list.pop();
     }
   };
+
+  //For Edit Promotional Material Modal------------------------------------------------------------
+  $scope.promotionalMaterialList = [];
+
+  for (i = 0; i < promotionalMaterial.length; i++) {
+    $scope.promotionalMaterialList.push({title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
+    $scope.companyProfile.promotionalMaterial.push({title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
+  }
 
 });
