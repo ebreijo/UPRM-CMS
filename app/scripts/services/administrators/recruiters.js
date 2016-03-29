@@ -23,6 +23,40 @@ app.factory('Recruiters', function(_) {
           zipCode: '94043',
           phoneNumber: null
         }
+      },
+      {
+        email: 'leonardo@ibm.com',
+        firstName: 'Leonardo',
+        lastName: 'Dicaprio',
+        phoneNumber: '787-555-5555',
+        accountStatus: 'active',
+        registrationDate: '2016-03-29T14:51:52.000Z',
+        companyLocation: {
+          id: 2,
+          streetAddress: '1 New Orchard Road',
+          city: 'Armonk',
+          state: 'NY',
+          country: 'United States',
+          zipCode: '10504',
+          phoneNumber: null
+        }
+      },
+      {
+        email: 'sergio@ibm.com',
+        firstName: 'Sergio',
+        lastName: 'Rivera',
+        phoneNumber: '787-555-5555',
+        accountStatus: 'active',
+        registrationDate: '2016-03-29T14:51:52.000Z',
+        companyLocation: {
+          id: 1,
+          streetAddress: '3039 E Cornwallis Road',
+          city: 'Durham',
+          state: 'NC',
+          country: 'United States',
+          zipCode: '27709',
+          phoneNumber: null
+        }
       }
     ]
   };

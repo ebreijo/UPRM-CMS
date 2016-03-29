@@ -33,7 +33,7 @@
                   <a href="#tab5" data-toggle="tab" ng-click="executeTab5()">Recruiter Registration <span class="badge badge-theme">{{pendingRecruiters.length}}</span></a>
                 </li>
                 <li>
-                  <a href="#tab6" data-toggle="tab">Job Offers <span class="badge badge-theme">3</span></a>
+                  <a href="#tab6" data-toggle="tab" ng-click="executeTab6()">Job Offers <span class="badge badge-theme">{{pendingJobOffers.length}}</span></a>
                 </li>
                 <li>
                   <a href="#tab7" data-toggle="tab">Promotional Documents <span class="badge badge-theme">3</span></a>
@@ -607,197 +607,49 @@
                     <!--//course-list-header-->
                     <div class="course-item-header">
                       <div class="jobs-wrapper col-md-10 col-sm-9">
-                        <div class="panel panel-default page-row">
+                        <div class="panel panel-default page-row" ng-repeat="jobOffer in pendingJobOffers">
                           <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
-                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
-                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                            <h3 class="panel-title">{{jobOffer.title}}&nbsp;(Company: {{jobOffer.companyName}})
+                              <span class="label label-warning pull-right">{{jobOffer.jobOfferStatus | capitalize}}</span> <span class="label label-info pull-right" style="margin-right:10px">{{jobOffer.educationLevel}}</span> <span class="label label-success pull-right" style="margin-right:10px">{{jobOffer.jobPosition}}</span>
+                            </h3>
                           </div>
                           <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
-                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
-                            blandit. **For Recent Graduates**
+                            {{jobOffer.description}} <span ng-if="jobOffer.recentGraduate"><b>**For Recent Graduates**</b></span><span ng-if="!jobOffer.recentGraduate"><b>**Not For Recent Graduates**</b></span>
                           </div>
                           <ul class="list-group">
                             <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                              <strong>Recruiter Email:</strong> <strong><a href="">{{jobOffer.email}}</a></strong>
                             </li>
                             <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
+                              <strong>Creation Date:</strong> {{jobOffer.creationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}
+                           </li>
+                            <li class="list-group-item">
+                              <strong>Anouncement Number:</strong>&nbsp;{{jobOffer.announcementNumber}}
                             </li>
                             <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
+                              <strong>Location:</strong> {{jobOffer.location}}
                             </li>
                             <li class="list-group-item">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
+                              <a href="#">{{jobOffer.flyerPath}}</a>
                             </li>
                           </ul>
                           <div class="panel-footer">
                             <div class="row">
                               <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
                                 <button type="button" class="btn btn-theme btn-sm"
-                                        style="margin-right:10px; margin-top:5px">Accept
+                                        style="margin-right:10px;">Accept
                                 </button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
+                                <button type="button" class="btn btn-theme btn-sm">Reject
                                 </button>
                               </ul>
                               <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
+                                Expiration Date: {{jobOffer.expirationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
-                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
-                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
-                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
-                            blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm"
-                                        style="margin-right:10px; margin-top:5px">Accept
-                                </button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
-                                </button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
-                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
-                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
-                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
-                            blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm"
-                                        style="margin-right:10px; margin-top:5px">Accept
-                                </button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
-                                </button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a>&nbsp;(Company:
-                              IBM)<span class="label label-info pull-right">Bachelors</span> <span
-                                class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere
-                            convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi
-                            blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm"
-                                        style="margin-right:10px; margin-top:5px">Accept
-                                </button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Reject
-                                </button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//panel-->
-                        <ul class="pagination">
-                          <li class="disabled">
-                            <a href="#">«</a>
-                          </li>
-                          <li class="active">
-                            <a href="#">1<span class="sr-only">(current)</span></a>
-                          </li>
-                          <li>
-                            <a href="#">2</a>
-                          </li>
-                          <li>
-                            <a href="#">3</a>
-                          </li>
-                          <li>
-                            <a href="#">4</a>
-                          </li>
-                          <li>
-                            <a href="#">5</a>
-                          </li>
-                          <li>
-                            <a href="#">»</a>
-                          </li>
-                        </ul>
-                        <!--//pagination-->
                       </div>
-                      <div class="row"></div>
                     </div>
                   </div>
                 </div>
