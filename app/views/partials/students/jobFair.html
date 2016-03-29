@@ -128,7 +128,8 @@
 
         <div class="row page-row" style="margin-bottom:0px" ng-repeat="company in jobFairCompanies">
           <!--<div class="jobs-wrapper col-md-9" ng-show="majorFilter(company.interestedMajors)" style="float: none; margin: 0 auto; padding:0; padding-top:20px"> -->
-          <div class="jobs-wrapper col-md-9" ng-show="lookingForFilter(company.lookingFor)" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+          <!-- <div class="jobs-wrapper col-md-9" ng-show="lookingForFilter(company.lookingFor)" style="float: none; margin: 0 auto; padding:0; padding-top:20px"> -->
+          <div class="jobs-wrapper col-md-9" ng-show="companyFilter(company.interestedMajors, company.lookingFor)" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
             <!--//panel-->
             <div class="panel panel-theme page-row">
               <div class="panel-heading">

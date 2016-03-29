@@ -189,6 +189,9 @@ app.controller('jobFairCtrl', function($scope) {
     return interestedMajorsString;
   };
 
+  $scope.companyFilter = function(majorList, lookingForList){
+    return $scope.majorFilter(majorList) && $scope.lookingForFilter(lookingForList);
+  };
 
   $scope.majorFilter = function(majorList) {
     if ($scope.majorSelected === 'All'){
