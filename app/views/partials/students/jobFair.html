@@ -65,16 +65,32 @@
             </article>
             <article class="contact-form col-md-7 text-left" style="margin-top:6px">
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Intership
+                <input ng-model="checkBox.internship"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Intership
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;COOP
+                <input ng-model="checkBox.coop"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;COOP
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Part-Time
+                <input ng-model="checkBox.partTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Part-Time
               </label>
               <label style="margin-right:10px">
-                <input class="control-label" type="checkbox" value="">&nbsp;&nbsp;Full-Time
+                <input ng-model="checkBox.fullTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Full-Time
               </label>
             </article>
             <div class="col-md-1">
@@ -110,30 +126,35 @@
           </div>
         </div>
 
-        <div class="row page-row" style="margin-bottom:0px" ng-repeat="item in jobFairCompanies">
-          <div class="jobs-wrapper col-md-9" ng-show="majorFilter(item.interestedMajors)" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+        <div class="row page-row" style="margin-bottom:0px" ng-repeat="company in jobFairCompanies">
+          <!--<div class="jobs-wrapper col-md-9" ng-show="majorFilter(company.interestedMajors)" style="float: none; margin: 0 auto; padding:0; padding-top:20px"> -->
+          <div class="jobs-wrapper col-md-9" ng-show="lookingForFilter(company.lookingFor)" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
             <!--//panel-->
             <div class="panel panel-theme page-row">
               <div class="panel-heading">
-                <h3 class="panel-title"><b>{{item.companyName}}</b><span class="label label-info pull-right" style="margin:3px" ng-show="item.interviewsDuringWeekend">Interviewing</span><span class="label label-success pull-right" style="margin:3px" ng-show="item.mustFillOnline">Apply Online</span><span class="label label-danger pull-right" style="margin:3px" ng-show="item.collectingResumesBeforeJobFair">Collecting Resumes</span></h3>
+                <h3 class="panel-title"><b>{{company.companyName}}</b>
+                  <span class="label label-info pull-right" style="margin:3px" ng-show="company.interviewsDuringWeekend">Interviewing</span>
+                  <span class="label label-success pull-right" style="margin:3px" ng-show="company.mustFillOnline">Apply Online</span>
+                  <span class="label label-danger pull-right" style="margin:3px" ng-show="company.collectingResumesBeforeJobFair">Collecting Resumes</span>
+                </h3>
               </div>
               <div class="panel-body" style="margin:0;padding:0">
                 <ul class="list-group" style="margin-bottom:1px">
                   <li class="list-group-item">
                     <strong>Link:</strong>
-                    <a href={{item.websiteApplication}}>{{item.websiteApplication}}</a>
+                    <a href={{company.websiteApplication}}>{{company.websiteApplication}}</a>
                   </li>
                   <li class="list-group-item">
-                    <strong>Minimum GPA:</strong>&nbsp;{{item.minGpa}}
+                    <strong>Minimum GPA:</strong>&nbsp;{{company.minGpa}}
                   </li>
                   <li class="list-group-item">
                     <strong>Job Positions:</strong>&nbsp;
-                    {{ getLookingForString(item.lookingFor)}}
+                    {{ getLookingForString(company.lookingFor)}}
                   </li>
 
                   <li class="list-group-item">
                     <strong>Majors:</strong>&nbsp;
-                    {{ getInterestedMajorsString(item.interestedMajors)}}
+                    {{ getInterestedMajorsString(company.interestedMajors)}}
                   </li>
                 </ul>
               </div>
