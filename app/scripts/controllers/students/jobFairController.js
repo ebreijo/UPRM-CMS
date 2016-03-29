@@ -2,9 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CareerFairCtrl', function($scope) {
+app.controller('jobFairCtrl', function($scope) {
 
-  $scope.jobFairDates = {
+  $scope.generalInformation = {
     id: 1,
     headerEnglish: '8th Spring Job Fair',
     locationEnglish: 'Mayaguez Resort & Casino',
@@ -17,17 +17,10 @@ app.controller('CareerFairCtrl', function($scope) {
   };
 
   $scope.checkBox = {
-      internship: false,
-      coop: false,
-      partTime: false,
-      fullTime: false
-    };
-
-  $scope.printCheckbox = function(){
-    console.log($scope.checkBox.internship);
-    console.log($scope.checkBox.coop);
-    console.log($scope.checkBox.partTime);
-    console.log($scope.checkBox.fullTime);
+    internship: false,
+    coop: false,
+    partTime: false,
+    fullTime: false
   };
 
   $scope.majors = [
@@ -130,7 +123,7 @@ app.controller('CareerFairCtrl', function($scope) {
       collectingResumesBeforeJobFair: true,
       mustFillOnline: true,
       interviewsDuringWeekend: true,
-      websiteApplication: 'www.doj.gov',
+      websiteApplication: 'http://www.dea.gov/careers/occupations.shtml',
       lookingFor: [
         {
           companyName: 'Drug Enforcement Administration',
@@ -139,6 +132,10 @@ app.controller('CareerFairCtrl', function($scope) {
         {
           companyName: 'Drug Enforcement Administration',
           jobPosition: 'Full-Time'
+        },
+        {
+          companyName: 'Drug Enforcement Administration',
+          jobPosition: 'COOP'
         }
       ],
       interestedMajors: [
@@ -184,14 +181,22 @@ app.controller('CareerFairCtrl', function($scope) {
     return interestedMajorsString;
   };
 
-  /**
-   * Filter
-   */
-  $scope.companyFilter = function() {
-    //return company.
-    //return user.User.Stats[0].active === '1';
+  /*
+  $scope.majorFilter = function(majorList) {
+    if ($scope.majorSelected === 'All'){
+      return true;
+    }
+    for (var i =0; i < majorList.length; i++){
+      if ($scope.majorSelected === majorList[i].majorCode){
+        return true;
+      }
+    }
+    return false;
   };
 
-  
+  $scope.lookingForFilter = function(majorList) {
+
+  };
+  */
 
 });
