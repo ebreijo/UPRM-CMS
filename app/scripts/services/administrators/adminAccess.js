@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('AdminAccess', function() {
+app.factory('AdminAccess', function(_) {
   var obj = {
     adminAccessList: [
       {
@@ -26,6 +26,17 @@ app.factory('AdminAccess', function() {
         adminAccountStatus: 'inactive'
       }
     ]
+  };
+
+  // TODO: Make a request to give access to an admin given the email and account status
+  obj.giveAdminAccess = function(newAdminAccess) {
+    this.adminAccessList.push(newAdminAccess);
+  };
+
+  // TODO: Make a request to update the access of an admin
+  obj.updateAdminAccess = function(tempAdminAccess) {
+    var element = _.find(this.adminAccessList, { email: tempAdminAccess.currentEmail});
+    _.merge(element, tempAdminAccess);
   };
 
   return obj;

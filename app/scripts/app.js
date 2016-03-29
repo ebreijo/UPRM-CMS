@@ -59,8 +59,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     templateUrl: 'partials/aboutUs.html',
     controller: 'AboutUsCtrl',
     resolve: {
-      aboutUsPromise: ['aboutUs', function (aboutUs) {
-        aboutUs.getAll();
+      aboutUsPromise: ['AboutUs', function (AboutUs) {
+        AboutUs.getAll();
       }]
     }
   }).state('calendar', {
@@ -93,12 +93,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
     // Student Views
-    .state('careerFair', {
+    .state('jobFair', {
       url: '/jobFair',
-      templateUrl: 'partials/students/career-fair.html',
-      controller: 'CareerFairCtrl'
-    }).state('jobFair', {
-      url: '/careerFair',
       templateUrl: 'partials/students/jobFair.html',
       controller: 'jobFairCtrl'
     });

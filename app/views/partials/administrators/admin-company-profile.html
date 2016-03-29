@@ -10,7 +10,7 @@
     <div class="page-wrapper">
       <header class="page-heading clearfix">
         <h1 class="heading-title"> <img ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
-        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
+        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive', 'label-warning': company.companyStatus === 'pending'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
         <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
