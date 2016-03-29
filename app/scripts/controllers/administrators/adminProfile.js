@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, Patterns, $filter, _) {
 
   $scope.patternEmail = Patterns.user.email;
 
@@ -88,9 +88,18 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitAddMajor = function(form) {
       if(form.$valid) {
-        $scope.major.majorCode = $scope.major.majorCode.toUpperCase();
-        Majors.createNewMajor($scope.major);
-        $scope.major = null;
+        var element = _.find($scope.majors, { majorCode: $scope.major.majorCode});
+
+        if (element) { // If major already exists, show a Warning
+          $scope.title = 'Warning';
+          $scope.message = 'Major already exists';
+          $('#messageModal').modal('toggle');
+        }
+        else {
+          $scope.major.majorCode = $scope.major.majorCode.toUpperCase();
+          Majors.createNewMajor($scope.major);
+          $scope.major = null;
+        }
       }
     };
 
@@ -125,7 +134,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
    * Company Registration Tab
    */
   $scope.pendingCompanies = Companies.getAllCompanies('pending');
-  
+
   $scope.executeTab4 = function() {
 
     $scope.acceptCompanyConfirm = function(company) {
@@ -136,11 +145,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'active';
         Companies.updateCompanyStatus($scope.tempCompany);
-
-        // Remove element from the pending companies array once accepted
-        _.remove($scope.pendingCompanies, function(element) {
-          return element.name === $scope.tempCompany.name;
-        });
+        removeCompanyFromPendingList();
         $('#acceptCompanyModal').modal('hide');
       }
     };
@@ -153,14 +158,58 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
         Companies.updateCompanyStatus($scope.tempCompany);
-
-        // Remove element from the pending companies array once reject
-        _.remove($scope.pendingCompanies, function(element) {
-          return element.name === $scope.tempCompany.name;
-        });
+        removeCompanyFromPendingList();
         $('#rejectCompanyModal').modal('hide');
       }
     };
+
+    function removeCompanyFromPendingList() {
+      // Remove element from the pending companies array once reject
+      _.remove($scope.pendingCompanies, function(element) {
+        return element.name === $scope.tempCompany.name;
+      });
+    }
+  };
+
+  /**
+   * Recruiter Registration Tab
+   */
+  $scope.pendingRecruiters = Recruiters.getAllPendingRecruiters();
+
+  $scope.executeTab5 = function() {
+
+    $scope.acceptRecruiterConfirm = function(recruiter) {
+      $scope.tempRecruiter = angular.copy(recruiter);
+    };
+
+    $scope.submitAcceptRecruiter = function (form) {
+      if (form.$valid) {
+        $scope.tempRecruiter.accountStatus = 'active';
+        Recruiters.updateRecruiterStatus($scope.tempRecruiter);
+        removeRecruiterFromPendingList();
+        $('#acceptRecruiterModal').modal('hide');
+      }
+    };
+
+    $scope.rejectRecruiterConfirm = function(recruiter) {
+      $scope.tempRecruiter = angular.copy(recruiter);
+    };
+
+    $scope.submitRejectRecruiter = function (form) {
+      if (form.$valid) {
+        $scope.tempRecruiter.accountStatus = 'inactive';
+        Recruiters.updateRecruiterStatus($scope.tempRecruiter);
+        removeRecruiterFromPendingList();
+        $('#rejectRecruiterModal').modal('hide');
+      }
+    };
+
+    function removeRecruiterFromPendingList() {
+      // Remove element from the pending companies array once accepted or rejected
+      _.remove($scope.pendingRecruiters, function(element) {
+        return element.email === $scope.tempRecruiter.email;
+      });
+    }
   };
 
 });
