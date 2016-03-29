@@ -181,12 +181,12 @@ app.controller('jobFairCtrl', function($scope) {
     return interestedMajorsString;
   };
 
-  /*
+
   $scope.majorFilter = function(majorList) {
     if ($scope.majorSelected === 'All'){
       return true;
     }
-    for (var i =0; i < majorList.length; i++){
+    for (var i = 0; i < majorList.length; i++){
       if ($scope.majorSelected === majorList[i].majorCode){
         return true;
       }
@@ -194,8 +194,8 @@ app.controller('jobFairCtrl', function($scope) {
     return false;
   };
 
+  /*
   $scope.lookingForFilter = function(majorList) {
-
   };
   */
 
