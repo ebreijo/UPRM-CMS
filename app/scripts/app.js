@@ -57,12 +57,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   }).state('aboutUs', {
     url: '/aboutUs',
     templateUrl: 'partials/aboutUs.html',
-    controller: 'AboutUsCtrl',
+    controller: 'AboutUsCtrl'
+    /*
     resolve: {
       aboutUsPromise: ['AboutUs', function (AboutUs) {
         AboutUs.getAll();
       }]
     }
+    */
   }).state('calendar', {
     url: '/calendar',
     templateUrl: 'partials/calendar.html'

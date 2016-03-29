@@ -15,7 +15,7 @@
           <ul class="breadcrumbs-list">
             <li class="breadcrumbs-label">You are here:</li>
             <li>
-              <a ui-sref="adminProfile">Profile</a>
+              <a ui-sref="landingPage">Home</a>
               <i class="fa fa-angle-right"></i>
             </li>
             <li class="current">About</li>
@@ -28,55 +28,16 @@
           <article class="welcome col-md-8 col-sm-7">
             <h3 class="title">Vision<br></h3>
 
-            <p>Serve as liaison between students and businesses while providing the best and most effective service to
-              all.<br></p>
+            <p>{{aboutUs.aboutUs[0].vision}}<br></p>
 
             <h3 class="title">Mission</h3>
 
-            <p>Provide students the necessary tools that will help achieve an effective job search, while maintaining
-              lines of communication with businesses and the College community.<br></p>
+            <p>{{aboutUs.aboutUs[0].missionDesc}}<br></p>
 
             <h3 class="title">Student Services</h3>
             <ul class="custom-list-style">
-              <li>
-                <i class="fa fa-check"></i>Register students and alumni, creating records for our files.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Assist students and alumni explore the job market.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Help with the correction of resumes.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Offer talks to groups of students on resume writing, interviews, job search,
-                etc.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Coordinate on campus interviews.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Refer resumes to companies and or agencies.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Announce job opportunities (part-time, summer and permanent).
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Keep a list of companies and agencies with their addresses.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Coordinate meetings between student organizations and companies.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Prepare salary statistics.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Prepare annual employment statistics.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Organize Annual Job Fair.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Work with student organizations.
+              <li ng-repeat="item in aboutUs.studentServices">
+                <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
                 <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
@@ -86,23 +47,8 @@
             </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
-              <li>
-                <i class="fa fa-check"></i>Announce any job offers (part time, summer and permanent).
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Collect and send resumes of students and alumni.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Coordinate on-campus interviews.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Organize the Annual Job Fair.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Organize information sessions.
-              </li>
-              <li>
-                <i class="fa fa-check"></i>Coordinate meetings with faculty and student organizations.
+              <li ng-repeat="item in aboutUs.companyServices">
+                <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
                 <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
@@ -120,25 +66,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Sra. Nancy Nieves Aran</td>
-                  <td>Director</td>
-                </tr>
-                <tr>
-                  <td>Antonio Ramos</td>
-                  <td>Administrative Assistant</td>
-                </tr>
-                <tr>
-                  <td>Srta. Margarita Carlo</td>
-                  <td>Employment Interviewer</td>
-                </tr>
-                <tr>
-                  <td>Sr. William Pacheco</td>
-                  <td>Employment Interviewer</td>
-                </tr>
-                <tr>
-                  <td>Sra. Eva E. Troche Morales</td>
-                  <td>Administrative Secretary</td>
+                <tr ng-repeat="item in aboutUs.ourStaff">
+                  <td>{{item.name}}</td>
+                  <td>{{item.position}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -158,7 +88,7 @@
 
               <p class="tel"><i class="fa fa-fax"></i>Fax: (787) 834-5115</p>
 
-              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="#">placement@uprm.edu</a></p>
+              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
             </section>
             <section class="widget has-divider">
               <h3 class="title">Postal Address</h3>
@@ -175,6 +105,7 @@
       </div>
       <!--//page-content-->
     </div>
+
     <div class="page-row">
       <article class="map-section">
         <h3 class="title">How to find us</h3>
