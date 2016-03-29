@@ -205,17 +205,6 @@ app.controller('jobFairCtrl', function($scope) {
     return false;
   };
 
-  // ng-show="majorFilter(company.interestedMajors)"
-  // ng-show="lookingForFilter(company.lookingFor)"
-  /*
-   $scope.checkBox = {
-     internship: false,
-     coop: false,
-     partTime: false,
-     fullTime: false
-   };
-   */
-
   $scope.lookingForFilter = function(lookingForList) {
     if(noItemsAreChecked()){
       return true;
