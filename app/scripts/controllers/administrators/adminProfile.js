@@ -25,9 +25,17 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitCompanyStatusEdit = function(form) {
       if (form.$valid) {
         Companies.updateCompanyStatus($scope.tempCompany);
+        removeCompanyFromList();
         $('#editCompanyStatusModal').modal('hide');
       }
     };
+
+    function removeCompanyFromList() {
+      // Remove element from the companies array once status is changed
+      _.remove($scope.companies, function(element) {
+        return element.name === $scope.tempCompany.name;
+      });
+    }
   };
   $scope.executeTab1();
 
