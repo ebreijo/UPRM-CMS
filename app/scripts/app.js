@@ -107,6 +107,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/studentAboutUs',
       templateUrl: 'partials/students/student-about.html',
       controller: 'AboutUsCtrl'
+    }).state('studentJobOffers', {
+      url: '/studentJobOffers',
+      templateUrl: 'partials/students/student-job-offers.html',
+      controller: 'jobOffersCtrl'
     });
 
   $urlRouterProvider.otherwise('/');
