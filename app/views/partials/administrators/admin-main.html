@@ -49,15 +49,15 @@
                           <h3 class="title">Company List: <span class="badge badge-theme">{{companies.length}}</span></h3>
                         </div>
                         <div class="row" style="margin-bottom:20px">
-                          <div class="col-md-2">
+                          <div class="col-md-1">
                           </div>
-                          <div class="col-md-5">
+                          <div class="col-md-4">
                             <form class="form-inline" role="form">
                               <div class="input-group">
                                 <span><label class="control-label">Search:&nbsp</label></span>
 
                                 <div class="form-group">
-                                  <input type="text" class="form-control" ng-model="searchCompany" placeholder="Enter the company name">
+                                  <input type="text" class="form-control" size="25" ng-model="searchCompany" placeholder="Enter the company name">
                                   <span class="input-group-btn">
                                     <button class="btn btn-theme" type="button">
                                       <i class="fa fa-search"></i>
@@ -83,7 +83,8 @@
                               </div>
                             </form>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-3">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#createCompanyModal">Create Company</button>
                           </div>
                         </div>
                         <article class="contact-form col-md-12">
@@ -142,6 +143,58 @@
                               <option value="active">Active</option>
                               <option value="inactive">Inactive</option>
                             </select>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+                              <button type="submit" class="btn btn-theme">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="createCompanyModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title pull-left" style="color:black">Create New Company</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" name="modalCreateCompanyForm" ng-submit="submitCreateCompany(modalCreateCompanyForm)" novalidate>
+                          <p>Company Name<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" ng-model="company.name" name="modalCompanyName" class="form-control" style="border-radius:0;" required/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalCompanyName.$invalid && !modalCreateCompanyForm.modalCompanyName.$pristine" style="color:#843534" class="help-block"><b>Enter the company name</b></p>
+                          </div>
+                          <p>Website URL<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pushpin"></i></span>
+                            <input type="text" ng-model="company.websiteUrl" name="modalWebsiteUrl" class="form-control" style="border-radius:0;" required/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalWebsiteUrl.$invalid && !modalCreateCompanyForm.modalWebsiteUrl.$pristine" style="color:#843534" class="help-block"><b>Enter the Website URL</b></p>
+                          </div>
+                          <p>Logo</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-picture"></i></span>
+                            <input type="text" ng-model="company.logoPath" class="form-control" style="border-radius:0;"/>
+                          </div>
+                          <p>Description<span class="required" style="color: #e14b39;">*</span></p>
+                          <fieldset class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" rows="6" style="resize: none;" required></textarea>
+                          </fieldset>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter the company description</b></p>
                           </div>
                           <div class="row">
                             <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">

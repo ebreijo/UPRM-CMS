@@ -16,7 +16,29 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
     });
 
+    $scope.company = {};
     $scope.tempCompany = {};
+
+    $scope.submitCreateCompany = function(form) {
+      if(form.$valid) {
+        var element = _.find($scope.companies, { name: $scope.company.name});
+
+        if (element) { // If company already exists, show a Warning
+          $scope.title = 'Warning';
+          $scope.message = 'Company already exists';
+          $('#messageModal').modal('toggle');
+        }
+        else {
+          $scope.company.companyStatus = 'active';
+          $scope.company.registrationDate = new Date().toISOString();
+          console.log($scope.company.registrationDate);
+          Companies.createNewCompany($scope.company);
+          $scope.company = null;
+          $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+          $('#createCompanyModal').modal('hide');
+        }
+      }
+    };
 
     $scope.editCompanyStatus = function(company) {
       $scope.tempCompany = angular.copy(company);
