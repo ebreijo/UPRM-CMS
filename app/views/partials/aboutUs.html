@@ -29,15 +29,15 @@
           <article class="welcome col-md-8 col-sm-7">
             <h3 class="title">Vision<br></h3>
 
-            <p>{{aboutus.aboutUs[0].vision}}<br></p>
+            <p>{{aboutUs.aboutUs[0].vision}}<br></p>
 
             <h3 class="title">Mission</h3>
 
-            <p>{{aboutus.aboutUs[0].missionDesc}}<br></p>
+            <p>{{aboutUs.aboutUs[0].missionDesc}}<br></p>
 
             <h3 class="title">Student Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutus.studentServices">
+              <li ng-repeat="item in aboutUs.studentServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
@@ -48,7 +48,7 @@
             </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutus.companyServices">
+              <li ng-repeat="item in aboutUs.companyServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
@@ -67,7 +67,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in aboutus.ourStaff">
+                <tr ng-repeat="item in aboutUs.ourStaff">
                   <td>{{item.name}}</td>
                   <td>{{item.position}}</td>
                 </tr>

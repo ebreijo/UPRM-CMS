@@ -1,21 +1,19 @@
 <div class="">
   <!-- ******HEADER****** -->
-  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
+  <div ng-include src="'views/partials/students/student-header.html'"></div>
   <!--//header-->
   <!-- ******NAV****** -->
-  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
-  <!--//main-nav-->
-  <!-- ******CONTENT****** -->
+  <div ng-include src="'views/partials/students/student-navbar.html'"></div>
+
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
         <h1 class="heading-title pull-left">About</h1>
-
         <div class="breadcrumbs pull-right">
           <ul class="breadcrumbs-list">
             <li class="breadcrumbs-label">You are here:</li>
             <li>
-              <a ui-sref="adminProfile">Profile</a>
+              <a href="index.html">Home</a>
               <i class="fa fa-angle-right"></i>
             </li>
             <li class="current">About</li>
@@ -26,37 +24,53 @@
       <div class="page-content">
         <div class="row page-row">
           <article class="welcome col-md-8 col-sm-7">
-            <h3 class="title">Vision<br></h3>
 
-            <p>{{aboutUs.aboutUs[0].vision}}<br></p>
+            <h3 class="title">
+              Vision<br>
+            </h3>
 
-            <h3 class="title">Mission</h3>
+            <p> {{ aboutUs.aboutUs[0].vision }} <br>
+            </p>
 
-            <p>{{aboutUs.aboutUs[0].missionDesc}}<br></p>
+            <!-- <p>Serve as liaison between students and businesses while providing the best and most effective service to all.<br></p> -->
 
-            <h3 class="title">Student Services</h3>
-            <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.studentServices">
-                <i class="fa fa-check"></i>{{item.service}}
-              </li>
+            <h3 class="title">
+              Mission
+            </h3>
+
+            <p>{{ aboutUs.aboutUs[0].missionDesc }} <br></p>
+
+            <h3 class="title">
+              Student Services
+            </h3>
+
+            <ul class="custom-list-style" ng-repeat="service in aboutUs.studentServices">
               <li>
-                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                Every student is responsible for maintaining his/her file updated and with enough copies at the
-                Placement Office.
+                <i class="fa fa-check"></i> {{ service.service}}
               </li>
             </ul>
-            <h3 class="title">Company Services</h3>
+
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.companyServices">
-                <i class="fa fa-check"></i>{{item.service}}
+              <li>
+                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                Every student is responsible for maintaining his/her file updated and with enough copies at the Placement Office.
               </li>
+            </ul>
+
+            <h3 class="title">Company Services</h3>
+            <ul class="custom-list-style" ng-repeat="service in aboutUs.companyServices">
+              <li>
+                <i class="fa fa-check"></i> {{service.service }}
+              </li>
+            </ul>
+            <ul class="custom-list-style">
               <li>
                 <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
                 We refer resumes of recent graduates with minimum experience.
               </li>
             </ul>
-            <h3 class="title">Our Staff</h3>
 
+            <h3 class="title">Our Staff</h3>
             <div class="table-responsive">
               <table class="table table-boxed">
                 <thead>
@@ -65,47 +79,41 @@
                   <th>Position</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr ng-repeat="item in aboutUs.ourStaff">
-                  <td>{{item.name}}</td>
-                  <td>{{item.position}}</td>
-                </tr>
+                  <tbody ng-repeat="staff in aboutUs.ourStaff">
+                  <tr>
+                    <td>{{ staff.name }}</td>
+                    <td> {{ staff.position }} </td>
+                  </tr>
                 </tbody>
               </table>
               <!--//table-->
             </div>
           </article>
+
           <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">
             <!--//widget-->
             <!--//widget-->
             <section class="widget">
               <h3 class="title">All Enquiries</h3>
-
               <p class="tel"><i class="fa fa-phone"></i>Phones:</p>
               <span class="tel">(787) 265-3898, (787) 265-3858, or (787) 832-4040:&nbsp;</span>
-
               <p class="tel">ext. 2070, 2074, 3691, 3898, 3858</p>
-
               <p class="tel"><i class="fa fa-fax"></i>Fax: (787) 834-5115</p>
-
-              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="mailto:placement@uprm.edu">placement@uprm.edu</a></p>
+              <p class="email"><i class="fa fa-envelope"></i>Email: <a href="#">placement@uprm.edu</a></p>
             </section>
+
             <section class="widget has-divider">
               <h3 class="title">Postal Address</h3>
-
-              <p class="adr"><span class="adr-group"> <span class="street-address">Student Center, 5th Floor - Office 508</span><br><span
-                class="region">University of Puerto Rico Mayaguez Campus</span><br><span
-                class="country-name">Mayaguez</span><br><span class="country-name">Puerto Rico</span><br><span
-                class="postal-code">00681</span></span></p>
+              <p class="adr"><span class="adr-group"> <span class="street-address">Student Center, 5th Floor - Office 508</span><br><span class="region">University of Puerto Rico Mayaguez Campus</span><br><span class="country-name">Mayaguez</span><br><span class="country-name">Puerto Rico</span><br><span class="postal-code">00681</span></span></p>
             </section>
           </aside>
+
           <!--//page-content-->
         </div>
         <!--//page-row-->
       </div>
       <!--//page-content-->
     </div>
-
     <div class="page-row">
       <article class="map-section">
         <h3 class="title">How to find us</h3>
@@ -119,9 +127,10 @@
     </div>
     <!--//page-->
   </div>
-  <!--//content-->
+
+
 </div>
+
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
 <div ng-include src="'views/partials/footer.html'"></div>
-

@@ -6,7 +6,7 @@ var app = angular.module('uprmcmsApp');
   //$scope.aboutUs = aboutUs.aboutUsInfo;
 app.controller('AboutUsCtrl', function($scope) {
 
-  $scope.aboutus = {
+  $scope.aboutUs = {
     'aboutUs': [
       {
         'id': 1,

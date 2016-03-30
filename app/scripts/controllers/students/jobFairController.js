@@ -155,6 +155,14 @@ app.controller('jobFairCtrl', function($scope) {
     }
   ];
 
+  $scope.printCheckbox = function() {
+    console.log('internship: ' + $scope.checkBox.internship);
+    console.log('coop: ' + $scope.checkBox.coop);
+    console.log('partTime: ' + $scope.checkBox.partTime);
+    console.log('fullTime: ' + $scope.checkBox.fullTime);
+    console.log('');
+  };
+
   $scope.getLookingForString = function(lookingFor) {
     var lookingForString = '';
 
@@ -181,6 +189,9 @@ app.controller('jobFairCtrl', function($scope) {
     return interestedMajorsString;
   };
 
+  $scope.companyFilter = function(majorList, lookingForList){
+    return $scope.majorFilter(majorList) && $scope.lookingForFilter(lookingForList);
+  };
 
   $scope.majorFilter = function(majorList) {
     if ($scope.majorSelected === 'All'){
@@ -194,9 +205,59 @@ app.controller('jobFairCtrl', function($scope) {
     return false;
   };
 
-  /*
-  $scope.lookingForFilter = function(majorList) {
+  $scope.lookingForFilter = function(lookingForList) {
+    if(noItemsAreChecked()){
+      return true;
+    } else {
+      var checkBoxCounter = getCheckboxCounter();
+      var count = 0;
+      if($scope.checkBox.internship === true && contains(lookingForList, 'Internship')) {
+        count++;
+      }
+      if($scope.checkBox.coop === true && contains(lookingForList, 'COOP')){
+        count++;
+      }
+      if($scope.checkBox.partTime === true && contains(lookingForList, 'Part-Time')){
+        count++;
+      }
+      if($scope.checkBox.fullTime === true && contains(lookingForList, 'Full-Time')){
+        count++;
+      }
+      return count === checkBoxCounter;
+    }
   };
-  */
+
+  function getCheckboxCounter(){
+    var count = 0;
+    if($scope.checkBox.internship === true) {
+      count++;
+    }
+    if($scope.checkBox.coop === true){
+      count++;
+    }
+    if($scope.checkBox.partTime === true){
+      count++;
+    }
+    if($scope.checkBox.fullTime === true){
+      count++;
+    }
+    return count;
+  }
+
+  function contains(list, position){
+    for(var i = 0; i < list.length; i++){
+      if(list[i].jobPosition === position){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function noItemsAreChecked() {
+    return $scope.checkBox.internship === false &&
+      $scope.checkBox.coop === false &&
+      $scope.checkBox.partTime === false &&
+      $scope.checkBox.fullTime === false;
+  }
 
 });

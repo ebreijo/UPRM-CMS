@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, Patterns, $filter, _) {
 
   $scope.patternEmail = Patterns.user.email;
 
@@ -210,6 +210,15 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         return element.email === $scope.tempRecruiter.email;
       });
     }
+  };
+
+  /**
+   * Recruiter Registration Tab
+   */
+  $scope.pendingJobOffers = JobOffers.getAllPendingJobOffers();
+
+  $scope.executeTab6 = function() {
+
   };
 
 });
