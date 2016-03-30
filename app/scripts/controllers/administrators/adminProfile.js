@@ -182,7 +182,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       $scope.tempRecruiter = angular.copy(recruiter);
     };
 
-    $scope.submitAcceptRecruiter = function (form) {
+    $scope.submitAcceptRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'active';
         Recruiters.updateRecruiterStatus($scope.tempRecruiter);
@@ -195,7 +195,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       $scope.tempRecruiter = angular.copy(recruiter);
     };
 
-    $scope.submitRejectRecruiter = function (form) {
+    $scope.submitRejectRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'inactive';
         Recruiters.updateRecruiterStatus($scope.tempRecruiter);
@@ -213,12 +213,50 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   };
 
   /**
-   * Recruiter Registration Tab
+   * Pending Job Offers Tab
    */
   $scope.pendingJobOffers = JobOffers.getAllPendingJobOffers();
 
   $scope.executeTab6 = function() {
 
+    $('#jobOfferExpirationDatePicker').datepicker({
+      format: 'yyyy-mm-dd'
+    });
+
+    $scope.tempJobOffer = {};
+
+    $scope.reviewAcceptJobOfferConfirm = function(jobOffer) {
+      $scope.tempJobOffer = angular.copy(jobOffer);
+    };
+
+    $scope.submitJobOfferReviewAccept = function(form) {
+      if(form.$valid) {
+        $scope.tempJobOffer.jobOfferStatus = 'approved';
+        JobOffers.updateJobOffer($scope.tempJobOffer);
+        removeJobOfferFromPendingList();
+        $('#reviewAcceptJobOfferModal').modal('hide');
+      }
+    };
+
+    $scope.rejectJobOfferConfirm = function(jobOffer) {
+      $scope.tempJobOffer = angular.copy(jobOffer);
+    };
+
+    $scope.submitRejectJobOffer = function(form) {
+      if (form.$valid) {
+        $scope.tempJobOffer.accountStatus = 'rejected';
+        JobOffers.updateJobOffer($scope.tempJobOffer);
+        removeJobOfferFromPendingList();
+        $('#rejectJobOfferModal').modal('hide');
+      }
+    };
+
+    function removeJobOfferFromPendingList() {
+      // Remove element from the pending companies array once accepted or rejected
+      _.remove($scope.pendingJobOffers, function(element) {
+        return element.id === $scope.tempJobOffer.id;
+      });
+    }
   };
 
 });
