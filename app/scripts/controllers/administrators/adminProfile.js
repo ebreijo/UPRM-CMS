@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalDocuments, Patterns, $filter, _) {
 
   $scope.patternEmail = Patterns.user.email;
 
@@ -137,7 +137,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.executeTab4 = function() {
 
-    $scope.acceptCompanyConfirm = function(company) {
+    $scope.setCompanyToConfirm = function(company) {
       $scope.tempCompany = angular.copy(company);
     };
 
@@ -150,10 +150,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       }
     };
 
-    $scope.rejectCompanyConfirm = function(company) {
-      $scope.tempCompany = angular.copy(company);
-    };
-
     $scope.submitRejectCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
@@ -164,7 +160,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     function removeCompanyFromPendingList() {
-      // Remove element from the pending companies array once reject
+      // Remove element from the pending companies array once accepted or rejected
       _.remove($scope.pendingCompanies, function(element) {
         return element.name === $scope.tempCompany.name;
       });
@@ -178,7 +174,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.executeTab5 = function() {
 
-    $scope.acceptRecruiterConfirm = function(recruiter) {
+    $scope.setRecruiterToConfirm = function(recruiter) {
       $scope.tempRecruiter = angular.copy(recruiter);
     };
 
@@ -191,10 +187,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       }
     };
 
-    $scope.rejectRecruiterConfirm = function(recruiter) {
-      $scope.tempRecruiter = angular.copy(recruiter);
-    };
-
     $scope.submitRejectRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'inactive';
@@ -205,7 +197,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     function removeRecruiterFromPendingList() {
-      // Remove element from the pending companies array once accepted or rejected
+      // Remove element from the pending recruiters array once accepted or rejected
       _.remove($scope.pendingRecruiters, function(element) {
         return element.email === $scope.tempRecruiter.email;
       });
@@ -225,7 +217,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.tempJobOffer = {};
 
-    $scope.reviewAcceptJobOfferConfirm = function(jobOffer) {
+    $scope.setJobOfferToConfirm = function(jobOffer) {
       $scope.tempJobOffer = angular.copy(jobOffer);
     };
 
@@ -238,10 +230,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       }
     };
 
-    $scope.rejectJobOfferConfirm = function(jobOffer) {
-      $scope.tempJobOffer = angular.copy(jobOffer);
-    };
-
     $scope.submitRejectJobOffer = function(form) {
       if (form.$valid) {
         $scope.tempJobOffer.accountStatus = 'rejected';
@@ -252,9 +240,49 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     function removeJobOfferFromPendingList() {
-      // Remove element from the pending companies array once accepted or rejected
+      // Remove element from the pending job offers array once accepted or rejected
       _.remove($scope.pendingJobOffers, function(element) {
         return element.id === $scope.tempJobOffer.id;
+      });
+    }
+  };
+
+
+  /**
+   * Promotional Documents
+   */
+  $scope.pendingPromotionalDocuments = PromotionalDocuments.getAllPendingPromotionalDocuments();
+
+  $scope.executeTab7 = function() {
+
+    $scope.tempPromotionalDocument = {};
+
+    $scope.setPromotionalDocumentToConfirm = function(promotionalDocument) {
+      $scope.tempPromotionalDocument = angular.copy(promotionalDocument);
+    };
+
+    $scope.submitAcceptPromotionalDocument = function(form) {
+      if(form.$valid) {
+        $scope.tempPromotionalDocument.status = 'approved';
+        PromotionalDocuments.updatePromotionalDocuments($scope.tempPromotionalDocument);
+        removePromotionalDocumentFromPendingList();
+        $('#acceptPromotionalDocumentModal').modal('hide');
+      }
+    };
+
+    $scope.submitRejectPromotionalDocument = function(form) {
+      if(form.$valid) {
+        $scope.tempPromotionalDocument.status = 'rejected';
+        PromotionalDocuments.updatePromotionalDocuments($scope.tempPromotionalDocument);
+        removePromotionalDocumentFromPendingList();
+        $('#rejectPromotionalDocumentModal').modal('hide');
+      }
+    };
+
+    function removePromotionalDocumentFromPendingList() {
+      // Remove element from the pending promotional documents array once accepted or rejected
+      _.remove($scope.pendingPromotionalDocuments, function(element) {
+        return element.id === $scope.tempPromotionalDocument.id;
       });
     }
   };
