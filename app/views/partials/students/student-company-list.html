@@ -29,12 +29,14 @@
             <form class="form-inline" role="form" action="" method="post">
               <div class="input-group">
                 <span><label class="control-label">Company Search:&nbsp</label></span>
+
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Enter the company name" size="25">
-                                            <span class="input-group-btn"><button class="btn btn-theme" type="button">
-                                              <i class="fa fa-search"></i>
-                                            </button></span>
+                  <span class="input-group-btn"><button class="btn btn-theme" type="button">
+                    <i class="fa fa-search"></i>
+                  </button></span>
                 </div>
+
               </div>
             </form>
           </div>
@@ -54,63 +56,17 @@
                   <th>Company Website</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody ng-repeat="company in companies">
+
                 <tr>
                   <td>
-                    <a href="#">IBM</a>
+                    <a href="#">{{company.name}}</a>
                   </td>
                   <td>
-                    <a href="#">http://www.ibm.com</a>
+                    <a href="#">{{company.websiteUrl}}</a>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#">IBM</a>
-                  </td>
-                  <td>
-                    <a href="#">http://www.ibm.com</a>
-                  </td>
-                </tr>
+
                 </tbody>
               </table>
               <!--//table-->
