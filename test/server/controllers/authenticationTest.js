@@ -15,7 +15,7 @@ describe('Authentication Controller: ', function() {
 
     var login = null;
     beforeEach(function () {
-      login = request(app).post('/api/login/admin');
+      login = request(app).post('/api/login');
     });
 
     it('should login an active admin email placement@uprm.edu', function (done) {
@@ -70,7 +70,7 @@ describe('Authentication Controller: ', function() {
     describe('needs to persist the session', function () {
       before(function (done) {
         this.session = new Session();
-        this.session.post('/api/login/admin')
+        this.session.post('/api/login')
           .send({
             email: 'placement@uprm.edu',
             password: '1q@W#e'
@@ -98,7 +98,7 @@ describe('Authentication Controller: ', function() {
     describe('with an admin logged in', function () {
       beforeEach(function (done) {
         this.session = new Session();
-        this.session.post('/api/login/admin')
+        this.session.post('/api/login')
           .send({
             email: "placement@uprm.edu",
             password: "1q@W#e"
