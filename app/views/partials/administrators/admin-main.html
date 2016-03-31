@@ -36,7 +36,7 @@
                   <a href="#tab6" data-toggle="tab" ng-click="executeTab6()">Job Offers <span class="badge badge-theme">{{pendingJobOffers.length}}</span></a>
                 </li>
                 <li>
-                  <a href="#tab7" data-toggle="tab">Promotional Documents <span class="badge badge-theme">3</span></a>
+                  <a href="#tab7" data-toggle="tab" ng-click="executeTab7()">Promotional Documents <span class="badge badge-theme">{{pendingPromotionalDocuments.length}}</span></a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -46,18 +46,18 @@
                     <div class="row">
                       <article class="welcome" style="padding-top:15px">
                         <div class="col-md-12" style="padding-bottom:5px">
-                          <h3 class="title">Company List</h3>
+                          <h3 class="title">Company List: <span class="badge badge-theme">{{companies.length}}</span></h3>
                         </div>
                         <div class="row" style="margin-bottom:20px">
-                          <div class="col-md-2">
+                          <div class="col-md-1">
                           </div>
-                          <div class="col-md-5">
+                          <div class="col-md-4">
                             <form class="form-inline" role="form">
                               <div class="input-group">
                                 <span><label class="control-label">Search:&nbsp</label></span>
 
                                 <div class="form-group">
-                                  <input type="text" class="form-control" ng-model="searchCompany" placeholder="Enter the company name">
+                                  <input type="text" class="form-control" size="25" ng-model="searchCompany" placeholder="Enter the company name">
                                   <span class="input-group-btn">
                                     <button class="btn btn-theme" type="button">
                                       <i class="fa fa-search"></i>
@@ -83,7 +83,8 @@
                               </div>
                             </form>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-3">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#createCompanyModal">Create Company</button>
                           </div>
                         </div>
                         <article class="contact-form col-md-12">
@@ -156,6 +157,58 @@
                     </div>
                   </div>
                 </div>
+                <div id="createCompanyModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title pull-left" style="color:black">Create New Company</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" name="modalCreateCompanyForm" ng-submit="submitCreateCompany(modalCreateCompanyForm)" novalidate>
+                          <p>Company Name<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" ng-model="company.name" name="modalCompanyName" class="form-control" style="border-radius:0;" required/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalCompanyName.$invalid && !modalCreateCompanyForm.modalCompanyName.$pristine" style="color:#843534" class="help-block"><b>Enter the company name</b></p>
+                          </div>
+                          <p>Website URL<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pushpin"></i></span>
+                            <input type="text" ng-model="company.websiteUrl" name="modalWebsiteUrl" class="form-control" style="border-radius:0;" required/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalWebsiteUrl.$invalid && !modalCreateCompanyForm.modalWebsiteUrl.$pristine" style="color:#843534" class="help-block"><b>Enter the Website URL</b></p>
+                          </div>
+                          <p>Logo</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-picture"></i></span>
+                            <input type="text" ng-model="company.logoPath" class="form-control" style="border-radius:0;"/>
+                          </div>
+                          <p>Description<span class="required" style="color: #e14b39;">*</span></p>
+                          <fieldset class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" rows="6" style="resize: none;" required></textarea>
+                          </fieldset>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter the company description</b></p>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+                              <button type="submit" class="btn btn-theme">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 
                 <div class="tab-pane" id="tab2">
@@ -182,7 +235,7 @@
                   </div>
                   <div class="row">
                     <div class="col-title col-md-12 col-sm-12">
-                      <h3 class="title" style="margin-bottom:25px">Admin List</h3>
+                      <h3 class="title" style="margin-bottom:25px">Admin List: <span class="badge badge-theme">{{adminAccessList.length}}</span></h3>
                     </div>
                     <article class="contact-form col-md-12">
 
@@ -236,7 +289,7 @@
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
                           </div>
-                          <div class="input-group text-center" ng-class="{ 'has-error' : modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine }">
+                          <div class="input-group text-center">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
                             <select class="sort-options form-control" ng-model="tempAdminAccess.adminAccountStatus" name="modalAdminAccountStatus" style="border-radius:0; -webkit-appearance: none;">
                               <option value="active">Active</option>
@@ -300,7 +353,7 @@
                             </div>
                           </form>
                         </div>
-                        <h3 class="title" style="margin-bottom:25px">Major List</h3>
+                        <h3 class="title" style="margin-bottom:25px">Major List: <span class="badge badge-theme">{{majors.length}}</span></h3>
 
                         <div class="course-item-header">
                           <div class="table-responsive">
@@ -446,10 +499,10 @@
                             <td style="text-align:center">{{company.registrationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}</td>
                             <td style="text-align:center"><span class="label label-warning">{{company.companyStatus | capitalize}}</span></td>
                             <td style="text-align:center">
-                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptCompanyModal" ng-click="acceptCompanyConfirm(company)">Accept</button>
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptCompanyModal" ng-click="setCompanyToConfirm(company)">Accept</button>
                             </td>
                             <td style="text-align:center">
-                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectCompanyModal" ng-click="rejectCompanyConfirm(company)">Reject</button>
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectCompanyModal" ng-click="setCompanyToConfirm(company)">Reject</button>
                             </td>
                           </tr>
                           </tbody>
@@ -540,10 +593,10 @@
                             <td style="text-align:center">{{recruiter.registrationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}</td>
                             <td style="text-align:center"><span class="label label-warning">{{recruiter.accountStatus | capitalize}}</span></td>
                             <td style="text-align:center">
-                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptRecruiterModal" ng-click="acceptRecruiterConfirm(recruiter)">Accept</button>
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptRecruiterModal" ng-click="setRecruiterToConfirm(recruiter)">Accept</button>
                             </td>
                             <td style="text-align:center">
-                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectRecruiterModal" ng-click="rejectRecruiterConfirm(recruiter)">Reject</button>
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectRecruiterModal" ng-click="setRecruiterToConfirm(recruiter)">Reject</button>
                             </td>
                           </tr>
                           </tbody>
@@ -563,7 +616,7 @@
                         </div>
                         <!-- dialog body -->
                         <div class="modal-body">
-                          <h6>Are you sure you want to accept registration for {{tempRecruiter.firstName}} {{tempRecruiter.lastName}}?</h6>
+                          <h6>Are you sure you want to accept registration for {{tempRecruiter.firstName}} {{tempRecruiter.lastName}} from {{tempRecruiter.companyName}}?</h6>
                         </div>
                         <!-- dialog buttons -->
                         <div class="modal-footer">
@@ -584,7 +637,7 @@
                         </div>
                         <!-- dialog body -->
                         <div class="modal-body">
-                          <h6>Are you sure you want to reject registration for {{tempRecruiter.firstName}} {{tempRecruiter.lastName}}?</h6>
+                          <h6>Are you sure you want to reject registration for {{tempRecruiter.firstName}} {{tempRecruiter.lastName}} from {{tempRecruiter.companyName}}?</h6>
                         </div>
                         <!-- dialog buttons -->
                         <div class="modal-footer">
@@ -621,10 +674,10 @@
                               <strong>Recruiter Email:</strong> <strong><a href="">{{jobOffer.email}}</a></strong>
                             </li>
                             <li class="list-group-item">
-                              <strong>Creation Date:</strong> {{jobOffer.creationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}
+                              <strong>Creation Date:</strong> {{jobOffer.creationDate | date: 'EEE, MMMM d, y'}}
                            </li>
                             <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;{{jobOffer.announcementNumber}}
+                              <strong>Announcement Number:</strong>&nbsp;{{jobOffer.announcementNumber}}
                             </li>
                             <li class="list-group-item">
                               <strong>Location:</strong> {{jobOffer.location}}
@@ -637,20 +690,131 @@
                           <div class="panel-footer">
                             <div class="row">
                               <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm"
-                                        style="margin-right:10px;">Accept
-                                </button>
-                                <button type="button" class="btn btn-theme btn-sm">Reject
-                                </button>
+                                <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#reviewAcceptJobOfferModal" ng-click="setJobOfferToConfirm(jobOffer)" style="margin-right:10px;">Review/Accept</button>
+                                <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectJobOfferModal" ng-click="setJobOfferToConfirm(jobOffer)">Reject</button>
                               </ul>
                               <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                Expiration Date: {{jobOffer.expirationDate | date: 'EEE, MMMM d, y h:mm:ss a'}}
+                                Expiration Date: {{jobOffer.expirationDate | date: 'EEE, MMMM d, y'}}
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div id="reviewAcceptJobOfferModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title pull-left" style="color:black"><b>Review and Accept Job Offer for {{tempJobOffer.companyName}}</b></h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" name="modalReviewAcceptJobOfferForm" ng-submit="submitJobOfferReviewAccept(modalReviewAcceptJobOfferForm)" novalidate>
+                          <p>Email</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="email" placeholder="{{tempJobOffer.email}}" class="form-control" style="border-radius:0;" disabled/>
+                          </div>
+                          <p>Creation Date</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input type="text" placeholder="{{tempJobOffer.creationDate | date: 'EEE, MMMM d, y'}}" class="form-control" style="border-radius:0;" disabled/>
+                          </div>
+                          <p>Description</p>
+                          <fieldset class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <textarea class="form-control" ng-model="tempJobOffer.description" rows="6" style="resize: none;"></textarea>
+                          </fieldset>
+                          <div class="col-sm-6" style="margin-bottom:10px;">
+                            <p>Job Position</p>
+                            <div class="input-group text-center">
+                              <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+                              <select class="sort-options form-control" ng-model="tempJobOffer.jobPosition" name="modalJobPosition" style="border-radius:0; -webkit-appearance: none;">
+                                <option value="Internship">Internship</option>
+                                <option value="CO-OP">CO-OP</option>
+                                <option value="Full-Time">Full-Time</option>
+                                <option value="Part-Time">Part-Time</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-sm-6" style="margin-bottom:10px;">
+                            <p>Education Level</p>
+                            <div class="input-group text-center">
+                              <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+                              <select class="sort-options form-control" ng-model="tempJobOffer.educationLevel" name="modalEducationLevel" style="border-radius:0; -webkit-appearance: none;">
+                                <option value="Bachelors">Bachelors</option>
+                                <option value="Masters">Masters</option>
+                                <option value="PhD">PhD</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-sm-6" style="margin-bottom:10px;">
+                            <p>Recent Graduate</p>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" ng-model="tempJobOffer.recentGraduate" value="tempJobOffer.recentGraduate">
+                                <span class="label " ng-class="{'label-success': tempJobOffer.recentGraduate, 'label-danger': tempJobOffer.recentGraduate === false}">{{tempJobOffer.recentGraduate}}</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col-sm-6" style="margin-bottom:10px;">
+                            <p>Announcement Number</p>
+                            <div class="input-group text-center" >
+                              <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pushpin"></i></span>
+                              <input ng-model="tempJobOffer.announcementNumber" type="text" class="form-control" style="border-radius:0;"/>
+                            </div>
+                          </div>
+
+                          <p>Location</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-map-marker"></i></span>
+                            <input ng-model="tempJobOffer.location" type="text" class="form-control" style="border-radius:0;"/>
+                          </div>
+                          <p>Promotional Document</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-file"></i></span>
+                            <input ng-model="tempJobOffer.flyerPath" type="text" class="form-control" style="border-radius:0;"/>
+                          </div>
+                          <p>Expiration Date: {{tempJobOffer.expirationDate | date: 'EEE, MMMM d, y'}}</p>
+                          <div class="input-group text-center date">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input id="jobOfferExpirationDatePicker" ng-model="tempJobOffer.expirationDate" type="text" class="form-control">
+                          </div>
+                          <div class="row">
+                            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+                              <button type="submit" class="btn btn-theme">Accept</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="rejectJobOfferModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalRejectJobOfferForm" ng-submit="submitRejectJobOffer(modalRejectJobOfferForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to reject Job Offer "{{tempJobOffer.title}}" from {{tempJobOffer.companyName}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
 
@@ -679,76 +843,18 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
+                          <tr ng-repeat="promotionalDocument in pendingPromotionalDocuments">
                             <td>
-                              <a href="#">Engineering Jobs</a>
+                              <a href="#">{{promotionalDocument.title}}</a>
                             </td>
-                            <td>IBM</td>
-                            <td>10 Sept 2016</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Accept
-                              </button>
+                            <td>{{promotionalDocument.companyName}}</td>
+                            <td>{{promotionalDocument.expirationDate | date: 'EEE, MMMM d, y'}}</td>
+                            <td style="text-align:center"><span class="label label-warning">{{promotionalDocument.status | capitalize}}</span></td>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#acceptPromotionalDocumentModal" ng-click="setPromotionalDocumentToConfirm(promotionalDocument)">Accept</button>
                             </td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Reject
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <a href="#">Engineering Jobs</a>
-                            </td>
-                            <td>IBM</td>
-                            <td>10 Sept 2016</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Accept
-                              </button>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Reject
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <a href="#">Engineering Jobs</a>
-                            </td>
-                            <td>IBM</td>
-                            <td>10 Sept 2016</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Accept
-                              </button>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Reject
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <a href="#">Engineering Jobs</a>
-                            </td>
-                            <td>IBM</td>
-                            <td>10 Sept 2016</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Accept
-                              </button>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-theme btn-sm" style="text-align: center;">
-                                Reject
-                              </button>
+                            <td style="text-align:center">
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#rejectPromotionalDocumentModal" ng-click="setPromotionalDocumentToConfirm(promotionalDocument)">Reject</button>
                             </td>
                           </tr>
                           </tbody>
@@ -758,6 +864,49 @@
                     </article>
                   </div>
                 </div>
+                <div id="acceptPromotionalDocumentModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalAcceptPromotionalDocumentForm" ng-submit="submitAcceptPromotionalDocument(modalAcceptPromotionalDocumentForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to accept promotional document "{{tempPromotionalDocument.title}}" from {{tempPromotionalDocument.companyName}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div id="rejectPromotionalDocumentModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <form class="form-horizontal" name="modalRejectPromotionalDocumentForm" ng-submit="submitRejectPromotionalDocument(modalRejectPromotionalDocumentForm)" novalidate>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+                        </div>
+                        <!-- dialog body -->
+                        <div class="modal-body">
+                          <h6>Are you sure you want to reject promotional document "{{tempPromotionalDocument.title}}" from {{tempPromotionalDocument.companyName}}?</h6>
+                        </div>
+                        <!-- dialog buttons -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-theme">Submit</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
               </div>
             </div>
             <!--//featured-courses-->

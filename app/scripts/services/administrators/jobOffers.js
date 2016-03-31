@@ -77,6 +77,11 @@ app.factory('JobOffers', function(_) {
     return _.filter(this.jobOffers, { jobOfferStatus: 'pending'});
   };
 
+  // TODO: Make a request to get all pending job offers
+  obj.getAllApprovedJobOffers = function() {
+    return _.filter(this.jobOffers, { jobOfferStatus: 'approved'});
+  };
+
   // TODO: Make a request to update a job offer given the job offer id
   obj.updateJobOffer = function(jobOffer) {
     var element = _.find(this.jobOffers, { id: jobOffer.id});

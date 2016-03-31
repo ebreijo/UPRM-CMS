@@ -1,0 +1,89 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/navbar.html'"></div>
+  <!--//main-nav-->
+
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Company List</h1>
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a href="index.html">Home</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Companies</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row">
+          <div class="col-md-5" style="float: none; margin: 0 auto; margin-top:0px">
+            <form class="form-inline" role="form" action="" method="post">
+              <div class="input-group">
+                <span><label class="control-label">Company Search:&nbsp</label></span>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Enter the company name" size="25">
+                  <span class="input-group-btn"><button class="btn btn-theme" type="button">
+                    <i class="fa fa-search"></i>
+                  </button></span>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row text-center" style="margin-top:20px">
+          <div class="col-md-12">
+            <h3 class="title">Companies:</h3>
+          </div>
+        </div>
+        <div class="row page-row">
+          <div class="jobs-wrapper col-md-7" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Company Website</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="company in companies">
+
+                <tr>
+                  <td>
+                    <a href="#">{{company.name}}</a>
+                  </td>
+                  <td>
+                    <a href="#">{{company.websiteUrl}}</a>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+              <!--//table-->
+            </div>
+          </div>
+          <!--//page-content-->
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+
+  <!--//page-->
+  </div>
+  <!--//wrapper-->
+  <!-- ******FOOTER****** -->
+  <div ng-include src="'views/partials/footer.html'"></div>
+

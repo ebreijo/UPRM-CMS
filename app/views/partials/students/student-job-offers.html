@@ -1,0 +1,139 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/navbar.html'"></div>
+  <!--//main-nav-->
+
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Job Offer List</h1>
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a href="index.html">Home</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Job Offers</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+
+      <div class="page-content">
+        <div class="row">
+          <div class="col-md-9" style="float: none; margin: 0 auto; margin-top:0px">
+            <div class="col-md-1">
+            </div>
+
+            <article class="contact-form col-md-7 text-center" style="margin-top:6px">
+              <label style="margin-right:10px">
+                <input ng-model="checkBox.internship"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Intership
+              </label>
+              <label style="margin-right:10px">
+                <input ng-model="checkBox.coop"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;COOP
+              </label>
+              <label style="margin-right:10px">
+                <input ng-model="checkBox.partTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Part-Time
+              </label>
+              <label style="margin-right:10px">
+                <input ng-model="checkBox.fullTime"
+                       ng-checked="printCheckbox()"
+                       class="control-label"
+                       type="checkbox"
+                       value="">&nbsp;&nbsp;Full-Time
+              </label>
+            </article>
+
+            <div class="col-md-1">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        <div class="row text-center" style="margin-top:20px">
+          <div class="col-md-12">
+            <h3 class="title">Jobs:</h3>
+          </div>
+        </div>
+        <div class="course-item-header row-divider">
+
+          <div ng-repeat="jobOffer in jobOffers" ng-show="lookingForFilter(company.interestedMajors)" class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+
+            <div class="panel panel-default page-row">
+              <div class="panel-heading">
+                <h3 class="panel-title"><a href="job-single.html"> </a>&nbsp;
+                  <strong> {{ jobOffer.title }} </strong> </a>&nbsp; (Company: {{ jobOffer.companyName }})
+                  <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'Bachelors'"> Bachelors </span>
+                  <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'Masters'"> Masters  </span>
+                  <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'PhD'"> PhD </span>
+
+                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Full-Time'"> Full Time </span>
+                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Part-Time'"> Part Time </span>
+                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'CO-OP'"> Co-Op </span>
+                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Internship'"> Internship </span>
+                </h3>
+              </div>
+              <div class="panel-body">
+                {{ jobOffer.description }}
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item" ng-if="!jobOffer.announcementNumber === null">
+                  <strong>Announcement Number:</strong>&nbsp; {{ jobOffer.announcementNumber }}
+                </li>
+                <!--<li class="list-group-item">-->
+                  <!--<strong>Majors:</strong> ICOM, INEL, INCI, INQU-->
+                <!--</li>-->
+                <li class="list-group-item">
+                  <strong>Location:</strong> {{ jobOffer.location }}
+                </li>
+                <li class="list-group-item">
+                  <strong>Promotional Document:</strong>&nbsp;
+                  <a href="#{{jobOffer.flyerPath}}"> engineering_support_assitant.pdf </a>
+                </li>
+              </ul>
+              <div class="panel-footer">
+                <div class="row">
+                  <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                  </ul>
+                  <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                    <small>Open until {{ jobOffer.expirationDate | date: 'EEE, MMMM d, y' }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--//pagination-->
+          </div>
+          <div class="row">
+          </div>
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>
+
