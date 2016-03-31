@@ -9,27 +9,28 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title pull-left">Recruiter Login</h1>
+        <h1 class="heading-title pull-left">Login</h1>
         <div class="breadcrumbs pull-right">
         </div>
         <!--//breadcrumbs-->
       </header>
       <div class="row">
-                        <span><p class="text-center" style="padding-top:5px"><span style="font-family: arial; color: #004D13;"><strong>
-                          Registered Recruiters:</strong></span>
-                          Enter you username and password below and click Login.</p><p class="text-center" style="padding-top:2px"><span style="font-family: arial; color: #004D13;"><strong>
-                          New Recruiters:</strong></span>
-                          If you have not registered with this website before, click the Register option below.</p></span>
+        <span>
+          <p class="text-center" style="padding-top:5px"><span style="font-family: arial; color: #004D13;"><strong>Registered Users:</strong></span>
+          Enter you username and password below and click Login.</p>
+          <p class="text-center" style="padding-top:2px"><span style="font-family: arial; color: #004D13;"><strong>New Users:</strong></span>
+          If you have not registered on this website before, click the Register option below.</p>
+        </span>
       </div>
       <div class="row" style="padding-top:20px">
         <div class="col-md-6" style="float: none; margin: 0 auto;">
           <div style="margin-top: 10px">
             <div class="box box-theme">
               <div class="panel-body">
-                <form class="form-horizontal" name="userForm" novalidate>
+                <form class="form-horizontal" name="userForm" ng-submit="login(userForm)" novalidate>
                   <div class="alert alert-danger alert-dismissable" ng-show="show">
                     <button type="button" class="close" ng-click="show=false" aria-hidden="true">&times;</button>
-                    <strong class="alert-link">The account doesn't exists. Enter a Different Account or Register</strong>
+                    <strong class="alert-link">{{errors.message}}</strong>
                   </div>
                   <div class="input-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
                     <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
@@ -51,22 +52,22 @@
                   <div class="form-group bottomBox" style="text-align: center">
                     <!-- Button -->
                     <div class="col-md-6" style="margin-top:5px">
-                      <a type="submit" ng-click="submitForm(userForm.email.$valid && userForm.password.$valid, 'page')" class="btn btn-success" ng-disabled="(userForm.email.$invalid || userForm.password.$invalid)">Login</a>
+                      <button type="submit" class="btn btn-success" ng-disabled="(userForm.email.$invalid || userForm.password.$invalid)">Login</button>
                     </div>
                     <div class="col-md-6" style="margin-top:5px">
-                      <a type="submit" ui-sref="companySearch" class="btn btn-primary">Register</a>
+                      <button type="button" ui-sref="companySearch" class="btn btn-primary">Register</button>
                     </div>
                   </div>
-                  <div class="text-center">
-                    <a href="#" data-toggle="modal" data-target="#myModal" style="color:white">Forgot your Password?</a>
-                  </div>
                 </form>
+                <div class="text-center">
+                  <a href="#" data-toggle="modal" data-target="#forgotPasswordModal" style="color:white">Forgot your Password?</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="myModal" class="modal fade" role="dialog">
+      <div id="forgotPasswordModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">

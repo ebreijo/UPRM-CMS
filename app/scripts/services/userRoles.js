@@ -6,5 +6,5 @@ app.constant('USER_ROLES', {
   guest: 'guest',
   student: 'student',
   recruiter: 'recruiter',
-  administrator: 'administrator'
+  administrator: 'admin'
 });
