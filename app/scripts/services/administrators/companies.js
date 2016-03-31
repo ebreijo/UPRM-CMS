@@ -52,6 +52,11 @@ app.factory('Companies', function(_) {
     })[0];
   };
 
+  // TODO: Make a request to create a new company with basic information
+  obj.createNewCompany = function(company) {
+    this.companies.push(company);
+  };
+
   // TODO: Make a request to update the status of a given company
   obj.updateCompanyStatus = function(company) {
     var element = _.find(this.companies, { name: company.name});
