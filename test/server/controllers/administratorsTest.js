@@ -248,7 +248,7 @@ describe('Administrators Controller: ', function() {
 
       before(function (done) {
         this.session = new Session();
-        this.session.post('/api/login/admin')
+        this.session.post('/api/login')
           .send({
             email: 'pedro.rivera@upr.edu',
             password: '1q@W#e'
