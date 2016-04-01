@@ -146,7 +146,7 @@
                           <a href="{{companyProfile.generalInfo[0].websiteUrl}}">{{companyProfile.generalInfo[0].websiteUrl}}</a>
                         </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" type="button" class="btn btn-theme btn-sm">Edit Description</button>
+                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(companyProfile.generalInfo[0])" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
@@ -156,6 +156,10 @@
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
                         <h3 class="title">Promotional Material</h3>
+                        <div class="alert alert-danger alert-dismissable" ng-show="companyProfile.promotionalMaterial.length > 3">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document delete or edit one of the existing materials listed below.</strong>
+                        </div>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
                           <div class="row">
                             <div class="col-title col-md-4 col-sm-6">
@@ -188,10 +192,10 @@
                                 <div class="row">
                                   <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
                                   <div class="col-level col-md-2" style="padding-top:2px">
-                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" class="btn btn-theme btn-xs">Edit</button>
+                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="getPromotionalMaterialItem(item)" class="btn btn-theme btn-xs">Edit</button>
                                   </div>
                                   <div class="col-location col-md-2" style="padding-top:2px">
-                                    <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                                    <button type="button" class="btn btn-theme btn-xs" ng-click="deleteCompanyPromotionalMaterial(item)">Delete</button>
                                   </div>
                                   <div class="col-duration col-md-4"></div>
                                 </div>
@@ -201,8 +205,8 @@
                             <!--//details-->
                           </article>
                         </div>
-                        <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button type="button" class="btn btn-theme btn-sm">Add Promotional Material</button>
+                        <div class="col-md-12 text-center" style="margin-bottom:5px; margin-top:10px">
+                          <button type="button" data-toggle="modal" data-target="#addPromotionalMaterialModal" class="btn btn-theme btn-sm">Add Promotional Material</button>
                         </div>
                       </article>
                     </div>
@@ -740,7 +744,6 @@
                 </div>
               </div>
             </div>
-            <!--//featured-courses-->
           </div>
           <!--//courses-wrapper-->
         </div>
@@ -758,16 +761,16 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="editCompanyDescriptionForm">
+            <form name="editCompanyDescriptionForm" ng-submit="submitCompanyDescription(editCompanyDescriptionForm)" novalidate>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
                 <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
-                <textarea ng-model="tempCompanyInfo[0].companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:15px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$valid"></i>
                 <i style="margin-top:15px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine"></i>
               </div>
@@ -777,22 +780,23 @@
               <label><h5 class="title text-highlight"><b>Company Website:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
-                <input ng-model="tempCompanyInfo[0].websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
               </div>
               <div>
                 <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
               </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-            <button class="btn btn-theme btn-sm" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
-          </div>
-        </div>
+        <!--//featured-courses-->
       </div>
       <div class="modal-footer">
         <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -863,46 +867,94 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title pull-left" style="color:black">Edit Company Promotional Material</h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="editCompanyPromotionalMaterialForm">
+            <form name="editCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterial(editCompanyPromotionalMaterialForm)" novalidate>
               <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
-                <input ng-model="promotionalMaterialList.name" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="PromotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
               </div>
               <div>
                 <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
               </div>
-              {{promotionalMaterialList}}
-              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5>
-              </label>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
-                <input ng-model="tempCompanyInfo[0].websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
+               <!-- <input ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" style="border-radius:0;" required/> -->
+                <input id="promotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
               <div>
-                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+                </div>
               </div>
             </form>
           </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addPromotionalMaterialModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Edit Company Promotional Material</h4>
+      </div>
+      <div class="modal-body">
         <div class="row">
-          <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-            <button class="btn btn-theme btn-sm" ng-click="closeCompanyDescriptionModal()" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+          <div class="col-md-12">
+            <form name="editCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterial(editCompanyPromotionalMaterialForm)" novalidate>
+              <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
+                <input ng-model="PromotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+              </div>
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
+                <!-- <input ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" style="border-radius:0;" required/> -->
+                <input id="promotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

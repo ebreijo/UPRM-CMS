@@ -4,7 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 //app.controller('AboutUsCtrl', function($scope, aboutUs) {
 //$scope.aboutUs = aboutUs.aboutUsInfo;
-app.controller('CompanyCtrl', function($scope) {
+app.controller('CompanyCtrl', function($scope, _) {
 
   var majors = [
     {
@@ -63,21 +63,21 @@ app.controller('CompanyCtrl', function($scope) {
       status: 'approved'
     },
     {
-      id: 1,
+      id: 2,
       companyName: 'IBM',
       title: 'PromotionalMaterial2',
       expirationDate: '2016-07-22T16:12:12.000Z',
       status: 'approved'
     },
     {
-      id: 1,
+      id: 3,
       companyName: 'IBM',
       title: 'PromotionalMaterial3',
       expirationDate: '2016-07-22T16:12:12.000Z',
       status: 'approved'
     },
     {
-      id: 1,
+      id: 4,
       companyName: 'IBM',
       title: 'PromotionalMaterial4',
       expirationDate: '2016-07-22T16:12:12.000Z',
@@ -87,22 +87,20 @@ app.controller('CompanyCtrl', function($scope) {
 
   //For Edit Company Description Modal------------------------------------------------------------
 
-  $scope.tempCompanyInfo = [];
+  $scope.CompanyDescriptionItem = {};
 
-  $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus });
+  $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
 
-  $scope.tempCompanyInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus });
-
-  $scope.updateCompanyDescription = function(isValid){
-    if (isValid){
-      $scope.companyProfile.generalInfo[0].websiteUrl = $scope.tempCompanyInfo[0].websiteUrl;
-      $scope.companyProfile.generalInfo[0].companyDescription = $scope.tempCompanyInfo[0].companyDescription;
-    }
+  $scope.getCompanyDescriptionItem = function(item) {
+    $scope.CompanyDescriptionItem = angular.copy(item);
   };
 
-  $scope.closeCompanyDescriptionModal = function(){
-    $scope.tempCompanyInfo[0].websiteUrl = $scope.companyProfile.generalInfo[0].websiteUrl;
-    $scope.tempCompanyInfo[0].companyDescription = $scope.companyProfile.generalInfo[0].companyDescription;
+  $scope.submitCompanyDescription = function(form){
+    if(form.$valid){
+      $scope.companyProfile.generalInfo[0].websiteUrl = $scope.CompanyDescriptionItem.websiteUrl;
+      $scope.companyProfile.generalInfo[0].companyDescription = $scope.CompanyDescriptionItem.companyDescription;
+      $('#editCompanyDescriptionModal').modal('hide');
+    }
   };
 
   //For Edit Interested Majors Modal------------------------------------------------------------
@@ -159,12 +157,34 @@ app.controller('CompanyCtrl', function($scope) {
     }
   };
 
+
   //For Edit Promotional Material Modal------------------------------------------------------------
-  $scope.promotionalMaterialList = [];
+
+  $('#promotionalDocumentExpirationDatePicker').datepicker({
+    format: 'MM d, yyyy'
+  });
+
+  $scope.PromotionalMaterialItem = {};
 
   for (i = 0; i < promotionalMaterial.length; i++) {
-    $scope.promotionalMaterialList.push({title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
-    $scope.companyProfile.promotionalMaterial.push({title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
+    $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
   }
 
+  $scope.getPromotionalMaterialItem = function(item) {
+    $scope.PromotionalMaterialItem = angular.copy(item);
+  };
+
+  $scope.deleteCompanyPromotionalMaterial = function(item){
+    _.remove(this.companyProfile.promotionalMaterial, function(element) {
+      return element.id === item.id;
+    });
+  };
+
+  $scope.submitCompanyPromotionalMaterial = function(form){
+    if(form.$valid){
+      var promotionalMaterialElement = _.find(this.companyProfile.promotionalMaterial, { id: $scope.PromotionalMaterialItem.id});
+      _.merge(promotionalMaterialElement, $scope.PromotionalMaterialItem);
+      $('#editCompanyPromotionalMaterialModal').modal('hide');
+    }
+  };
 });
