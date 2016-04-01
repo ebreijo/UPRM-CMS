@@ -40,11 +40,6 @@
               <li ng-repeat="item in aboutUs.studentServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
-              <li>
-                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                Every student is responsible for maintaining his/her file updated and with enough copies at the
-                Placement Office.
-              </li>
             </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
@@ -56,6 +51,26 @@
                 We refer resumes of recent graduates with minimum experience.
               </li>
             </ul>
+            <h3 class="title">Policies</h3>
+            <p>{{aboutUs.aboutUs[0].policiesDesc}}</p>
+            <ul class="custom-list-style">
+              <li ng-repeat="item in aboutUs.policies">
+                <i class="fa fa-check"></i>{{item.policy}}
+              </li>
+            </ul>
+            <h3 class="title">Requirements</h3>
+            <p>{{aboutUs.aboutUs[0].requirementsDesc}}</p>
+            <ul class="custom-list-style">
+              <li ng-repeat="item in aboutUs.requirements">
+                <i class="fa fa-check"></i>{{item.requirement}}
+              </li>
+              <li>
+                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                Every student is responsible for maintaining his/her file updated and with enough copies at the
+                Placement Office.
+              </li>
+            </ul>
+
             <h3 class="title">Our Staff</h3>
 
             <div class="table-responsive">
@@ -106,10 +121,11 @@
       </div>
       <!--//page-content-->
     </div>
+
     <div class="page-row">
       <article class="map-section">
         <h3 class="title">How to find us</h3>
-        <article class="welcome col-md-12 col-sm-12" style="margin-bottom:10px">
+        <article class="welcome col-md-12 col-sm-12">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1490.3079326503766!2d-67.14124061552592!3d18.21070118501364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDEyJzM3LjEiTiA2N8KwMDgnMjkuMCJX!5e0!3m2!1sen!2spr!4v1457839879455" style="overflow: hidden;
         width: 100%;" width="100%" width="auto" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
         </article>
@@ -124,18 +140,3 @@
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
 <div ng-include src="'views/partials/footer.html'"></div>
-<!--<div class="row">
-  <div ng-repeat="aboutUsInfo in aboutUs" class="col-md-5 col-md-offset-4">
-    <br/>
-    {{aboutUsInfo.vision}}
-    <br/>
-    {{aboutUsInfo.missionDesc}}
-    <br/>
-    {{aboutUsInfo.policiesDesc}}
-    <br/>
-    {{aboutUsInfo.requirementsDesc}}
-    <br/>
-  </div>
-</div>
--->
-

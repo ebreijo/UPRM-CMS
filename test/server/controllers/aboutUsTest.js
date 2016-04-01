@@ -143,7 +143,7 @@ describe('About Us Controller: ', function() {
       request(app)
         .put('/api/aboutUs/policies')
         .send({
-          "companyServices" : [{
+          "policies" : [{
             "id" : 1,
             "policy" : "update first policy"
           }, {
