@@ -15,49 +15,78 @@ var app = angular.module('uprmcmsApp', [
 
 app.constant('_', window._);
 
-app.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+app.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('uprmcmsApp');
 }]);
 
-app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);
+
+  var all = [USER_ROLES.guest, USER_ROLES.student, USER_ROLES.recruiter, USER_ROLES.administrator];
 
   $stateProvider.state('landingPage', {
     url: '/',
     templateUrl: 'partials/landing.html',
-    controller: 'LandingPageCtrl'
+    controller: 'LandingPageCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('company', {
     url: '/company',
     templateUrl: 'partials/companies/company-main.html',
-    controller: 'CompanyCtrl'
+    controller: 'CompanyCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('companyRegistration', {
     url: '/companyRegistration',
     templateUrl: 'partials/company-registration.html',
-    controller: 'CompanyRegistrationCtrl'
+    controller: 'CompanyRegistrationCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('locationRegistration', {
     url: '/locationRegistration',
     templateUrl: 'partials/location-registration.html',
-    controller: 'LocationRegistrationCtrl'
+    controller: 'LocationRegistrationCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('recruiterRegistration', {
     url: '/recruiterRegistration',
     templateUrl: 'partials/recruiter-registration.html',
-    controller: 'RecruiterRegistrationCtrl'
+    controller: 'RecruiterRegistrationCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('locationSearch', {
     url: '/locationSearch',
     templateUrl: 'partials/location-search.html',
-    controller: 'LocationSearchCtrl'
+    controller: 'LocationSearchCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('companySearch', {
     url: '/companySearch',
     templateUrl: 'partials/company-search.html',
-    controller: 'CompanySearchCtrl'
+    controller: 'CompanySearchCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('login', {
     url: '/login',
     templateUrl: 'partials/company-login.html',
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+    data: {
+      authorizedRoles: all
+    }
   }).state('aboutUs', {
     url: '/aboutUs',
     templateUrl: 'partials/aboutUs.html',
-    controller: 'AboutUsCtrl'
+    controller: 'AboutUsCtrl',
+    data: {
+      authorizedRoles: all
+    }
     /*
     resolve: {
       aboutUsPromise: ['AboutUs', function (AboutUs) {
@@ -67,23 +96,38 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     */
   }).state('calendar', {
     url: '/calendar',
-    templateUrl: 'partials/calendar.html'
+    templateUrl: 'partials/calendar.html',
+    data: {
+      authorizedRoles: all
+    }
   })
   // Administrator views
     .state('adminProfile', {
       url: '/adminProfile',
       templateUrl: 'partials/administrators/admin-main.html',
-      controller: 'AdminProfileCtrl'
+      controller: 'AdminProfileCtrl',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminCalendar', {
       url: '/adminCalendar',
-      templateUrl: 'partials/administrators/calendar.html'
+      templateUrl: 'partials/administrators/calendar.html',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminAboutUs', {
       url: '/adminAboutUs',
       templateUrl: 'partials/administrators/admin-about.html',
-      controller: 'AboutUsCtrl'
+      controller: 'AboutUsCtrl',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminCareerFair', {
       url: '/adminJobFair',
-      templateUrl: 'partials/administrators/career-fair.html'
+      templateUrl: 'partials/administrators/career-fair.html',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminCompanyProfile', {
       url: '/adminCompanyProfile/:companyName',
       templateUrl: 'partials/administrators/admin-company-profile.html',
@@ -93,29 +137,88 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
           console.log($stateParams.companyName);
           return Companies.getCompany($stateParams.companyName);
         }]
+      },
+      data: {
+        authorizedRoles: all
       }
     })
     // Student Views
     .state('jobFair', {
       url: '/jobFair',
       templateUrl: 'partials/students/jobFair.html',
-      controller: 'jobFairCtrl'
+      controller: 'jobFairCtrl',
+      data: {
+        authorizedRoles: all
+      }
     }).state('studentCalendar', {
       url: '/studentCalendar',
-      templateUrl: 'partials/students/calendar.html'
+      templateUrl: 'partials/students/calendar.html',
+      data: {
+        authorizedRoles: all
+      }
     }).state('studentAboutUs', {
       url: '/studentAboutUs',
       templateUrl: 'partials/students/student-about.html',
-      controller: 'AboutUsCtrl'
+      controller: 'AboutUsCtrl',
+      data: {
+        authorizedRoles: all
+      }
     }).state('studentJobOffers', {
       url: '/studentJobOffers',
       templateUrl: 'partials/students/student-job-offers.html',
-      controller: 'jobOffersCtrl'
+      controller: 'jobOffersCtrl',
+      data: {
+        authorizedRoles: all
+      }
     }).state('studentCompanyList', {
       url: '/studentCompanyList',
       templateUrl: 'partials/students/student-company-list.html',
-      controller: 'companyListCtrl'
+      controller: 'companyListCtrl',
+      data: {
+        authorizedRoles: all
+      }
     });
 
   $urlRouterProvider.otherwise('/');
+});
+
+app.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+});
+
+app.run(function($rootScope, $state, Auth, AUTH_EVENTS, USER_ROLES) {
+
+  $rootScope.$on('$stateChangeStart', function(event, toState) {
+
+    function getAuthorizedRoles(state) {
+      var authorizedRoles = USER_ROLES.guest; // default authorized role
+
+      if(state.data && state.data.authorizedRoles) {
+        authorizedRoles = state.data.authorizedRoles;
+      }
+
+      return authorizedRoles;
+    }
+
+    var authorizedRoles = getAuthorizedRoles(toState);
+
+    // if user is not authorized prevent attempted state change and redirect to the landing page
+    if (!Auth.isAuthorized(authorizedRoles)) {
+      console.log('not authorized', authorizedRoles, Auth.getUserRole());
+      event.preventDefault(); // Prevent the change to other states
+      if (Auth.isAuthenticated()) {
+        // user is not allowed
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      } else {
+        // user is not logged in
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+      }
+      $state.go('landingPage'); // redirect to landing page
+    }
+  });
+
+  $rootScope.$on('$stateChangeSuccess', function (event, current) {
+    $rootScope.bodyClass = current.bodyClass || 'uprmcms';
+  });
+
 });
