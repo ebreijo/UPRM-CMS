@@ -10,7 +10,8 @@ var app = angular.module('uprmcmsApp', [
   'ngStorage',
   'restangular',
   'chieffancypants.loadingBar',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'xeditable'
 ]);
 
 app.constant('_', window._);
@@ -123,8 +124,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         authorizedRoles: all
       }
     }).state('adminCareerFair', {
-      url: '/adminJobFair',
+      url: '/adminCareerFair',
       templateUrl: 'partials/administrators/career-fair.html',
+      controller: 'jobFairCtrl',
       data: {
         authorizedRoles: all
       }
@@ -221,4 +223,8 @@ app.run(function($rootScope, $state, Auth, AUTH_EVENTS, USER_ROLES) {
     $rootScope.bodyClass = current.bodyClass || 'uprmcms';
   });
 
+});
+
+app.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
