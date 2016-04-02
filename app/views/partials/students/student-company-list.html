@@ -31,7 +31,7 @@
                 <span><label class="control-label">Company Search:&nbsp</label></span>
 
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Enter the company name" size="25">
+                  <input type="text" ng-model="companySearch.name" class="form-control" placeholder="Enter the company name" size="25">
                   <span class="input-group-btn"><button class="btn btn-theme" type="button">
                     <i class="fa fa-search"></i>
                   </button></span>
@@ -56,7 +56,7 @@
                   <th>Company Website</th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="company in companies">
+                <tbody ng-repeat="company in companies | filter:companySearch">
 
                 <tr>
                   <td>
