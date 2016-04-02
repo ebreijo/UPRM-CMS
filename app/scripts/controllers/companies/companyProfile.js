@@ -101,9 +101,7 @@ app.controller('CompanyCtrl', function($scope, _) {
 
     ],
     'recruiterList':[
-      {
 
-      }
     ],
     'requestsInfo':[
       {
@@ -277,10 +275,17 @@ app.controller('CompanyCtrl', function($scope, _) {
   };
 
   //For Deleting Recruiters------------------------------------------------------------
-  $scope.recruiterList = [];
+
+  $scope.recruiterItem = {};
 
   for (i = 0; i < recruiters.length; i++) {
-    $scope.majorList.push({name: majors[i].majorCode, value: false});
+    $scope.companyProfile.recruiterList.push(recruiters[i]);
   }
+
+  $scope.deleteRecruiter = function(item){
+    _.remove(this.companyProfile.recruiterList, function(element) {
+      return element.email === item.email;
+    });
+  };
 
 });
