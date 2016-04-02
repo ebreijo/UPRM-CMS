@@ -157,8 +157,8 @@
                         </div>
                         <h3 class="title">Promotional Material</h3>
                         <div class="alert alert-danger alert-dismissable" ng-show="showPromotionalMaterialError">
-                          <button type="button" class="close" ng-click="showPromotionalMaterialError=false" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document delete or edit one of the existing materials listed below.</strong>
+                          <button type="button" class="close" ng-click="showPromotionalMaterialError=false" aria-hidden="true">&times;</button>
+                          <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document either: delete or edit one of the existing materials listed below.</strong>
                         </div>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
                           <div class="row">
@@ -934,7 +934,7 @@
               </div>
               <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required/>
+                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required ng-pattern="/^([0-9-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
