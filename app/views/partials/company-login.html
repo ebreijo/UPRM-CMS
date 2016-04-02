@@ -30,7 +30,7 @@
                 <form class="form-horizontal" name="userForm" ng-submit="login(userForm)" novalidate>
                   <div class="alert alert-danger alert-dismissable" ng-show="show">
                     <button type="button" class="close" ng-click="show=false" aria-hidden="true">&times;</button>
-                    <strong class="alert-link">{{errors.message}}</strong>
+                    <strong class="alert-link">The account doesn't exists. Enter a Different Account or Register</strong>
                   </div>
                   <div class="input-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
                     <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>

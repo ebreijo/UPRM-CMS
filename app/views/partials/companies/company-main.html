@@ -156,8 +156,8 @@
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
                         <h3 class="title">Promotional Material</h3>
-                        <div class="alert alert-danger alert-dismissable" ng-show="companyProfile.promotionalMaterial.length === 5">
-                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <div class="alert alert-danger alert-dismissable" ng-show="showPromotionalMaterialError">
+                          <button type="button" class="close" ng-click="showPromotionalMaterialError=false" data-dismiss="alert" aria-hidden="true">&times;</button>
                           <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document delete or edit one of the existing materials listed below.</strong>
                         </div>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
@@ -206,7 +206,7 @@
                           </article>
                         </div>
                         <div class="col-md-12 text-center" style="margin-bottom:5px; margin-top:10px">
-                          <button type="button" data-toggle="modal" data-target="#addPromotionalMaterialModal" class="btn btn-theme btn-sm">Add Promotional Material</button>
+                          <button type="button" ng-click="openAddCompanyPromotionalMaterialModal()" class="btn btn-theme btn-sm">Add Promotional Material</button>
                         </div>
                       </article>
                     </div>
@@ -886,7 +886,7 @@
               </div>
               <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="promotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
+                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
@@ -921,26 +921,28 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="addCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterial(addCompanyPromotionalMaterialForm)" novalidate>
+            <form name="addCompanyPromotionalMaterialForm" ng-submit="submitAddCompanyPromotionalMaterial(addCompanyPromotionalMaterialForm)" novalidate>
               <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
-                <input ng-model="PromotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="addPromotionalMaterialItemTitle" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
               </div>
               <div>
                 <p ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
               </div>
-              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="promotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required/>
+                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" required/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
               <div>
                 <p ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
               </div>
+              <p>{{companyProfile.promotionalMaterial}}</p>
+              <p>{{addPromotionalMaterialItemExpirationDate}}</p>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
                   <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>

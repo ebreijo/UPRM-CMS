@@ -160,11 +160,14 @@ app.controller('CompanyCtrl', function($scope, _) {
 
   //For Edit Promotional Material Modal------------------------------------------------------------
 
-  $('#promotionalDocumentExpirationDatePicker').datepicker({
-    format: 'MM d, yyyy'
+  $('#editPromotionalDocumentExpirationDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
   });
 
   $scope.PromotionalMaterialItem = {};
+  $scope.addPromotionalMaterialItemTitle = null;
+  $scope.addPromotionalMaterialItemExpirationDate = null;
+  $scope.showPromotionalMaterialError = false;
 
   for (i = 0; i < promotionalMaterial.length; i++) {
     $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
@@ -187,4 +190,33 @@ app.controller('CompanyCtrl', function($scope, _) {
       $('#editCompanyPromotionalMaterialModal').modal('hide');
     }
   };
+
+  //For Adding Promotional Material Modal------------------------------------------------------------
+
+  $('#addPromotionalDocumentExpirationDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
+
+  $scope.openAddCompanyPromotionalMaterialModal = function(){
+    if($scope.companyProfile.promotionalMaterial.length < 5){
+      $('#addPromotionalMaterialModal').modal('show');
+      $scope.showPromotionalMaterialError = false;
+
+    }
+    else if ($scope.companyProfile.promotionalMaterial.length >= 5){
+      $scope.showPromotionalMaterialError = true;
+
+    }
+  };
+
+  var index = 6;
+
+  $scope.submitAddCompanyPromotionalMaterial = function(form){
+    if(form.$valid){
+      this.companyProfile.promotionalMaterial.push({id: index, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
+      $('#addPromotionalMaterialModal').modal('hide');
+      index++;
+    }
+  };
+
 });

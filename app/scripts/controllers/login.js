@@ -21,6 +21,7 @@ app.controller('LoginCtrl', function($scope, $state, Auth, USER_ROLES) {
         }
       }).catch(function(error) {
         $scope.show = true;
+        //$scope.modalShow = true;
         $scope.errors.message = error.data.message;
       });
     }
