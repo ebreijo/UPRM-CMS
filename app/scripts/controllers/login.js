@@ -9,7 +9,6 @@ app.controller('LoginCtrl', function($scope, $state, Auth, USER_ROLES) {
 
   $scope.login = function(form) {
     if (form.$valid) {
-      $scope.errors = {};
       Auth.login({
         email: $scope.user.email,
         password: $scope.user.password
@@ -19,10 +18,20 @@ app.controller('LoginCtrl', function($scope, $state, Auth, USER_ROLES) {
         } else if (user.authType === USER_ROLES.recruiter) {
           $state.go('company');
         }
-      }).catch(function(error) {
+      }).catch(function() {
         $scope.show = true;
-        //$scope.modalShow = true;
-        $scope.errors.message = error.data.message;
+      });
+    }
+  };
+
+  $scope.forgot = function(form) {
+    if (form.$valid) {
+      Auth.forgot({email: $scope.forgotEmail}).then(function(res) {
+        $('#forgotPasswordModal').modal('hide');
+        console.log(res);
+        //$state.go('');
+      }).catch(function() {
+        $scope.modalShowMessage = true;
       });
     }
   };
