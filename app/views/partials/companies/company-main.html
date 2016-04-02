@@ -186,7 +186,7 @@
                           <article class="course-item row-divider">
                             <div class="details row">
                               <div class="col-title col-md-4 col-sm-6">
-                                <a href="course-single.html">{{item.title}}</a>
+                                <a href="documents/pdf-sample.pdf" target="_blank">{{item.title}}</a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
                               </div>
                               <div class="col-meta col-md-8 col-sm-6">
                                 <div class="row">
@@ -271,142 +271,40 @@
                     <div class="course-item-header row-divider">
                       <div class="jobs-wrapper col-md-10 col-sm-9">
                         <h3 class="title" style="margin-bottom:25px">Job Offer List</h3>
-                        <div class="panel panel-default page-row">
+                        <div class="panel panel-default page-row" ng-repeat="item in companyProfile.jobOfferList">
                           <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
+                            <h3 class="panel-title">{{item.title}} <span class="label label-info pull-right">{{item.educationLevel}}</span> <span class="label label-success pull-right" style="margin-right:10px">{{item.jobPosition}}</span></h3>
                           </div>
                           <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
+                            {{item.description}} <span ng-show="item.recentGraduate"><b>**For Recent Graduates**</b></span>
                           </div>
                           <ul class="list-group">
                             <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
+                              <strong>Anouncement Number:</strong>&nbsp;{{item.announcementNumber}}
                             </li>
                             <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
+                              <strong>Location:</strong> {{item.location}}
                             </li>
                             <li class="list-group-item">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
+                              <a href="/documents/pdf-sample.pdf">engineering_support_assitant.pdf</a>
+                            </li>
+                            <li class="list-group-item">
+                              <strong>Open since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
                             </li>
                           </ul>
                           <div class="panel-footer">
                             <div class="row">
                               <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
+                                <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Delete Job Offer</button>
                               </ul>
                               <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
+                                Open until: {{item.expirationDate | date: 'MMMM d, y'}}
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                         <!--//panel-->
                         <!--//panel-->
                         <!--//panel-->
