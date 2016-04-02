@@ -40,7 +40,7 @@
               </h3>
               <div>
                 <!-- editable vision (text with validation) -->
-                <span editable-text="aboutUsInfo.aboutUs[0].vision" e-name="vision" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].vision}}<p></span>
+                <span editable-text="aboutUsInfo.aboutUs[0].vision" e-name="vision" e-size="120" e-ng-maxlength="255" e-style="margin-bottom: 10px;" e-required><p>{{aboutUsInfo.aboutUs[0].vision}}<p></span>
               </div>
               <div>
                 <p ng-show="visionEditableForm.vision.$error.maxlength" style="color:#843534" class="help-block"><b>Vision must be less than 255 characters long</b></p>
@@ -61,7 +61,7 @@
               </h3>
               <div>
                 <!-- editable mission (text with validation) -->
-                <span editable-text="aboutUsInfo.aboutUs[0].missionDesc" e-name="mission" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].missionDesc}}<p></span>
+                <span editable-text="aboutUsInfo.aboutUs[0].missionDesc" e-name="mission" e-size="120" e-ng-maxlength="255" e-style="margin-bottom: 10px;" e-required><p>{{aboutUsInfo.aboutUs[0].missionDesc}}<p></span>
               </div>
               <div>
                 <p ng-show="missionEditableForm.mission.$error.maxlength" style="color:#843534" class="help-block"><b>Mission must be less than 255 characters long</b></p>
@@ -83,7 +83,7 @@
               </h3>
               <ul class="custom-list-style">
                 <li ng-repeat="item in aboutUsInfo.studentServices | filter: filterItems">
-                  <!-- editable username (text with validation) -->
+                  <!-- editable student services (text with validation) -->
                   <span editable-text="item.service" e-size="100" e-form="editableStudentServicesForm" e-required><i class="fa fa-check"></i>{{item.service}}</span>
                   <button type="button" ng-show="editableStudentServicesForm.$visible" ng-click="deleteItems(aboutUsInfo.studentServices, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
                 </li>
@@ -108,7 +108,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddStudentServiceForm.studentService.$error.required" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddStudentServiceForm.studentService.$error.required || modalAddStudentServiceForm.studentService.$error.maxlength)" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -135,7 +135,7 @@
               </h3>
               <ul class="custom-list-style">
                 <li ng-repeat="item in aboutUsInfo.companyServices | filter: filterItems">
-                  <!-- editable username (text with validation) -->
+                  <!-- editable company services (text with validation) -->
                   <span editable-text="item.service" e-size="100" e-form="editableCompanyServicesForm" e-required><i class="fa fa-check"></i>{{item.service}}</span>
                   <button type="button" ng-show="editableCompanyServicesForm.$visible" ng-click="deleteItems(aboutUsInfo.companyServices, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
                 </li>
@@ -165,7 +165,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddCompanyServiceForm.companyService.$error.required" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddCompanyServiceForm.companyService.$error.required || modalAddCompanyServiceForm.companyService.$error.maxlength)" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -177,64 +177,139 @@
               </div>
             </div>
 
-            <form editable-form name="policyEditableForm" onbeforesave="submitAboutUs(policyEditableForm)">
+            <form editable-form name="policyEditableForm" onbeforesave="submitEditOrDeletePolicies(policyEditableForm)" oncancel="cancelItems(aboutUsInfo.policies)">
               <h3 class="title">Policies
                 <span>
                   <!-- button to show form -->
                   <button type="button" class="btn btn-theme btn-sm" ng-click="policyEditableForm.$show()" ng-show="!policyEditableForm.$visible">Edit</button>
+                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addPolicyModal" ng-show="!policyEditableForm.$visible">Add policy</button>
+
                   <!-- buttons to submit / cancel form -->
                   <span ng-show="policyEditableForm.$visible">
-                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(policyEditableForm.$waiting || policyEditableForm.policy.$error.maxlength)">Save</button>
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(policyEditableForm.$waiting || policyEditableForm.policyDesc.$error.maxlength)">Save</button>
                     <button type="button" class="btn btn-default btn-sm" ng-disabled="policyEditableForm.$waiting" ng-click="policyEditableForm.$cancel()">Cancel</button>
                   </span>
                 </span>
               </h3>
               <div>
-                <!-- editable mission (text with validation) -->
-                <span editable-text="aboutUsInfo.aboutUs[0].policiesDesc" e-name="policy" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].policiesDesc}}<p></span>
+                <!-- editable policy (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].policiesDesc" e-name="policyDesc" e-size="120" e-ng-maxlength="255" e-style="margin-bottom: 10px;" e-required><p>{{aboutUsInfo.aboutUs[0].policiesDesc}}<p></span>
               </div>
               <div>
-                <p ng-show="policyEditableForm.policy.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be less than 255 characters long</b></p>
+                <p ng-show="policyEditableForm.policyDesc.$error.maxlength" style="color:#843534" class="help-block"><b>Policy description must be less than 255 characters long</b></p>
               </div>
+              <ul class="custom-list-style">
+                <li ng-repeat="item in aboutUsInfo.policies | filter: filterItems">
+                  <!-- editable policies (text with validation) -->
+                  <span editable-text="item.policy" e-size="100" e-name="policyItem" e-ng-maxlength="255" e-required><i class="fa fa-check"></i>{{item.policy}}</span>
+                  <button type="button" ng-show="policyEditableForm.$visible" ng-click="deleteItems(aboutUsInfo.policies, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
+                </li>
+                <div>
+                  <p ng-show="policyEditableForm.policyItem.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be less than 255 characters long</b></p>
+                </div>
+              </ul>
             </form>
 
-            <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUsInfo.policies">
-                <i class="fa fa-check"></i>{{item.policy}}
-              </li>
-            </ul>
+            <div id="addPolicyModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title pull-left" style="color:black">Add Policy</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" name="modalAddPolicyForm" ng-submit="submitAddPolicy(modalAddPolicyForm)" novalidate>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <input ng-model="policy" name="policy" type="text" class="form-control" ng-maxlength="255" placeholder="Enter policy" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddPolicyForm.policy.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be 255 characters long</b></p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddPolicyForm.policy.$error.required || modalAddPolicyForm.policy.$error.maxlength)" >Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <form editable-form name="requirementEditableForm" onbeforesave="submitAboutUs(requirementEditableForm)">
+            <form editable-form name="requirementEditableForm" onbeforesave="submitEditOrDeleteRequirements(requirementEditableForm)" oncancel="cancelItems(aboutUsInfo.requirements)">
               <h3 class="title">Requirements
                 <span>
                   <!-- button to show form -->
                   <button type="button" class="btn btn-theme btn-sm" ng-click="requirementEditableForm.$show()" ng-show="!requirementEditableForm.$visible">Edit</button>
+                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addRequirementModal" ng-show="!requirementEditableForm.$visible">Add requirement</button>
+
                   <!-- buttons to submit / cancel form -->
                   <span ng-show="requirementEditableForm.$visible">
-                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(requirementEditableForm.$waiting || requirementEditableForm.policy.$error.maxlength)">Save</button>
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(requirementEditableForm.$waiting || requirementEditableForm.requirementsDesc.$error.maxlength)">Save</button>
                     <button type="button" class="btn btn-default btn-sm" ng-disabled="requirementEditableForm.$waiting" ng-click="requirementEditableForm.$cancel()">Cancel</button>
                   </span>
                 </span>
               </h3>
               <div>
-                <!-- editable mission (text with validation) -->
-                <span editable-text="aboutUsInfo.aboutUs[0].requirementsDesc" e-name="requirement" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].requirementsDesc}}<p></span>
+                <!-- editable requirement (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].requirementsDesc" e-name="requirementsDesc" e-size="120" e-ng-maxlength="255" e-style="margin-bottom: 10px;" e-required><p>{{aboutUsInfo.aboutUs[0].requirementsDesc}}<p></span>
               </div>
               <div>
-                <p ng-show="requirementEditableForm.requirement.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be less than 255 characters long</b></p>
+                <p ng-show="requirementEditableForm.requirementsDesc.$error.maxlength" style="color:#843534" class="help-block"><b>Requirement description must be less than 255 characters long</b></p>
               </div>
+              <ul class="custom-list-style">
+                <li ng-repeat="item in aboutUsInfo.requirements | filter: filterItems">
+                  <!-- editable requirements (text with validation) -->
+                  <span editable-text="item.requirement" e-size="100" e-name="requirementItem" e-ng-maxlength="255" e-required><i class="fa fa-check"></i>{{item.requirement}}</span>
+                  <button type="button" ng-show="requirementEditableForm.$visible" ng-click="deleteItems(aboutUsInfo.requirements, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
+                </li>
+                <div>
+                  <p ng-show="requirementEditableForm.requirementItem.$error.maxlength" style="color:#843534" class="help-block"><b>Requirement must be less than 255 characters long</b></p>
+                </div>
+                <li>
+                  <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                  Every student is responsible for maintaining his/her file updated and with enough copies at the
+                  Placement Office.
+                </li>
+              </ul>
             </form>
 
-            <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUsInfo.requirements">
-                <i class="fa fa-check"></i>{{item.requirement}}
-              </li>
-              <li>
-                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                Every student is responsible for maintaining his/her file updated and with enough copies at the
-                Placement Office.
-              </li>
-            </ul>
+            <div id="addRequirementModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title pull-left" style="color:black">Add Requirement</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" name="modalAddRequirementForm" ng-submit="submitAddRequirement(modalAddRequirementForm)" novalidate>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <input ng-model="requirement" name="requirement" type="text" class="form-control" ng-maxlength="255" placeholder="Enter requirement" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddRequirementForm.requirement.$error.maxlength" style="color:#843534" class="help-block"><b>Requirement must be 255 characters long</b></p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddRequirementForm.requirement.$error.required || modalAddRequirementForm.requirement.$error.maxlength)" >Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <h3 class="title">Our Staff</h3>
 

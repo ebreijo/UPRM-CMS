@@ -276,8 +276,6 @@ app.controller('CompanyCtrl', function($scope, _) {
 
   //For Deleting Recruiters------------------------------------------------------------
 
-  $scope.recruiterItem = {};
-
   for (i = 0; i < recruiters.length; i++) {
     $scope.companyProfile.recruiterList.push(recruiters[i]);
   }
