@@ -21,7 +21,7 @@ app.factory('AboutUs', function(Restangular, _) {
 
   obj.updateStudentService = function() {
     var updatedServices = _.filter(this.aboutUsInfo.studentServices, function(element) {
-      return (element.isDeleted !== true) && (element.isNew !== true);
+      return element.isDeleted !== true;
     });
 
     Restangular.all('/api/aboutUs/studentServices').customPUT({'studentServices' : updatedServices});
@@ -40,6 +40,33 @@ app.factory('AboutUs', function(Restangular, _) {
     _.forEach(deletedServices, function(service) {
       Restangular.one('/api/aboutUs/studentServices', service.id).remove().then(function() {
         _.remove(self.aboutUsInfo.studentServices, function(element) {
+          return element.isDeleted === true;
+        });
+      });
+    });
+  };
+
+  obj.updateCompanyService = function() {
+    var updatedServices = _.filter(this.aboutUsInfo.companyServices, function(element) {
+      return element.isDeleted !== true;
+    });
+
+    Restangular.all('/api/aboutUs/companyServices').customPUT({'companyServices' : updatedServices});
+  };
+
+  obj.addCompanyService = function(service) {
+    return Restangular.all('/api/aboutUs/companyServices').customPOST({'service': service});
+  };
+
+  obj.deleteCompanyService = function() {
+    var deletedServices = _.filter(this.aboutUsInfo.companyServices, function(element) {
+      return element.isDeleted === true;
+    });
+    var self = this;
+
+    _.forEach(deletedServices, function(service) {
+      Restangular.one('/api/aboutUs/companyServices', service.id).remove().then(function() {
+        _.remove(self.aboutUsInfo.companyServices, function(element) {
           return element.isDeleted === true;
         });
       });

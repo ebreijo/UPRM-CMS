@@ -68,7 +68,7 @@
               </div>
             </form>
 
-            <form editable-form name="editableStudentServicesForm" onaftersave="submitEditOrDeleteStudentServices(editableStudentServicesForm)" oncancel="cancelStudentServices()">
+            <form editable-form name="editableStudentServicesForm" onaftersave="submitEditOrDeleteStudentServices(editableStudentServicesForm)" oncancel="cancelItems(aboutUsInfo.studentServices)">
 
               <h3 class="title">Student Services <span>
                   <!-- button to show form -->
@@ -82,10 +82,10 @@
                 </span>
               </h3>
               <ul class="custom-list-style">
-                <li ng-repeat="item in aboutUsInfo.studentServices | filter: filterStudentServices">
+                <li ng-repeat="item in aboutUsInfo.studentServices | filter: filterItems">
                   <!-- editable username (text with validation) -->
                   <span editable-text="item.service" e-size="100" e-form="editableStudentServicesForm" e-required><i class="fa fa-check"></i>{{item.service}}</span>
-                  <button type="button" ng-show="editableStudentServicesForm.$visible" ng-click="deleteStudentService(item)" class="btn btn-danger btn-sm pull-right">Delete</button>
+                  <button type="button" ng-show="editableStudentServicesForm.$visible" ng-click="deleteItems(aboutUsInfo.studentServices, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
                 </li>
               </ul>
             </form>
@@ -104,7 +104,7 @@
                         <input ng-model="studentService" name="studentService" type="text" class="form-control" ng-maxlength="255" placeholder="Enter student service" style="border-radius:0;" required/>
                       </div>
                       <div>
-                        <p ng-show="modalAddStudentServiceForm.studentService.$error.maxlength" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
+                        <p ng-show="modalAddStudentServiceForm.studentService.$error.maxlength" style="color:#843534" class="help-block"><b>Student service must be 255 characters long</b></p>
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
@@ -120,16 +120,62 @@
               </div>
             </div>
 
-            <h3 class="title">Company Services</h3>
-            <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUsInfo.companyServices">
-                <i class="fa fa-check"></i>{{item.service}}
-              </li>
-              <li>
-                <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                We refer resumes of recent graduates with minimum experience.
-              </li>
-            </ul>
+            <form editable-form name="editableCompanyServicesForm" onaftersave="submitEditOrDeleteCompanyServices(editableCompanyServicesForm)" oncancel="cancelItems(aboutUsInfo.companyServices)">
+
+              <h3 class="title">Company Services <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="editableCompanyServicesForm.$show()" ng-show="!editableCompanyServicesForm.$visible">Edit</button>
+                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addCompanyServiceModal" ng-show="!editableCompanyServicesForm.$visible">Add service</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="editableCompanyServicesForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editableCompanyServicesForm.$waiting">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="editableCompanyServicesForm.$waiting" ng-click="(editableCompanyServicesForm.$cancel())">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <ul class="custom-list-style">
+                <li ng-repeat="item in aboutUsInfo.companyServices | filter: filterItems">
+                  <!-- editable username (text with validation) -->
+                  <span editable-text="item.service" e-size="100" e-form="editableCompanyServicesForm" e-required><i class="fa fa-check"></i>{{item.service}}</span>
+                  <button type="button" ng-show="editableCompanyServicesForm.$visible" ng-click="deleteItems(aboutUsInfo.companyServices, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
+                </li>
+                <li>
+                  <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+                  We refer resumes of recent graduates with minimum experience.
+                </li>
+              </ul>
+            </form>
+
+            <div id="addCompanyServiceModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title pull-left" style="color:black">Add Company Service</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" name="modalAddCompanyServiceForm" ng-submit="submitAddCompanyService(modalAddCompanyServiceForm)" novalidate>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <input ng-model="companyService" name="companyService" type="text" class="form-control" ng-maxlength="255" placeholder="Enter student service" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddCompanyServiceForm.companyService.$error.maxlength" style="color:#843534" class="help-block"><b>Student service must be 255 characters long</b></p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddCompanyServiceForm.companyService.$error.required" >Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <form editable-form name="policyEditableForm" onbeforesave="submitAboutUs(policyEditableForm)">
               <h3 class="title">Policies

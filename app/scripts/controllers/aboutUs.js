@@ -11,7 +11,7 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
   $scope.message = null;
 
   $scope.studentService = null;
-  var isStudentServiceDeleted = false;
+  $scope.companyService = null;
 
   $scope.submitAboutUs = function(form) {
     if(form.$valid) {
@@ -19,25 +19,24 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
     }
   };
 
-  // Filter services to show
-  $scope.filterStudentServices= function(service) {
-    return service.isDeleted !== true;
+  // Filter items to show
+  $scope.filterItems = function(item) {
+    return item.isDeleted !== true;
   };
 
-  // Mark studentService as deleted
-  $scope.deleteStudentService = function(service) {
-    var serv = $filter('filter')($scope.aboutUsInfo.studentServices, {id: service.id}, true);
-    if (serv.length) {
-      serv[0].isDeleted = true;
-      isStudentServiceDeleted =  true;
+  // Mark items as deleted
+  $scope.deleteItems = function(items, item) {
+    var filtered = $filter('filter')(items, {id: item.id}, true);
+    if (filtered.length) {
+      filtered[0].isDeleted = true;
     }
   };
 
-  // Cancel all student services changes
-  $scope.cancelStudentServices = function() {
-    _.forEach($scope.aboutUsInfo.studentServices, function(service) {
-      if (service.isDeleted) {
-        delete service.isDeleted;
+  // Cancel all item changes
+  $scope.cancelItems = function(items) {
+    _.forEach(items, function(item) {
+      if (item.isDeleted) {
+        delete item.isDeleted;
       }
     });
   };
@@ -45,10 +44,7 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
   // Submit edit or delete student services
   $scope.submitEditOrDeleteStudentServices = function(form) {
     if (form.$valid) {
-      if (isStudentServiceDeleted) {
-        AboutUs.deleteStudentService();
-      }
-
+      AboutUs.deleteStudentService();
       AboutUs.updateStudentService();
     }
   };
@@ -60,6 +56,30 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
         $scope.aboutUsInfo.studentServices.push(newService);
         $('#addStudentServiceModal').modal('hide');
         $scope.studentService = null;
+      }, function(err) {
+        $scope.title = 'Error';
+        $scope.message = err.data.explanation;
+        console.log(err);
+        $('#messageModal').modal('show');
+      });
+    }
+  };
+
+  // Submit edit or delete company services
+  $scope.submitEditOrDeleteCompanyServices = function(form) {
+    if (form.$valid) {
+      AboutUs.deleteCompanyService();
+      AboutUs.updateCompanyService();
+    }
+  };
+
+  // Add company service
+  $scope.submitAddCompanyService = function(form) {
+    if (form.$valid) {
+      AboutUs.addCompanyService($scope.companyService).then(function(newService) {
+        $scope.aboutUsInfo.companyServices.push(newService);
+        $('#addCompanyServiceModal').modal('hide');
+        $scope.companyService = null;
       }, function(err) {
         $scope.title = 'Error';
         $scope.message = err.data.explanation;
