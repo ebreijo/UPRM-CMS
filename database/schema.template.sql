@@ -118,7 +118,7 @@ CREATE TABLE `company_location` (
 DROP TABLE IF EXISTS `company_services`;
 CREATE TABLE `company_services` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `service` varchar(127) NOT NULL,
+  `service` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -321,7 +321,7 @@ CREATE TABLE `recruiter` (
 DROP TABLE IF EXISTS `requirements`;
 CREATE TABLE `requirements` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `requirement` varchar(127) NOT NULL,
+  `requirement` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -332,7 +332,7 @@ CREATE TABLE `requirements` (
 DROP TABLE IF EXISTS `student_services`;
 CREATE TABLE `student_services` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `service` varchar(127) NOT NULL,
+  `service` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

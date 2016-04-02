@@ -16,6 +16,18 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
   $scope.requirement = null;
   $scope.staff = null;
 
+  $scope.checkMission = function(mission) {
+    if (mission.length < 2 || mission.length > 255) {
+      return 'Mission must be between 2 and 255 characters long';
+    }
+  };
+
+  $scope.checkVision = function(vision) {
+    if (vision.length < 2 || vision.length > 255) {
+      return 'Vision must be between 2 and 255 characters long';
+    }
+  };
+
   $scope.submitAboutUs = function(form) {
     if(form.$valid) {
       AboutUs.updateAboutUs($scope.aboutUsInfo.aboutUs[0]);
@@ -44,6 +56,12 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
     });
   };
 
+  $scope.checkStudentService = function(studentService) {
+    if (studentService.length < 2 || studentService.length > 255) {
+      return 'Student service must be between 2 and 255 characters long';
+    }
+  };
+
   // Submit edit or delete student services
   $scope.submitEditOrDeleteStudentServices = function(form) {
     if (form.$valid) {
@@ -65,6 +83,12 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
         console.log(err);
         $('#messageModal').modal('show');
       });
+    }
+  };
+
+  $scope.checkCompanyService = function(companyService) {
+    if (companyService.length < 2 || companyService.length > 255) {
+      return 'Company service must be between 2 and 255 characters long';
     }
   };
 
@@ -92,6 +116,18 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
     }
   };
 
+  $scope.checkPolicyDescription = function(policyDesc) {
+    if (policyDesc.length < 2 || policyDesc.length > 255) {
+      return 'Policy description must be between 2 and 255 characters long';
+    }
+  };
+
+  $scope.checkPolicy = function(policy) {
+    if (policy.length < 2 || policy.length > 255) {
+      return 'Policy must be between 2 and 255 characters long';
+    }
+  };
+
   // Submit edit or delete policies
   $scope.submitEditOrDeletePolicies = function(form) {
     if (form.$valid) {
@@ -114,6 +150,18 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
         console.log(err);
         $('#messageModal').modal('show');
       });
+    }
+  };
+
+  $scope.checkRequirementDescription = function(requirementDesc) {
+    if (requirementDesc.length < 2 || requirementDesc.length > 255) {
+      return 'Requirement description must be between 2 and 255 characters long';
+    }
+  };
+
+  $scope.checkRequirement = function(requirement) {
+    if (requirement.length < 2 || requirement.length > 255) {
+      return 'Requirement must be between 2 and 255 characters long';
     }
   };
 
