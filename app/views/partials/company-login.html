@@ -76,22 +76,22 @@
               <h4 class="modal-title pull-left" style="color:black">Recover Password</h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" name ="modalForm" novalidate>
+              <form class="form-horizontal" name ="modalForgotForm" ng-submit="forgot(modalForgotForm)" novalidate>
                 <p class="text-center" style="margin-bottom: 10px">Enter the email address you use to access your account.</p>
-                <div class="alert alert-danger alert-dismissable" ng-show="modalShow">
-                  <button type="button" class="close" ng-click="modalShow=false" aria-hidden="true">&times;</button>
+                <div class="alert alert-danger alert-dismissable" ng-show="modalShowMessage">
+                  <button type="button" class="close" ng-click="modalShowMessage=false" aria-hidden="true">&times;</button>
                   <strong class="alert-link">The account doesn't exists. Enter a Different Account or Register</strong>
                 </div>
-                <div class="input-group text-center" ng-class="{ 'has-error' : modalForm.modalEmail.$invalid && !modalForm.modalEmail.$pristine }">
+                <div class="input-group text-center" ng-class="{ 'has-error' : modalForgotForm.modalEmail.$invalid && !modalForgotForm.modalEmail.$pristine }">
                   <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                  <input ng-model="modalEmail" name="modalEmail" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
+                  <input ng-model="forgotEmail" name="modalEmail" type="email" class="form-control" placeholder="Email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
                 </div>
                 <div style="margin-bottom: 10px">
-                  <p ng-show="modalForm.modalEmail.$invalid && !modalForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
+                  <p ng-show="modalForgotForm.modalEmail.$invalid && !modalForgotForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
                 </div>
                 <div class="row">
                   <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                    <button type="button" class="btn btn-theme" ng-click="submitForm(modalForm.modalEmail.$valid, 'modal')" ng-disabled="(modalForm.modalEmail.$invalid)">Recover</button>
+                    <button type="submit" class="btn btn-theme" ng-disabled="(modalForgotForm.modalEmail.$invalid)">Recover</button>
                   </div>
                 </div>
               </form>

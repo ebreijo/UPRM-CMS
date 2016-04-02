@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES) {
+app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES, Restangular) {
 
   var obj = {};
 
@@ -32,6 +32,14 @@ app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES) {
       return true;
     }).catch(function(err) {
       $rootScope.$broadcast(AUTH_EVENTS.logoutFailed, err);
+      throw err;
+    });
+  };
+
+  obj.forgot = function(user) {
+    return Restangular.all('/api/forgot').post(user).then(function(res) {
+      return res;
+    }).catch(function(err) {
       throw err;
     });
   };
