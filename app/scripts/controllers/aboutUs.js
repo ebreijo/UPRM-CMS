@@ -12,6 +12,8 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
 
   $scope.studentService = null;
   $scope.companyService = null;
+  $scope.policy = null;
+  $scope.requirement = null;
 
   $scope.submitAboutUs = function(form) {
     if(form.$valid) {
@@ -44,8 +46,8 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
   // Submit edit or delete student services
   $scope.submitEditOrDeleteStudentServices = function(form) {
     if (form.$valid) {
-      AboutUs.deleteStudentService();
-      AboutUs.updateStudentService();
+      AboutUs.deleteStudentServices();
+      AboutUs.updateStudentServices();
     }
   };
 
@@ -68,8 +70,8 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
   // Submit edit or delete company services
   $scope.submitEditOrDeleteCompanyServices = function(form) {
     if (form.$valid) {
-      AboutUs.deleteCompanyService();
-      AboutUs.updateCompanyService();
+      AboutUs.deleteCompanyServices();
+      AboutUs.updateCompanyServices();
     }
   };
 
@@ -80,6 +82,56 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
         $scope.aboutUsInfo.companyServices.push(newService);
         $('#addCompanyServiceModal').modal('hide');
         $scope.companyService = null;
+      }, function(err) {
+        $scope.title = 'Error';
+        $scope.message = err.data.explanation;
+        console.log(err);
+        $('#messageModal').modal('show');
+      });
+    }
+  };
+
+  // Submit edit or delete policies
+  $scope.submitEditOrDeletePolicies = function(form) {
+    if (form.$valid) {
+      AboutUs.updateAboutUs($scope.aboutUsInfo.aboutUs[0]);
+      AboutUs.deletePolicies();
+      AboutUs.updatePolicies();
+    }
+  };
+
+  // Add policy
+  $scope.submitAddPolicy = function(form) {
+    if (form.$valid) {
+      AboutUs.addPolicy($scope.policy).then(function(newPolicy) {
+        $scope.aboutUsInfo.policies.push(newPolicy);
+        $('#addPolicyModal').modal('hide');
+        $scope.policy = null;
+      }, function(err) {
+        $scope.title = 'Error';
+        $scope.message = err.data.explanation;
+        console.log(err);
+        $('#messageModal').modal('show');
+      });
+    }
+  };
+
+  // Submit edit or delete requirements
+  $scope.submitEditOrDeleteRequirements = function(form) {
+    if (form.$valid) {
+      AboutUs.updateAboutUs($scope.aboutUsInfo.aboutUs[0]);
+      AboutUs.deleteRequirements();
+      AboutUs.updateRequirements();
+    }
+  };
+
+  // Add requirement
+  $scope.submitAddRequirement = function(form) {
+    if (form.$valid) {
+      AboutUs.addRequirement($scope.requirement).then(function(newRequirement) {
+        $scope.aboutUsInfo.requirements.push(newRequirement);
+        $('#addRequirementModal').modal('hide');
+        $scope.requirement = null;
       }, function(err) {
         $scope.title = 'Error';
         $scope.message = err.data.explanation;
