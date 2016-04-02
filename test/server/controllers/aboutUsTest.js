@@ -69,8 +69,8 @@ describe('About Us Controller: ', function() {
   describe('Delete a Requirement.', function() {
     it('should delete a requirement, given its ID.', function(done) {
       request(app)
-        .del('/api/aboutUs/requirements')
-        .send({ "id" : 1 })
+        .del('/api/aboutUs/requirements/1')
+        .send()
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -124,8 +124,8 @@ describe('About Us Controller: ', function() {
   describe('Delete a Company Service.', function() {
     it('should delete a service, given its ID.', function(done) {
       request(app)
-        .del('/api/aboutUs/companyServices')
-        .send({ "id" : 1 })
+        .del('/api/aboutUs/companyServices/1')
+        .send()
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -164,7 +164,7 @@ describe('About Us Controller: ', function() {
 
 
   describe('Add a Policy.', function() {
-    it('should add a new policy to the database, given its policy description.', function(done) {
+    it('should add a new policy to the database, given its policy description', function(done) {
       request(app)
         .post('/api/aboutUs/policies')
         .send({ "policy" : "new policy" })
@@ -178,16 +178,24 @@ describe('About Us Controller: ', function() {
   });
 
   describe('Delete a Policy.', function() {
-    it('should delete a policy, given its ID.', function(done) {
+    it('should delete a policy, given its ID', function(done) {
       request(app)
-        .del('/api/aboutUs/policies')
-        .send({ "id" : 1 })
+        .del('/api/aboutUs/policies/1')
+        .send()
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
           "message": "Policy Successfully Deleted."
         }, done));
     });
+
+    it('should not delete a policy that does not exist', function(done) {
+      request(app)
+        .del('/api/aboutUs/policies/30')
+        .send()
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+    })
   });
 
   /*
@@ -242,8 +250,8 @@ describe('About Us Controller: ', function() {
   describe('Delete a Staff Member.', function() {
     it('should delete a staff member, given its ID.', function(done) {
       request(app)
-        .del('/api/aboutUs/ourStaff')
-        .send({ "id" : 1 })
+        .del('/api/aboutUs/ourStaff/1')
+        .send()
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -297,8 +305,8 @@ describe('About Us Controller: ', function() {
   describe('Delete a Student Service.', function() {
     it('should delete a service, given its ID.', function(done) {
       request(app)
-        .del('/api/aboutUs/studentServices')
-        .send({ "id" : 1 })
+        .del('/api/aboutUs/studentServices/1')
+        .send()
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
@@ -307,10 +315,4 @@ describe('About Us Controller: ', function() {
     });
   });
 
-  /*
-  // PUT, POST, and DELETE Routes for Student Services.
-  router.put('/api/aboutUs/studentServices', aboutUs.updateStudentServices);
-  router.post('/api/aboutUs/studentServices', aboutUs.addStudentService);
-  router.delete('/api/aboutUs/studentServices', aboutUs.deleteStudentService);
-  */
 });
