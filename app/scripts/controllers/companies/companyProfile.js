@@ -205,7 +205,6 @@ app.controller('CompanyCtrl', function($scope, _) {
     }
     else if ($scope.companyProfile.promotionalMaterial.length >= 5){
       $scope.showPromotionalMaterialError = true;
-
     }
   };
 
