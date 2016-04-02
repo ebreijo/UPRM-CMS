@@ -30,7 +30,13 @@
             <div class="col-md-1">
             </div>
 
-            <article class="contact-form col-md-7 text-center" style="margin-top:6px">
+            <div class="row text-left" style="margin-top:20px">
+              <div class="col-md-12">
+                <h3 class="title">Job Offer Type:</h3>
+              </div>
+            </div>
+
+            <article class="contact-form col-md-7 text-left" style="margin-top:6px">
               <label style="margin-right:10px">
                 <input ng-model="checkBox.internship"
                        ng-checked="printCheckbox()"
@@ -73,12 +79,12 @@
         </div>
         <div class="row text-center" style="margin-top:20px">
           <div class="col-md-12">
-            <h3 class="title">Jobs:</h3>
+            <h2 class="title">Jobs:</h2>
           </div>
         </div>
         <div class="course-item-header row-divider">
 
-          <div ng-repeat="jobOffer in jobOffers" ng-show="lookingForFilter(company.interestedMajors)" class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+          <div ng-repeat="jobOffer in jobOffers" ng-show="lookingForFilter(jobOffer.jobPosition)" class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
 
             <div class="panel panel-default page-row">
               <div class="panel-heading">

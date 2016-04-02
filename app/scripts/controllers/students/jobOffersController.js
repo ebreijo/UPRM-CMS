@@ -13,32 +13,21 @@ app.controller('jobOffersCtrl', function($scope, JobOffers) {
     fullTime: false
   };
 
-  $scope.printCheckbox = function() {
-    console.log('internship: ' + $scope.checkBox.internship);
-    console.log('coop: ' + $scope.checkBox.coop);
-    console.log('partTime: ' + $scope.checkBox.partTime);
-    console.log('fullTime: ' + $scope.checkBox.fullTime);
-    console.log('');
-  };
-
-  // TODO: FIX FILTER
-  $scope.lookingForFilter = function(lookingForList) {
+  $scope.lookingForFilter = function(jobPosition) {
     if(noItemsAreChecked()){
       return true;
     } else {
-      var educationalLevel = lookingForList[0].educationalLevel;
-      console.log(educationalLevel);
-      if($scope.checkBox.internship === true) {
-        return true;
+      if(jobPosition === 'Internship') {
+        return $scope.checkBox.internship;
       }
-      if($scope.checkBox.coop === true){
-        return true;
+      if(jobPosition === 'CO-OP'){
+        return $scope.checkBox.coop;
       }
-      if($scope.checkBox.partTime === true){
-        return true;
+      if(jobPosition === 'Part-Time'){
+        return $scope.checkBox.partTime;
       }
-      if($scope.checkBox.fullTime === true){
-        return true;
+      if(jobPosition === 'Full-Time'){
+        return $scope.checkBox.fullTime;
       }
       return false;
     }
