@@ -16,7 +16,7 @@ app.factory('JobOffers', function(_) {
         recentGraduate: false,
         creationDate: '2016-02-22T16:12:12.000Z',
         expirationDate: '2016-07-22T16:12:12.000Z',
-        announcementNumber: null,
+        announcementNumber: 34234,
         flyerPath: null,
         jobOfferStatus: 'pending',
         location: 'Durham, NC'
@@ -32,7 +32,7 @@ app.factory('JobOffers', function(_) {
         recentGraduate: true,
         creationDate: '2016-02-22T16:12:12.000Z',
         expirationDate: '2016-07-22T16:12:12.000Z',
-        announcementNumber: null,
+        announcementNumber: 4536536,
         flyerPath: null,
         jobOfferStatus: 'approved',
         location: 'Durham, NC'

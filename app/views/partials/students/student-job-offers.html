@@ -82,6 +82,8 @@
             <h2 class="title">Jobs:</h2>
           </div>
         </div>
+        <p class="text-center" style="padding-top:10px"><span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
+          If you want to apply to any of these job offers, contact our office at (787) 265-3898 or <a href="mailto:placement@uprm.edu" tabindex="0">placement@uprm.edu</a>.</p>
         <div class="course-item-header row-divider">
 
           <div ng-repeat="jobOffer in jobOffers" ng-show="lookingForFilter(jobOffer.jobPosition)" class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
@@ -104,18 +106,18 @@
                 {{ jobOffer.description }}
               </div>
               <ul class="list-group">
-                <li class="list-group-item" ng-if="!jobOffer.announcementNumber === null">
+                <li class="list-group-item" ng-if="jobOffer.announcementNumber != null">
                   <strong>Announcement Number:</strong>&nbsp; {{ jobOffer.announcementNumber }}
                 </li>
-                <!--<li class="list-group-item">-->
-                  <!--<strong>Majors:</strong> ICOM, INEL, INCI, INQU-->
-                <!--</li>-->
                 <li class="list-group-item">
                   <strong>Location:</strong> {{ jobOffer.location }}
                 </li>
                 <li class="list-group-item">
                   <strong>Promotional Document:</strong>&nbsp;
                   <a href="#{{jobOffer.flyerPath}}"> engineering_support_assitant.pdf </a>
+                </li>
+                <li class="list-group-item">
+                  <strong>Open since:</strong> {{ jobOffer.creationDate | date: 'MMMM d, y' }}
                 </li>
               </ul>
               <div class="panel-footer">
