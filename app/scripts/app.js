@@ -14,6 +14,7 @@ var app = angular.module('uprmcmsApp', [
   'xeditable'
 ]);
 
+// Add lodash to the angular app
 app.constant('_', window._);
 
 app.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
@@ -85,16 +86,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     url: '/aboutUs',
     templateUrl: 'partials/aboutUs.html',
     controller: 'AboutUsCtrl',
-    data: {
-      authorizedRoles: all
-    }
-    /*
     resolve: {
       aboutUsPromise: ['AboutUs', function (AboutUs) {
         AboutUs.getAll();
       }]
+    },
+    data: {
+      authorizedRoles: all
     }
-    */
   }).state('calendar', {
     url: '/calendar',
     templateUrl: 'partials/calendar.html',
@@ -120,6 +119,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/adminAboutUs',
       templateUrl: 'partials/administrators/admin-about.html',
       controller: 'AboutUsCtrl',
+      resolve: {
+        aboutUsPromise: ['AboutUs', function (AboutUs) {
+          AboutUs.getAll();
+        }]
+      },
       data: {
         authorizedRoles: all
       }
@@ -162,6 +166,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/studentAboutUs',
       templateUrl: 'partials/students/student-about.html',
       controller: 'AboutUsCtrl',
+      resolve: {
+        aboutUsPromise: ['AboutUs', function (AboutUs) {
+          AboutUs.getAll();
+        }]
+      },
       data: {
         authorizedRoles: all
       }
@@ -225,6 +234,7 @@ app.run(function($rootScope, $state, Auth, AUTH_EVENTS, USER_ROLES) {
 
 });
 
-app.run(function(editableOptions) {
+app.run(function(editableOptions, editableThemes) {
+  editableThemes.bs3.inputClass = 'input-sm';
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });

@@ -29,21 +29,21 @@
           <article class="welcome col-md-8 col-sm-7">
             <h3 class="title">Vision<br></h3>
 
-            <p>{{aboutUs.aboutUs[0].vision}}<br></p>
+            <p>{{aboutUsInfo.aboutUs[0].vision}}<br></p>
 
             <h3 class="title">Mission</h3>
 
-            <p>{{aboutUs.aboutUs[0].missionDesc}}<br></p>
+            <p>{{aboutUsInfo.aboutUs[0].missionDesc}}<br></p>
 
             <h3 class="title">Student Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.studentServices">
+              <li ng-repeat="item in aboutUsInfo.studentServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
             </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.companyServices">
+              <li ng-repeat="item in aboutUsInfo.companyServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
@@ -52,16 +52,16 @@
               </li>
             </ul>
             <h3 class="title">Policies</h3>
-            <p>{{aboutUs.aboutUs[0].policiesDesc}}</p>
+            <p>{{aboutUsInfo.aboutUs[0].policiesDesc}}</p>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.policies">
+              <li ng-repeat="item in aboutUsInfo.policies">
                 <i class="fa fa-check"></i>{{item.policy}}
               </li>
             </ul>
             <h3 class="title">Requirements</h3>
-            <p>{{aboutUs.aboutUs[0].requirementsDesc}}</p>
+            <p>{{aboutUsInfo.aboutUs[0].requirementsDesc}}</p>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.requirements">
+              <li ng-repeat="item in aboutUsInfo.requirements">
                 <i class="fa fa-check"></i>{{item.requirement}}
               </li>
               <li>
@@ -82,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in aboutUs.ourStaff">
+                <tr ng-repeat="item in aboutUsInfo.ourStaff">
                   <td>{{item.name}}</td>
                   <td>{{item.position}}</td>
                 </tr>

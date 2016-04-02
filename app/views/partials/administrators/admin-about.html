@@ -26,23 +26,103 @@
       <div class="page-content">
         <div class="row page-row">
           <article class="welcome col-md-8 col-sm-7">
-            <h3 class="title">Vision<br></h3>
+            <form editable-form name="visionEditableForm" onbeforesave="submitAboutUs(visionEditableForm)">
+              <h3 class="title">Vision
+                <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="visionEditableForm.$show()" ng-show="!visionEditableForm.$visible">Edit</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="visionEditableForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(visionEditableForm.$waiting || visionEditableForm.vision.$error.maxlength)">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="visionEditableForm.$waiting" ng-click="visionEditableForm.$cancel()">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <div>
+                <!-- editable vision (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].vision" e-name="vision" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].vision}}<p></span>
+              </div>
+              <div>
+                <p ng-show="visionEditableForm.vision.$error.maxlength" style="color:#843534" class="help-block"><b>Vision must be less than 255 characters long</b></p>
+              </div>
+            </form>
 
-            <p>{{aboutUs.aboutUs[0].vision}}<br></p>
+            <form editable-form name="missionEditableForm" onbeforesave="submitAboutUs(missionEditableForm)">
+              <h3 class="title">Mission
+                <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="missionEditableForm.$show()" ng-show="!missionEditableForm.$visible">Edit</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="missionEditableForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(missionEditableForm.$waiting || missionEditableForm.mission.$error.maxlength)">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="missionEditableForm.$waiting" ng-click="(missionEditableForm.$cancel())">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <div>
+                <!-- editable mission (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].missionDesc" e-name="mission" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].missionDesc}}<p></span>
+              </div>
+              <div>
+                <p ng-show="missionEditableForm.mission.$error.maxlength" style="color:#843534" class="help-block"><b>Mission must be less than 255 characters long</b></p>
+              </div>
+            </form>
 
-            <h3 class="title">Mission</h3>
+            <form editable-form name="editableStudentServicesForm" onaftersave="submitEditOrDeleteStudentServices(editableStudentServicesForm)" oncancel="cancelStudentServices()">
 
-            <p>{{aboutUs.aboutUs[0].missionDesc}}<br></p>
+              <h3 class="title">Student Services <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="editableStudentServicesForm.$show()" ng-show="!editableStudentServicesForm.$visible">Edit</button>
+                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addStudentServiceModal" ng-show="!editableStudentServicesForm.$visible">Add service</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="editableStudentServicesForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editableStudentServicesForm.$waiting">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="editableStudentServicesForm.$waiting" ng-click="(editableStudentServicesForm.$cancel())">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <ul class="custom-list-style">
+                <li ng-repeat="item in aboutUsInfo.studentServices | filter: filterStudentServices">
+                  <!-- editable username (text with validation) -->
+                  <span editable-text="item.service" e-size="100" e-form="editableStudentServicesForm" e-required><i class="fa fa-check"></i>{{item.service}}</span>
+                  <button type="button" ng-show="editableStudentServicesForm.$visible" ng-click="deleteStudentService(item)" class="btn btn-danger btn-sm pull-right">Delete</button>
+                </li>
+              </ul>
+            </form>
+            <div id="addStudentServiceModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title pull-left" style="color:black">Add Student Service</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" name="modalAddStudentServiceForm" ng-submit="submitAddStudentService(modalAddStudentServiceForm)" novalidate>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <input ng-model="studentService" name="studentService" type="text" class="form-control" ng-maxlength="255" placeholder="Enter student service" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddStudentServiceForm.studentService.$error.maxlength" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddStudentServiceForm.studentService.$error.required" >Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <h3 class="title">Student Services</h3>
-            <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.studentServices">
-                <i class="fa fa-check"></i>{{item.service}}
-              </li>
-            </ul>
             <h3 class="title">Company Services</h3>
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.companyServices">
+              <li ng-repeat="item in aboutUsInfo.companyServices">
                 <i class="fa fa-check"></i>{{item.service}}
               </li>
               <li>
@@ -50,17 +130,57 @@
                 We refer resumes of recent graduates with minimum experience.
               </li>
             </ul>
-            <h3 class="title">Policies</h3>
-            <p>{{aboutUs.aboutUs[0].policiesDesc}}</p>
+
+            <form editable-form name="policyEditableForm" onbeforesave="submitAboutUs(policyEditableForm)">
+              <h3 class="title">Policies
+                <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="policyEditableForm.$show()" ng-show="!policyEditableForm.$visible">Edit</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="policyEditableForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(policyEditableForm.$waiting || policyEditableForm.policy.$error.maxlength)">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="policyEditableForm.$waiting" ng-click="policyEditableForm.$cancel()">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <div>
+                <!-- editable mission (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].policiesDesc" e-name="policy" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].policiesDesc}}<p></span>
+              </div>
+              <div>
+                <p ng-show="policyEditableForm.policy.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be less than 255 characters long</b></p>
+              </div>
+            </form>
+
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.policies">
+              <li ng-repeat="item in aboutUsInfo.policies">
                 <i class="fa fa-check"></i>{{item.policy}}
               </li>
             </ul>
-            <h3 class="title">Requirements</h3>
-            <p>{{aboutUs.aboutUs[0].requirementsDesc}}</p>
+
+            <form editable-form name="requirementEditableForm" onbeforesave="submitAboutUs(requirementEditableForm)">
+              <h3 class="title">Requirements
+                <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="requirementEditableForm.$show()" ng-show="!requirementEditableForm.$visible">Edit</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="requirementEditableForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="(requirementEditableForm.$waiting || requirementEditableForm.policy.$error.maxlength)">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="requirementEditableForm.$waiting" ng-click="requirementEditableForm.$cancel()">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <div>
+                <!-- editable mission (text with validation) -->
+                <span editable-text="aboutUsInfo.aboutUs[0].requirementsDesc" e-name="requirement" e-size="120" e-ng-maxlength="255" e-required><p>{{aboutUsInfo.aboutUs[0].requirementsDesc}}<p></span>
+              </div>
+              <div>
+                <p ng-show="requirementEditableForm.requirement.$error.maxlength" style="color:#843534" class="help-block"><b>Policy must be less than 255 characters long</b></p>
+              </div>
+            </form>
+
             <ul class="custom-list-style">
-              <li ng-repeat="item in aboutUs.requirements">
+              <li ng-repeat="item in aboutUsInfo.requirements">
                 <i class="fa fa-check"></i>{{item.requirement}}
               </li>
               <li>
@@ -81,7 +201,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in aboutUs.ourStaff">
+                <tr ng-repeat="item in aboutUsInfo.ourStaff">
                   <td>{{item.name}}</td>
                   <td>{{item.position}}</td>
                 </tr>
@@ -135,6 +255,23 @@
     <!--//page-->
   </div>
   <!--//content-->
+</div>
+<div id="messageModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color:black"><b>{{title}}</b></h4>
+        <br/>
+        <h5>{{message}}</h5>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
