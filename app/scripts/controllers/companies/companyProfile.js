@@ -24,6 +24,57 @@ app.controller('CompanyCtrl', function($scope, _) {
     }
   ];
 
+  var jobOffers = [
+    {
+      id: 1,
+      companyName: 'IBM',
+      email: 'sergio@ibm.com',
+      title: 'Engineering Support Assistant',
+      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+      jobPosition: 'Full-Time',
+      educationLevel: 'Bachelors',
+      recentGraduate: true,
+      creationDate: '2016-02-22T16:12:12.000Z',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      announcementNumber: 17177328217,
+      flyerPath: 'documents/pdf-sample.pdf',
+      jobOfferStatus: 'approved',
+      location: 'Durham, NC'
+    },
+    {
+      id: 2,
+      companyName: 'IBM',
+      email: 'juanito@gmail.com',
+      title: 'Chief Electronics Engineer',
+      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+      jobPosition: 'Part-Time',
+      educationLevel: 'Bachelors',
+      recentGraduate: false,
+      creationDate: '2016-02-22T16:12:12.000Z',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      announcementNumber: 33243554354,
+      flyerPath: 'documents/pdf-sample.pdf',
+      jobOfferStatus: 'pending',
+      location: 'Durham, NC'
+    },
+    {
+      id: 3,
+      companyName: 'IBM',
+      email: 'leonardo@ibm.com',
+      title: 'Avionics Engineer',
+      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+      jobPosition: 'Full-Time',
+      educationLevel: 'Masters',
+      recentGraduate: true,
+      creationDate: '2016-02-22T16:12:12.000Z',
+      expirationDate: '2016-07-22T16:12:12.000Z',
+      announcementNumber: 787867674676,
+      flyerPath: 'documents/pdf-sample.pdf',
+      jobOfferStatus: 'approved',
+      location: 'Durham, NC'
+    }
+  ];
+
   var recruiters = [
     {
       email: 'juanito@gmail.com',
@@ -101,6 +152,9 @@ app.controller('CompanyCtrl', function($scope, _) {
 
     ],
     'recruiterList':[
+
+    ],
+    'jobOfferList':[
 
     ],
     'requestsInfo':[
@@ -283,6 +337,17 @@ app.controller('CompanyCtrl', function($scope, _) {
   $scope.deleteRecruiter = function(item){
     _.remove(this.companyProfile.recruiterList, function(element) {
       return element.email === item.email;
+    });
+  };
+
+  //For Viewing and deleting Job Offers------------------------------------------------------------
+  for (i = 0; i < jobOffers.length; i++) {
+    $scope.companyProfile.jobOfferList.push(jobOffers[i]);
+  }
+
+  $scope.deleteJobOffer = function(item){
+    _.remove(this.companyProfile.jobOfferList, function(element) {
+      return element.id === item.id;
     });
   };
 

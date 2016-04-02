@@ -310,27 +310,86 @@
               </div>
             </div>
 
+            <form editable-form name="editableStaffForm" onaftersave="submitEditOrDeleteStaff(editableStaffForm)" oncancel="cancelItems(aboutUsInfo.ourStaff)">
 
-            <h3 class="title">Our Staff</h3>
+              <h3 class="title">Our Staff <span>
+                  <!-- button to show form -->
+                  <button type="button" class="btn btn-theme btn-sm" ng-click="editableStaffForm.$show()" ng-show="!editableStaffForm.$visible">Edit</button>
+                  <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addStaffModal" ng-show="!editableStaffForm.$visible">Add staff</button>
+                  <!-- buttons to submit / cancel form -->
+                  <span ng-show="editableStaffForm.$visible">
+                    <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editableStaffForm.$waiting">Save</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-disabled="editableStaffForm.$waiting" ng-click="(editableStaffForm.$cancel())">Cancel</button>
+                  </span>
+                </span>
+              </h3>
+              <div class="table-responsive">
+                <table class="table table-boxed">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th><span ng-show="editableStaffForm.$visible">Action</span></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in aboutUsInfo.ourStaff | filter: filterItems">
+                      <td>
+                        <!-- editable staff name (text with validation) -->
+                        <span editable-text="item.name" e-form="editableStaffForm" e-size="50" onbeforesave="checkStaffName($data)" e-required>{{item.name}}</span>
+                      </td>
+                      <td>
+                        <!-- editable staff position (text with validation)  -->
+                        <span editable-text="item.position" e-form="editableStaffForm" e-size="50" onbeforesave="checkStaffPosition($data)" e-required>{{item.position}}</span>
+                      </td>
+                      <td><button type="button" ng-show="editableStaffForm.$visible" ng-click="deleteItems(aboutUsInfo.ourStaff, item)" class="btn btn-danger pull-right">Delete</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
 
-            <div class="table-responsive">
-              <table class="table table-boxed">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in aboutUsInfo.ourStaff">
-                  <td>{{item.name}}</td>
-                  <td>{{item.position}}</td>
-                </tr>
-                </tbody>
-              </table>
-              <!--//table-->
+            <div id="addStaffModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title pull-left" style="color:black">Add Staff</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" name="modalAddStaffForm" ng-submit="submitAddStaff(modalAddStaffForm)" novalidate>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                        <input ng-model="staff.name" name="name" type="text" class="form-control" ng-maxlength="63" placeholder="Enter staff name" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddStaffForm.name.$error.maxlength" style="color:#843534" class="help-block"><b>Staff name must be 63 characters long</b></p>
+                      </div>
+                      <div class="input-group text-center" style="margin-bottom: 10px;">
+                        <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-tasks"></i></span>
+                        <input ng-model="staff.position" name="position" type="text" class="form-control" ng-maxlength="63" placeholder="Enter staff position" style="border-radius:0;" required/>
+                      </div>
+                      <div>
+                        <p ng-show="modalAddStaffForm.position.$error.maxlength" style="color:#843534" class="help-block"><b>Staff position must be 63 characters long</b></p>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
+                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddStaffForm.name.$error.maxlength || modalAddStaffForm.position.$error.maxlength)" >Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+
           </article>
+
           <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">
             <!--//widget-->
             <!--//widget-->

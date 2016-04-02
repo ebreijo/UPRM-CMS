@@ -129,5 +129,32 @@ app.factory('AboutUs', function(Restangular, _) {
     });
   };
 
+  obj.addStaff = function(staff) {
+    return Restangular.all('/api/aboutUs/ourStaff').customPOST({'name': staff.name, 'position': staff.position});
+  };
+
+  obj.updateStaff = function() {
+    var updatedStaff = _.filter(this.aboutUsInfo.ourStaff, function(element) {
+      return element.isDeleted !== true;
+    });
+
+    Restangular.all('/api/aboutUs/ourStaff').customPUT({'ourStaff' : updatedStaff});
+  };
+
+  obj.deleteStaff = function() {
+    var deletedStaff = _.filter(this.aboutUsInfo.ourStaff, function(element) {
+      return element.isDeleted === true;
+    });
+    var self = this;
+
+    _.forEach(deletedStaff, function(staff) {
+      Restangular.one('/api/aboutUs/ourStaff', staff.id).remove().then(function() {
+        _.remove(self.aboutUsInfo.ourStaff, function(element) {
+          return element.isDeleted === true;
+        });
+      });
+    });
+  };
+
   return obj;
 });

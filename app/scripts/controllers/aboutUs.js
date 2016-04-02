@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
+app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
 
   $scope.aboutUsInfo = AboutUs.aboutUsInfo;
 
@@ -14,6 +14,7 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
   $scope.companyService = null;
   $scope.policy = null;
   $scope.requirement = null;
+  $scope.staff = null;
 
   $scope.submitAboutUs = function(form) {
     if(form.$valid) {
@@ -132,6 +133,44 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter) {
         $scope.aboutUsInfo.requirements.push(newRequirement);
         $('#addRequirementModal').modal('hide');
         $scope.requirement = null;
+      }, function(err) {
+        $scope.title = 'Error';
+        $scope.message = err.data.explanation;
+        console.log(err);
+        $('#messageModal').modal('show');
+      });
+    }
+  };
+
+  $scope.checkStaffName = function(name) {
+    if (name.length < 2 || name.length > 63) {
+      return 'Name should be between 2 and 63 characters long';
+    } else if (!Patterns.ourStaff.name.test(name)) {
+      return 'Enter a valid name';
+    }
+  };
+
+  $scope.checkStaffPosition = function(position) {
+    if (position.length < 2 || position.length > 63) {
+      return 'Position should be between 2 and 63 characters long';
+    }
+  };
+
+  // Submit edit or delete staff
+  $scope.submitEditOrDeleteStaff = function(form) {
+    if (form.$valid) {
+      AboutUs.deleteStaff();
+      AboutUs.updateStaff();
+    }
+  };
+
+  // Add staff
+  $scope.submitAddStaff = function(form) {
+    if (form.$valid) {
+      AboutUs.addStaff($scope.staff).then(function(newStaff) {
+        $scope.aboutUsInfo.ourStaff.push(newStaff);
+        $('#addStaffModal').modal('hide');
+        $scope.staff = null;
       }, function(err) {
         $scope.title = 'Error';
         $scope.message = err.data.explanation;
