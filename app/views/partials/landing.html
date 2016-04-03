@@ -6,27 +6,43 @@
   <div ng-include src="'views/partials/navbar.html'"></div>
   <!--//main-nav-->
 
+  <!--
   <form
     action="/file-upload"
     class="dropzone"
     id="my-awesome-dropzone"
     uprm-file-uploader="dropzoneConfig">
   </form>
+  -->
 
   <!-- ******CONTENT****** -->
   <div class="content container">
 
     <div id="promo-slider" class="slider flexslider">
-      <ul class="slides">
+      <ul class="slides" ng-repeat="picture in pictures">
+
         <li>
-          <img src="../../images/slides/slide-1.jpg" alt=""/>
+          <img src="{{pictures[0].filePath}}" alt=""/>
         </li>
         <li>
-          <img src="../../images/slides/slide-2.jpg" alt=""/>
+          <img src="{{pictures[1].filePath}}" alt=""/>
         </li>
         <li>
-          <img src="../../images/slides/slide-3.jpg" alt=""/>
+          <img src="{{pictures[2].filePath}}" alt=""/>
         </li>
+
+        <!--
+        <li>
+          <img src="../../media/landing/slide-1.jpg" alt=""/>
+        </li>
+        <li>
+          <img src="../../media/landing/slide-2.jpg" alt=""/>
+        </li>
+        <li>
+          <img src="../../media/landing/slide-3.jpg" alt=""/>
+        </li>
+        -->
+
       </ul>
       <!--//slides-->
     </div>
