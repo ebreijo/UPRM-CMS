@@ -135,7 +135,7 @@
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
+                <div class="tab-pane" id="tab1">
                   <div class="page-content">
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
@@ -304,132 +304,123 @@
                             </div>
                           </div>
                         </div>
-
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <ul class="pagination">
-                          <li class="disabled">
-                            <a href="#">«</a>
-                          </li>
-                          <li class="active">
-                            <a href="#">1<span class="sr-only">(current)</span></a>
-                          </li>
-                          <li>
-                            <a href="#">2</a>
-                          </li>
-                          <li>
-                            <a href="#">3</a>
-                          </li>
-                          <li>
-                            <a href="#">4</a>
-                          </li>
-                          <li>
-                            <a href="#">5</a>
-                          </li>
-                          <li>
-                            <a href="#">»</a>
-                          </li>
-                        </ul>
-                        <!--//pagination-->
-                      </div>
-                      <div class="row">
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane" id="tab4">
-                  <div class="row">
-                    <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
-                      <h3 class="title">Request on Campus Service</h3>
-                      <p>Please use this form for requesting any on campus service. One of our staff members will respond to you as quickly as possible.<br></p>
+                <div class="tab-pane active" id="tab4">
+                  <form name="requestOnCampusServiceForm" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">Request on Campus Service</h3>
+                        <p>Please use this form for requesting any on campus service. One of our staff members will respond to you as quickly as possible.<br></p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5" style="padding-top:13px">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label>Type of Event
-                                                              <span class="required">*</span>&nbsp:&nbsp
-                                                            </label></span>
-                          <div class="form-group" style="text-align:center">
-                            <div class="sort">
-                              <select class="sort-options form-control">
-                                <option>&nbsp</option>
-                                <option>Info-session</option>
-                                <option>Workshop</option>
-                                <option>Interview</option>
-                                <option>Other</option>
-                              </select>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-1">
+                      </div>
+                      <article class="contact-form col-md-5">
+                          <div class="input-group">
+                            <span><label>Type of Event<span class="required">*</span>&nbsp:&nbsp</label></span>
+                            <div class="form-group" style="text-align:center">
+                              <div class="sort">
+                                <select class="sort-options form-control" ng-model="campusServiceEventType" ng-init="campusServiceEventType=null" required>
+                                  <option>Info-session</option>
+                                  <option>Workshop</option>
+                                  <option>Interview</option>
+                                  <option>Other</option>
+                                </select>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </form>
-                    </article>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
+                      </article>
+                      <article class="contact-form col-md-5" ng-show="campusServiceEventType==='Other'">
                         <div class="input-group">
-                                                            <span><label class="control-label">Other Description
-                                                              <span class="required">*</span> :
-                                                            </label></span>
+                          <span><label class="control-label">Other Event Description<span class="required">*</span> :</label></span>
                         </div>
-                      </form>
-                      <input type="text" class="form-control" placeholder="Enter description for other event">
-                    </article>
-                    <div class="col-md-1">
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label class="control-label">Date&nbsp;
-                                                              <span class="required">*</span> :
-                                                            </label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Date of Event">
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine}">
+                          <input ng-model="otherTypeOfEvent" name="otherTypeOfEvent" type="text" class="form-control" placeholder="Enter description for other event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine"></i>
                         </div>
-                      </form>
-                    </article>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                                                            <span><label class="control-label">Hour
-                                                              <span class="required">*</span> :
-                                                            </label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Hour of Event">
+                        <div>
+                          <p ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
                         </div>
-                      </form>
-                    </article>
-                    <div class="col-md-1">
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:20px">
-                    <div class="col-md-1">
-                    </div>
-                    <article class="contact-form col-md-5">
-                      <form class="form-inline" role="form" action="" method="post">
-                        <div class="input-group">
-                          <span><label class="control-label">Expected Capacity (Optional) :</label></span>
-                          <input type="text" class="form-control" placeholder="Enter the Expected Capacity of Persons">
-                        </div>
-                      </form>
-                    </article>
-                    <div class="col-md-5">
-                      <div class="form-group message">
-                        <label>Additional Information (Optional) :
-                        </label>
-                        <textarea class="form-control" rows="6" placeholder="Enter additional information here..."></textarea>
+                      </article>
+                      <div class="col-md-1">
                       </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-1">
+                      </div>
+                      <article class="contact-form col-md-5">
+                          <div class="input-group">
+                            <span><label class="control-label">Date&nbsp;<span class="required">*</span> :</label></span>
+                            <div class="alert alert-danger alert-dismissable" ng-show="showCampusServiceDateError">
+                              <button type="button" class="close" ng-click="showCampusServiceDateError=false" aria-hidden="true">&times;</button>
+                              <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
+                            </div>
+                            <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceDate.$invalid && !requestOnCampusServiceForm.campusServiceDate.$pristine}">
+                              <input id="requestCampusServiceDatePicker" ng-model="campusServiceDate" name="campusServiceDate" placeholder="Click on this input to select the event date" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
+                              <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.campusServiceDate.$valid"></i>
+                              <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceDate.$invalid && !requestOnCampusServiceForm.campusServiceDate.$pristine"></i>
+                            </div>
+                            <div>
+                              <p ng-show="requestOnCampusServiceForm.campusServiceDate.$invalid && !requestOnCampusServiceForm.campusServiceDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+                            </div>
+                          </div>
+                      </article>
+                      <article class="contact-form col-md-5">
+                          <div class="input-group">
+                            <span><label class="control-label">Hour<span class="required">*</span> :</label></span>
+                            <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine}">
+                              <input ng-model="campusServiceHour" name="campusServiceHour" type="text" class="form-control" placeholder="Enter the Hour of Event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()-]{0,20})$/i"/>
+                              <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.campusServiceHour.$valid"></i>
+                              <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine"></i>
+                            </div>
+                            <div>
+                              <p ng-show="requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Hour</b></p>
+                            </div>
+                          </div>
+                      </article>
+                      <div class="col-md-1">
+                      </div>
                     </div>
-                  </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-1">
+                      </div>
+                      <article class="contact-form col-md-5">
+                          <div class="input-group">
+                            <span><label class="control-label">Expected Capacity (Optional):</label></span>
+                            <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceCapacity.$error.pattern}">
+                              <input ng-model="campusServiceCapacity" name="campusServiceCapacity" type="number" class="form-control" placeholder="Enter the Expected Capacity of Persons" style="border-radius:0;" ng-pattern="/^([0-9]{0,10})$/i"/>
+                              <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!requestOnCampusServiceForm.campusServiceCapacity.$error.pattern && !requestOnCampusServiceForm.campusServiceCapacity.$modelValue === false"></i>
+                              <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceCapacity.$error.pattern"></i>
+                            </div>
+                            <div>
+                              <p ng-show="requestOnCampusServiceForm.campusServiceCapacity.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid number for Capacity</b></p>
+                            </div>
+                          </div>
+                      </article>
+                      <article class="contact-form col-md-5">
+                        <div class="form-group message">
+                          <label>Additional Information (Optional) :</label>
+                          <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern}">
+                            <textarea ng-model="campusServiceAdditionalInformation" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                            <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="!requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern && requestOnCampusServiceForm.campusServiceAdditionalInformation.$modelValue === false"></i>
+                            <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern"></i>
+                          </div>
+                          <div>
+                            <p ng-show="requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                          </div>
+                        </div>
+                      </article>
+                      <div class="col-md-1">
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
                 <div class="tab-pane" id="tab5">
                   <div class="row">
                     <div class="col-md-12" style="padding-bottom:5px">

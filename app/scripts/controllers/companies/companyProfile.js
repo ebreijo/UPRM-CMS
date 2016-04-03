@@ -385,4 +385,11 @@ app.controller('CompanyCtrl', function($scope, _) {
     }
   };
 
+  //Requesting an on Campus Service------------------------------------------------------------
+  $scope.showCampusServiceDateError=false;
+
+  $('#requestCampusServiceDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
+
 });
