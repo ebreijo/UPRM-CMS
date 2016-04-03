@@ -154,7 +154,7 @@ app.controller('CompanyCtrl', function($scope, _) {
       companyName: 'IBM',
       title: 'PromotionalMaterial2',
       expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
+      status: 'pending'
     },
     {
       id: 3,
@@ -188,10 +188,8 @@ app.controller('CompanyCtrl', function($scope, _) {
     'jobOfferList':[
 
     ],
-    'requestsInfo':[
-      {
+    'campusServiceRequests':[
 
-      }
     ]
   };
 
@@ -392,4 +390,21 @@ app.controller('CompanyCtrl', function($scope, _) {
     format: 'yyyy-mm-dd'
   });
 
+  var indexCampusService = 0;
+
+  $scope.submitCampusService = function(form){
+    if(form.$valid && $scope.campusServiceDate.toISOString() > today){
+      $('#confirmCampusServiceRequest').modal('show');
+      $scope.showCampusServiceDateError=false;
+    }
+    else if(($scope.campusServiceDate.toISOString()) <= today){
+      $scope.showCampusServiceDateError=true;
+    }
+  };
+
+  $scope.confirmSubmissionCampusService = function(){
+    this.companyProfile.campusServiceRequests.push({id: indexCampusService, eventType: $scope.campusServiceEventType, otherEventDescription: $scope.otherTypeOfEvent, eventDate: $scope.campusServiceDate, eventHour: $scope.campusServiceHour, eventCapacity: $scope.campusServiceCapacity, eventAdditionalInformation: $scope.campusServiceAdditionalInformation});
+    indexCampusService++;
+    $('#confirmCampusServiceRequest').modal('hide');
+  };
 });

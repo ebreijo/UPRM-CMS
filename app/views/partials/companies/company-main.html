@@ -308,8 +308,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane active" id="tab4">
-                  <form name="requestOnCampusServiceForm" novalidate>
+                <div class="tab-pane" id="tab4">
+                  <form name="requestOnCampusServiceForm" ng-submit="submitCampusService(requestOnCampusServiceForm)" novalidate>
                     <div class="row">
                       <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
                         <h3 class="title">Request on Campus Service</h3>
@@ -338,13 +338,13 @@
                         <div class="input-group">
                           <span><label class="control-label">Other Event Description<span class="required">*</span> :</label></span>
                         </div>
-                        <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine}">
-                          <input ng-model="otherTypeOfEvent" name="otherTypeOfEvent" type="text" class="form-control" placeholder="Enter description for other event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
-                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$valid"></i>
-                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine"></i>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern}">
+                          <input ng-model="otherTypeOfEvent" name="otherTypeOfEvent" type="text" class="form-control" placeholder="Enter description for other event" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern && !requestOnCampusServiceForm.otherTypeOfEvent.$modelValue === false"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern"></i>
                         </div>
                         <div>
-                          <p ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$invalid && !requestOnCampusServiceForm.otherTypeOfEvent.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                          <p ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
                         </div>
                       </article>
                       <div class="col-md-1">
@@ -374,7 +374,7 @@
                           <div class="input-group">
                             <span><label class="control-label">Hour<span class="required">*</span> :</label></span>
                             <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine}">
-                              <input ng-model="campusServiceHour" name="campusServiceHour" type="text" class="form-control" placeholder="Enter the Hour of Event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()-]{0,20})$/i"/>
+                              <input ng-model="campusServiceHour" name="campusServiceHour" type="text" class="form-control" placeholder="Enter the Hour of Event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()]{0,20})$/i"/>
                               <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.campusServiceHour.$valid"></i>
                               <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine"></i>
                             </div>
@@ -393,7 +393,7 @@
                           <div class="input-group">
                             <span><label class="control-label">Expected Capacity (Optional):</label></span>
                             <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceCapacity.$error.pattern}">
-                              <input ng-model="campusServiceCapacity" name="campusServiceCapacity" type="number" class="form-control" placeholder="Enter the Expected Capacity of Persons" style="border-radius:0;" ng-pattern="/^([0-9]{0,10})$/i"/>
+                              <input ng-model="campusServiceCapacity" name="campusServiceCapacity" type="number" min="0" class="form-control" placeholder="Enter the Expected Capacity of Persons" style="border-radius:0;" ng-pattern="/^([0-9]{0,10})$/i"/>
                               <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!requestOnCampusServiceForm.campusServiceCapacity.$error.pattern && !requestOnCampusServiceForm.campusServiceCapacity.$modelValue === false"></i>
                               <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceCapacity.$error.pattern"></i>
                             </div>
@@ -407,7 +407,7 @@
                           <label>Additional Information (Optional) :</label>
                           <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern}">
                             <textarea ng-model="campusServiceAdditionalInformation" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
-                            <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="!requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern && requestOnCampusServiceForm.campusServiceAdditionalInformation.$modelValue === false"></i>
+                            <i style="color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="!requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern && requestOnCampusServiceForm.campusServiceAdditionalInformation.$modelValue === false"></i>
                             <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern"></i>
                           </div>
                           <div>
@@ -418,10 +418,13 @@
                       <div class="col-md-1">
                       </div>
                     </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-theme" ng-disabled="requestOnCampusServiceForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Submit</b></button>
+                    </div>
                   </form>
                 </div>
 
-                <div class="tab-pane" id="tab5">
+                <div class="tab-pane active" id="tab5">
                   <div class="row">
                     <div class="col-md-12" style="padding-bottom:5px">
                       <h3 class="title">Status of Company Requests</h3>
@@ -429,10 +432,10 @@
                   </div>
                   <div class="row">
                     <!--//course-list-header-->
-                    <article class="contact-form col-md-6 col-sm-6  page-row">
+                    <article class="contact-form col-md-12 page-row">
                       <h4 class="title text-center">Pending Requests</h4>
                       <div class="table-responsive">
-                        <table class="table table-boxed">
+                        <table class="table table-bordered">
                           <thead>
                           <tr>
                             <th>#</th>
@@ -460,37 +463,7 @@
                         </table>
                         <!--//table-->
                       </div>
-                    </article>
-                    <article class="contact-form col-md-6 col-sm-6  page-row">
-                      <h4 class="title text-center">Approved Requests</h4>
-                      <div class="table-responsive">
-                        <table class="table table-boxed">
-                          <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Job Position: English Professor</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Job Position: Math Professor</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Document: resume_workshop.pdf</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!--//table-->
+                      <div>
                       </div>
                     </article>
                   </div>
@@ -840,6 +813,29 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmCampusServiceRequest" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Are you sure you want to request this Campus Service?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" class="btn btn-success pull-right" ng-click="confirmSubmissionCampusService()" style="margin-top: 5px; margin-right: 5px">Ok</button>
       </div>
     </div>
   </div>
