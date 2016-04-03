@@ -170,7 +170,7 @@
                           <p>Company Name<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                            <input type="text" ng-model="company.name" name="modalCompanyName" class="form-control" style="border-radius:0;" required/>
+                            <input type="text" ng-model="company.name" name="modalCompanyName" ng-minlength="2" ng-maxlength="63" class="form-control" style="border-radius:0;" required/>
                           </div>
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalCreateCompanyForm.modalCompanyName.$invalid && !modalCreateCompanyForm.modalCompanyName.$pristine" style="color:#843534" class="help-block"><b>Enter the company name</b></p>
@@ -178,10 +178,10 @@
                           <p>Website URL<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pushpin"></i></span>
-                            <input type="text" ng-model="company.websiteUrl" name="modalWebsiteUrl" class="form-control" style="border-radius:0;" required/>
+                            <input type="text" ng-model="company.websiteUrl" name="modalWebsiteUrl" ng-minlength="2" ng-maxlength="255" class="form-control" style="border-radius:0;" required/>
                           </div>
                           <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.modalWebsiteUrl.$invalid && !modalCreateCompanyForm.modalWebsiteUrl.$pristine" style="color:#843534" class="help-block"><b>Enter the Website URL</b></p>
+                            <p ng-show="modalCreateCompanyForm.modalWebsiteUrl.$invalid && !modalCreateCompanyForm.modalWebsiteUrl.$pristine" style="color:#843534" class="help-block"><b>Website URL must be between 2 ad 255 characters long</b></p>
                           </div>
                           <p>Logo</p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
@@ -191,14 +191,14 @@
                           <p>Description<span class="required" style="color: #e14b39;">*</span></p>
                           <fieldset class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" rows="6" style="resize: none;" required></textarea>
+                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" ng-minlength="2" ng-maxlength="511" rows="6" style="resize: none;" required></textarea>
                           </fieldset>
                           <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter the company description</b></p>
+                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Company description must be between 2 and 511 characters long</b></p>
                           </div>
                           <div class="row">
                             <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
-                              <button type="submit" class="btn btn-theme">Submit</button>
+                              <button type="submit" class="btn btn-theme" ng-disabled="modalCreateCompanyForm.$invalid">Submit</button>
                             </div>
                           </div>
                         </form>
@@ -329,7 +329,7 @@
                                 <input type="text" name="majorCode" class="form-control" ng-model="major.majorCode" ng-maxlength="4" placeholder="Enter the Major Code" required>
                               </div>
                               <div>
-                                <p ng-show="addMajorForm.majorCode.$error.maxlength" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
+                                <p ng-show="addMajorForm.majorCode.$invalid && !addMajorForm.majorCode.$pristine" style="color:#843534" class="help-block"><b>Major Code must be 4 characters long</b></p>
                               </div>
                             </article>
                             <article class="contact-form col-md-4">
@@ -337,7 +337,10 @@
                                 <span>
                                   <label class="control-label">Major Name in English&nbsp;<span class="required">*</span> :</label>
                                 </span>
-                                <input type="text" name="nameEnglish" class="form-control" ng-model="major.nameEnglish" placeholder="Enter the Major Name in English" required>
+                                <input type="text" name="nameEnglish" class="form-control" ng-model="major.nameEnglish" placeholder="Enter the Major Name in English" ng-minlength="2" ng-maxlength="63" required>
+                              </div>
+                              <div>
+                                <p ng-show="addMajorForm.nameEnglish.$invalid && !addMajorForm.nameEnglish.$pristine" style="color:#843534" class="help-block"><b>English name must be between 2 and 63 characters long</b></p>
                               </div>
                             </article>
                             <article class="contact-form col-md-4">
@@ -345,7 +348,10 @@
                                 <span>
                                   <label class="control-label">Major Name in Spanish&nbsp;<span class="required">*</span> :</label>
                                 </span>
-                                <input type="text" name="nameSpanish" class="form-control" ng-model="major.nameSpanish" placeholder="Enter the Major Name in Spanish" required>
+                                <input type="text" name="nameSpanish" class="form-control" ng-model="major.nameSpanish" placeholder="Enter the Major Name in Spanish" ng-minlength="2" ng-maxlength="63" required>
+                              </div>
+                              <div>
+                                <p ng-show="addMajorForm.nameSpanish.$invalid && !addMajorForm.nameSpanish.$pristine" style="color:#843534" class="help-block"><b>Spanish name must be between 2 and 63 characters long</b></p>
                               </div>
                             </article>
                             <div class="col-md-12 text-center" style="margin-top:20px">
@@ -710,24 +716,33 @@
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title pull-left" style="color:black"><b>Review and Accept Job Offer for {{tempJobOffer.companyName}}</b></h4>
+                        <div class="col-md-6 input-group">
+                          Creation Date: {{tempJobOffer.creationDate | date: 'EEE, MMMM d, y'}}
+                        </div>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" name="modalReviewAcceptJobOfferForm" ng-submit="submitJobOfferReviewAccept(modalReviewAcceptJobOfferForm)" novalidate>
+                          <p>Title</p>
+                          <div class="input-group text-center" style="margin-bottom:10px;">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" ng-model="tempJobOffer.title" name="modalJobOfferTitle" ng-minlength="2" ng-maxlength="127" class="form-control" style="border-radius:0;" required/>
+                          </div>
+                          <div>
+                            <p ng-show="modalReviewAcceptJobOfferForm.modalJobOfferTitle.$invalid && !modalReviewAcceptJobOfferForm.modalJobOfferTitle.$pristine" style="color:#843534" class="help-block"><b>Title must be between 2 and 127 characters long</b></p>
+                          </div>
                           <p>Email</p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
                             <input type="email" placeholder="{{tempJobOffer.email}}" class="form-control" style="border-radius:0;" disabled/>
                           </div>
-                          <p>Creation Date</p>
-                          <div class="input-group text-center" style="margin-bottom:10px;">
-                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="text" placeholder="{{tempJobOffer.creationDate | date: 'EEE, MMMM d, y'}}" class="form-control" style="border-radius:0;" disabled/>
-                          </div>
                           <p>Description</p>
                           <fieldset class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea class="form-control" ng-model="tempJobOffer.description" rows="6" style="resize: none;"></textarea>
+                            <textarea class="form-control" ng-model="tempJobOffer.description" name="modalJobOfferDescription" ng-minlength="2" ng-maxlength="511" rows="5" style="resize: none;" required></textarea>
                           </fieldset>
+                          <div>
+                            <p ng-show="modalReviewAcceptJobOfferForm.modalJobOfferDescription.$invalid && !modalReviewAcceptJobOfferForm.modalJobOfferDescription.$pristine" style="color:#843534" class="help-block"><b>Description must be between 2 and 511 characters long</b></p>
+                          </div>
                           <div class="col-sm-6" style="margin-bottom:10px;">
                             <p>Job Position</p>
                             <div class="input-group text-center">
@@ -781,11 +796,14 @@
                           <p>Expiration Date: {{tempJobOffer.expirationDate | date: 'EEE, MMMM d, y'}}</p>
                           <div class="input-group text-center date">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="jobOfferExpirationDatePicker" ng-model="tempJobOffer.expirationDate" type="text" class="form-control">
+                            <input id="jobOfferExpirationDatePicker" ng-model="tempJobOffer.expirationDate" type="text" ng-click="showJobOfferDateError=false" class="form-control" readonly required>
+                          </div>
+                          <div>
+                            <p ng-show="showJobOfferDateError" style="color:#843534" class="help-block"><b>Expiration date must be at least one day after today. Please select a new date.</b></p>
                           </div>
                           <div class="row">
                             <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
-                              <button type="submit" class="btn btn-theme">Accept</button>
+                              <button type="submit" class="btn btn-theme" ng-disabled="modalReviewAcceptJobOfferForm.$invalid">Accept</button>
                             </div>
                           </div>
                         </form>

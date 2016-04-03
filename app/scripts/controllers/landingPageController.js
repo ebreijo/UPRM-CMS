@@ -2,7 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('LandingPageCtrl', function($scope) {
+app.controller('LandingPageCtrl', function($scope, Pictures) {
+
+  $scope.pictures = Pictures.pictures;
 
   $scope.dropzoneConfig = {
     'options': { // passed into the Dropzone constructor

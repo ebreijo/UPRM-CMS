@@ -241,6 +241,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.executeTab6 = function() {
 
+    $scope.today = new Date();
+
     $('#jobOfferExpirationDatePicker').datepicker({
       format: 'yyyy-mm-dd'
     });
@@ -252,11 +254,14 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     $scope.submitJobOfferReviewAccept = function(form) {
-      if(form.$valid) {
+      if(form.$valid && (new Date($scope.tempJobOffer.expirationDate) > (new Date()))) {
+        $scope.showJobOfferDateError = false;
         $scope.tempJobOffer.jobOfferStatus = 'approved';
         JobOffers.updateJobOffer($scope.tempJobOffer);
         removeJobOfferFromPendingList();
         $('#reviewAcceptJobOfferModal').modal('hide');
+      } else {
+        $scope.showJobOfferDateError = true;
       }
     };
 

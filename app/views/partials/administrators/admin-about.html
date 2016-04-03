@@ -102,7 +102,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddStudentServiceForm.studentService.$error.required || modalAddStudentServiceForm.studentService.$error.maxlength || modalAddStudentServiceForm.studentService.$error.minlength)" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddStudentServiceForm.$invalid" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -159,7 +159,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddCompanyServiceForm.companyService.$error.required || modalAddCompanyServiceForm.companyService.$error.maxlength || modalAddCompanyServiceForm.companyService.$error.minlength)" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddCompanyServiceForm.$invalid" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -217,7 +217,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddPolicyForm.policy.$error.required || modalAddPolicyForm.policy.$error.maxlength || modalAddPolicyForm.policy.$error.minlength)" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddPolicyForm.$invalid" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -280,7 +280,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddRequirementForm.requirement.$error.required || modalAddRequirementForm.requirement.$error.maxlength || modalAddRequirementForm.requirement.$error.minlength)" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddRequirementForm.$invalid" >Submit</button>
                         </div>
                       </div>
                     </form>
@@ -357,7 +357,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-2 text-center" style="float: none; margin: 0 auto;">
-                          <button type="submit" class="btn btn-theme" ng-disabled="(modalAddStaffForm.name.$error.maxlength || modalAddStaffForm.position.$error.maxlength || modalAddStaffForm.name.$error.minlength || modalAddStaffForm.position.$error.minlength)" >Submit</button>
+                          <button type="submit" class="btn btn-theme" ng-disabled="modalAddStaffForm.$invalid" >Submit</button>
                         </div>
                       </div>
                     </form>
