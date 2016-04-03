@@ -74,13 +74,13 @@ INSERT INTO company_services (service)
 VALUES ('We refer resumes of recent graduates with minimum experience.');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo1', '/lib/pictures');
+VALUES ('photo1', '../../images/slides/slide-1.jpg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo2', '/lib/pictures');
+VALUES ('photo2', '../../images/slides/slide-2.jpg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo3', '/lib/pictures');
+VALUES ('photo3', '../../images/slides/slide-3.jpg');
 
 INSERT INTO job_fair_company_information (company_name, min_gpa, extra_information, collecting_resumes_before_job_fair, must_fill_online, interviews_during_weekend, attending, website_application)
 VALUES ('IBM', '3.30', 'This is a company attending the Job Fair', '1', '0', '1', '1', 'http://www-03.ibm.com/employment/us/');
@@ -273,3 +273,4 @@ VALUES ('Work with student organizations.');
 
 INSERT INTO temporary_contact (email, company_name, first_name, last_name, phone_number)
 VALUES ('chencho@gmail.com', 'Google', 'Chencho', 'Ramos', '787-555-5555');
+
