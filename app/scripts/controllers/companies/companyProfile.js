@@ -101,7 +101,7 @@ app.controller('CompanyCtrl', function($scope, _) {
       firstName: 'Leonardo',
       lastName: 'Dicaprio',
       phoneNumber: '787-555-5555',
-      accountStatus: 'active',
+      accountStatus: 'inactive',
       registrationDate: '2016-03-29T14:51:52.000Z',
       companyLocation: {
         id: 2,
@@ -189,6 +189,9 @@ app.controller('CompanyCtrl', function($scope, _) {
 
     ],
     'campusServiceRequests':[
+
+    ],
+    'pendingRequests':[
 
     ]
   };
@@ -407,4 +410,22 @@ app.controller('CompanyCtrl', function($scope, _) {
     indexCampusService++;
     $('#confirmCampusServiceRequest').modal('hide');
   };
+
+  //For all pending requests------------------------------------------------------------
+  $scope.indexPendingRequests = 0;
+
+  for (i = 0; i < $scope.companyProfile.jobOfferList.length; i++) {
+    if ($scope.companyProfile.jobOfferList[i].jobOfferStatus==='pending'){
+      $scope.indexPendingRequests++;
+      $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Job Offer: ' + $scope.companyProfile.jobOfferList[i].title, status: 'pending'});
+    }
+  }
+
+  for (i = 0; i < $scope.companyProfile.promotionalMaterial.length; i++) {
+    if ($scope.companyProfile.promotionalMaterial[i].status==='pending'){
+      $scope.indexPendingRequests++;
+      $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Promotional Material: ' +  $scope.companyProfile.promotionalMaterial[i].title, status: 'pending'});
+    }
+  }
+
 });

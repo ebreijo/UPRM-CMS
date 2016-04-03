@@ -131,11 +131,11 @@
                   <a href="#tab4" data-toggle="tab">Campus Services</a>
                 </li>
                 <li>
-                  <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">3</span></a>
+                  <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">{{indexPendingRequests}}</span></a>
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane" id="tab1">
+                <div class="tab-pane active" id="tab1">
                   <div class="page-content">
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
@@ -244,7 +244,11 @@
                     <!--//course-item-header-->
                       <article class="course-item row-divider" ng-repeat="item in companyProfile.recruiterList">
                         <div class="details row">
-                          <div class="col-title col-md-4 col-sm-6">{{item.firstName}} {{item.lastName}}</div>
+                          <div class="col-title col-md-4 col-sm-6">{{item.firstName}} {{item.lastName}}
+                            <span class="label label-success" ng-show="item.accountStatus === 'active'">Approved</span>
+                            <span class="label label-danger" ng-show="item.accountStatus === 'inactive'">Inactive</span>
+                            <span class="label label-warning" ng-show="item.accountStatus === 'pending'">Pending</span>
+                          </div>
                           <div class="col-meta col-md-8 col-sm-6">
                             <div class="row">
                               <div class="col-start col-md-4">{{item.email}}</div>
@@ -424,7 +428,7 @@
                   </form>
                 </div>
 
-                <div class="tab-pane active" id="tab5">
+                <div class="tab-pane" id="tab5">
                   <div class="row">
                     <div class="col-md-12" style="padding-bottom:5px">
                       <h3 class="title">Status of Company Requests</h3>
@@ -444,19 +448,9 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Job Position: Material Engineer</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Document: math_tutor.pdf</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Job Position: Music Professor</td>
+                          <tr ng-repeat="item in companyProfile.pendingRequests">
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
                             <td><span class="label label-warning">Pending</span></td>
                           </tr>
                           </tbody>
