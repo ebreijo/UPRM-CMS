@@ -287,7 +287,7 @@
                             </li>
                             <li class="list-group-item">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="/documents/pdf-sample.pdf">engineering_support_assitant.pdf</a>
+                              <a href="/documents/pdf-sample.pdf">document.pdf</a>
                             </li>
                             <li class="list-group-item">
                               <strong>Open since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
@@ -687,7 +687,7 @@
               <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
-                <input ng-model="addPromotionalMaterialItemTitle" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="addPromotionalMaterialItemTitle" name="promotionalMaterialTitle" placeholder="Enter the title for the new material" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
               </div>
@@ -696,7 +696,7 @@
               </div>
               <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
+                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" placeholder="Click on this input to select the expiration date" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
@@ -705,7 +705,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <label for="promotionalMaterial-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document</b></label>
+                  <label for="promotionalMaterial-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document:</b></label>
                   <input style="display: none;" id="promotionalMaterial-upload" type="file" accept="application/pdf"/>
                 </div>
               </div>
@@ -737,11 +737,11 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="addCompanyJobOfferForm" ng-submit="submitAddCompanyPromotionalMaterial(addCompanyJobOfferForm)" novalidate>
+            <form name="addCompanyJobOfferForm" ng-submit="submitAddCompanyJobOffer(addCompanyJobOfferForm)" novalidate>
               <label><h5 class="title text-highlight"><b>Job Title:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine}">
-                <input ng-model="addJobOfferTitle" name="jobOfferTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="addJobOfferTitle" name="jobOfferTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyJobOfferForm.jobOfferTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine"></i>
               </div>
@@ -750,31 +750,88 @@
               </div>
               <label><h5 class="title text-highlight"><b>Job Description:</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine}">
-                <textarea ng-model="addJobOfferDescription" name="jobOfferDescription" type="text" class="form-control" rows="4" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="addJobOfferDescription" name="jobOfferDescription" type="text" placeholder="Enter the description for the new job offer" class="form-control" rows="4" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferDescription.$valid"></i>
                 <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine"></i>
               </div>
               <div>
                 <p ng-show="addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
               </div>
-              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
-              <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="addjobOfferExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
-                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
-                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
+              <div class="row text-center">
+                <input type="checkbox" ng-model="addJobOfferRecentGraduateOption" ng-init="addJobOfferRecentGraduateOption=false">&nbsp;<label><h5 class="title text-highlight"><b>Check if interested in Recent Graduates</b><br></h5></label>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <label><h5 class="title text-highlight"><b>Select type of Position:</b><br></h5></label>
+                    <div class="form-group has-feedback" style="text-align:center">
+                      <div class="sort">
+                        <select class="sort-options form-control" ng-model="addJobOfferPosition" name="jobOfferPosition" required>
+                          <option>Full-Time</option>
+                          <option>Part-Time</option>
+                          <option>Internship</option>
+                          <option>Co-op</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <label><h5 class="title text-highlight"><b>Select Educational Level:</b><br></h5></label>
+                    <div class="form-group" style="text-align:center">
+                      <div class="sort">
+                        <select class="sort-options form-control" ng-model="addJobOfferEducationalLevel" name="jobOfferEducationalLevel" required>
+                          <option>Bachelors</option>
+                          <option>Masters</option>
+                          <option>PhD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <label style="margin-top:10px"><h5 class="title text-highlight"><b>Announcement Number (Optional):</b><br></h5></label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern}">
+                <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([0-9]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern && !addCompanyJobOfferForm.jobOfferAnnouncementNumber.$modelValue === false"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern"></i>
               </div>
               <div>
-                <p ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+                <p ng-show="addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Announcement Number</b></p>
+              </div>
+              <label><h5 class="title text-highlight"><b>Job Location:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine}">
+                <input ng-model="addJobOfferLocation" name="jobOfferLocation" type="text" class="form-control" placeholder="Enter the location for the new job offer (city, country)" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyJobOfferForm.jobOfferLocation.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Location</b></p>
+              </div>
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
+              <div class="alert alert-danger alert-dismissable" ng-show="showJobOfferDateError">
+                <button type="button" class="close" ng-click="showJobOfferDateError=false" aria-hidden="true">&times;</button>
+                <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
+              </div>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferExpirationDate.$invalid && !addCompanyJobOfferForm.jobOfferExpirationDate.$pristine}">
+                <input id="addjobOfferExpirationDatePicker" ng-model="addJobOfferExpirationDate" name="jobOfferExpirationDate" ng-click="showJobOfferDateError=addJobOfferExpirationDate.toISOString() <= today" placeholder="Click on this input to select the expiration date" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyJobOfferForm.jobOfferExpirationDate.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferExpirationDate.$invalid && !addCompanyJobOfferForm.jobOfferExpirationDate.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="addCompanyJobOfferForm.jobOfferExpirationDate.$invalid && !addCompanyJobOfferForm.jobOfferExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Expiration Date</b></p>
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <label for="jobOffer-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document</b></label>
+                  <label for="jobOffer-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document (Optional)</b></label>
                   <input style="display: none;" id="jobOffer-upload" type="file" accept="application/pdf"/>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
+                  <button type="submit" class="btn btn-theme btn-sm" ng-click="validateAddJobOfferDate()" ng-disabled="addCompanyJobOfferForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
                   <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
                 </div>
               </div>

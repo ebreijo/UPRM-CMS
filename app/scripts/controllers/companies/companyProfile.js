@@ -318,13 +318,13 @@ app.controller('CompanyCtrl', function($scope, _) {
     }
   };
 
-  var index = 6;
+  var indexPromotionalMaterial = 6;
 
   $scope.submitAddCompanyPromotionalMaterial = function(form){
     if(form.$valid){
-      this.companyProfile.promotionalMaterial.push({id: index, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
+      this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
       $('#addPromotionalMaterialModal').modal('hide');
-      index++;
+      indexPromotionalMaterial++;
     }
   };
 
@@ -351,8 +351,25 @@ app.controller('CompanyCtrl', function($scope, _) {
     });
   };
   //For adding Job Offers------------------------------------------------------------
+
   $('#addjobOfferExpirationDatePicker').datepicker({
     format: 'yyyy-mm-dd'
   });
+
+  var today = (new Date()).toISOString();
+
+  var indexJobOffers = 20;
+
+  $scope.submitAddCompanyJobOffer = function(form){
+    if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > today){
+      this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
+      $scope.showJobOfferDateError = false;
+      $('#addJobOfferModal').modal('hide');
+      indexJobOffers++;
+    }
+    else if(($scope.addJobOfferExpirationDate.toISOString()) <= today){
+      $scope.showJobOfferDateError = true;
+    }
+  };
 
 });
