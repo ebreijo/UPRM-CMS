@@ -135,7 +135,7 @@
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane" id="tab1">
+                <div class="tab-pane active" id="tab1">
                   <div class="page-content">
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
@@ -260,7 +260,7 @@
                       </article>
                   </div>
                 </div>
-                <div class="tab-pane active" id="tab3">
+                <div class="tab-pane" id="tab3">
                   <div class="row">
                     <div class="col-md-12 text-center" style="padding-bottom:5px">
                       <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#addJobOfferModal">Add Job Offer</button>
@@ -290,7 +290,7 @@
                               <a href="/documents/pdf-sample.pdf">document.pdf</a>
                             </li>
                             <li class="list-group-item">
-                              <strong>Open since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
+                              <strong>Open Since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
                             </li>
                           </ul>
                           <div class="panel-footer">
@@ -299,7 +299,7 @@
                                 <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Delete Job Offer</button>
                               </ul>
                               <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                Open until: {{item.expirationDate | date: 'MMMM d, y'}}
+                                Open Until: {{item.expirationDate | date: 'MMMM d, y'}}
                               </div>
                             </div>
                           </div>
@@ -647,8 +647,12 @@
                 <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
               </div>
               <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <div class="alert alert-danger alert-dismissable" ng-show="showEditPromotionalMaterialDateError">
+                <button type="button" class="close" ng-click="showEditPromotionalMaterialDateError=false" aria-hidden="true">&times;</button>
+                <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
+              </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
+                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
@@ -695,8 +699,12 @@
                 <p ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
               </div>
               <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
+              <div class="alert alert-danger alert-dismissable" ng-show="showAddPromotionalMaterialDateError">
+                <button type="button" class="close" ng-click="showAddPromotionalMaterialDateError=false" aria-hidden="true">&times;</button>
+                <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
+              </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" placeholder="Click on this input to select the expiration date" name="promotionalMaterialExpirationDate" type="text" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
+                <input id="addPromotionalDocumentExpirationDatePicker" ng-model="addPromotionalMaterialItemExpirationDate" placeholder="Click on this input to select the expiration date" name="promotionalMaterialExpirationDate" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
@@ -831,7 +839,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-click="validateAddJobOfferDate()" ng-disabled="addCompanyJobOfferForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyJobOfferForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
                   <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
                 </div>
               </div>

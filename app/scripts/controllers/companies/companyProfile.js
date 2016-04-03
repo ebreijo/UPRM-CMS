@@ -195,6 +195,9 @@ app.controller('CompanyCtrl', function($scope, _) {
     ]
   };
 
+
+  var today = (new Date()).toISOString();
+
   //For Edit Company Description Modal------------------------------------------------------------
 
   $scope.CompanyDescriptionItem = {};
@@ -278,6 +281,7 @@ app.controller('CompanyCtrl', function($scope, _) {
   $scope.addPromotionalMaterialItemTitle = null;
   $scope.addPromotionalMaterialItemExpirationDate = null;
   $scope.showPromotionalMaterialError = false;
+  $scope.showEditPromotionalMaterialDateError = false;
 
   for (i = 0; i < promotionalMaterial.length; i++) {
     $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
@@ -294,14 +298,19 @@ app.controller('CompanyCtrl', function($scope, _) {
   };
 
   $scope.submitCompanyPromotionalMaterial = function(form){
-    if(form.$valid){
+    if(form.$valid && $scope.PromotionalMaterialItem.expirationDate.toISOString() > today){
       var promotionalMaterialElement = _.find(this.companyProfile.promotionalMaterial, { id: $scope.PromotionalMaterialItem.id});
       _.merge(promotionalMaterialElement, $scope.PromotionalMaterialItem);
+      $scope.showEditPromotionalMaterialDateError = false;
       $('#editCompanyPromotionalMaterialModal').modal('hide');
+    }
+    else if(($scope.PromotionalMaterialItem.expirationDate.toISOString()) <= today){
+      $scope.showEditPromotionalMaterialDateError = true;
     }
   };
 
   //For Adding Promotional Material Modal------------------------------------------------------------
+  $scope.showAddPromotionalMaterialDateError = false;
 
   $('#addPromotionalDocumentExpirationDatePicker').datepicker({
     format: 'yyyy-mm-dd'
@@ -321,10 +330,14 @@ app.controller('CompanyCtrl', function($scope, _) {
   var indexPromotionalMaterial = 6;
 
   $scope.submitAddCompanyPromotionalMaterial = function(form){
-    if(form.$valid){
+    if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
       this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
+      $scope.showAddPromotionalMaterialDateError = false;
       $('#addPromotionalMaterialModal').modal('hide');
       indexPromotionalMaterial++;
+    }
+    else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= today){
+      $scope.showAddPromotionalMaterialDateError = true;
     }
   };
 
@@ -352,11 +365,11 @@ app.controller('CompanyCtrl', function($scope, _) {
   };
   //For adding Job Offers------------------------------------------------------------
 
+  $scope.showJobOfferDateError = false;
+
   $('#addjobOfferExpirationDatePicker').datepicker({
     format: 'yyyy-mm-dd'
   });
-
-  var today = (new Date()).toISOString();
 
   var indexJobOffers = 20;
 
