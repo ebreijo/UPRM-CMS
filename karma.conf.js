@@ -11,6 +11,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'app/bower_components/jquery/dist/jquery.js',
+      'app/bower_components/lodash/dist/lodash.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-resource/angular-resource.js',
@@ -21,9 +22,19 @@ module.exports = function(config) {
       'app/bower_components/angular-ui-utils/jq.js',
       'app/bower_components/ngstorage/ngStorage.js',
       'app/bower_components/angular-loading-bar/src/loading-bar.js',
+      'app/bower_components/restangular/dist/restangular.js',
+      'app/bower_components/flexslider/jquery.flexslider.js',
+      'app/bower_components/jflickrfeed/jflickrfeed.js',
+      'app/bower_components/gmaps/gmaps.js',
+      'app/bower_components/jquery-placeholder/jquery.placeholder.js',
+      'app/bower_components/jquery-prettyPhoto/js/jquery.prettyPhoto.js',
+      'app/bower_components/dropzone/dist/min/dropzone.min.js',
+      'app/bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+      'app/bower_components/angular-xeditable/dist/js/xeditable.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
-      // 'test/mock/**/*.js',
+      'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
 

@@ -626,10 +626,10 @@ describe('Companies Controller: ', function() {
     });
 
     describe('with an invalid recruiter object sent', function() {
-      it('with an empty object, should not remove the recruiter and return a 500 status code', function (done) {
+      it('with an empty object, should not remove the recruiter and return a 404 status code', function (done) {
         recruiter.send({})
           .expect('Content-Type', /json/)
-          .expect(500, done);
+          .expect(404, done);
       });
 
       it('with invalid attributes should not remove the recruiter because of validation error and return a 400 status code', function (done) {

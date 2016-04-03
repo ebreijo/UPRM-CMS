@@ -865,17 +865,17 @@ describe('Administrators Controller: ', function() {
     });
 
     describe('with an invalid status object sent', function() {
-      it('should not update status of a recruiter with an empty object and return a 500', function (done) {
+      it('should not update status of a recruiter with an empty object and return a 400', function (done) {
         var statusUpdated = {};
 
         admin.send(statusUpdated)
           .expect('Content-Type', /json/)
-          .expect(500)
+          .expect(400)
           .end(function (err, res) {
             if(err) {
               done(err);
             } else {
-              expect(res.body.explanation).to.match(/Something went wrong/);
+              expect(res.body.message).to.match(/Status was not successfully changed/);
               done();
             }
           });
