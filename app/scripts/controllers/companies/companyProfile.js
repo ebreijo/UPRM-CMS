@@ -141,29 +141,6 @@ app.controller('CompanyCtrl', function($scope, _) {
     companyStatus: 'Active'
   };
 
-  $scope.companyProfile = {
-    'generalInfo':[
-
-    ],
-    'interestedMajors':[
-
-    ],
-    'promotionalMaterial':[
-
-    ],
-    'recruiterList':[
-
-    ],
-    'jobOfferList':[
-
-    ],
-    'requestsInfo':[
-      {
-
-      }
-    ]
-  };
-
   var promotionalMaterial = [
     {
       id: 1,
@@ -194,6 +171,29 @@ app.controller('CompanyCtrl', function($scope, _) {
       status: 'approved'
     }
   ];
+
+  $scope.companyProfile = {
+    'generalInfo':[
+
+    ],
+    'interestedMajors':[
+
+    ],
+    'promotionalMaterial':[
+
+    ],
+    'recruiterList':[
+
+    ],
+    'jobOfferList':[
+
+    ],
+    'requestsInfo':[
+      {
+
+      }
+    ]
+  };
 
   //For Edit Company Description Modal------------------------------------------------------------
 
@@ -350,5 +350,9 @@ app.controller('CompanyCtrl', function($scope, _) {
       return element.id === item.id;
     });
   };
+  //For adding Job Offers------------------------------------------------------------
+  $('#addjobOfferExpirationDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
 
 });
