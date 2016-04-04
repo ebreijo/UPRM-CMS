@@ -102,6 +102,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
+    }).state('companyAboutUs', {
+      url: '/companyAboutUs',
+      templateUrl: 'partials/companies/company-about.html',
+      controller: 'AboutUsCtrl',
+      data: {
+        authorizedRoles: all
+      }
     })
   // Administrator views
     .state('adminProfile', {
