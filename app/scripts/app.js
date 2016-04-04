@@ -68,6 +68,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     data: {
       authorizedRoles: all
     }
+  }).state('media', {
+    url: '/media/:mediaFile'
   }).state('login', {
     url: '/login',
     templateUrl: 'partials/company-login.html',

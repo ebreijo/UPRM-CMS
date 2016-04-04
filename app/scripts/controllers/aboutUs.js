@@ -6,6 +6,8 @@ app.controller('AboutUsCtrl', function($scope, AboutUs, _, $filter, Patterns) {
 
   $scope.aboutUsInfo = AboutUs.aboutUsInfo;
 
+  $scope.hola = 'sadad';
+
   // Message modal
   $scope.title = null;
   $scope.message = null;
