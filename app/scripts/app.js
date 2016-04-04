@@ -127,6 +127,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         authorizedRoles: all
       }
     })
+    .state('recoverPassword', {
+      url: '/recoverPassword',
+      templateUrl: 'partials/companies/reset-password.html',
+      data: {
+        authorizedRoles: all
+      }
+    })
   // Administrator views
     .state('adminProfile', {
       url: '/adminProfile',
