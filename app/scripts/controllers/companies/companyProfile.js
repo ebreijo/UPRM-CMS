@@ -411,7 +411,7 @@ app.controller('CompanyCtrl', function($scope, _) {
     $('#confirmCampusServiceRequest').modal('hide');
   };
 
-  //For all pending requests------------------------------------------------------------
+  //For Pending Requests Tab------------------------------------------------------------
   $scope.indexPendingRequests = 0;
 
   for (i = 0; i < $scope.companyProfile.jobOfferList.length; i++) {
@@ -427,5 +427,27 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Promotional Material: ' +  $scope.companyProfile.promotionalMaterial[i].title, status: 'pending'});
     }
   }
+
+  //For Account Settings Tab------------------------------------------------------------
+  $scope.recruiterLoggedIn = 'sergio@ibm.com';
+  $scope.recruiterLoggedInItem = {};
+
+  for (i = 0; i < $scope.companyProfile.recruiterList.length; i++) {
+    if ($scope.companyProfile.recruiterList[i].email === 'sergio@ibm.com'){
+      $scope.recruiterLoggedInItem = angular.copy($scope.companyProfile.recruiterList[i]);
+    }
+  }
+
+  $scope.submitAccountSettingsChanges = function(){
+    var recruiterLoggedInElement = _.find($scope.companyProfile.recruiterList, { email: $scope.recruiterLoggedInItem.email});
+    _.merge(recruiterLoggedInElement, $scope.recruiterLoggedInItem);
+    $('#confirmAccountSettingsChangesModal').modal('hide');
+  };
+
+  $scope.confirmAccountSettingsChanges  = function(form){
+    if(form.$valid){
+      $('#confirmAccountSettingsChangesModal').modal('show');
+    }
+  };
 
 });

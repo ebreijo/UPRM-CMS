@@ -33,13 +33,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     data: {
       authorizedRoles: all
     }
-  }).state('company', {
-    url: '/company',
-    templateUrl: 'partials/companies/company-main.html',
-    controller: 'CompanyCtrl',
-    data: {
-      authorizedRoles: all
-    }
   }).state('companyRegistration', {
     url: '/companyRegistration',
     templateUrl: 'partials/company-registration.html',
@@ -101,6 +94,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       authorizedRoles: all
     }
   })
+  //Company Views
+    .state('company', {
+      url: '/company',
+      templateUrl: 'partials/companies/company-main.html',
+      controller: 'CompanyCtrl',
+      data: {
+        authorizedRoles: all
+      }
+    })
   // Administrator views
     .state('adminProfile', {
       url: '/adminProfile',

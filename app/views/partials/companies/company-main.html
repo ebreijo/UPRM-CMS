@@ -88,9 +88,7 @@
           <li class="nav-item">
             <a ui-sref="aboutUs">About Us</a>
           </li>
-          <li class="nav-item">
-            <a href="../calendar.html">Settings</a>
-          </li>
+          <!--//dropdown-->
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="nav-item">
@@ -133,9 +131,12 @@
                 <li>
                   <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">{{indexPendingRequests}}</span></a>
                 </li>
+                <li>
+                  <a href="#tab6" data-toggle="tab">Account Settings</a>
+                </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
+                <div class="tab-pane" id="tab1">
                   <div class="page-content">
                     <div class="row page-row">
                       <article class="welcome" style="padding-top:15px">
@@ -254,7 +255,7 @@
                               <div class="col-start col-md-4">{{item.email}}</div>
                               <div class="col-duration col-md-5">{{item.companyLocation.city}}, {{item.companyLocation.state}}, {{item.companyLocation.country}}</div>
                               <div class="col-location col-md-2" style="padding-top:2px">
-                                <button type="button" class="btn btn-theme btn-xs" ng-click="deleteRecruiter(item)">Delete</button>
+                                <button ng-show="item.email!==recruiterLoggedIn" type="button" class="btn btn-theme btn-xs" ng-click="deleteRecruiter(item)">Delete</button>
                               </div>
                             </div>
                           </div>
@@ -459,6 +460,74 @@
                     </article>
                   </div>
                 </div>
+
+                <div class="tab-pane active" id="tab6">
+                  <form name="accountSettingsForm" ng-submit="confirmAccountSettingsChanges(accountSettingsForm)" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">My Settings</h3>
+                        <p>Please use this option if you wish to change any of the available settings in your account.<br></p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-2">
+                      </div>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine}">
+                          <input ng-model="recruiterLoggedInItem.firstName" name="recruiterLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                      </article>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine}">
+                          <input ng-model="recruiterLoggedInItem.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInLastName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                      </article>
+                      <div class="col-md-2">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                      </div>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">Phone Number<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine}">
+                          <input ng-model="recruiterLoggedInItem.phoneNumber" type="tel" name="recruiterLoggedInPhone" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" ng-pattern="/^[\s()+-]*([0-9][\s()+-]*){6,20}(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInPhone.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Phone Number</b></p>
+                        </div>
+                      </article>
+                      <div class="col-md-4">
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-theme" ng-disabled="accountSettingsForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Save Changes</b></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
               </div>
             </div>
           </div>
@@ -827,6 +896,29 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
         <button type="button" class="btn btn-success pull-right" ng-click="confirmSubmissionCampusService()" style="margin-top: 5px; margin-right: 5px">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmAccountSettingsChangesModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Are you sure you want to change your account settings?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" class="btn btn-success pull-right" ng-click="submitAccountSettingsChanges()" style="margin-top: 5px; margin-right: 5px">Ok</button>
       </div>
     </div>
   </div>
