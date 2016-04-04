@@ -223,6 +223,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
+    }).state('studentCompanyProfile', {
+      url: '/studentCompanyProfile',
+      templateUrl: 'partials/students/student-company-profile.html',
+      controller: 'studentCompanyCtrl',
+      data: {
+        authorizedRoles: all
+      }
     });
 
   $urlRouterProvider.otherwise('/');
