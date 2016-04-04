@@ -308,7 +308,8 @@ describe('Administrators Controller: ', function() {
           "headerSpanish": "8va Feria de Empleo de Primavera",
           "locationSpanish": "Hotel Mayaguez Resort & Casino",
           "dateSpanish": "viernes, 19 de febrero de 2016",
-          "resumeDeadlineDate": "2016-02-19T00:00:00.000Z"
+          "resumeDeadlineDate": "2016-02-19T00:00:00.000Z",
+          "showResumeDeadlineDate": true
         }, done));
     });
   });
@@ -329,7 +330,8 @@ describe('Administrators Controller: ', function() {
           "headerSpanish": "30ma Feria de Empleo de Otono",
           "locationSpanish": "Coliseo Rafael Mangual",
           "dateSpanish": "viernes, 1 de octubre de 2016",
-          "resumeDeadlineDate": "2016-09-29"
+          "resumeDeadlineDate": "2016-09-29",
+          "showResumeDeadlineDate": true
         };
         jobFairDates.send(newJobFairDates)
           .expect('Content-Type', /json/)
@@ -355,7 +357,8 @@ describe('Administrators Controller: ', function() {
           "headerSpanish": "30ma Feria de Empleo de Otono",
           "locationSpanish": "Coliseo Rafael Mangual",
           "dateSpanish": "viernes, 1 de octubre de 2016",
-          "resumeDeadlineDate": "2016-09-29"
+          "resumeDeadlineDate": "2016-09-29",
+          "showResumeDeadlineDate": true
         };
         jobFairDates.send(newJobFairDates)
           .expect('Content-Type', /json/)
