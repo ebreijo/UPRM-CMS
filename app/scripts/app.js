@@ -108,6 +108,23 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       controller: 'AboutUsCtrl',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        aboutUsPromise: ['AboutUs', function (AboutUs) {
+          AboutUs.getAll();
+        }]
+      }
+    }).state('studentCatalogue', {
+      url: '/studentCatalogue',
+      templateUrl: 'partials/companies/company-codia+1.html',
+      data: {
+        authorizedRoles: all
+      }
+    }).state('companyCalendar', {
+      url: '/companyCalendar',
+      templateUrl: 'partials/companies/calendar.html',
+      data: {
+        authorizedRoles: all
       }
     })
   // Administrator views
