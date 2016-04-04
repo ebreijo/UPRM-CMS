@@ -171,26 +171,26 @@ describe('Controller: AboutUs', function () {
       });
     });
 
-    //describe('with a valid form', function() {
-    //  var studentServices = null;
-    //  beforeEach(function() {
-    //    scope.aboutUsInfo.studentServices = [{
-    //      id: 1,
-    //      service: 'Register students and alumni, creating records for our files.'
-    //    }];
-    //    form.$valid = true;
-    //  });
-    //  it('should make the add student service request', function() {
-    //    scope.submitAddStudentService(form);
-    //    scope.$digest();
-    //    expect(AboutUs.addStudentService).toHaveBeenCalled();
-    //    studentServices = scope.aboutUsInfo.studentServices;
-    //  });
-    //  it('should see a new service added in the scope', function() {
-    //    console.log(studentServices[1]);
-    //    expect(studentServices[1]).toBeDefined();
-    //  });
-    //});
+    describe('with a valid form', function() {
+      var studentServices = null;
+      beforeEach(function() {
+        scope.studentService = 'New student service';
+        scope.aboutUsInfo.studentServices = [{
+          id: 1,
+          service: 'Register students and alumni, creating records for our files.'
+        }];
+        form.$valid = true;
+      });
+      it('should make the add student service request', function() {
+        scope.submitAddStudentService(form);
+        scope.$digest();
+        expect(AboutUs.addStudentService).toHaveBeenCalledWith('New student service');
+        studentServices = scope.aboutUsInfo.studentServices;
+      });
+      it('should see a new service added in the scope', function() {
+        expect(studentServices[1]).toBeDefined();
+      });
+    });
 
   });
 
