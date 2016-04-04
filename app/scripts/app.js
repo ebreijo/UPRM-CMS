@@ -142,6 +142,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
+    }).state('adminRegistration', {
+      url: '/adminRegistration',
+      templateUrl: 'partials/admin-registration.html',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminCalendar', {
       url: '/adminCalendar',
       templateUrl: 'partials/administrators/calendar.html',
