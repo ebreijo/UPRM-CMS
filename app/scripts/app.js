@@ -68,6 +68,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     data: {
       authorizedRoles: all
     }
+  }).state('media', {
+    url: '/media/:mediaFile'
   }).state('login', {
     url: '/login',
     templateUrl: 'partials/company-login.html',
@@ -224,6 +226,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/studentCompanyList',
       templateUrl: 'partials/students/student-company-list.html',
       controller: 'companyListCtrl',
+      data: {
+        authorizedRoles: all
+      }
+    }).state('studentCompanyProfile', {
+      url: '/studentCompanyProfile',
+      templateUrl: 'partials/students/student-company-profile.html',
+      controller: 'studentCompanyCtrl',
       data: {
         authorizedRoles: all
       }
