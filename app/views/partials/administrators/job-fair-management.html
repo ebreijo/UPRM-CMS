@@ -1,0 +1,268 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Job Fair Management</h1>
+
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a ui-sref="adminProfile">Profile</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Job Fair Management</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+          <div class="row">
+            <div class="col-md-12" style="text-align:center; padding-bottom:5px">
+              <p><b>1. Since you are not registered on this website, please fill all the blanks to register yourself as an
+                admin.</b></p>
+              <p><b>2. After filling all the blanks, click the Save Changes button at the end of the page.</b></p>
+            </div>
+          </div>
+          <div class="row" style="margin-top:15px">
+            <div class="col-md-12">
+              <h3 class="title">Company Information</h3>
+            </div>
+          </div>
+            <div class="row text-center">
+              <article class="contact-form col-md-12 form-inline" style="margin-top:10px">
+                  <div class="input-group">
+                    <span><label class="control-label">Select Company<span class="required">*</span> : &nbsp</label></span>
+                    <div class="form-group" style="text-align:center">
+                      <div class="sort">
+                        <select class="sort-options form-control" ng-model="companySelected" ng-change="getJobFairCompanyItem(companySelected)">
+                          <option>Add New Company</option>
+                          <option ng-repeat="item in jobFairCompaniesList">{{item.companyName}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+              </article>
+            </div>
+          <form name="JobFairManagementForm" novalidate>
+            <div class="row" style="margin-top:20px">
+                  <article class="contact-form col-md-6 col-sm-6">
+                    <div class="input-group">
+                      <span><label class="control-label">Company Name<span class="required">*</span> :</label></span>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyName.$invalid && !JobFairManagementForm.companyName.$pristine}">
+                      <input ng-model="jobFairCompanyItem.companyName" name="companyName" type="text" class="form-control" placeholder="Enter the company name" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 ,.-?&@!^()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                      <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.companyName.$valid"></i>
+                      <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyName.$invalid && !JobFairManagementForm.companyName.$pristine"></i>
+                    </div>
+                    <div>
+                      <p ng-show="JobFairManagementForm.companyName.$invalid && !JobFairManagementForm.companyName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
+                    </div>
+
+                    <div class="input-group">
+                      <span><label class="control-label">Company Additional Information (Optional):</label></span>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyAdditionalInformation.$error.pattern}">
+                      <textarea ng-model="jobFairCompanyItem.extraInformation" name="companyAdditionalInformation" type="text" placeholder="Enter the description for the new job offer" class="form-control" rows="4"  ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                      <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$valid && !JobFairManagementForm.companyAdditionalInformation.$modelValue === false"></i>
+                      <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$error.pattern"></i>
+                    </div>
+                    <div>
+                      <p ng-show="JobFairManagementForm.companyAdditionalInformation.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                    </div>
+
+                    <div class="input-group">
+                      <span><label class="control-label">Min GPA (Optional):</label></span>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyMinGPA.$error.pattern}">
+                      <input ng-model="jobFairCompanyItem.minGpa" name="companyMinGPA" type="text" class="form-control" placeholder="Enter the company name" style="border-radius:0;" ng-pattern="/^[0-9.]+(\.)?$/i"/>
+                      <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.companyMinGPA.$valid && !JobFairManagementForm.companyMinGPA.$modelValue === false"></i>
+                      <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyMinGPA.$error.pattern"></i>
+                    </div>
+                    <div>
+                      <p ng-show="JobFairManagementForm.companyMinGPA.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
+                    </div>
+                  </article>
+                  <article class="contact-form col-md-6 col-sm-6">
+                    <div class="input-group">
+                      <span><label class="control-label">Website URL<span class="required">*</span> :</label></span>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine}">
+                      <input ng-model="jobFairCompanyItem.websiteApplication" name="companyURL" type="text" class="form-control" placeholder="Enter the company website URL" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                      <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.companyURL.$valid"></i>
+                      <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine"></i>
+                    </div>
+                    <div>
+                      <p ng-show="JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                    </div>
+                    <div class="row">
+                      <h4 class="title text-center" style="margin-top:15px; margin-bottom:15px">Additional Options</h4>
+                      <div class="col-md-6">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <label class="control-label">
+                              <input type="checkbox" ng-model="jobFairCompanyItem.attending">&nbsp; Attending to Job Fair
+                            </label>
+                          </li>
+                        </ul>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <label class="control-label">
+                              <input type="checkbox" ng-model="jobFairCompanyItem.mustFillOnline">&nbsp; Apply Online
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <label class="control-label">
+                              <input type="checkbox" ng-model="jobFairCompanyItem.collectingResumesBeforeJobFair">&nbsp; Collecting Resumes
+                            </label>
+                          </li>
+                        </ul>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <label class="control-label">
+                              <input type="checkbox" ng-model="jobFairCompanyItem.interviewsDuringWeekend">&nbsp; Interviewing
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <h4 class="title text-center" style="margin-top:15px; margin-bottom:15px">Interested Majors</h4>
+                    <div class="row">
+                      <div class="col-md-12" style="text-align: center">
+                        <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
+                      </div>
+                    </div>
+                  </article>
+              </div>
+              <div class="row">
+                <h4 class="title text-center" style="margin-top:15px; margin-bottom:15px">Job Positions</h4>
+                <div class="col-md-3" style="padding-bottom:10px">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="jobPositionInternship">&nbsp; Internship
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-3" style="padding-bottom:10px">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="jobPositionFullTime">&nbsp; Full-Time
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-3" style="padding-bottom:10px">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="jobPositionPartTime">&nbsp; Part-Time
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-3" style="padding-bottom:10px">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="jobPositionCOOP">&nbsp; Co-op
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            <div class="row" style="margin-top:15px">
+              <div class="col-md-12">
+                <h3 class="title">Job Fair General Information</h3>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-md-12" style="padding-bottom:10px">
+                  <div style="text-align: center">
+                    <a type="submit" class="btn btn-theme" ng-disabled="adminRegistrationLeftForm.$invalid || adminRegistrationRightForm.$invalid || (adminRegistrationRightForm.newPassword.$viewValue!==adminRegistrationRightForm.confirmPassword.$viewValue)">Save Changes</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+
+
+<div id="editInterestedMajorsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Interested Majors</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="displayMajors">
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in majorList">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value">&nbsp; {{item.majorCode}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm " ng-click="addMajors()" style="text-align: center;">Add Major(s)</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form name="selectedMajors">
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="item in jobFairCompanyItem.interestedMajors">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.value">&nbsp; {{item.majorCode}}
+                      </label>
+                    </li>
+                  </ul>
+                  <div class="row text-center">
+                    <button type="button" class="btn btn-theme btn-sm" ng-click="removeMajors()">Remove Major(s)</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>
+
