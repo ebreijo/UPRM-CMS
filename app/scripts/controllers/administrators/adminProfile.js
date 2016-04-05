@@ -31,7 +31,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         else {
           $scope.company.companyStatus = 'active';
           $scope.company.registrationDate = new Date().toISOString();
-          console.log($scope.company.registrationDate);
           Companies.createNewCompany($scope.company);
           $scope.company = null;
           $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
