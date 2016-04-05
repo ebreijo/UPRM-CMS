@@ -251,6 +251,7 @@
                 <div>
                   <p ng-show="companyRightForm.url.$invalid && !companyRightForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
                 </div>
+
               <div class="row">
                 <div class="col-md-6" style="padding-top:2px">
                   <div style="text-align: center">
@@ -258,12 +259,48 @@
                   </div>
                 </div>
                 <div class="col-md-6" style="padding-top:2px; padding-bottom:10px">
+
                   <div style="text-align: center">
                     <button class="btn btn-theme btn-sm" style="text-align: center">Upload Company Logo (Optional)</button>
                   </div>
+
+                  <!--
                   <div class="col-md-12" style="padding-top:8px; text-align:center">
                     <img width="100px" height="100px" ng-src="images/company.png"/>
                   </div>
+                  -->
+
+
+                  <form action="/file-upload"
+                        method="post"
+                        enctype="multipart/form-data"
+                        style="display: none">
+                    <input type="file" name="image" />
+                  </form>
+
+                  <form
+                    action="/file-upload"
+                    class="dropzone"
+                    uprm-file-uploader="dropzoneConfig">
+                  </form>
+
+                  <!--
+                  <form
+                    action="/file-upload"
+                    class="dz-default dz-message"
+                    uprm-file-uploader="dropzoneConfig">
+                  </form>
+                  -->
+
+                  <!--
+                  <form
+                    action="/file-upload"
+                    class="dropzone"
+                    id="my-awesome-dropzone"
+                    uprm-file-uploader="dropzoneConfig">
+                  </form>
+                  -->
+
                 </div>
               </div>
 
