@@ -96,7 +96,7 @@ describe('Controller: AdminProfile', function () {
 
   describe('Companies Tab', function() {
 
-    describe('submit to create a new company', function(){
+    describe('submit to create a new company', function() {
 
       var form;
       beforeEach(function () {
@@ -163,7 +163,7 @@ describe('Controller: AdminProfile', function () {
           };
           scope.submitCreateCompany(form);
           scope.$digest();
-          expect(scope.title).toBeDefined();
+          expect(scope.title).toEqual('Warning');
           expect(scope.message).toBeDefined();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
           expect(Companies.getAllCompanies).not.toHaveBeenCalledWith('active');
@@ -207,6 +207,115 @@ describe('Controller: AdminProfile', function () {
           expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
         });
 
+      });
+    });
+  });
+
+  describe('Admin Access Tab', function() {
+
+    beforeEach(function () {
+      scope.executeTab2();
+    });
+
+    it('should have admin access list', function() {
+      expect(scope.adminAccessList).toBeDefined();
+    });
+
+    describe('submit give new admin access', function() {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(AdminAccess, 'giveAdminAccess');
+      });
+
+      describe('with a invalid form', function() {
+        it('should not make the giveAdminAccess request', function() {
+          form.$valid = false;
+          scope.giveAdminAccess(form);
+          scope.$digest();
+          expect(AdminAccess.giveAdminAccess).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function() {
+
+        beforeEach(function () {
+          form.$valid = true;
+        });
+
+        it('should make the giveAdminAccess request', function() {
+          scope.newAdminAccess = {
+            email: 'pedro@upr.edu'
+          };
+          scope.giveAdminAccess(form);
+          scope.$digest();
+          expect(AdminAccess.giveAdminAccess).toHaveBeenCalledWith({
+            email: 'pedro@upr.edu',
+            isRoot: false,
+            adminAccountStatus: 'pending'
+          });
+        });
+
+        it('should not make the giveAdminAccess request if admin already exists', function() {
+          scope.newAdminAccess = {
+            email: 'placement@uprm.edu'
+          };
+          scope.giveAdminAccess(form);
+          scope.$digest();
+          expect(AdminAccess.giveAdminAccess).not.toHaveBeenCalled();
+          expect(scope.title).toEqual('Warning');
+          expect(scope.message).toBeDefined();
+        });
+      });
+    });
+
+    describe('submit admin access edit', function() {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(AdminAccess, 'updateAdminAccess');
+      });
+
+      describe('with a invalid form', function() {
+        it('should not make the updateAdminAccess request', function() {
+          form.$valid = false;
+          scope.submitAdminAccessEdit(form);
+          scope.$digest();
+          expect(AdminAccess.updateAdminAccess).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function() {
+
+        beforeEach(function () {
+          form.$valid = true;
+        });
+
+        it('should not make the giveAdminAccess request', function() {
+          scope.tempAdminAccess = {
+            email: 'pedro@upr.edu',
+            currentEmail: 'pedro@upr.edu',
+            adminAccountStatus: 'active',
+            adminTempAccountStatus: 'pending'
+          };
+          scope.submitAdminAccessEdit(form);
+          scope.$digest();
+          expect(AdminAccess.updateAdminAccess).not.toHaveBeenCalled();
+          expect(scope.title).toEqual('Warning');
+          expect(scope.message).toBeDefined();
+        });
+
+        it('should make the giveAdminAccess request', function() {
+          scope.tempAdminAccess = {
+            email: 'pedro@upr.edu',
+            currentEmail: 'pedro@upr.edu',
+            adminAccountStatus: 'pending',
+            adminTempAccountStatus: 'pending'
+          };
+          scope.submitAdminAccessEdit(form);
+          scope.$digest();
+          expect(AdminAccess.updateAdminAccess).toHaveBeenCalled();
+        });
       });
     });
   });
