@@ -1,0 +1,109 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/administrators/admin-header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/administrators/admin-navbar.html'"></div>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Manage Carousel</h1>
+
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a ui-sref="adminProfile">Profile</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Manage Carousel</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row" style="margin-top:15px">
+          <div class="col-md-12">
+            <h2 class="title">Slide 1</h2>
+          </div>
+        </div>
+        <div class="row page-row">
+          <article class="col-md-12 col-sm-12 text-center">
+              <img width="900px" height="400px" ng-src="images/slides/slide-1.jpg"/>
+          </article>
+          <article class="col-md-12 col-sm-12 text-center">
+            <label for="slide1-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
+            <input style="display: none;" id="slide1-upload" type="file" accept="image/jpeg,image/png"/>
+          </article>
+        </div>
+        <div class="row" style="margin-top:15px">
+          <div class="col-md-12">
+            <h2 class="title">Slide 2</h2>
+          </div>
+        </div>
+        <div class="row page-row">
+          <article class="col-md-12 col-sm-12 text-center">
+            <img width="900px" height="400px" ng-src="images/slides/slide-2.jpg"/>
+          </article>
+          <article class="col-md-12 col-sm-12 text-center">
+            <label for="slide2-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
+            <input style="display: none;" id="slide2-upload" type="file" accept="image/jpeg,image/png"/>
+          </article>
+        </div>
+        <div class="row" style="margin-top:15px">
+          <div class="col-md-12">
+            <h2 class="title">Slide 3</h2>
+          </div>
+        </div>
+        <div class="row page-row">
+          <article class="col-md-12 col-sm-12 text-center">
+            <img width="900px" height="400px" ng-src="images/slides/slide-3.jpg"/>
+          </article>
+          <article class="col-md-12 col-sm-12 text-center">
+            <label for="slide3-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
+            <input style="display: none;" id="slide3-upload" type="file" accept="image/jpeg,image/png"/>
+          </article>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="margin-top:20px">
+            <div style="text-align: center">
+              <a type="submit" class="btn btn-theme" data-toggle="modal" data-target="#confirmCarouselManagementModal" style="margin-top:10px; margin-bottom:10px" ng-disabled="JobFairManagementForm.$invalid">Save Changes</a>
+            </div>
+          </div>
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+
+<div id="confirmCarouselManagementModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Are you sure you want to save your changes?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" style="margin-top: 5px; margin-right: 5px">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>

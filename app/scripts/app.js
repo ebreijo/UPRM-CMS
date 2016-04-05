@@ -155,6 +155,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
+    }).state('adminChangeCarousel', {
+      url: '/adminChangeCarousel',
+      templateUrl: 'partials/administrators/change-carousel.html',
+      data: {
+        authorizedRoles: all
+      }
     }).state('adminCalendar', {
       url: '/adminCalendar',
       templateUrl: 'partials/administrators/calendar.html',
