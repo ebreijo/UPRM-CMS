@@ -95,6 +95,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     data: {
       authorizedRoles: all
     }
+  }).state('reset', {
+    url: '/reset/:token',
+    templateUrl: 'partials/reset-password.html',
+    controller: 'ResetPasswordCtrl',
+    data: {
+      authorizedRoles: all
+    }
   })
   //Company Views
     .state('company', {
@@ -125,13 +132,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     }).state('companyCalendar', {
       url: '/companyCalendar',
       templateUrl: 'partials/companies/calendar.html',
-      data: {
-        authorizedRoles: all
-      }
-    })
-    .state('recoverPassword', {
-      url: '/recoverPassword',
-      templateUrl: 'partials/companies/reset-password.html',
       data: {
         authorizedRoles: all
       }

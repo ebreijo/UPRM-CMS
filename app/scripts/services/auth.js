@@ -44,6 +44,14 @@ app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES, Resta
     });
   };
 
+  obj.resetPassword = function(user, token) {
+    return Restangular.all('/api/reset').customPOST(user, token).then(function(res) {
+      return res;
+    }).catch(function(err) {
+      throw err;
+    });
+  };
+
   obj.getUserRole = function() {
     return (Session.user.authType || USER_ROLES.guest);
   };
