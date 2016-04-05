@@ -289,12 +289,29 @@ describe('Controller: AdminProfile', function () {
 
         beforeEach(function () {
           form.$valid = true;
+          scope.adminAccessList = [
+            {
+              email: 'juan.rodriguez@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'active'
+            },
+            {
+              email: 'placement@uprm.edu',
+              isRoot: true,
+              adminAccountStatus: 'active'
+            },
+            {
+              email: 'pedro.rivera@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'pending'
+            }
+          ];
         });
 
-        it('should not make the giveAdminAccess request', function() {
+        it('should not make the updateAdminAccess request if changing status from pending to active', function() {
           scope.tempAdminAccess = {
-            email: 'pedro@upr.edu',
-            currentEmail: 'pedro@upr.edu',
+            email: 'pedro.rivera@upr.edu',
+            currentEmail: 'pedro.rivera@upr.edu',
             adminAccountStatus: 'active',
             adminTempAccountStatus: 'pending'
           };
@@ -305,16 +322,180 @@ describe('Controller: AdminProfile', function () {
           expect(scope.message).toBeDefined();
         });
 
-        it('should make the giveAdminAccess request', function() {
+        it('should not make the updateAdminAccess request when updating admin email to another that already exists', function() {
           scope.tempAdminAccess = {
-            email: 'pedro@upr.edu',
-            currentEmail: 'pedro@upr.edu',
-            adminAccountStatus: 'pending',
+            email: 'juan.rodriguez@upr.edu',
+            currentEmail: 'pedro.rivera@upr.edu',
+            adminAccountStatus: 'active',
+            adminTempAccountStatus: 'active'
+          };
+          scope.submitAdminAccessEdit(form);
+          scope.$digest();
+          expect(AdminAccess.updateAdminAccess).not.toHaveBeenCalled();
+          expect(scope.title).toEqual('Warning');
+          expect(scope.message).toBeDefined();
+        });
+
+        it('should make the updateAdminAccess request', function() {
+          scope.tempAdminAccess = {
+            email: 'pedro.rivera@upr.edu',
+            currentEmail: 'pedro.rivera@upr.edu',
+            adminAccountStatus: 'inactive',
             adminTempAccountStatus: 'pending'
           };
           scope.submitAdminAccessEdit(form);
           scope.$digest();
           expect(AdminAccess.updateAdminAccess).toHaveBeenCalled();
+        });
+      });
+    });
+  });
+
+  describe('Majors Tab', function() {
+
+    beforeEach(function () {
+      scope.executeTab3();
+    });
+
+    it('should have majors list', function () {
+      expect(scope.majors).toBeDefined();
+    });
+
+    describe('submit add new major', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Majors, 'createNewMajor');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the giveAdminAccess request', function () {
+          form.$valid = false;
+          scope.submitAddMajor(form);
+          scope.$digest();
+          expect(Majors.createNewMajor).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+
+        beforeEach(function () {
+          form.$valid = true;
+        });
+
+        it('should make the createNewMajor request', function () {
+          scope.major = {
+            majorCode: 'INGL',
+            nameEnglish: 'English',
+            nameSpanish: 'Ingles'
+          };
+          scope.submitAddMajor(form);
+          scope.$digest();
+          expect(Majors.createNewMajor).toHaveBeenCalledWith({
+            majorCode: 'INGL',
+            nameEnglish: 'English',
+            nameSpanish: 'Ingles'
+          });
+        });
+
+        it('should not make the createNewMajor request if a major already exists', function () {
+          scope.major = {
+            majorCode: 'CCOM',
+            nameEnglish: 'Computer Science',
+            nameSpanish: 'Ciencias de Computos'
+          };
+          scope.submitAddMajor(form);
+          scope.$digest();
+          expect(Majors.createNewMajor).not.toHaveBeenCalled();
+          expect(scope.title).toEqual('Warning');
+          expect(scope.message).toBeDefined();
+        });
+      });
+    });
+
+    describe('submit edit major', function() {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Majors, 'editMajor');
+      });
+
+      describe('with a invalid form', function() {
+        it('should not make the edit major request', function() {
+          form.$valid = false;
+          scope.submitMajorEdit(form);
+          scope.$digest();
+          expect(Majors.editMajor).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function() {
+
+        beforeEach(function () {
+          form.$valid = true;
+          scope.majors = [
+            {
+              majorCode: 'CCOM',
+              nameEnglish: 'Computer Science',
+              nameSpanish: 'Ciencias de Computos'
+            },
+            {
+              majorCode: 'ICOM',
+              nameEnglish: 'Computer Engineering',
+              nameSpanish: 'Ingenieria en Computadoras'
+            },
+            {
+              majorCode: 'ININ',
+              nameEnglish: 'Industrial Engineering',
+              nameSpanish: 'Ingenieria Industrial'
+            }
+          ];
+        });
+
+        it('should not make the edit Major request when updating major code to another that already exists', function() {
+          scope.tempMajor = {
+            majorCode: 'ICOM',
+            currentMajorCode: 'CCOM',
+            nameEnglish: 'Computer Science',
+            nameSpanish: 'Ciencias de Computos'
+          };
+          scope.submitMajorEdit(form);
+          scope.$digest();
+          expect(Majors.editMajor).not.toHaveBeenCalled();
+          expect(scope.title).toEqual('Warning');
+          expect(scope.message).toBeDefined();
+        });
+
+        it('should make the edit Major request', function() {
+          scope.tempMajor = {
+            majorCode: 'CCOM',
+            currentMajorCode: 'CCOM',
+            nameEnglish: 'New Major',
+            nameSpanish: 'Ciencias de Computos'
+          };
+          scope.submitMajorEdit(form);
+          scope.$digest();
+          expect(Majors.editMajor).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('submit delete major', function() {
+      describe('with a valid form', function() {
+
+        it('should  make the delete Major request', function() {
+          var form = {};
+          spyOn(Majors, 'deleteMajor');
+          form.$valid = true;
+          scope.tempMajor = {
+            majorCode: 'ICOM',
+            currentMajorCode: 'ICOM',
+            nameEnglish: 'Computer Science',
+            nameSpanish: 'Ciencias de Computos'
+          };
+          scope.submitMajorDelete(form);
+          scope.$digest();
+          expect(Majors.deleteMajor).toHaveBeenCalled();
         });
       });
     });
