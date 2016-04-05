@@ -369,7 +369,7 @@ describe('Controller: AdminProfile', function () {
       });
 
       describe('with a invalid form', function () {
-        it('should not make the giveAdminAccess request', function () {
+        it('should not make the create New Major request', function () {
           form.$valid = false;
           scope.submitAddMajor(form);
           scope.$digest();
@@ -383,7 +383,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = true;
         });
 
-        it('should make the createNewMajor request', function () {
+        it('should make the create New Major request', function () {
           scope.major = {
             majorCode: 'INGL',
             nameEnglish: 'English',
@@ -398,7 +398,7 @@ describe('Controller: AdminProfile', function () {
           });
         });
 
-        it('should not make the createNewMajor request if a major already exists', function () {
+        it('should not make the create New Major request if a major already exists', function () {
           scope.major = {
             majorCode: 'CCOM',
             nameEnglish: 'Computer Science',
@@ -501,4 +501,96 @@ describe('Controller: AdminProfile', function () {
     });
   });
 
+
+  describe('Company Registration Tab', function() {
+
+    beforeEach(function () {
+      scope.executeTab4();
+    });
+
+    describe('submit to Accept a new company registration', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Companies, 'updateCompanyStatus');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the update Company Status request', function () {
+          form.$valid = false;
+          scope.submitAcceptCompany(form);
+          scope.$digest();
+          expect(Companies.updateCompanyStatus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the update Company Status request with active company status', function () {
+          form.$valid = true;
+          scope.tempCompany = {
+            name: 'Google',
+            websiteUrl: 'https://www.google.com/',
+            logoPath: null,
+            companyDescription: 'This is Google',
+            companyStatus: 'pending',
+            registrationDate: '2016-03-28T23:13:10.000Z'
+          };
+          scope.submitAcceptCompany(form);
+          scope.$digest();
+          expect(scope.tempCompany.companyStatus).toEqual('active');
+          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith({
+            name: 'Google',
+            websiteUrl: 'https://www.google.com/',
+            logoPath: null,
+            companyDescription: 'This is Google',
+            companyStatus: 'active',
+            registrationDate: '2016-03-28T23:13:10.000Z'
+          });
+        });
+      });
+    });
+
+    describe('submit to Reject a new company registration', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Companies, 'updateCompanyStatus');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the update Company Status request', function () {
+          form.$valid = false;
+          scope.submitRejectCompany(form);
+          scope.$digest();
+          expect(Companies.updateCompanyStatus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the update Company Status request with inactive company status', function () {
+          form.$valid = true;
+          scope.tempCompany = {
+            name: 'Google',
+            websiteUrl: 'https://www.google.com/',
+            logoPath: null,
+            companyDescription: 'This is Google',
+            companyStatus: 'pending',
+            registrationDate: '2016-03-28T23:13:10.000Z'
+          };
+          scope.submitRejectCompany(form);
+          scope.$digest();
+          expect(scope.tempCompany.companyStatus).toEqual('inactive');
+          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith({
+            name: 'Google',
+            websiteUrl: 'https://www.google.com/',
+            logoPath: null,
+            companyDescription: 'This is Google',
+            companyStatus: 'inactive',
+            registrationDate: '2016-03-28T23:13:10.000Z'
+          });
+        });
+      });
+    });
+
+  });
 });
