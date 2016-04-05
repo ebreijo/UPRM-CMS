@@ -11,8 +11,7 @@ var app = angular.module('uprmcmsApp', [
   'restangular',
   'chieffancypants.loadingBar',
   'LocalStorageModule',
-  'xeditable',
-  'mdo-angular-cryptography'
+  'xeditable'
 ]);
 
 // Add lodash to the angular app
@@ -22,9 +21,11 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
   localStorageServiceProvider.setPrefix('uprmcmsApp');
 }]);
 
+/*
 app.config(['$cryptoProvider', function($cryptoProvider){
-  $cryptoProvider.setCryptographyKey('FD477B24F877040A6E9865CC5E9646B7BF76C0006A53ADC1');
+  $cryptoProvider.setCryptographyKey('SPumKMp6VDSaOv1F3wKVcF9W+5XBNypn52IcHVNpLbs=');
 }]);
+*/
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);

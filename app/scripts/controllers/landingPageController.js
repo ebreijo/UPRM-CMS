@@ -1,14 +1,17 @@
 'use strict';
 
 var app = angular.module('uprmcmsApp');
+//var CryptoJS = require('crypto-js');
 
-app.controller('LandingPageCtrl', function($scope, $crypto, Pictures) {
-
-  $scope.encrypted = $crypto.encrypt('loll');
-  //$scope.encrypted = CryptoJS.AES("Message", 'FD477B24F877040A6E9865CC5E9646B7BF76C0006A53ADC1');
-  //$scope.decrypted = $crypto.decrypt('AwFp1kRpiXdJLY3jn9YoNrYhLlDipiatYmJ/JZXXlvONJQUbqqcOYYdW9hGIFQFzaU6+7H8JDcKcBab+wSf0z4/cpEFH72H9DP2HlyMmLzUmQuqXsXDZRPLxZVoPTMyuTTc=');
-
+app.controller('LandingPageCtrl', function($scope, Pictures) {
   $scope.pictures = Pictures.pictures;
+
+  /*
+  $scope.decrypted = function() {
+    var decrypted = CryptoJS.AES.decrypt('U2FsdGVkX1/VDopBc9rLEzuBzotckwZsHfBM6oJZRPY=', 'SPumKMp6VDSaOv1F3wKVcF9W+5XBNypn52IcHVNpLbs=').toString();
+    return CryptoJS.enc.Utf8.stringify(decrypted);
+  };
+  */
 
   $scope.dropzoneConfig = {
     'options': { // passed into the Dropzone constructor
