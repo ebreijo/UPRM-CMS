@@ -152,28 +152,43 @@ app.controller('adminJobFairManagementCtrl', function($scope, _) {
   ];
 
   $scope.jobFairCompaniesList = [];
-  $scope.jobFairCompanyItem = {};
+  $scope.jobFairCompanyItem= { lookingFor: [], interestedMajors: [] };
+  $scope.jobFairGeneralInformationItem = {};
 
-  $scope.jobPositionInternship = null;
-  $scope.jobPositionFullTime = null;
-  $scope.jobPositionPartTime = null;
-  $scope.jobPositionCOOP = null;
+  $scope.jobPositionInternship = false;
+  $scope.jobPositionFullTime = false;
+  $scope.jobPositionPartTime = false;
+  $scope.jobPositionCOOP = false;
+  $scope.jobFairResumeDeadline = false;
 
   $scope.majorList = [];
+
+  $scope.showJobFairResumeDeadlineDateError = false;
+
+
+  var today = (new Date()).toISOString();
 
 
   for (var i = 0; i < jobFairCompanies.length; i++) {
     $scope.jobFairCompaniesList.push(jobFairCompanies[i]);
   }
 
+  for (i = 0; i < majors.length; i++) {
+    $scope.majorList.push({majorCode: majors[i].majorCode, value: false});
+  }
+
+  $scope.jobFairGeneralInformationItem = angular.copy($scope.generalInformation);
+
   $scope.getJobFairCompanyItem = function(companySelected){
     if (companySelected==='Add New Company'){
       //$scope.jobFairCompanyItem = null;
       $scope.jobFairCompanyItem= { lookingFor: [], interestedMajors: [] };
-      $scope.jobPositionInternship = null;
-      $scope.jobPositionFullTime = null;
-      $scope.jobPositionPartTime = null;
-      $scope.jobPositionCOOP = null;
+      $scope.jobPositionInternship = false;
+      $scope.jobPositionFullTime = false;
+      $scope.jobPositionPartTime = false;
+      $scope.jobPositionCOOP = false;
+      $scope.jobFairResumeDeadline = false;
+      $scope.showJobFairResumeDeadlineDateError = false;
       $scope.majorList = [];
       for (i = 0; i < majors.length; i++) {
         $scope.majorList.push({majorCode: majors[i].majorCode, value: false});
@@ -244,6 +259,32 @@ app.controller('adminJobFairManagementCtrl', function($scope, _) {
       }
     }
     return false;
+  };
+
+  $('#resumeDeadlineDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
+
+  $scope.confirmJobFairManagementChanges = function(form){
+    if(form.$valid){
+      if($scope.jobFairResumeDeadline===true){
+        if($scope.jobFairGeneralInformationItem.resumeDeadlineDate.toISOString() > today){
+          $('#confirmJobFairManagementModal').modal('show');
+          $scope.showJobFairResumeDeadlineDateError=false;
+        }
+        else if(($scope.jobFairGeneralInformationItem.resumeDeadlineDate.toISOString()) <= today){
+          $scope.showJobFairResumeDeadlineDateError=true;
+        }
+      }
+      else if($scope.jobFairResumeDeadline===false){
+        $('#confirmJobFairManagementModal').modal('show');
+      }
+    }
+  };
+
+  $scope.submitJobFairManagementChanges = function(){
+    //Save Changes on DB
+    $('#confirmJobFairManagementModal').modal('hide');
   };
 
 });

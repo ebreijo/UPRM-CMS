@@ -26,9 +26,8 @@
       <div class="page-content">
           <div class="row">
             <div class="col-md-12" style="text-align:center; padding-bottom:5px">
-              <p><b>1. Since you are not registered on this website, please fill all the blanks to register yourself as an
-                admin.</b></p>
-              <p><b>2. After filling all the blanks, click the Save Changes button at the end of the page.</b></p>
+              <p><b>1. Use this page for either adding a company to the Job Fair or editing the Job Fair general information.</b></p>
+              <p><b>2. After filling all the required blanks, click the Save Changes button at the end of the page.</b></p>
             </div>
           </div>
           <div class="row" style="margin-top:15px">
@@ -42,7 +41,7 @@
                     <span><label class="control-label">Select Company<span class="required">*</span> : &nbsp</label></span>
                     <div class="form-group" style="text-align:center">
                       <div class="sort">
-                        <select class="sort-options form-control" ng-model="companySelected" ng-change="getJobFairCompanyItem(companySelected)">
+                        <select class="sort-options form-control" ng-model="companySelected"   ng-init="companySelected='Add New Company'" ng-change="getJobFairCompanyItem(companySelected)">
                           <option>Add New Company</option>
                           <option ng-repeat="item in jobFairCompaniesList">{{item.companyName}}</option>
                         </select>
@@ -189,20 +188,99 @@
                 <h3 class="title">Job Fair General Information</h3>
               </div>
             </div>
-              <div class="row">
-                <div class="col-md-12" style="padding-bottom:10px">
-                  <div style="text-align: center">
-                    <a type="submit" class="btn btn-theme" ng-disabled="adminRegistrationLeftForm.$invalid || adminRegistrationRightForm.$invalid || (adminRegistrationRightForm.newPassword.$viewValue!==adminRegistrationRightForm.confirmPassword.$viewValue)">Save Changes</a>
+            <div class="row" style="margin-top:10px">
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title text-center">Header (English Version)</h3>
+                  </div>
+                  <div class="panel-body">
+                    <input ng-model="jobFairGeneralInformationItem.headerEnglish" name="jobFairHeaderEnglish" type="text" class="form-control" placeholder="Enter the Job Fair Header" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.locationEnglish" name="jobFairLocationEnglish" type="text" class="form-control" placeholder="Enter the Job Fair Location" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.dateEnglish" name="jobFairDateEnglish" type="text" class="form-control" placeholder="Enter the Job Fair Date" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.time" name="jobFairTime" type="text" class="form-control" placeholder="Enter the Job Fair Time" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
                   </div>
                 </div>
               </div>
-            </form>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title text-center">Header (Spanish Version)</h3>
+                  </div>
+                  <div class="panel-body">
+                    <input ng-model="jobFairGeneralInformationItem.headerSpanish" name="jobFairHeaderSpanish" type="text" class="form-control" placeholder="Enter the Job Fair Header" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.locationSpanish" name="jobFairLocationSpanish" type="text" class="form-control" placeholder="Enter the Job Fair Location" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.dateSpanish" name="jobFairDateSpanish" type="text" class="form-control" placeholder="Enter the Job Fair Date" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                    <input ng-model="jobFairGeneralInformationItem.time" name="jobFairTime" type="text" class="form-control" placeholder="Enter the Job Fair Time" style="border-radius:0; text-align: center;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" style="margin-top:15px">
+                <div class="col-md-6" style="float: none; margin: 0 auto;">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="jobFairResumeDeadline" ng-init="jobFairResumeDeadline=false">&nbsp; Apply Resume Deadline
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6" ng-show="jobFairResumeDeadline===true">
+                <span><label class="control-label">Resume Deadline (Optional):&nbsp;</label>{{jobFairGeneralInformationItem.resumeDeadlineDate | date: 'MMMM d, y'}}</span>
+                <div class="alert alert-danger alert-dismissable" ng-show="showJobFairResumeDeadlineDateError">
+                  <button type="button" class="close" ng-click="showJobFairResumeDeadlineDateError=false" aria-hidden="true">&times;</button>
+                  <strong class="alert-link">The deadline date must be at least one day after today. Please select a new date.</strong>
+                </div>
+                <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.jobFairResumeDeadline.$invalid && !JobFairManagementForm.jobFairResumeDeadline.$pristine}">
+                  <input id="resumeDeadlineDatePicker" ng-model="jobFairGeneralInformationItem.resumeDeadlineDate" name="jobFairResumeDeadline" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
+                  <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.jobFairResumeDeadline.$valid"></i>
+                  <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.jobFairResumeDeadline.$invalid && !JobFairManagementForm.jobFairResumeDeadline.$pristine"></i>
+                </div>
+                <div>
+                  <p ng-show="JobFairManagementForm.jobFairResumeDeadline.$invalid && !JobFairManagementForm.jobFairResumeDeadline.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="padding-bottom:10px">
+                  <div style="text-align: center">
+                    <a type="submit" class="btn btn-theme" ng-click="confirmJobFairManagementChanges(JobFairManagementForm)" style="margin-top:10px; margin-bottom:10px" ng-disabled="JobFairManagementForm.$invalid">Save Changes</a>
+                  </div>
+                </div>
+            </div>
+          </form>
       </div>
       <!--//page-content-->
     </div>
     <!--//page-->
   </div>
   <!--//content-->
+</div>
+
+<div id="confirmJobFairManagementModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Are you sure you want to save your changes?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" ng-click="submitJobFairManagementChanges()" class="btn btn-success pull-right" style="margin-top: 5px; margin-right: 5px">Ok</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
