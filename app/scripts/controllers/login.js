@@ -26,10 +26,11 @@ app.controller('LoginCtrl', function($scope, $state, Auth, USER_ROLES) {
 
   $scope.forgot = function(form) {
     if (form.$valid) {
-      Auth.forgot({email: $scope.forgotEmail}).then(function(res) {
+      Auth.forgot({email: $scope.forgotEmail}).then(function() {
         $('#forgotPasswordModal').modal('hide');
-        console.log(res);
-        //$state.go('');
+        $scope.title = 'Attention';
+        $scope.message = 'An email has been sent to the provided email address with further instructions to reset your password';
+        $('#messageModal').modal('show');
       }).catch(function() {
         $scope.modalShowMessage = true;
       });
