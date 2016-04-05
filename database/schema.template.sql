@@ -182,7 +182,8 @@ CREATE TABLE `job_fair_dates` (
   `header_es` varchar(63) NOT NULL,
   `location_es` varchar(63) NOT NULL,
   `date_es` varchar(63) NOT NULL,
-  `resume_deadline_date` date DEFAULT NULL,
+  `resume_deadline_date` date NOT NULL,
+  `show_resume_deadline_date` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

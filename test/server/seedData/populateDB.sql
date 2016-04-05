@@ -103,8 +103,8 @@ VALUES ('Apple', 'Internship', '1');
 INSERT INTO job_fair_company_looking_for (company_name, job_position, status)
 VALUES ('Apple', 'Full-Time', '1');
 
-INSERT INTO job_fair_dates (header_en, location_en, date_en, time, header_es, location_es, date_es, resume_deadline_date)
-VALUES ('8th Spring Job Fair', 'Mayaguez Resort & Casino', 'Friday, February 19, 2016', '8:30am - 2:30pm', '8va Feria de Empleo de Primavera', 'Hotel Mayaguez Resort & Casino', 'viernes, 19 de febrero de 2016', '2016-02-19');
+INSERT INTO job_fair_dates (header_en, location_en, date_en, time, header_es, location_es, date_es, resume_deadline_date, show_resume_deadline_date)
+VALUES ('8th Spring Job Fair', 'Mayaguez Resort & Casino', 'Friday, February 19, 2016', '8:30am - 2:30pm', '8va Feria de Empleo de Primavera', 'Hotel Mayaguez Resort & Casino', 'viernes, 19 de febrero de 2016', '2016-02-19', '1');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('sergio@ibm.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'IBM', 'Sergio', 'Rivera', '787-555-5555', 'active', '1');

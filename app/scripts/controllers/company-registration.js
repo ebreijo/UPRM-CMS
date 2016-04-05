@@ -7,6 +7,25 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
   $scope.majorList = [];
   $scope.majorsSelected = [];
 
+  $scope.dropzoneConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/pictures',
+      'paramName' : 'image', // The name that will be used to transfer the file
+      'maxFilesize': 10 // MB
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+        console.log(file + xhr + formData);
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        console.log(file + response);
+      }
+    }
+  };
+
+
   var majors = [
     {
       'majorCode': 'CCOM',
