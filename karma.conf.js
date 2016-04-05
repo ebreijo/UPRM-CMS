@@ -67,7 +67,9 @@ module.exports = function(config) {
 
     captureTimeout: 10000,
 
-
+    // report to get the logs via console
+    reporters: ['verbose'],
+    
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false

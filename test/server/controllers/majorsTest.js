@@ -108,12 +108,9 @@ describe('Majors Controller: ', function() {
 
   describe('Update a major', function() {
     var major = null;
-    beforeEach(function() {
-      major = request(app).put('/api/majors/CISO');
-    });
-
     describe('with a valid major object sent', function() {
       it('should update the majorCode and return a 200 status code', function (done) {
+        major = request(app).put('/api/majors/CISO');
         var updatedMajor = {
           "majorCode": "COEN",
           "nameEnglish": "New CISO",
@@ -127,6 +124,26 @@ describe('Majors Controller: ', function() {
               done(err);
             } else {
               expect(res.body.message).to.match(/Major Successfully Updated./);
+              done();
+            }
+          });
+      });
+
+      it('should not update the majorCode if that new major code already exists', function (done) {
+        major = request(app).put('/api/majors/COEN');
+        var updatedMajor = {
+          "majorCode": "ININ",
+          "nameEnglish": "New CISO",
+          "nameSpanish": "Nuevo CISO"
+        };
+        major.send(updatedMajor)
+          .expect('Content-Type', /json/)
+          .expect(400)
+          .end(function (err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Major already exists/);
               done();
             }
           });
