@@ -17,9 +17,14 @@ app.controller('CompanySearchCtrl', function($scope, $state, localStorageService
           localStorageService.set('companyToRegister',$scope.companyName);
           //companySearchService.add($scope.companyName);
           $state.go('locationSearch');
+
+          //For Jasmine Testing
+          return true;
         }
       }
     }
+    //For Jasmine Testing
+    return false;
 
   };
 
