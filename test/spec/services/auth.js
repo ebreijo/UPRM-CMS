@@ -21,21 +21,21 @@ describe('Service: Auth', function () {
 
   // instantiate service
   var Auth;
-  var Restangular;
   var rootScope;
   var AUTH_EVENTS;
   var USER_ROLES;
   var Session;
   var $q;
+  var httpBackend;
 
   beforeEach(inject(function ($injector) {
     Auth = $injector.get('Auth');
-    Restangular = $injector.get('Restangular');
     rootScope = $injector.get('$rootScope');
     AUTH_EVENTS = $injector.get('AUTH_EVENTS');
     USER_ROLES = $injector.get('USER_ROLES');
     Session = $injector.get('Session');
     $q = $injector.get('$q');
+    httpBackend = $injector.get('$httpBackend');
   }));
 
   var mockSessionValid = function () {
@@ -156,6 +156,26 @@ describe('Service: Auth', function () {
       expect(Auth.isAuthorized([USER_ROLES.admin, USER_ROLES.recruiter, USER_ROLES.guest])).toBe(true);
     });
 
+  });
+
+  describe('forgot password', function() {
+    var email;
+    beforeEach(function () {
+      email = {email: 'sergio@ibm.com'};
+      httpBackend.whenPOST('/api/forgot', email).respond(200, 'A message');
+    });
+
+    afterEach(function() {
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should be able to get a message with a valid email', function() {
+      Auth.forgot(email).then(function(response) {
+        expect(response).toEqual('A message');
+      });
+      httpBackend.flush();
+    });
   });
 
 });
