@@ -506,6 +506,14 @@ describe('Controller: AdminProfile', function () {
 
     beforeEach(function () {
       scope.executeTab4();
+      scope.tempCompany = {
+        name: 'Google',
+        websiteUrl: 'https://www.google.com/',
+        logoPath: null,
+        companyDescription: 'This is Google',
+        companyStatus: 'pending',
+        registrationDate: '2016-03-28T23:13:10.000Z'
+      };
     });
 
     describe('submit to Accept a new company registration', function () {
@@ -527,14 +535,6 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function () {
         it('should make the update Company Status request with active company status', function () {
           form.$valid = true;
-          scope.tempCompany = {
-            name: 'Google',
-            websiteUrl: 'https://www.google.com/',
-            logoPath: null,
-            companyDescription: 'This is Google',
-            companyStatus: 'pending',
-            registrationDate: '2016-03-28T23:13:10.000Z'
-          };
           scope.submitAcceptCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('active');
@@ -569,14 +569,6 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function () {
         it('should make the update Company Status request with inactive company status', function () {
           form.$valid = true;
-          scope.tempCompany = {
-            name: 'Google',
-            websiteUrl: 'https://www.google.com/',
-            logoPath: null,
-            companyDescription: 'This is Google',
-            companyStatus: 'pending',
-            registrationDate: '2016-03-28T23:13:10.000Z'
-          };
           scope.submitRejectCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('inactive');
@@ -591,6 +583,122 @@ describe('Controller: AdminProfile', function () {
         });
       });
     });
-
   });
+
+  describe('Recruiter Registration Tab', function() {
+
+    beforeEach(function () {
+      scope.executeTab5();
+      scope.tempRecruiter = {
+        email: 'juanito@gmail.com',
+        companyName: 'Google',
+        firstName: 'Juanito',
+        lastName: 'Perez',
+        phoneNumber: '787-555-5555',
+        accountStatus: 'pending',
+        registrationDate: '2016-03-29T01:31:59.000Z',
+        companyLocation: {
+          id: 4,
+          companyName: 'Google',
+          streetAddress: '1600 Amphitheatre Parkway',
+          city: 'Mountain View',
+          state: 'CA',
+          country: 'United States',
+          zipCode: '94043',
+          phoneNumber: null
+        }
+      }
+    });
+
+    describe('submit to Accept a new recruiter registration', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Recruiters, 'updateRecruiterStatus');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the update Recruiter Status request', function () {
+          form.$valid = false;
+          scope.submitAcceptRecruiter(form);
+          scope.$digest();
+          expect(Recruiters.updateRecruiterStatus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the update Recruiter Status request with active recruiter account status', function () {
+          form.$valid = true;
+          scope.submitAcceptRecruiter(form);
+          scope.$digest();
+          expect(scope.tempRecruiter.accountStatus).toEqual('active');
+          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith({
+            email: 'juanito@gmail.com',
+            companyName: 'Google',
+            firstName: 'Juanito',
+            lastName: 'Perez',
+            phoneNumber: '787-555-5555',
+            accountStatus: 'active',
+            registrationDate: '2016-03-29T01:31:59.000Z',
+            companyLocation: {
+              id: 4,
+              companyName: 'Google',
+              streetAddress: '1600 Amphitheatre Parkway',
+              city: 'Mountain View',
+              state: 'CA',
+              country: 'United States',
+              zipCode: '94043',
+              phoneNumber: null
+            }
+          });
+        });
+      });
+    });
+
+    describe('submit to Reject a new recruiter registration', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(Recruiters, 'updateRecruiterStatus');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the update Recruiter Status request', function () {
+          form.$valid = false;
+          scope.submitRejectRecruiter(form);
+          scope.$digest();
+          expect(Recruiters.updateRecruiterStatus).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the update Recruiter Status request with inactive recruiter account status', function () {
+          form.$valid = true;
+          scope.submitRejectRecruiter(form);
+          scope.$digest();
+          expect(scope.tempRecruiter.accountStatus).toEqual('inactive');
+          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith({
+            email: 'juanito@gmail.com',
+            companyName: 'Google',
+            firstName: 'Juanito',
+            lastName: 'Perez',
+            phoneNumber: '787-555-5555',
+            accountStatus: 'inactive',
+            registrationDate: '2016-03-29T01:31:59.000Z',
+            companyLocation: {
+              id: 4,
+              companyName: 'Google',
+              streetAddress: '1600 Amphitheatre Parkway',
+              city: 'Mountain View',
+              state: 'CA',
+              country: 'United States',
+              zipCode: '94043',
+              phoneNumber: null
+            }
+          });
+        });
+      });
+    });
+  });
+
 });
