@@ -58,19 +58,24 @@ describe('Controller: Location Search', function () {
 
   describe('scope.selectCompany function', function () {
 
-    it('It should go to the recruiterRegistration web page if form is true and a valid location is selected', function () {
+    it('It should go to the recruiterRegistration web page if a valid location is selected', function () {
       scope.companyLocation = 'Durham, United States';
 
       expect(scope.selectLocation(true)).toEqual(true);
 
     });
 
-    it('It should stay on the companySearch web page if form is true false', function () {
-      //scope.companyLocation = 'Durham, United States';
-      //scope.companyLocation = 'Caguas, Puerto Rico';
-      //scope.companyLocation = null;
+    it('It should stay on the locationSearch web page if a location that is not registered is selected', function () {
+      scope.companyLocation = 'Caguas, Puerto Rico';
 
       expect(scope.selectLocation(true)).toEqual(false);
+
+    });
+
+    it('It should stay on the locationSearch web page if a location that is not selected', function () {
+      scope.companyLocation = null;
+
+      expect(scope.selectLocation(false)).toEqual(false);
 
     });
 

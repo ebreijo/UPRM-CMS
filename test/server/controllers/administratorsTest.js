@@ -993,10 +993,11 @@ describe('Administrators Controller: ', function() {
         .end(help.isBodyEqual([
           {
             id: 2,
-            companyName: "IBM",
-            title: "Promotion2",
-            expirationDate: "2016-07-22T16:12:12.000Z",
-            status: "pending"
+            companyName: 'IBM',
+            title: 'Promotion2',
+            filePath: '/lib/promotionalMaterial',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'pending'
           }
         ], done));
     });
@@ -1012,15 +1013,17 @@ describe('Administrators Controller: ', function() {
         .end(help.isBodyEqual([
           {
             id: 1,
-            companyName: "IBM",
-            title: "Promotion1",
-            expirationDate: "2016-07-22T16:12:12.000Z",
-            status: "approved"
+            companyName: 'IBM',
+            title: 'Promotion1',
+            filePath: '/lib/promotionalMaterial',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'approved'
           },
           {
             id: 4,
             companyName: 'Apple',
             title: 'Promotion4',
+            filePath: '/lib/promotionalMaterial',
             expirationDate: '2016-07-22T16:12:12.000Z',
             status: 'approved'
           }
@@ -1039,6 +1042,7 @@ describe('Administrators Controller: ', function() {
             id: 3,
             companyName: 'IBM',
             title: 'Promotion3',
+            filePath: '/lib/promotionalMaterial',
             expirationDate: '2016-07-22T16:12:12.000Z',
             status: 'rejected'
           }
@@ -1054,17 +1058,18 @@ describe('Administrators Controller: ', function() {
         .put('/api/admins/promotionalMaterial/3')
         .send(
           {
-            "id": 3,
-            "companyName": "IBM",
-            "title": "new title",
-            "expirationDate": "2016-07-22T16:12:12.000Z",
-            "status": "rejected"
+            id: 3,
+            companyName: 'IBM',
+            title: 'new title',
+            filePath: '/lib/promotionalMaterial',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'rejected'
           }
         )
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
-          "message": "Promotional Material Updated."
+          message: 'Promotional Material Updated.'
         } ,done));
     });
   });

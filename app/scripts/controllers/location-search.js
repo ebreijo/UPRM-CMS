@@ -15,12 +15,13 @@ app.controller('LocationSearchCtrl', function($scope, $state, localStorageServic
           // To add to local storage
           localStorageService.set('companyLocationToRegister',$scope.companyLocation);
           $state.go('recruiterRegistration');
+          //Jasmine Test
           return true;
         }
       }
     }
+    //Jasmine Test
     return false;
-
   };
 
   $scope.apple = [

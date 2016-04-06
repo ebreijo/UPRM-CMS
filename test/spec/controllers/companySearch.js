@@ -74,16 +74,9 @@ describe('Controller: Company Search', function () {
     });
 
     it('It should stay on the companySearch web page if a company is not selected', function () {
-      scope.companyName = 'Apple';
-
-      expect(scope.selectCompany(false)).toEqual(false);
-
-    });
-
-    it('It should stay on the companySearch web page if no company is selected', function () {
       scope.companyName = null;
 
-      expect(scope.selectCompany(true)).toEqual(false);
+      expect(scope.selectCompany(false)).toEqual(false);
 
     });
 

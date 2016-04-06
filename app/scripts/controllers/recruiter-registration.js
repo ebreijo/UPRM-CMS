@@ -12,7 +12,11 @@ app.controller('RecruiterRegistrationCtrl', function($scope, $state, localStorag
     // check to make sure the form is completely valid
     if (isValid) {
       $state.go('company');
+      //Jasmine Test
+      return true;
     }
+    //Jasmine Test
+    return false;
   };
 
 
