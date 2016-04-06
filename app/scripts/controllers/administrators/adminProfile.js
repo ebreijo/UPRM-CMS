@@ -98,6 +98,17 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         $scope.message = 'Cannot activate the Administrator, it is still pending to register';
         $('#messageModal').modal('toggle');
       } else if (form.$valid) {
+        // if admin access email changed, then check if that new email already exists.
+        if (!_.isEqual($scope.tempAdminAccess.email, $scope.tempAdminAccess.currentEmail)) {
+          var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.email});
+          if (element) { // If admin already exists, show a Warning
+            $scope.title = 'Warning';
+            $scope.message = 'Admin already exists';
+            $('#messageModal').modal('toggle');
+            return;
+          }
+        }
+
         $scope.tempAdminAccess.isRoot = false;
         AdminAccess.updateAdminAccess($scope.tempAdminAccess);
         $('#editAdminAccessModal').modal('hide');
@@ -139,6 +150,17 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitMajorEdit = function(form) {
       if(form.$valid) {
+        // if major code changed, then check if that new major code already exists.
+        if (!_.isEqual($scope.tempMajor.majorCode, $scope.tempMajor.currentMajorCode)) {
+          var element = _.find($scope.majors, { majorCode: $scope.tempMajor.majorCode});
+          if (element) { // If major already exists, show a Warning
+            $scope.title = 'Warning';
+            $scope.message = 'Major already exists';
+            $('#messageModal').modal('toggle');
+            return;
+          }
+        }
+
         $scope.tempMajor.majorCode = $scope.tempMajor.majorCode.toUpperCase();
         Majors.editMajor($scope.tempMajor);
         $('#editMajorModal').modal('hide');
@@ -151,7 +173,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitMajorDelete = function(form) {
       if(form.$valid) {
-        console.log('hola');
         Majors.deleteMajor($scope.tempMajor);
         $('#deleteMajorModal').modal('hide');
       }
