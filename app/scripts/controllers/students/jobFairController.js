@@ -52,7 +52,6 @@ app.controller('jobFairCtrl', function($scope) {
   ];
 
 
-
   $scope.jobFairCompanies = [
     {
       companyName: 'Apple',

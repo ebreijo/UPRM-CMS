@@ -54,7 +54,6 @@ describe('Controller: Job Offers', function () {
       expect(scope.lookingForFilter('Internship')).toEqual(true);
     });
 
-
     it('should return false if internship is not checked and internship is passed to filter (regardless of other values)', function () {
       scope.checkBox = {
         internship: false,
@@ -77,7 +76,6 @@ describe('Controller: Job Offers', function () {
       };
       expect(scope.lookingForFilter('CO-OP')).toEqual(true);
     });
-
 
     it('should return false if coop is not checked and coop is passed to filter (regardless of other values)', function () {
       scope.checkBox = {
