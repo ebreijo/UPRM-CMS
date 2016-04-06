@@ -214,7 +214,11 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.companyProfile.generalInfo[0].websiteUrl = $scope.CompanyDescriptionItem.websiteUrl;
       $scope.companyProfile.generalInfo[0].companyDescription = $scope.CompanyDescriptionItem.companyDescription;
       $('#editCompanyDescriptionModal').modal('hide');
+      //Jasmine Test
+      return true;
     }
+    //Jasmine Test
+    return false;
   };
 
   //For Edit Interested Majors Modal------------------------------------------------------------
