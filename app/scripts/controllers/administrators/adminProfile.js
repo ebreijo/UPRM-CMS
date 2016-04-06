@@ -287,7 +287,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitRejectJobOffer = function(form) {
       if (form.$valid) {
-        $scope.tempJobOffer.accountStatus = 'rejected';
+        $scope.tempJobOffer.jobOfferStatus = 'rejected';
         JobOffers.updateJobOffer($scope.tempJobOffer);
         removeJobOfferFromPendingList();
         $('#rejectJobOfferModal').modal('hide');
