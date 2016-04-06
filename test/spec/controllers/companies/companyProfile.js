@@ -85,11 +85,13 @@ describe('Controller: Company Profile', function () {
 
       var myForm = {};
 
+      scope.CompanyDescriptionItem = {};
+
       scope.CompanyDescriptionItem = {
         name: 'IBM',
         websiteUrl: 'http://www.ibm.com/us-en/',
         logoPath: null,
-        companyDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.',
+        companyDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         companyStatus: 'Active'
       };
 
@@ -104,8 +106,28 @@ describe('Controller: Company Profile', function () {
 
       myForm.$valid = true;
 
-      expect(scope.submitCompanyDescription(myForm)).toEqual(true);
+      scope.CompanyDescriptionItem.websiteUrl = 'http://www.test_url.com';
+      scope.CompanyDescriptionItem.companyDescription = 'This is a company description';
 
+      var websiteURL = false;
+      var companyDescription = false;
+
+      scope.submitCompanyDescription(myForm);
+
+      if (scope.companyProfile.generalInfo[0].websiteUrl === 'http://www.test_url.com'){
+        websiteURL = true;
+      }
+      else {
+        websiteURL = false;
+      }
+
+      if (scope.companyProfile.generalInfo[0].companyDescription === 'This is a company description'){
+        companyDescription = true;
+      }
+      else {
+        companyDescription = false;
+      }
+      expect(websiteURL&&companyDescription).toEqual(true);
     });
 
   });
