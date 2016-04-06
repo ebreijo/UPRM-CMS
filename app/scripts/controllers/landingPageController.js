@@ -6,13 +6,6 @@ var app = angular.module('uprmcmsApp');
 app.controller('LandingPageCtrl', function($scope, Pictures) {
   $scope.pictures = Pictures.pictures;
 
-  /*
-  $scope.decrypted = function() {
-    var decrypted = CryptoJS.AES.decrypt('U2FsdGVkX1/VDopBc9rLEzuBzotckwZsHfBM6oJZRPY=', 'SPumKMp6VDSaOv1F3wKVcF9W+5XBNypn52IcHVNpLbs=').toString();
-    return CryptoJS.enc.Utf8.stringify(decrypted);
-  };
-  */
-
   $scope.dropzoneConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/pictures',
