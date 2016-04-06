@@ -538,14 +538,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('active');
-          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith({
-            name: 'Google',
-            websiteUrl: 'https://www.google.com/',
-            logoPath: null,
-            companyDescription: 'This is Google',
-            companyStatus: 'active',
-            registrationDate: '2016-03-28T23:13:10.000Z'
-          });
+          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -572,14 +565,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('inactive');
-          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith({
-            name: 'Google',
-            websiteUrl: 'https://www.google.com/',
-            logoPath: null,
-            companyDescription: 'This is Google',
-            companyStatus: 'inactive',
-            registrationDate: '2016-03-28T23:13:10.000Z'
-          });
+          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -632,25 +618,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptRecruiter(form);
           scope.$digest();
           expect(scope.tempRecruiter.accountStatus).toEqual('active');
-          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith({
-            email: 'juanito@gmail.com',
-            companyName: 'Google',
-            firstName: 'Juanito',
-            lastName: 'Perez',
-            phoneNumber: '787-555-5555',
-            accountStatus: 'active',
-            registrationDate: '2016-03-29T01:31:59.000Z',
-            companyLocation: {
-              id: 4,
-              companyName: 'Google',
-              streetAddress: '1600 Amphitheatre Parkway',
-              city: 'Mountain View',
-              state: 'CA',
-              country: 'United States',
-              zipCode: '94043',
-              phoneNumber: null
-            }
-          });
+          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith(scope.tempRecruiter);
         });
       });
     });
@@ -677,25 +645,97 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectRecruiter(form);
           scope.$digest();
           expect(scope.tempRecruiter.accountStatus).toEqual('inactive');
-          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith({
-            email: 'juanito@gmail.com',
-            companyName: 'Google',
-            firstName: 'Juanito',
-            lastName: 'Perez',
-            phoneNumber: '787-555-5555',
-            accountStatus: 'inactive',
-            registrationDate: '2016-03-29T01:31:59.000Z',
-            companyLocation: {
-              id: 4,
-              companyName: 'Google',
-              streetAddress: '1600 Amphitheatre Parkway',
-              city: 'Mountain View',
-              state: 'CA',
-              country: 'United States',
-              zipCode: '94043',
-              phoneNumber: null
-            }
-          });
+          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith(scope.tempRecruiter);
+        });
+      });
+    });
+  });
+
+  describe('Job Offers Tab', function() {
+
+    beforeEach(function () {
+      scope.executeTab6();
+      scope.tempJobOffer = {
+        id: 2,
+        companyName: 'IBM',
+        email: 'sergio@ibm.com',
+        title: 'Different Job Offer',
+        description: 'This is a job offer which is different',
+        jobPosition: 'CO-OP',
+        educationLevel: 'Bachelors',
+        recentGraduate: false,
+        creationDate: '2016-02-22T16:12:12.000Z',
+        expirationDate: '2016-07-22T16:12:12.000Z',
+        announcementNumber: 34234,
+        flyerPath: null,
+        jobOfferStatus: 'pending',
+        location: 'Durham, NC'
+      };
+    });
+
+    it('should have today\'s date defined', function () {
+      expect(scope.today).toBeDefined();
+    });
+
+    describe('submit to accept a new job offer from a company', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(JobOffers, 'updateJobOffer');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the accept job offer request', function () {
+          form.$valid = false;
+          scope.submitJobOfferReviewAccept(form);
+          scope.$digest();
+          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should not make the accept job offer request if expiration date is a past date', function () {
+          form.$valid = true;
+          scope.tempJobOffer.expirationDate = new Date('October 13, 2013 11:13:00');
+          scope.submitJobOfferReviewAccept(form);
+          scope.$digest();
+          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+        });
+
+        it('should make the accept job offer request if expiration date is a future date', function () {
+          form.$valid = true;
+          scope.tempJobOffer.expirationDate = new Date(Date.now() + (8.64e+7)*10);
+          scope.submitJobOfferReviewAccept(form);
+          scope.$digest();
+          expect(scope.tempJobOffer.jobOfferStatus).toEqual('approved');
+          expect(JobOffers.updateJobOffer).toHaveBeenCalledWith(scope.tempJobOffer);
+        });
+      });
+    });
+
+    describe('submit to reject a new job offer from a company', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+        spyOn(JobOffers, 'updateJobOffer');
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the reject job offer request', function () {
+          form.$valid = false;
+          scope.submitRejectJobOffer(form);
+          scope.$digest();
+          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the reject job offer request', function () {
+          form.$valid = true;
+          scope.submitRejectJobOffer(form);
+          scope.$digest();
+          expect(scope.tempJobOffer.jobOfferStatus).toEqual('rejected');
+          expect(JobOffers.updateJobOffer).toHaveBeenCalledWith(scope.tempJobOffer);
         });
       });
     });
