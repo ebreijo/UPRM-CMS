@@ -59,25 +59,26 @@ describe('Controller: Company Search', function () {
 
   describe('scope.selectCompany function', function () {
 
-    it('It should go to the locationSearch web page if form is true', function () {
+    it('It should go to the locationSearch web page if a company is selected and the user presses continue', function () {
       scope.companyName = 'Apple';
 
       expect(scope.selectCompany(true)).toEqual(true);
 
     });
-  });
 
-  describe('scope.selectCompany function', function () {
+    it('It should stay on the companySearch web page if a company that is not registered is selected', function () {
+      scope.companyName = 'Papalaya';
 
-    it('It should stay on the companySearch web page if form is false', function () {
+      expect(scope.selectCompany(true)).toEqual(false);
+
+    });
+
+    it('It should stay on the companySearch web page if a company is not selected', function () {
       scope.companyName = 'Apple';
 
       expect(scope.selectCompany(false)).toEqual(false);
 
     });
-  });
-
-  describe('scope.selectCompany function', function () {
 
     it('It should stay on the companySearch web page if no company is selected', function () {
       scope.companyName = null;
@@ -85,6 +86,7 @@ describe('Controller: Company Search', function () {
       expect(scope.selectCompany(true)).toEqual(false);
 
     });
+
   });
 
 });
