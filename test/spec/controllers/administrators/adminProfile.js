@@ -607,7 +607,7 @@ describe('Controller: AdminProfile', function () {
           zipCode: '94043',
           phoneNumber: null
         }
-      }
+      };
     });
 
     describe('submit to Accept a new recruiter registration', function () {
