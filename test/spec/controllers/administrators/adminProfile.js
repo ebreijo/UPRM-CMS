@@ -503,9 +503,11 @@ describe('Controller: AdminProfile', function () {
 
 
   describe('Company Registration Tab', function() {
-
+    var form;
     beforeEach(function () {
       scope.executeTab4();
+      form = {};
+      spyOn(Companies, 'updateCompanyStatus');
       scope.tempCompany = {
         name: 'Google',
         websiteUrl: 'https://www.google.com/',
@@ -517,11 +519,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to Accept a new company registration', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(Companies, 'updateCompanyStatus');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the update Company Status request', function () {
@@ -544,11 +541,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to Reject a new company registration', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(Companies, 'updateCompanyStatus');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the update Company Status request', function () {
@@ -572,9 +564,11 @@ describe('Controller: AdminProfile', function () {
   });
 
   describe('Recruiter Registration Tab', function() {
-
+    var form;
     beforeEach(function () {
       scope.executeTab5();
+      form = {};
+      spyOn(Recruiters, 'updateRecruiterStatus');
       scope.tempRecruiter = {
         email: 'juanito@gmail.com',
         companyName: 'Google',
@@ -597,11 +591,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to Accept a new recruiter registration', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(Recruiters, 'updateRecruiterStatus');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the update Recruiter Status request', function () {
@@ -624,11 +613,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to Reject a new recruiter registration', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(Recruiters, 'updateRecruiterStatus');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the update Recruiter Status request', function () {
@@ -652,9 +636,11 @@ describe('Controller: AdminProfile', function () {
   });
 
   describe('Job Offers Tab', function() {
-
+    var form;
     beforeEach(function () {
       scope.executeTab6();
+      spyOn(JobOffers, 'updateJobOffer');
+      form = {};
       scope.tempJobOffer = {
         id: 2,
         companyName: 'IBM',
@@ -678,11 +664,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to accept a new job offer from a company', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(JobOffers, 'updateJobOffer');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the accept job offer request', function () {
@@ -714,11 +695,6 @@ describe('Controller: AdminProfile', function () {
     });
 
     describe('submit to reject a new job offer from a company', function () {
-      var form;
-      beforeEach(function () {
-        form = {};
-        spyOn(JobOffers, 'updateJobOffer');
-      });
 
       describe('with a invalid form', function () {
         it('should not make the reject job offer request', function () {
@@ -736,6 +712,71 @@ describe('Controller: AdminProfile', function () {
           scope.$digest();
           expect(scope.tempJobOffer.jobOfferStatus).toEqual('rejected');
           expect(JobOffers.updateJobOffer).toHaveBeenCalledWith(scope.tempJobOffer);
+        });
+      });
+    });
+  });
+
+  describe('Promotional Documents Tab', function() {
+    var form;
+    beforeEach(function () {
+      scope.executeTab7();
+      spyOn(PromotionalDocuments, 'updatePromotionalDocuments');
+      form = {};
+      scope.tempPromotionalDocument = {
+        id: 2,
+        companyName: 'IBM',
+        title: 'Promotion2',
+        filePath: 'lib/promotionalMaterial',
+        expirationDate: '2016-07-22T16:12:12.000Z',
+        status: 'pending'
+      };
+    });
+
+    describe('submit to accept a new promotional document from a company', function () {
+      var form;
+      beforeEach(function () {
+        form = {};
+      });
+
+      describe('with a invalid form', function () {
+        it('should not make the accept promotional document request', function () {
+          form.$valid = false;
+          scope.submitAcceptPromotionalDocument(form);
+          scope.$digest();
+          expect(PromotionalDocuments.updatePromotionalDocuments).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the accept promotional document request', function () {
+          form.$valid = true;
+          scope.submitAcceptPromotionalDocument(form);
+          scope.$digest();
+          expect(scope.tempPromotionalDocument.status).toEqual('approved');
+          expect(PromotionalDocuments.updatePromotionalDocuments).toHaveBeenCalledWith(scope.tempPromotionalDocument);
+        });
+      });
+    });
+
+    describe('submit to reject a new promotional document from a company', function () {
+
+      describe('with a invalid form', function () {
+        it('should not make the reject promotional document request', function () {
+          form.$valid = false;
+          scope.submitRejectPromotionalDocument(form);
+          scope.$digest();
+          expect(PromotionalDocuments.updatePromotionalDocuments).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('with a valid form', function () {
+        it('should make the reject promotional document request', function () {
+          form.$valid = true;
+          scope.submitRejectPromotionalDocument(form);
+          scope.$digest();
+          expect(scope.tempPromotionalDocument.status).toEqual('rejected');
+          expect(PromotionalDocuments.updatePromotionalDocuments).toHaveBeenCalledWith(scope.tempPromotionalDocument);
         });
       });
     });
