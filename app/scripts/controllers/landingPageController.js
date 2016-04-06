@@ -1,7 +1,6 @@
 'use strict';
 
 var app = angular.module('uprmcmsApp');
-//var CryptoJS = require('crypto-js');
 
 app.controller('LandingPageCtrl', function($scope, Pictures) {
   $scope.pictures = Pictures.pictures;
