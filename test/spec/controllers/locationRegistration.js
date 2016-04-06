@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Controller: Recruiter Registration', function () {
+describe('Controller: Location Registration', function () {
 
   // load the service's module
   beforeEach(module('uprmcmsApp'));
 
   var $controller;
-  var recruiterRegistration;
+  var locationRegistration;
   var scope;
 
   var $state;
@@ -25,25 +25,25 @@ describe('Controller: Recruiter Registration', function () {
     scope = $rootScope.$new();
     $state = _$state_;
 
-    $controller('RecruiterRegistrationCtrl', {
+    $controller('LocationRegistrationCtrl', {
       $scope: scope,
-      recruiterRegistration: recruiterRegistration,
+      locationRegistration: locationRegistration,
       $state: $state
     });
 
   }));
 
-  describe('scope.registerRecruiter function', function () {
+  describe('scope.registerLocation function', function () {
 
-    it('It should register the recruiter and go to the recruiter company profile page if inputs in form are valid', function () {
+    it('It should register the recruiter and location and go to the recruiter company profile page if inputs in form are valid', function () {
 
-      expect(scope.registerRecruiter(true)).toEqual(true);
+      expect(scope.registerLocation(true)).toEqual(true);
 
     });
 
-    it('It should stay on the recruiterRegistration web page if inputs in form are not valid', function () {
+    it('It should stay on the locationRegistration web page if inputs in form are not valid', function () {
 
-      expect(scope.registerRecruiter(false)).toEqual(false);
+      expect(scope.registerLocation(false)).toEqual(false);
 
     });
 
