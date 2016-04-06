@@ -21,7 +21,6 @@ describe('Service: Auth', function () {
 
   // instantiate service
   var Auth;
-  var Restangular;
   var rootScope;
   var AUTH_EVENTS;
   var USER_ROLES;
@@ -30,7 +29,6 @@ describe('Service: Auth', function () {
 
   beforeEach(inject(function ($injector) {
     Auth = $injector.get('Auth');
-    Restangular = $injector.get('Restangular');
     rootScope = $injector.get('$rootScope');
     AUTH_EVENTS = $injector.get('AUTH_EVENTS');
     USER_ROLES = $injector.get('USER_ROLES');
