@@ -109,7 +109,11 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state) {
     // check to make sure the form is completely valid
     if (isValid) {
       $state.go('company');
+      //Jasmine Test
+      return true;
     }
+    //Jasmine Test
+    return false;
   };
 
 });
