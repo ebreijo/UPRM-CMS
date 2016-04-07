@@ -191,17 +191,18 @@ describe('Controller: Company Profile', function () {
         ]
       };
       myForm.$valid = true;
-      var today = (new Date()).toISOString();
+      var date = new Date();
+      var today = date.toISOString();
       scope.showAddPromotionalMaterialDateError = null;
       scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
-      scope.addPromotionalMaterialItemExpirationDate = new Date('June 13, 2016 11:00:00');
-      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate>today));
+      scope.addPromotionalMaterialItemExpirationDate = new Date('2016-05-07T13:52:52.933Z');
+      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate.toISOString() + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate.toISOString()>today));
       scope.submitAddCompanyPromotionalMaterial(myForm);
-      expect(scope.showPromotionalMaterialError).toEqual(false);
+      expect(scope.submitAddCompanyPromotionalMaterial(myForm)).toEqual(true);
     });
 
     it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
-       'Case 2: Expiration date is before today.', function () {
+       'Case 2: Inputs are valid and expiration date is before today.', function () {
 
       var myForm = {};
 
@@ -213,23 +214,22 @@ describe('Controller: Company Profile', function () {
           {}
         ]
       };
-
-      myForm.$valid = false;
+      myForm.$valid = true;
       var date = new Date();
       var today = date.toISOString();
       scope.showAddPromotionalMaterialDateError = null;
       scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
-      scope.addPromotionalMaterialItemExpirationDate = new Date('February 13, 2026 11:00:00');
-      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected < today): ' + (scope.addPromotionalMaterialItemExpirationDate < today));
+      scope.addPromotionalMaterialItemExpirationDate = new Date('2016-03-07T13:52:52.933Z');
+      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate.toISOString() + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate.toISOString()>today));
       scope.submitAddCompanyPromotionalMaterial(myForm);
-      expect(scope.showPromotionalMaterialError).toEqual(false);
+      expect(scope.submitAddCompanyPromotionalMaterial(myForm)).toEqual(false);
     });
 
   });
 
   describe('scope.getPromotionalMaterialItem', function () {
 
-    it('The Angular.copy method should work successfully.', function () {
+    it('Copy a promotional material item from the list', function () {
       var promotional = [
         {
           id: 1,
@@ -246,14 +246,15 @@ describe('Controller: Company Profile', function () {
           status: 'pending'
         }
       ];
-      scope.getPromotionalMaterialItem(promotional);
-      expect(scope.PromotionalMaterialItem[0].companyName).toBe('IBM');
-      expect(scope.PromotionalMaterialItem[0].title).toBe('PromotionalMaterial1');
-      expect(scope.PromotionalMaterialItem[0].status).toBe('approved');
 
-      expect(scope.PromotionalMaterialItem[1].companyName).toBe('IBM');
-      expect(scope.PromotionalMaterialItem[1].title).toBe('PromotionalMaterial2');
-      expect(scope.PromotionalMaterialItem[1].status).toBe('pending');
+      scope.PromotionalMaterialItem = {};
+
+      scope.getPromotionalMaterialItem(promotional[1]);
+      expect(scope.PromotionalMaterialItem.companyName).toBe('IBM');
+      expect(scope.PromotionalMaterialItem.title).toBe('PromotionalMaterial2');
+      expect(scope.PromotionalMaterialItem.status).toBe('pending');
+
+
     });
 
     it('The Angular.copy method should work successfully.', function () {
@@ -273,8 +274,12 @@ describe('Controller: Company Profile', function () {
           status: 'pending'
         }
       ];
-      scope.getPromotionalMaterialItem(promotional);
-      expect(scope.PromotionalMaterialItem[0].companyName).not.toBe('IBM');
+      scope.PromotionalMaterialItem = {};
+
+      scope.getPromotionalMaterialItem(promotional[0]);
+      expect(scope.PromotionalMaterialItem.companyName).not.toBe('IBM');
+      expect(scope.PromotionalMaterialItem.title).not.toBe('PromotionalMaterial2');
+      expect(scope.PromotionalMaterialItem.status).not.toBe('pending');
     });
   });
 

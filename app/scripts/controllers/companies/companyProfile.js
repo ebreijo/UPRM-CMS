@@ -339,9 +339,13 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.showAddPromotionalMaterialDateError = false;
       $('#addPromotionalMaterialModal').modal('hide');
       indexPromotionalMaterial++;
+      //Jasmine Test
+      return true;
     }
     else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= today){
       $scope.showAddPromotionalMaterialDateError = true;
+      //Jasmine Test
+      return false;
     }
   };
 
