@@ -81,7 +81,7 @@ describe('Controller: Company Profile', function () {
 
     });
 
-    it('Company General Information should be updated if inputs in form are valid', function () {
+    it('Company General Information should be updated if inputs in form are valid. Case 1: Both Company Description and Website URL copy successfully', function () {
 
       var myForm = {};
 
@@ -128,6 +128,86 @@ describe('Controller: Company Profile', function () {
         companyDescription = false;
       }
       expect(websiteURL&&companyDescription).toEqual(true);
+    });
+
+  });
+
+  describe('scope.openAddCompanyPromotionalMaterialModal', function () {
+
+    it('Open the Modal for Adding a Promotional document if max capacity(5) has not been reached.', function () {
+
+      scope.companyProfile = {
+        'promotionalMaterial':[
+          {},
+          {},
+          {},
+          {}
+        ]
+      };
+
+      scope.showPromotionalMaterialError = null;
+
+      scope.openAddCompanyPromotionalMaterialModal();
+
+      expect(!scope.showPromotionalMaterialError).toBeTruthy();
+
+    });
+
+    it('Open the Modal for Adding a Promotional document if max capacity(5) has been reached.', function () {
+
+      scope.companyProfile = {
+        'promotionalMaterial':[
+          {},
+          {},
+          {},
+          {},
+          {}
+        ]
+      };
+
+      scope.showPromotionalMaterialError = null;
+
+      scope.openAddCompanyPromotionalMaterialModal();
+
+      expect(scope.showPromotionalMaterialError).toBeTruthy();
+
+    });
+
+  });
+
+  describe('scope.submitAddCompanyPromotionalMaterial', function () {
+
+    it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. Case 1: Inputs are valid and expiration date is after today.', function () {
+
+      var myForm = {};
+
+      scope.companyProfile = {
+        'promotionalMaterial':[
+          {},
+          {},
+          {},
+          {}
+        ]
+      };
+
+      myForm.$valid = true;
+
+      //var indexPromotionalMaterial = 6;
+
+      var today = (new Date()).toISOString();
+
+      scope.showAddPromotionalMaterialDateError = null;
+
+      scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
+
+      scope.addPromotionalMaterialItemExpirationDate = new Date('February 13, 2016 11:00:00');
+
+      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate>today));
+
+      scope.submitAddCompanyPromotionalMaterial(myForm);
+
+      expect(!scope.showPromotionalMaterialError).toBeTruthy();
+
     });
 
   });
