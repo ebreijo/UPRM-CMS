@@ -84,7 +84,7 @@
                             </form>
                           </div>
                           <div class="col-md-3">
-                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#createCompanyModal">Create Company</button>
+                            <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#createCompanyModal">Create Company</button>
                           </div>
                         </div>
                         <article class="contact-form col-md-12">
@@ -167,20 +167,20 @@
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" name="modalCreateCompanyForm" ng-submit="submitCreateCompany(modalCreateCompanyForm)" novalidate>
-                          <p>Company Name<span class="required" style="color: #e14b39;">*</span></p>
+                          <p>Company Name<span style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
                             <input type="text" ng-model="company.name" name="modalCompanyName" ng-minlength="2" ng-maxlength="63" class="form-control" style="border-radius:0;" required/>
                           </div>
-                          <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.modalCompanyName.$invalid && !modalCreateCompanyForm.modalCompanyName.$pristine" style="color:#843534" class="help-block"><b>Enter the company name</b></p>
+                          <div style="margin-bottom: 10px;">
+                            <p ng-show="modalCreateCompanyForm.modalCompanyName.$invalid && !modalCreateCompanyForm.modalCompanyName.$pristine" style="color: #843534" class="help-block"><b>Enter the company name</b></p>
                           </div>
                           <p>Website URL<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pushpin"></i></span>
                             <input type="text" ng-model="company.websiteUrl" name="modalWebsiteUrl" ng-minlength="2" ng-maxlength="255" class="form-control" style="border-radius:0;" required/>
                           </div>
-                          <div style="margin-bottom: 10px">
+                          <div style="margin-bottom: 10px;">
                             <p ng-show="modalCreateCompanyForm.modalWebsiteUrl.$invalid && !modalCreateCompanyForm.modalWebsiteUrl.$pristine" style="color:#843534" class="help-block"><b>Website URL must be between 2 ad 255 characters long</b></p>
                           </div>
                           <p>Logo</p>
@@ -191,10 +191,42 @@
                           <p>Description<span class="required" style="color: #e14b39;">*</span></p>
                           <fieldset class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" ng-minlength="2" ng-maxlength="511" rows="6" style="resize: none;" required></textarea>
+                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" ng-minlength="2" ng-maxlength="511" rows="4" style="resize: none;" required></textarea>
                           </fieldset>
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Company description must be between 2 and 511 characters long</b></p>
+                          </div>
+                          <p>Temporary Contact Email<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalEmail.$invalid && !modalCreateCompanyForm.modalEmail.$pristine }">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="tempContact.email" name="modalEmail" type="email" class="form-control" ng-maxlength="255" placeholder="Email" style="border-radius:0;" required ng-pattern="patterns.email"/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalEmail.$invalid && !modalCreateCompanyForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
+                          </div>
+                          <p>Temporary Contact First Name<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalFirstName.$invalid && !modalCreateCompanyForm.modalFirstName.$pristine }">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="tempContact.firstName" name="modalFirstName" type="text" class="form-control" ng-maxlength="255" placeholder="First Name" style="border-radius:0;" required ng-pattern="patterns.firstName"/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalFirstName.$invalid && !modalCreateCompanyForm.modalFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid first name</b></p>
+                          </div>
+                          <p>Temporary Contact Last Name<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalLastName.$invalid && !modalCreateCompanyForm.modalLastName.$pristine }">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="tempContact.lastName" name="modalLastName" type="text" class="form-control" ng-maxlength="255" placeholder="Last Name" style="border-radius:0;" required ng-pattern="patterns.lastName"/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalLastName.$invalid && !modalCreateCompanyForm.modalLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid last name</b></p>
+                          </div>
+                          <p>Temporary Contact Phone Number<span class="required" style="color: #e14b39;">*</span></p>
+                          <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalPhoneNumber.$invalid && !modalCreateCompanyForm.modalPhoneNumber.$pristine }">
+                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input ng-model="tempContact.phoneNumber" name="modalPhoneNumber" type="text" class="form-control" ng-maxlength="255" placeholder="Phone Number" style="border-radius:0;" required ng-pattern="patterns.phoneNumber"/>
+                          </div>
+                          <div style="margin-bottom: 10px">
+                            <p ng-show="modalCreateCompanyForm.modalPhoneNumber.$invalid && !modalCreateCompanyForm.modalPhoneNumber.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number. Formats: +x-xxx-xxx-xxxx, x-xxx-xxx-xxxx, xxx-xxx-xxxx</b></p>
                           </div>
                           <div class="row">
                             <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
@@ -284,7 +316,7 @@
                         <form class="form-horizontal" name="modalAdminAccessForm" ng-submit="submitAdminAccessEdit(modalAdminAccessForm)" novalidate>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine }">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="tempAdminAccess.email" name="modalEmail" type="email" class="form-control" ng-maxlength="255" placeholder="Email" style="border-radius:0;" required ng-pattern="patternEmail"/>
+                            <input ng-model="tempAdminAccess.email" name="modalEmail" type="email" class="form-control" ng-maxlength="255" placeholder="Email" style="border-radius:0;" required ng-pattern="patterns.email"/>
                           </div>
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalAdminAccessForm.modalEmail.$invalid && !modalAdminAccessForm.modalEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email address</b></p>
@@ -681,7 +713,7 @@
                             </li>
                             <li class="list-group-item">
                               <strong>Creation Date:</strong> {{jobOffer.creationDate | date: 'EEE, MMMM d, y'}}
-                           </li>
+                            </li>
                             <li class="list-group-item">
                               <strong>Announcement Number:</strong>&nbsp;{{jobOffer.announcementNumber}}
                             </li>

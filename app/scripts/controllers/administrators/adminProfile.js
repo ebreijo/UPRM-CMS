@@ -4,7 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalDocuments, Patterns, $filter, _) {
 
-  $scope.patternEmail = Patterns.user.email;
+  $scope.patterns = Patterns.user;
 
   /**
    * Companies Tab
@@ -18,6 +18,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.company = {};
     $scope.tempCompany = {};
+    $scope.tempContact = {};
 
     $scope.submitCreateCompany = function(form) {
       if(form.$valid) {
@@ -32,9 +33,15 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.company.companyStatus = 'active';
           $scope.company.registrationDate = new Date().toISOString();
           Companies.createNewCompany($scope.company);
+          $scope.tempContact.companyName = $scope.company.name;
+          Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
           $scope.company = null;
+          $scope.tempContact = null;
           $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
           $('#createCompanyModal').modal('hide');
+          $('#createCompanyModal').on('hidden.bs.modal', function(){
+            $(this).removeData('bs.modal');
+          });
         }
       }
     };

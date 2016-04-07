@@ -61,7 +61,7 @@ describe('Controller: AdminProfile', function () {
 
   describe('initial state', function () {
     it('should have a pattern object defined', function () {
-      expect(scope.patternEmail).toBeDefined();
+      expect(scope.patterns).toBeDefined();
     });
 
     it('should have a company status selection defined', function () {

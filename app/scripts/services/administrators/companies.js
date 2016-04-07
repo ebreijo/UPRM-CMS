@@ -40,6 +40,16 @@ app.factory('Companies', function(_) {
     ]
   };
 
+  obj.temporaryContact = [
+    {
+      email: 'chencho@gmail.com',
+      companyName: 'Google',
+      firstName: 'Chencho',
+      lastName: 'Ramos',
+      phoneNumber: '787-555-5555'
+    }
+  ];
+
   // TODO: Make a request to get all active, inactive or pending companies by passing a parameter ?status='active'
   obj.getAllCompanies = function(status) {
     return _.filter(this.companies, { companyStatus: status});
@@ -61,6 +71,16 @@ app.factory('Companies', function(_) {
   obj.updateCompanyStatus = function(company) {
     var element = _.find(this.companies, { name: company.name});
     _.merge(element, company);
+  };
+
+  // TODO: Make a request to get the company temporary contact
+  obj.getCompanyTemporaryContact = function(companyName) {
+    return _.find(this.temporaryContact, { companyName: companyName});
+  };
+
+  // TODO: Make a request to create or update the company temporary contact
+  obj.createOrUpdateCompanyTemporaryContact = function(temporaryContact) {
+    this.temporaryContact.push(temporaryContact);
   };
 
   return obj;
