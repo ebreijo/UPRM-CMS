@@ -229,7 +229,7 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.getPromotionalMaterialItem', function () {
 
-    it('Copy a promotional material item from the list', function () {
+    it('Copy a promotional material item from the list.', function () {
       var promotional = [
         {
           id: 1,
@@ -257,7 +257,7 @@ describe('Controller: Company Profile', function () {
 
     });
 
-    it('The Angular.copy method should work successfully.', function () {
+    it('Copy a promotional material item from the list.', function () {
       var promotional = [
         {
           id: 1,
@@ -304,14 +304,7 @@ describe('Controller: Company Profile', function () {
           }]
         };
 
-      scope.deleteCompanyPromotionalMaterial(
-        {
-          id: 1,
-          companyName: 'IBM',
-          title: 'PromotionalMaterial1',
-          expirationDate: '2016-07-22T16:12:12.000Z',
-          status: 'approved'
-        });
+      scope.deleteCompanyPromotionalMaterial(scope.companyProfile.promotionalMaterial[0]);
 
       expect(scope.companyProfile.promotionalMaterial.length).toBe(1);
 
@@ -406,26 +399,7 @@ describe('Controller: Company Profile', function () {
           }]
         };
 
-      scope.deleteRecruiter(
-        {
-          email: 'juanito@gmail.com',
-          companyName: 'IBM',
-          firstName: 'Juanito',
-          lastName: 'Perez',
-          phoneNumber: '787-555-5555',
-          accountStatus: 'pending',
-          registrationDate: '2016-03-29T01:31:59.000Z',
-          companyLocation: {
-            id: 4,
-            companyName: 'Google',
-            streetAddress: '1600 Amphitheatre Parkway',
-            city: 'Mountain View',
-            state: 'CA',
-            country: 'United States',
-            zipCode: '94043',
-            phoneNumber: null
-          }
-        });
+      scope.deleteRecruiter(scope.companyProfile.recruiterList[0]);
 
       expect(scope.companyProfile.recruiterList.length).toBe(1);
 
@@ -539,24 +513,7 @@ describe('Controller: Company Profile', function () {
           }]
         };
 
-      scope.deleteJobOffer(
-        {
-          id: 1,
-          companyName: 'IBM',
-          email: 'sergio@ibm.com',
-          title: 'Engineering Support Assistant',
-          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-          jobPosition: 'Full-Time',
-          educationLevel: 'Bachelors',
-          recentGraduate: true,
-          creationDate: '2016-02-22T16:12:12.000Z',
-          expirationDate: '2016-07-22T16:12:12.000Z',
-          announcementNumber: 17177328217,
-          flyerPath: 'documents/pdf-sample.pdf',
-          jobOfferStatus: 'approved',
-          location: 'Durham, NC'
-        }
-        );
+      scope.deleteJobOffer(scope.companyProfile.jobOfferList[0]);
 
       expect(scope.companyProfile.jobOfferList.length).toBe(1);
 
