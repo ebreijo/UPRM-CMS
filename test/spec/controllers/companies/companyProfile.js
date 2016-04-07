@@ -177,7 +177,31 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.submitAddCompanyPromotionalMaterial', function () {
 
-    it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. Case 1: Inputs are valid and expiration date is after today.', function () {
+    it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
+       'Case 1: Inputs are valid and expiration date is after today.', function () {
+
+      var myForm = {};
+
+      scope.companyProfile = {
+        'promotionalMaterial':[
+          {},
+          {},
+          {},
+          {}
+        ]
+      };
+      myForm.$valid = true;
+      var today = (new Date()).toISOString();
+      scope.showAddPromotionalMaterialDateError = null;
+      scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
+      scope.addPromotionalMaterialItemExpirationDate = new Date('June 13, 2016 11:00:00');
+      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate>today));
+      scope.submitAddCompanyPromotionalMaterial(myForm);
+      expect(scope.showPromotionalMaterialError).toEqual(false);
+    });
+
+    it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
+       'Case 2: Expiration date is before today.', function () {
 
       var myForm = {};
 
@@ -190,23 +214,405 @@ describe('Controller: Company Profile', function () {
         ]
       };
 
-      myForm.$valid = true;
-
-      //var indexPromotionalMaterial = 6;
-
-      var today = (new Date()).toISOString();
-
+      myForm.$valid = false;
+      var date = new Date();
+      var today = date.toISOString();
       scope.showAddPromotionalMaterialDateError = null;
-
       scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
-
-      scope.addPromotionalMaterialItemExpirationDate = new Date('February 13, 2016 11:00:00');
-
-      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate>today));
-
+      scope.addPromotionalMaterialItemExpirationDate = new Date('February 13, 2026 11:00:00');
+      console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate + ' Today Date: ' + today + ' Comparison (selected < today): ' + (scope.addPromotionalMaterialItemExpirationDate < today));
       scope.submitAddCompanyPromotionalMaterial(myForm);
+      expect(scope.showPromotionalMaterialError).toEqual(false);
+    });
 
-      expect(!scope.showPromotionalMaterialError).toBeTruthy();
+  });
+
+  describe('scope.getPromotionalMaterialItem', function () {
+
+    it('The Angular.copy method should work successfully.', function () {
+      var promotional = [
+        {
+          id: 1,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial1',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        },
+        {
+          id: 2,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial2',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'pending'
+        }
+      ];
+      scope.getPromotionalMaterialItem(promotional);
+      expect(scope.PromotionalMaterialItem[0].companyName).toBe('IBM');
+      expect(scope.PromotionalMaterialItem[0].title).toBe('PromotionalMaterial1');
+      expect(scope.PromotionalMaterialItem[0].status).toBe('approved');
+
+      expect(scope.PromotionalMaterialItem[1].companyName).toBe('IBM');
+      expect(scope.PromotionalMaterialItem[1].title).toBe('PromotionalMaterial2');
+      expect(scope.PromotionalMaterialItem[1].status).toBe('pending');
+    });
+
+    it('The Angular.copy method should work successfully.', function () {
+      var promotional = [
+        {
+          id: 1,
+          companyName: 'Apple',
+          title: 'PromotionalMaterial1',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        },
+        {
+          id: 2,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial2',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'pending'
+        }
+      ];
+      scope.getPromotionalMaterialItem(promotional);
+      expect(scope.PromotionalMaterialItem[0].companyName).not.toBe('IBM');
+    });
+  });
+
+  describe('scope.deleteCompanyPromotionalMaterial', function () {
+
+    it('The passed promotional material should be successfully removed if valid.', function () {
+
+      scope.companyProfile = {
+        'promotionalMaterial':[{
+          id: 1,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial1',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        },
+          {
+            id: 2,
+            companyName: 'IBM',
+            title: 'PromotionalMaterial2',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'pending'
+          }]
+        };
+
+      scope.deleteCompanyPromotionalMaterial(
+        {
+          id: 1,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial1',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        });
+
+      expect(scope.companyProfile.promotionalMaterial.length).toBe(1);
+
+    });
+
+    it('The passed promotional material should be unsuccessfully removed if invalid.', function () {
+
+      scope.companyProfile = {
+        'promotionalMaterial':[{
+          id: 1,
+          companyName: 'IBM',
+          title: 'PromotionalMaterial1',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        },
+          {
+            id: 2,
+            companyName: 'IBM',
+            title: 'PromotionalMaterial2',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            status: 'pending'
+          }]
+        };
+
+      scope.deleteCompanyPromotionalMaterial(
+        {
+          id: 6,
+          companyName: 'Apple',
+          title: 'PromotionalMaterial8',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          status: 'approved'
+        });
+
+      expect(scope.companyProfile.promotionalMaterial.length).toBe(2);
+
+    });
+
+  });
+
+  //TODO:
+  /*
+  describe('scope.submitCompanyPromotionalMaterial', function () {
+
+    it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
+      'Case 1: Inputs are valid and expiration date is after today.', function () {
+
+    });
+  });
+  */
+
+  describe('scope.deleteRecruiter', function () {
+
+    it('The passed recruiter should be successfully removed if valid.', function () {
+
+      scope.companyProfile = {
+        'recruiterList':[{
+          email: 'juanito@gmail.com',
+          companyName: 'IBM',
+          firstName: 'Juanito',
+          lastName: 'Perez',
+          phoneNumber: '787-555-5555',
+          accountStatus: 'pending',
+          registrationDate: '2016-03-29T01:31:59.000Z',
+          companyLocation: {
+            id: 4,
+            companyName: 'Google',
+            streetAddress: '1600 Amphitheatre Parkway',
+            city: 'Mountain View',
+            state: 'CA',
+            country: 'United States',
+            zipCode: '94043',
+            phoneNumber: null
+          }
+        },
+          {
+            email: 'leonardo@ibm.com',
+            companyName: 'IBM',
+            firstName: 'Leonardo',
+            lastName: 'Dicaprio',
+            phoneNumber: '787-555-5555',
+            accountStatus: 'inactive',
+            registrationDate: '2016-03-29T14:51:52.000Z',
+            companyLocation: {
+              id: 2,
+              streetAddress: '1 New Orchard Road',
+              city: 'Armonk',
+              state: 'NY',
+              country: 'United States',
+              zipCode: '10504',
+              phoneNumber: null
+            }
+          }]
+        };
+
+      scope.deleteRecruiter(
+        {
+          email: 'juanito@gmail.com',
+          companyName: 'IBM',
+          firstName: 'Juanito',
+          lastName: 'Perez',
+          phoneNumber: '787-555-5555',
+          accountStatus: 'pending',
+          registrationDate: '2016-03-29T01:31:59.000Z',
+          companyLocation: {
+            id: 4,
+            companyName: 'Google',
+            streetAddress: '1600 Amphitheatre Parkway',
+            city: 'Mountain View',
+            state: 'CA',
+            country: 'United States',
+            zipCode: '94043',
+            phoneNumber: null
+          }
+        });
+
+      expect(scope.companyProfile.recruiterList.length).toBe(1);
+
+    });
+
+
+    it('The passed recruiter should be unsuccessfully removed if invalid.', function () {
+
+      scope.companyProfile = {
+        'recruiterList':[{
+          email: 'juanito@gmail.com',
+          companyName: 'IBM',
+          firstName: 'Juanito',
+          lastName: 'Perez',
+          phoneNumber: '787-555-5555',
+          accountStatus: 'pending',
+          registrationDate: '2016-03-29T01:31:59.000Z',
+          companyLocation: {
+            id: 4,
+            companyName: 'Google',
+            streetAddress: '1600 Amphitheatre Parkway',
+            city: 'Mountain View',
+            state: 'CA',
+            country: 'United States',
+            zipCode: '94043',
+            phoneNumber: null
+          }
+        },
+          {
+            email: 'leonardo@ibm.com',
+            companyName: 'IBM',
+            firstName: 'Leonardo',
+            lastName: 'Dicaprio',
+            phoneNumber: '787-555-5555',
+            accountStatus: 'inactive',
+            registrationDate: '2016-03-29T14:51:52.000Z',
+            companyLocation: {
+              id: 2,
+              streetAddress: '1 New Orchard Road',
+              city: 'Armonk',
+              state: 'NY',
+              country: 'United States',
+              zipCode: '10504',
+              phoneNumber: null
+            }
+          }]
+        };
+
+      scope.deleteRecruiter(
+        {
+          email: 'juanitoHello@gmail.com',
+          companyName: 'Medtronic',
+          firstName: 'Juanito',
+          lastName: 'Perez',
+          phoneNumber: '787-555-5555',
+          accountStatus: 'pending',
+          registrationDate: '2016-03-29T01:31:59.000Z',
+          companyLocation: {
+            id: 4,
+            companyName: 'Google',
+            streetAddress: '1600 Amphitheatre Parkway',
+            city: 'Mountain View',
+            state: 'CA',
+            country: 'United States',
+            zipCode: '94043',
+            phoneNumber: null
+          }
+        });
+
+      expect(scope.companyProfile.recruiterList.length).toBe(2);
+
+    });
+  });
+
+  describe('scope.deleteJobOffer', function () {
+
+    it('The passed recruiter should be successfully removed if valid.', function () {
+
+      scope.companyProfile = {
+        'jobOfferList':[{
+          id: 1,
+          companyName: 'IBM',
+          email: 'sergio@ibm.com',
+          title: 'Engineering Support Assistant',
+          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+          jobPosition: 'Full-Time',
+          educationLevel: 'Bachelors',
+          recentGraduate: true,
+          creationDate: '2016-02-22T16:12:12.000Z',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          announcementNumber: 17177328217,
+          flyerPath: 'documents/pdf-sample.pdf',
+          jobOfferStatus: 'approved',
+          location: 'Durham, NC'
+        },
+          {
+            id: 2,
+            companyName: 'IBM',
+            email: 'juanito@gmail.com',
+            title: 'Chief Electronics Engineer',
+            description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+            jobPosition: 'Part-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: false,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: 33243554354,
+            flyerPath: 'documents/pdf-sample.pdf',
+            jobOfferStatus: 'pending',
+            location: 'Durham, NC'
+          }]
+        };
+
+      scope.deleteJobOffer(
+        {
+          id: 1,
+          companyName: 'IBM',
+          email: 'sergio@ibm.com',
+          title: 'Engineering Support Assistant',
+          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+          jobPosition: 'Full-Time',
+          educationLevel: 'Bachelors',
+          recentGraduate: true,
+          creationDate: '2016-02-22T16:12:12.000Z',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          announcementNumber: 17177328217,
+          flyerPath: 'documents/pdf-sample.pdf',
+          jobOfferStatus: 'approved',
+          location: 'Durham, NC'
+        }
+        );
+
+      expect(scope.companyProfile.jobOfferList.length).toBe(1);
+
+    });
+
+
+    it('The passed job offer should be unsuccessfully removed if invalid.', function () {
+
+      scope.companyProfile = {
+        'jobOfferList':[{
+          id: 1,
+          companyName: 'IBM',
+          email: 'sergio@ibm.com',
+          title: 'Engineering Support Assistant',
+          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+          jobPosition: 'Full-Time',
+          educationLevel: 'Bachelors',
+          recentGraduate: true,
+          creationDate: '2016-02-22T16:12:12.000Z',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          announcementNumber: 17177328217,
+          flyerPath: 'documents/pdf-sample.pdf',
+          jobOfferStatus: 'approved',
+          location: 'Durham, NC'
+        },
+          {
+            id: 2,
+            companyName: 'IBM',
+            email: 'juanito@gmail.com',
+            title: 'Chief Electronics Engineer',
+            description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+            jobPosition: 'Part-Time',
+            educationLevel: 'Bachelors',
+            recentGraduate: false,
+            creationDate: '2016-02-22T16:12:12.000Z',
+            expirationDate: '2016-07-22T16:12:12.000Z',
+            announcementNumber: 33243554354,
+            flyerPath: 'documents/pdf-sample.pdf',
+            jobOfferStatus: 'pending',
+            location: 'Durham, NC'
+          }]
+        };
+
+      scope.deleteJobOffer(
+        {
+          id: 10,
+          companyName: 'Medtronic',
+          email: 'sergio@ibm.com',
+          title: 'Engineering Support Assistant',
+          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
+          jobPosition: 'Full-Time',
+          educationLevel: 'Bachelors',
+          recentGraduate: true,
+          creationDate: '2016-02-22T16:12:12.000Z',
+          expirationDate: '2016-07-22T16:12:12.000Z',
+          announcementNumber: 17177328217,
+          flyerPath: 'documents/pdf-sample.pdf',
+          jobOfferStatus: 'approved',
+          location: 'Durham, NC'
+        });
+      expect(scope.companyProfile.jobOfferList.length).toBe(2);
 
     });
 

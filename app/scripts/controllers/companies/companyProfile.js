@@ -301,7 +301,7 @@ app.controller('CompanyCtrl', function($scope, _) {
       return element.id === item.id;
     });
   };
-
+  // TODO
   $scope.submitCompanyPromotionalMaterial = function(form){
     if(form.$valid && $scope.PromotionalMaterialItem.expirationDate.toISOString() > today){
       var promotionalMaterialElement = _.find(this.companyProfile.promotionalMaterial, { id: $scope.PromotionalMaterialItem.id});
@@ -333,7 +333,6 @@ app.controller('CompanyCtrl', function($scope, _) {
   };
 
   var indexPromotionalMaterial = 6;
-
   $scope.submitAddCompanyPromotionalMaterial = function(form){
     if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
       this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
@@ -362,7 +361,7 @@ app.controller('CompanyCtrl', function($scope, _) {
   for (i = 0; i < jobOffers.length; i++) {
     $scope.companyProfile.jobOfferList.push(jobOffers[i]);
   }
-
+  // TODO
   $scope.deleteJobOffer = function(item){
     _.remove(this.companyProfile.jobOfferList, function(element) {
       return element.id === item.id;
@@ -377,7 +376,7 @@ app.controller('CompanyCtrl', function($scope, _) {
   });
 
   var indexJobOffers = 20;
-
+  // TODO
   $scope.submitAddCompanyJobOffer = function(form){
     if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > today){
       this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
@@ -398,7 +397,7 @@ app.controller('CompanyCtrl', function($scope, _) {
   });
 
   var indexCampusService = 0;
-
+  // TODO
   $scope.submitCampusService = function(form){
     if(form.$valid && $scope.campusServiceDate.toISOString() > today){
       $('#confirmCampusServiceRequest').modal('show');
@@ -408,7 +407,7 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.showCampusServiceDateError=true;
     }
   };
-
+  // TODO
   $scope.confirmSubmissionCampusService = function(){
     this.companyProfile.campusServiceRequests.push({id: indexCampusService, eventType: $scope.campusServiceEventType, otherEventDescription: $scope.otherTypeOfEvent, eventDate: $scope.campusServiceDate, eventHour: $scope.campusServiceHour, eventCapacity: $scope.campusServiceCapacity, eventAdditionalInformation: $scope.campusServiceAdditionalInformation});
     indexCampusService++;
@@ -441,13 +440,13 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.recruiterLoggedInItem = angular.copy($scope.companyProfile.recruiterList[i]);
     }
   }
-
+  // TODO
   $scope.submitAccountSettingsChanges = function(){
     var recruiterLoggedInElement = _.find($scope.companyProfile.recruiterList, { email: $scope.recruiterLoggedInItem.email});
     _.merge(recruiterLoggedInElement, $scope.recruiterLoggedInItem);
     $('#confirmAccountSettingsChangesModal').modal('hide');
   };
-
+  // TODO
   $scope.confirmAccountSettingsChanges  = function(form){
     if(form.$valid){
       $('#confirmAccountSettingsChangesModal').modal('show');
