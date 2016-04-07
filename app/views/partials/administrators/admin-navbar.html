@@ -39,19 +39,10 @@
              data-close-others="false" href="#">Documents <i class="fa fa-angle-down"></i></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">Job Fair Dress Code <span class="glyphicon glyphicon-remove"></span></a>
+              <a data-toggle="modal" data-target="#manageDocumentsModal">Manage Documents&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-edit"></span></a>
             </li>
-            <li>
-              <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">Resume Template <span class="glyphicon glyphicon-remove"></span></a>
-            </li>
-            <li>
-              <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">8th Job Fair <span class="glyphicon glyphicon-remove"></span></a>
-            </li>
-            <li>
-              <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">Interview Tips <span class="glyphicon glyphicon-remove"></span></a>
-            </li>
-            <li>
-              <a href="components.html">Add Document</a>
+            <li ng-repeat="item in documentList">
+              <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">{{item.fileLabel}}</a>
             </li>
           </ul>
         </li>
@@ -71,3 +62,71 @@
   </div>
   <!--//container-->
 </nav>
+
+
+<div id="manageDocumentsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Manage Documents</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row text-center">
+              <label ><h4 class="title text-highlight"><b>Add Document</b><br></h4></label>
+            </div>
+            <form name="manageDocumentsModalForm" ng-submit="submitAddGeneralDocuments(manageDocumentsModalForm)" novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <label><h5 class="title text-highlight"><b>Title:</b><br></h5></label>
+                  <div class="form-group has-feedback" ng-class="{ 'has-error' : manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine}">
+                    <input ng-model="addDocumentTitle" name="documentTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                    <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="manageDocumentsModalForm.documentTitle.$valid"></i>
+                    <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine"></i>
+                  </div>
+                  <div>
+                    <p ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Title</b></p>
+                  </div>
+                </div>
+                <div class="col-md-6 text-center">
+                  <label for="document-upload" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">Select Document</label>
+                  <input style="display: none;" id="document-upload" type="file" accept="application/pdf" required/>
+                </div>
+              </div>
+              <div class="row" style="margin-top:5px; text-align:center">
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-theme" ng-disabled="manageDocumentsModalForm.documentTitle.$invalid" style="margin-right:15px; margin-bottom:5px">Add</button>
+                </div>
+              </div>
+            </form>
+            <div class="row text-center" style="margin-top:20px">
+              <label ><h4 class="title text-highlight"><b>List of Documents</b><br></h4></label>
+            </div>
+
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Title</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody ng-repeat="item in documentList">
+              <tr>
+                <td><a href="documents/pdf-sample.pdf" target="_blank">{{item.fileLabel}}</a></td>
+                <td><button ng-click="deleteDocumentItem(item)" class="btn btn-theme btn-sm">Delete</button></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" style="margin-top: 5px; margin-right: 5px">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

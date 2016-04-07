@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS) {
+app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS, _) {
 
   // variables for use in child scopes.
   $scope.currentUser = null;
@@ -18,5 +18,52 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
     $scope.currentUser = null;
   });
+
+
+  //For Document Items in Navbar
+  var documents = [
+    {
+      'id': 1,
+      'fileLabel': 'Job Fair Dress Code',
+      'filePath': '/lib/documents'
+    },
+    {
+      'id': 2,
+      'fileLabel': 'Resume Template',
+      'filePath': '/lib/documents'
+    },
+    {
+      'id': 3,
+      'fileLabel': '8th Job Fair',
+      'filePath': '/lib/documents'
+    },
+    {
+      'id': 4,
+      'fileLabel': 'Interview Tips',
+      'filePath': '/lib/documents'
+    }
+  ];
+
+  $scope.documentList = [];
+  $scope.addDocumentTitle = null;
+
+
+  for (var i =0; i < documents.length; i++) {
+    $scope.documentList.push(documents[i]);
+  }
+
+  $scope.deleteDocumentItem = function(item){
+    _.remove(this.documentList, function(element) {
+      return element.id === item.id;
+    });
+  };
+
+  var index = 102;
+  $scope.submitAddGeneralDocuments = function(form){
+    if(form.$valid){
+      $scope.documentList.push({id: index,fileLabel: form.documentTitle.$viewValue,filePath: '/lib/documents'});
+      index++;
+    }
+  };
 
 });
