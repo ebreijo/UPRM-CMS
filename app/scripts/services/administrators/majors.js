@@ -105,5 +105,23 @@ app.factory('Majors', function(_) {
     return _.filter(this.companyInterestedMajors, { companyName: companyName});
   };
 
+  // TODO: Make a request to add or remove company interested majors per company
+  obj.setInterestedMajorsPerCompany = function(companyMajors) {
+    var self = this;
+    _.forEach(companyMajors, function(major) {
+      if (major.isSet && !major.id) {
+        major.id = 1000; // simulating an index assigned in by the database
+        self.companyInterestedMajors.push(major);
+      } else if (!major.isSet && major.id) {
+        major.needRemove = true;
+      }
+    });
+
+    // remove the ones needed to remove
+    _.remove(this.companyInterestedMajors, function(element) {
+      return element.needRemove === true;
+    });
+  };
+
   return obj;
 });

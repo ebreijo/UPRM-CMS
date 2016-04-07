@@ -25,7 +25,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
 
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
     $scope.companyJobPositions = angular.copy(CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection));
-    $scope.majors = angular.copy(Majors.getInterestedMajorsPerCompany($scope.companySelection));
+    $scope.majors = Majors.getInterestedMajorsPerCompany($scope.companySelection);
 
     var positions = [];
     _.forEach($scope.companyJobPositions,  function(element) {
@@ -45,7 +45,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
 
     var majorCodes = [];
     _.forEach($scope.majors,  function(major) {
-      major.value = true;
+      major.isSet = true;
       majorCodes.push(major.majorCode);
     });
 
@@ -54,7 +54,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
         var dummyObject = {
           companyName: $scope.companySelection,
           majorCode: major.majorCode,
-          value: false
+          isSet: false
         };
         $scope.majors.push(dummyObject);
       }
@@ -137,6 +137,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
       $scope.jobFairCompanyAdditionalInfo.companyName = $scope.companySelection;
       JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
       CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companyJobPositions);
+      Majors.setInterestedMajorsPerCompany($scope.majors);
       $('#confirmJobFairManagementModal').modal('hide');
     }
   };

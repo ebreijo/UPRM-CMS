@@ -309,7 +309,7 @@
                   <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
                     <li class="list-group-item" ng-repeat="item in majors | filter:false">
                       <label class="control-label">
-                        <input type="checkbox" ng-model="item.value">&nbsp; {{item.majorCode}}
+                        <input type="checkbox" ng-model="item.isSet">&nbsp; {{item.majorCode}}
                       </label>
                     </li>
                   </ul>
@@ -325,7 +325,7 @@
                   <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
                     <li class="list-group-item" ng-repeat="item in majors | filter:true">
                       <label class="control-label">
-                        <input type="checkbox" ng-model="item.value">&nbsp; {{item.majorCode}}
+                        <input type="checkbox" ng-model="item.isSet">&nbsp; {{item.majorCode}}
                       </label>
                     </li>
                   </ul>
