@@ -613,10 +613,23 @@ describe('Controller: Company Profile', function () {
           location: 'Durham, NC'
         });
       expect(scope.companyProfile.jobOfferList.length).toBe(2);
-
     });
-
   });
+
+  describe('scope.confirmSubmissionCampusService', function () {
+
+    it('Should increase the size of confirmSubmissionCampusService list', function () {
+      scope.companyProfile = {
+        campusServiceRequests : []
+      };
+
+      scope.campusServiceEventType = 'sample event';
+
+      scope.confirmSubmissionCampusService();
+      expect(scope.companyProfile.campusServiceRequests.length).toBe(1);
+    });
+  });
+
 
 
 });

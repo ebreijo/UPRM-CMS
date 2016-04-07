@@ -361,7 +361,7 @@ app.controller('CompanyCtrl', function($scope, _) {
   for (i = 0; i < jobOffers.length; i++) {
     $scope.companyProfile.jobOfferList.push(jobOffers[i]);
   }
-  // TODO
+
   $scope.deleteJobOffer = function(item){
     _.remove(this.companyProfile.jobOfferList, function(element) {
       return element.id === item.id;
@@ -407,7 +407,7 @@ app.controller('CompanyCtrl', function($scope, _) {
       $scope.showCampusServiceDateError=true;
     }
   };
-  // TODO
+
   $scope.confirmSubmissionCampusService = function(){
     this.companyProfile.campusServiceRequests.push({id: indexCampusService, eventType: $scope.campusServiceEventType, otherEventDescription: $scope.otherTypeOfEvent, eventDate: $scope.campusServiceDate, eventHour: $scope.campusServiceHour, eventCapacity: $scope.campusServiceCapacity, eventAdditionalInformation: $scope.campusServiceAdditionalInformation});
     indexCampusService++;
