@@ -25,7 +25,11 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
     }
 
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
-    $scope.jobFairCompanyAdditionalInfo.minGpa = ($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
+    if ($scope.jobFairCompanyAdditionalInfo) {
+      if ($scope.jobFairCompanyAdditionalInfo.minGpa) {
+        $scope.jobFairCompanyAdditionalInfo.minGpa = ($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
+      }
+    }
     $scope.companyJobPositions = angular.copy(CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection));
     $scope.majors = Majors.getInterestedMajorsPerCompany($scope.companySelection);
 
@@ -67,42 +71,6 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
   $scope.showJobFairResumeDeadlineDateError = false;
   var today = (new Date()).toISOString();
 
-
-  //$scope.addMajors = function() {
-  //  var tempList = [];
-  //  angular.forEach($scope.majorList, function (item) {
-  //    tempList.push(item);
-  //  });
-  //  angular.forEach(tempList, function (item) {
-  //    if (item.value === true && (contains(item.majorCode, $scope.jobFairCompanyItem.interestedMajors) === false)){
-  //      $scope.jobFairCompanyItem.interestedMajors.push({majorCode: item.majorCode, value: false});
-  //      _.remove($scope.majorList, item);
-  //    }
-  //  });
-  //};
-  //
-  //$scope.removeMajors = function() {
-  //  var tempList = [];
-  //  angular.forEach($scope.jobFairCompanyItem.interestedMajors, function (item) {
-  //    tempList.push(item);
-  //  });
-  //  angular.forEach(tempList, function (item) {
-  //    if (item.value === true && (contains(item.majorCode, $scope.majorList) === false)){
-  //      $scope.majorList.push({majorCode: item.majorCode, value: false});
-  //      _.remove($scope.jobFairCompanyItem.interestedMajors, item);
-  //    }
-  //  });
-  //};
-
-  //var contains = function(element, list){
-  //  for (var i = 0; i < list.length; i++) {
-  //    if (list[i].majorCode === element){
-  //      return true;
-  //    }
-  //  }
-  //  return false;
-  //};
-
   $('#resumeDeadlineDatePicker').datepicker({
     format: 'yyyy-mm-dd'
   });
@@ -137,7 +105,9 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
   $scope.submitJobFairManagementChanges = function(form){
     if (form.$valid) {
       $scope.jobFairCompanyAdditionalInfo.companyName = $scope.companySelection;
-      $scope.jobFairCompanyAdditionalInfo.minGpa = (Number($scope.jobFairCompanyAdditionalInfo.minGpa)).toFixed(2);
+      if ($scope.jobFairCompanyAdditionalInfo.minGpa) {
+        $scope.jobFairCompanyAdditionalInfo.minGpa = (Number($scope.jobFairCompanyAdditionalInfo.minGpa)).toFixed(2);
+      }
       JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
       CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companyJobPositions);
       Majors.setInterestedMajorsPerCompany($scope.majors);
