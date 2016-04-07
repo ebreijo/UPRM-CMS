@@ -2,289 +2,144 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('adminJobFairManagementCtrl', function($scope, _) {
+app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, _) {
 
-  $scope.generalInformation = {
-    id: 1,
-    headerEnglish: '8th Spring Job Fair',
-    locationEnglish: 'Mayaguez Resort & Casino',
-    dateEnglish: 'Friday, February 19, 2016',
-    time: '8:30am - 2:30pm',
-    headerSpanish: '8va Feria de Empleo de Primavera',
-    locationSpanish: 'Hotel Mayaguez Resort & Casino',
-    dateSpanish: 'viernes, 19 de febrero de 2016',
-    resumeDeadlineDate: '2016-02-19T00:00:00.000Z'
-  };
+  $scope.jobFairGeneralInformation = angular.copy(JobFairGeneralInfo.jobFairGeneralInfo);
+  $scope.jobFairCompaniesList = Companies.companies;
+  $scope.company = {};
+  $scope.jobFairCompanyAdditionalInfo = {};
 
-  var majors = [
-    {
-      majorCode: 'CCOM',
-      nameEnglish: 'Computer Science',
-      nameSpanish: 'Ciencias de Computos'
-    },
-    {
-      majorCode: 'ICOM',
-      nameEnglish: 'Computer Engineering',
-      nameSpanish: 'Ingenieria en Computadoras'
-    },
-    {
-      majorCode: 'ININ',
-      nameEnglish: 'Industrial Engineering',
-      nameSpanish: 'Ingenieria Industrial'
-    },
-    {
-      majorCode: 'INME',
-      nameEnglish: 'Mechanical Engineering',
-      nameSpanish: 'Ingenieria Mecanica'
-    },
-    {
-      majorCode: 'INSO',
-      nameEnglish: 'Software Engineering',
-      nameSpanish: 'Ingenieria de Software'
+  var majorList = Majors.majors;
+  var jobPositions = ['Internship', 'Full-Time', 'Part-Time', 'CO-OP'];
+
+  $scope.companySelection = 'Select Company';
+  $scope.isDisable = true;
+
+  $scope.$watch('companySelection', function (newValue) {
+    $scope.companySelection = newValue;
+    if ($scope.companySelection === 'Select Company') {
+      $scope.isDisable = true;
+    } else {
+      $scope.isDisable = false;
     }
-  ];
 
+    $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
+    $scope.companyJobPositions = angular.copy(CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection));
+    $scope.majors = angular.copy(Majors.getInterestedMajorsPerCompany($scope.companySelection));
 
+    var positions = [];
+    _.forEach($scope.companyJobPositions,  function(element) {
+      positions.push(element.jobPosition);
+    });
 
-  var jobFairCompanies = [
-    {
-      companyName: 'Apple',
-      minGpa: 3.4,
-      extraInformation: 'This is Apple attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: false,
-      interviewsDuringWeekend: true,
-      websiteApplication: 'http://www.apple.com/jobs/us/',
-      attending: true,
-      lookingFor: [
-        {
-          companyName: 'Apple',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'Apple',
-          jobPosition: 'Full-Time'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'Apple',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'Apple',
-          majorCode: 'CCOM'
-        }
-      ]
-    },
-    {
-      companyName: 'IBM',
-      minGpa: 3.3,
-      extraInformation: 'This is a company attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: false,
-      interviewsDuringWeekend: true,
-      attending: false,
-      websiteApplication: 'http://www-03.ibm.com/employment/us/',
-      lookingFor: [
-        {
-          companyName: 'IBM',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'IBM',
-          jobPosition: 'Full-Time'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'IBM',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'IBM',
-          majorCode: 'CCOM'
-        },
-        {
-          companyName: 'IBM',
-          majorCode: 'INSO'
-        }
-      ]
-    },
-    {
-      companyName: 'Drug Enforcement Administration',
-      minGpa: 3.0,
-      extraInformation: 'This is a company attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: true,
-      interviewsDuringWeekend: true,
-      attending: true,
-      websiteApplication: 'http://www.dea.gov/careers/occupations.shtml',
-      lookingFor: [
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'Full-Time'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'COOP'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'CCOM'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'INSO'
-        }
-      ]
-    }
-  ];
+    _.forEach(jobPositions,  function(position) {
+      if(positions.indexOf(position) < 0){
+        var dummyObject = {
+          companyName: $scope.companySelection,
+          jobPosition: position,
+          status: false
+        };
+        $scope.companyJobPositions.push(dummyObject);
+      }
+    });
 
-  $scope.jobFairCompaniesList = [];
-  $scope.jobFairCompanyItem= { lookingFor: [], interestedMajors: [] };
-  $scope.jobFairGeneralInformationItem = {};
+    var majorCodes = [];
+    _.forEach($scope.majors,  function(major) {
+      major.value = true;
+      majorCodes.push(major.majorCode);
+    });
 
-  $scope.jobPositionInternship = false;
-  $scope.jobPositionFullTime = false;
-  $scope.jobPositionPartTime = false;
-  $scope.jobPositionCOOP = false;
-  $scope.jobFairResumeDeadline = false;
+    _.forEach(majorList,  function(major) {
+      if(majorCodes.indexOf(major.majorCode) < 0) {
+        var dummyObject = {
+          companyName: $scope.companySelection,
+          majorCode: major.majorCode,
+          value: false
+        };
+        $scope.majors.push(dummyObject);
+      }
+    });
 
-  $scope.majorList = [];
+  });
 
   $scope.showJobFairResumeDeadlineDateError = false;
-
-
   var today = (new Date()).toISOString();
 
 
-  for (var i = 0; i < jobFairCompanies.length; i++) {
-    $scope.jobFairCompaniesList.push(jobFairCompanies[i]);
-  }
+  //$scope.addMajors = function() {
+  //  var tempList = [];
+  //  angular.forEach($scope.majorList, function (item) {
+  //    tempList.push(item);
+  //  });
+  //  angular.forEach(tempList, function (item) {
+  //    if (item.value === true && (contains(item.majorCode, $scope.jobFairCompanyItem.interestedMajors) === false)){
+  //      $scope.jobFairCompanyItem.interestedMajors.push({majorCode: item.majorCode, value: false});
+  //      _.remove($scope.majorList, item);
+  //    }
+  //  });
+  //};
+  //
+  //$scope.removeMajors = function() {
+  //  var tempList = [];
+  //  angular.forEach($scope.jobFairCompanyItem.interestedMajors, function (item) {
+  //    tempList.push(item);
+  //  });
+  //  angular.forEach(tempList, function (item) {
+  //    if (item.value === true && (contains(item.majorCode, $scope.majorList) === false)){
+  //      $scope.majorList.push({majorCode: item.majorCode, value: false});
+  //      _.remove($scope.jobFairCompanyItem.interestedMajors, item);
+  //    }
+  //  });
+  //};
 
-  for (i = 0; i < majors.length; i++) {
-    $scope.majorList.push({majorCode: majors[i].majorCode, value: false});
-  }
-
-  $scope.jobFairGeneralInformationItem = angular.copy($scope.generalInformation);
-
-  $scope.getJobFairCompanyItem = function(companySelected){
-    if (companySelected==='Add New Company'){
-      //$scope.jobFairCompanyItem = null;
-      $scope.jobFairCompanyItem= { lookingFor: [], interestedMajors: [] };
-      $scope.jobPositionInternship = false;
-      $scope.jobPositionFullTime = false;
-      $scope.jobPositionPartTime = false;
-      $scope.jobPositionCOOP = false;
-      $scope.jobFairResumeDeadline = false;
-      $scope.showJobFairResumeDeadlineDateError = false;
-      $scope.majorList = [];
-      for (i = 0; i < majors.length; i++) {
-        $scope.majorList.push({majorCode: majors[i].majorCode, value: false});
-      }
-    }
-    else {
-      for (i = 0; i < $scope.jobFairCompaniesList.length; i++) {
-        if ($scope.jobFairCompaniesList[i].companyName===companySelected && companySelected!=='Add New Company'){
-          $scope.jobFairCompanyItem = angular.copy($scope.jobFairCompaniesList[i]);
-          for (i = 0; i < $scope.jobFairCompanyItem.lookingFor.length; i++) {
-            if ($scope.jobFairCompanyItem.lookingFor[i].jobPosition==='Internship'){
-              $scope.jobPositionInternship = true;
-            }
-            else if ($scope.jobFairCompanyItem.lookingFor[i].jobPosition==='Full-Time'){
-              $scope.jobPositionFullTime = true;
-            }
-            else if ($scope.jobFairCompanyItem.lookingFor[i].jobPosition==='COOP'){
-              $scope.jobPositionCOOP = true;
-            }
-            else if ($scope.jobFairCompanyItem.lookingFor[i].jobPosition==='Part-Time'){
-              $scope.jobPositionPartTime = true;
-            }
-          }
-          $scope.majorList = [];
-          for (i = 0; i < majors.length; i++) {
-            if((!contains(majors[i].majorCode,$scope.jobFairCompanyItem.interestedMajors))){
-              $scope.majorList.push({majorCode: majors[i].majorCode, value: false});
-            }
-          }
-          for (i = 0; i < $scope.jobFairCompanyItem.interestedMajors.length; i++) {
-            $scope.jobFairCompanyItem.interestedMajors.arr.splice(0, 0, {majorCode: $scope.jobFairCompanyItem.interestedMajors.pop().majorCode, value: false});
-          }
-        }
-      }
-    }
-  };
-
-  $scope.addMajors = function() {
-    var tempList = [];
-    angular.forEach($scope.majorList, function (item) {
-      tempList.push(item);
-    });
-    angular.forEach(tempList, function (item) {
-      if (item.value === true && (contains(item.majorCode, $scope.jobFairCompanyItem.interestedMajors) === false)){
-        $scope.jobFairCompanyItem.interestedMajors.push({majorCode: item.majorCode, value: false});
-        _.remove($scope.majorList, item);
-      }
-    });
-  };
-
-  $scope.removeMajors = function() {
-    var tempList = [];
-    angular.forEach($scope.jobFairCompanyItem.interestedMajors, function (item) {
-      tempList.push(item);
-    });
-    angular.forEach(tempList, function (item) {
-      if (item.value === true && (contains(item.majorCode, $scope.majorList) === false)){
-        $scope.majorList.push({majorCode: item.majorCode, value: false});
-        _.remove($scope.jobFairCompanyItem.interestedMajors, item);
-      }
-    });
-  };
-
-  var contains = function(element, list){
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].majorCode === element){
-        return true;
-      }
-    }
-    return false;
-  };
+  //var contains = function(element, list){
+  //  for (var i = 0; i < list.length; i++) {
+  //    if (list[i].majorCode === element){
+  //      return true;
+  //    }
+  //  }
+  //  return false;
+  //};
 
   $('#resumeDeadlineDatePicker').datepicker({
     format: 'yyyy-mm-dd'
   });
 
-  $scope.confirmJobFairManagementChanges = function(form){
-    if(form.$valid){
-      if($scope.jobFairResumeDeadline===true){
-        if($scope.jobFairGeneralInformationItem.resumeDeadlineDate.toISOString() > today){
-          $('#confirmJobFairManagementModal').modal('show');
-          $scope.showJobFairResumeDeadlineDateError=false;
-        }
-        else if(($scope.jobFairGeneralInformationItem.resumeDeadlineDate.toISOString()) <= today){
-          $scope.showJobFairResumeDeadlineDateError=true;
+  $scope.checkResumeDeadlineDate = function(form) {
+    if (form.$valid) {
+      if($scope.jobFairGeneralInformation.showResumeDeadlineDate) {
+        if (new Date($scope.jobFairGeneralInformation.resumeDeadlineDate).toISOString() <= today) {
+          $scope.showJobFairResumeDeadlineDateError = true;
+          return;
         }
       }
-      else if($scope.jobFairResumeDeadline===false){
-        $('#confirmJobFairManagementModal').modal('show');
-      }
+      $scope.showJobFairResumeDeadlineDateError=false;
+      $('#confirmJobFairGeneralInformationModal').modal('show');
     }
   };
 
-  $scope.submitJobFairManagementChanges = function(){
-    //Save Changes on DB
-    $('#confirmJobFairManagementModal').modal('hide');
+  $scope.submitJobFairGeneralInfo = function(form) {
+    if (form.$valid) {
+      $scope.jobFairGeneralInformation.resumeDeadlineDate = new Date($scope.jobFairGeneralInformation.resumeDeadlineDate).toISOString();
+      JobFairGeneralInfo.updateJobFairDateInfo($scope.jobFairGeneralInformation);
+      $('#confirmJobFairGeneralInformationModal').modal('hide');
+    }
   };
+
+  $scope.setJobFairAdditionalInfoToConfirm = function(form) {
+    if (form.$valid) {
+      $('#confirmJobFairManagementModal').modal('show');
+    }
+  };
+
+  $scope.submitJobFairManagementChanges = function(form){
+    if (form.$valid) {
+      $scope.jobFairCompanyAdditionalInfo.companyName = $scope.companySelection;
+      JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
+      CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companyJobPositions);
+      $('#confirmJobFairManagementModal').modal('hide');
+    }
+  };
+
 
 });

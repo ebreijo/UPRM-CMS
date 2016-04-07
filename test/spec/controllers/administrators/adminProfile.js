@@ -366,6 +366,33 @@ describe('Controller: AdminProfile', function () {
       beforeEach(function () {
         form = {};
         spyOn(Majors, 'createNewMajor');
+        scope.majors = [
+          {
+            majorCode: 'CCOM',
+            nameEnglish: 'Computer Science',
+            nameSpanish: 'Ciencias de Computos'
+          },
+          {
+            majorCode: 'ICOM',
+            nameEnglish: 'Computer Engineering',
+            nameSpanish: 'Ingenieria en Computadoras'
+          },
+          {
+            majorCode: 'ININ',
+            nameEnglish: 'Industrial Engineering',
+            nameSpanish: 'Ingenieria Industrial'
+          },
+          {
+            majorCode: 'INME',
+            nameEnglish: 'Mechanical Engineering',
+            nameSpanish: 'Ingenieria Mecanica'
+          },
+          {
+            majorCode: 'INSO',
+            nameEnglish: 'Software Engineering',
+            nameSpanish: 'Ingenieria de Software'
+          }
+        ];
       });
 
       describe('with a invalid form', function () {

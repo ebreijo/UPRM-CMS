@@ -171,7 +171,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     }).state('adminJobFairManagement', {
       url: '/adminJobFairManagement',
       templateUrl: 'partials/administrators/job-fair-management.html',
-      controller: 'adminJobFairManagementCtrl',
+      controller: 'AdminJobFairManagementCtrl',
       data: {
         authorizedRoles: all
       }
