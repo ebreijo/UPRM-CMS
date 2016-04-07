@@ -67,37 +67,37 @@
                   <span><label class="control-label">Company Additional Information (Optional):</label></span>
                 </div>
                 <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyAdditionalInformation.$error.pattern}">
-                  <textarea ng-model="jobFairCompanyAdditionalInfo.extraInformation" name="companyAdditionalInformation" type="text" placeholder="Enter the description for the new job offer" class="form-control" rows="4"  ng-disabled="isDisable" style="resize: none" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                  <textarea ng-model="jobFairCompanyAdditionalInfo.extraInformation" name="companyAdditionalInformation" type="text" ng-maxlength="255" placeholder="Enter the description for the new job offer" class="form-control" rows="4"  ng-disabled="isDisable" style="resize: none" ng-pattern="patterns.companyAdditionalInformation"></textarea>
                   <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$valid && !JobFairManagementForm.companyAdditionalInformation.$modelValue === false"></i>
                   <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$error.pattern"></i>
                 </div>
                 <div>
-                  <p ng-show="JobFairManagementForm.companyAdditionalInformation.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                  <p ng-show="JobFairManagementForm.companyAdditionalInformation.$invalid" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
                 </div>
 
                 <div class="input-group">
                   <span><label class="control-label">Min GPA (Optional):</label></span>
                 </div>
                 <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyMinGPA.$error.pattern}">
-                  <input ng-model="jobFairCompanyAdditionalInfo.minGpa" name="companyMinGPA" type="text" class="form-control" placeholder="Enter the company name" style="border-radius:0;" ng-disabled="isDisable" ng-pattern="/^[0-9.]+(\.)?$/i"/>
+                  <input ng-model="jobFairCompanyAdditionalInfo.minGpa" name="companyMinGPA" type="text" class="form-control" placeholder="Enter GPA" style="border-radius:0;" ng-disabled="isDisable" ng-pattern="patterns.minGpa"/>
                   <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.companyMinGPA.$valid && !JobFairManagementForm.companyMinGPA.$modelValue === false"></i>
                   <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyMinGPA.$error.pattern"></i>
                 </div>
                 <div>
-                  <p ng-show="JobFairManagementForm.companyMinGPA.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Company Name</b></p>
+                  <p ng-show="JobFairManagementForm.companyMinGPA.$error.pattern" style="color:#843534" class="help-block"><b>Enter a GPA</b></p>
                 </div>
               </article>
               <article class="contact-form col-md-6 col-sm-6">
                 <div class="input-group">
                   <span><label class="control-label">Website Application URL<span class="required">*</span> :</label></span>
                 </div>
-                <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine}">
-                  <input ng-model="jobFairCompanyAdditionalInfo.websiteApplication" name="companyURL" type="text" class="form-control" placeholder="Enter the company website URL" style="border-radius:0;" ng-disabled="isDisable" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
-                  <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.companyURL.$valid"></i>
-                  <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine"></i>
+                <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.applicationURL.$invalid && !JobFairManagementForm.applicationURL.$pristine}">
+                  <input ng-model="jobFairCompanyAdditionalInfo.websiteApplication" name="applicationURL" type="text" ng-maxlength="255" class="form-control" placeholder="Enter the company website URL" style="border-radius:0;" ng-disabled="isDisable" required ng-pattern="patterns.applicationWebsiteUrl"/>
+                  <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="JobFairManagementForm.applicationURL.$valid"></i>
+                  <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.applicationURL.$invalid && !JobFairManagementForm.applicationURL.$pristine"></i>
                 </div>
                 <div>
-                  <p ng-show="JobFairManagementForm.companyURL.$invalid && !JobFairManagementForm.companyURL.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                  <p ng-show="JobFairManagementForm.applicationURL.$invalid && !JobFairManagementForm.applicationURL.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
                 </div>
                 <div class="row">
                   <h4 class="title text-center" style="margin-top:15px; margin-bottom:15px">Additional Options</h4>

@@ -9,6 +9,11 @@ app.factory('Patterns', function() {
     },
     ourStaff: {
       name: /^([a-zA-ZñÑáéíóúÁÉÍÓÚ.][\s]?){2,63}$/
+    },
+    jobFairManagement: {
+      companyAdditionalInformation: /^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i,
+      minGpa: /^([0-3]\.\d\d?|4\.00?)$/i,
+      applicationWebsiteUrl: /^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i
     }
   };
 });

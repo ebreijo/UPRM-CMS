@@ -2,12 +2,13 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, _) {
+app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, Patterns, _) {
 
   $scope.jobFairGeneralInformation = angular.copy(JobFairGeneralInfo.jobFairGeneralInfo);
   $scope.jobFairCompaniesList = Companies.companies;
   $scope.company = {};
   $scope.jobFairCompanyAdditionalInfo = {};
+  $scope.patterns = Patterns.jobFairManagement;
 
   var majorList = Majors.majors;
   var jobPositions = ['Internship', 'Full-Time', 'Part-Time', 'CO-OP'];
@@ -24,6 +25,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
     }
 
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
+    $scope.jobFairCompanyAdditionalInfo.minGpa = ($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
     $scope.companyJobPositions = angular.copy(CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection));
     $scope.majors = Majors.getInterestedMajorsPerCompany($scope.companySelection);
 
@@ -135,6 +137,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
   $scope.submitJobFairManagementChanges = function(form){
     if (form.$valid) {
       $scope.jobFairCompanyAdditionalInfo.companyName = $scope.companySelection;
+      $scope.jobFairCompanyAdditionalInfo.minGpa = (Number($scope.jobFairCompanyAdditionalInfo.minGpa)).toFixed(2);
       JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
       CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companyJobPositions);
       Majors.setInterestedMajorsPerCompany($scope.majors);
