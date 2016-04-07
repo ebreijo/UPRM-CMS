@@ -185,8 +185,7 @@ describe('Controller: Company Registration', function () {
         {
           'name': 'ICOM',
           'value': false
-        },
-
+        }
       ];
 
       var resultingList = [

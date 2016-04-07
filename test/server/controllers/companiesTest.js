@@ -1235,9 +1235,11 @@ describe('Companies Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual([
           {
+            "companyName": "Apple",
             "jobPosition": "Internship"
           },
           {
+            "companyName": "Apple",
             "jobPosition": "Full-Time"
           }
         ], done));

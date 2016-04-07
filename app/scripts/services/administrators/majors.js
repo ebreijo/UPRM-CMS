@@ -29,9 +29,53 @@ app.factory('Majors', function(_) {
         majorCode: 'INSO',
         nameEnglish: 'Software Engineering',
         nameSpanish: 'Ingenieria de Software'
+      },
+      {
+        majorCode: 'CISO',
+        nameEnglish: 'Social Science',
+        nameSpanish: 'Ciencias Sociales'
+      },
+      {
+        majorCode: 'INGL',
+        nameEnglish: 'English',
+        nameSpanish: 'Ingles'
+      },
+      {
+        majorCode: 'ESPA',
+        nameEnglish: 'Spanish',
+        nameSpanish: 'Español'
       }
     ]
   };
+
+  obj.companyInterestedMajors = [
+    {
+      id: 1,
+      companyName: 'IBM',
+      majorCode: 'ICOM'
+    },
+    {
+      id: 2,
+      companyName: 'IBM',
+      majorCode: 'CCOM'
+    },
+    {
+      id: 3,
+      companyName: 'IBM',
+      majorCode: 'INSO'
+    },
+    {
+      id: 4,
+      companyName: 'Apple',
+      majorCode: 'ICOM'
+    },
+    {
+      id: 5,
+      companyName: 'Apple',
+      majorCode: 'CCOM'
+    }
+  ];
+
 
   // TODO: Make a request to get all majors
   obj.getAllMajors = function() {
@@ -53,6 +97,29 @@ app.factory('Majors', function(_) {
   obj.deleteMajor = function(tempMajor) {
     _.remove(this.majors, function(element) {
       return element.majorCode === tempMajor.majorCode;
+    });
+  };
+
+  // TODO: Make a request to get company interested majors per company
+  obj.getInterestedMajorsPerCompany = function(companyName) {
+    return _.filter(this.companyInterestedMajors, { companyName: companyName});
+  };
+
+  // TODO: Make a request to add or remove company interested majors per company
+  obj.setInterestedMajorsPerCompany = function(companyMajors) {
+    var self = this;
+    _.forEach(companyMajors, function(major) {
+      if (major.isSet && !major.id) {
+        major.id = 1000; // simulating an index assigned in by the database
+        self.companyInterestedMajors.push(major);
+      } else if (!major.isSet && major.id) {
+        major.needRemove = true;
+      }
+    });
+
+    // remove the ones needed to remove
+    _.remove(this.companyInterestedMajors, function(element) {
+      return element.needRemove === true;
     });
   };
 
