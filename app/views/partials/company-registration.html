@@ -180,7 +180,7 @@
                 <p ng-show="recruiterRightForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password is too short. Use at least 6 characters.</b></p>
                 <p ng-show="recruiterRightForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password is too long. Use less than 40 characters.</b></p>
                 <p ng-show="recruiterRightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
-                <p ng-show="recruiterRightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' < > ?</b></p>
+                <p ng-show="recruiterRightForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' &lt; &gt; ?</b></p>
               </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : (recruiterRightForm.newPassword.$viewValue!==recruiterRightForm.confirmPassword.$viewValue) && !recruiterRightForm.confirmPassword.$pristine }">
                 <label>Confirm Password&nbsp;
