@@ -55,7 +55,7 @@
                 </label>
                 <input ng-model="user.firstName" name="firstName" type="text" class="form-control"
                        placeholder="Enter your first name" style="border-radius:0;" required
-                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{0,30})$/i"/>
+                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{1,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
                    ng-show="adminRegistrationForm.firstName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback"
@@ -73,7 +73,7 @@
                 </label>
                 <input ng-model="user.lastName" name="lastName" type="text" class="form-control"
                        placeholder="Enter your last name" style="border-radius:0;" required
-                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{0,30})$/i"/>
+                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{1,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
                    ng-show="adminRegistrationForm.lastName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback"

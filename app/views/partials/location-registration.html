@@ -45,7 +45,7 @@
                 <label>Recruiter First Name&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="recruiter.firstName" name="firstName" type="text" class="form-control" placeholder="Enter your first name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
+                <input ng-model="recruiter.firstName" name="firstName" type="text" class="form-control" placeholder="Enter your first name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{2,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.firstName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.firstName.$invalid && !recruiterLeftForm.firstName.$pristine"></i>
               </div>
@@ -57,7 +57,7 @@
                 <label>Recruiter Last Name&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="recruiter.lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.'`-]{1,30})$/i"/>
+                <input ng-model="recruiter.lastName" name="lastName" type="text" class="form-control" placeholder="Enter your last name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{2,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.lastName.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.lastName.$invalid && !recruiterLeftForm.lastName.$pristine"></i>
               </div>
