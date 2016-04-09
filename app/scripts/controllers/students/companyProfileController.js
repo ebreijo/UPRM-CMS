@@ -2,69 +2,13 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers) {
+app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters) {
 
   var majors = Majors.getAllMajors();
 
   var jobOffers = JobOffers.getAllJobOffers();
 
-  var recruiters = [
-    {
-      email: 'juanito@gmail.com',
-      companyName: 'IBM',
-      firstName: 'Juanito',
-      lastName: 'Perez',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'pending',
-      registrationDate: '2016-03-29T01:31:59.000Z',
-      companyLocation: {
-        id: 4,
-        companyName: 'Google',
-        streetAddress: '1600 Amphitheatre Parkway',
-        city: 'Mountain View',
-        state: 'CA',
-        country: 'United States',
-        zipCode: '94043',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'leonardo@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Leonardo',
-      lastName: 'Dicaprio',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'inactive',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 2,
-        streetAddress: '1 New Orchard Road',
-        city: 'Armonk',
-        state: 'NY',
-        country: 'United States',
-        zipCode: '10504',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'sergio@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Sergio',
-      lastName: 'Rivera',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'active',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 1,
-        streetAddress: '3039 E Cornwallis Road',
-        city: 'Durham',
-        state: 'NC',
-        country: 'United States',
-        zipCode: '27709',
-        phoneNumber: null
-      }
-    }
-  ];
+  var recruiters = Recruiters.getAllRecruiters();
 
   var companyInfo = {
     name: 'IBM',
