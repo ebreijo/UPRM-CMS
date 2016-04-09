@@ -2,9 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('PromotionalDocuments', function(_) {
+app.factory('PromotionalMaterials', function(_) {
   var obj = {
-    promotionalDocuments: [
+    PromotionalMaterials: [
       {
         id: 2,
         companyName: 'IBM',
@@ -41,13 +41,13 @@ app.factory('PromotionalDocuments', function(_) {
   };
 
   // TODO: Make a request to get all pending promotional material
-  obj.getAllPendingPromotionalDocuments = function() {
-    return _.filter(this.promotionalDocuments, { status: 'pending'});
+  obj.getAllPendingPromotionalMaterials = function() {
+    return _.filter(this.PromotionalMaterials, { status: 'pending'});
   };
 
   // TODO: Make a request to update a promotional material given the prom id
-  obj.updatePromotionalDocuments = function(promMaterial) {
-    var element = _.find(this.promotionalDocuments, { id: promMaterial.id});
+  obj.updatePromotionalMaterials = function(promMaterial) {
+    var element = _.find(this.PromotionalMaterials, { id: promMaterial.id});
     _.merge(element, promMaterial);
   };
 
