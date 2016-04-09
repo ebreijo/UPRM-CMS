@@ -48,8 +48,7 @@
               <span><label><span style="font-family: arial; color: #004D13;"><h5><strong>Select Your Company Location : &nbsp</strong></h5></span></label></span>
               <div class="form-group" style="text-align:center">
                 <div class="sort">
-                  <select class="sort-options form-control" ng-model="companyLocation">
-                    <option ng-repeat="item in apple">{{item.city}}, {{item.country}}</option>
+                  <select class="sort-options form-control" ng-model="companyLocation" ng-options="item.city +', '+ item.country for item in companyLocations">
                   </select>
                 </div>
               </div>

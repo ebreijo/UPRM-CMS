@@ -1,55 +1,17 @@
-/**
- * Created by artic_hunt on 3/20/16.
- */
 'use strict';
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanySearchCtrl', function($scope, $state, localStorageService) {
+app.controller('CompanySearchCtrl', function($scope, Registration) {
 
-  $scope.selectCompany = function(isValid) {
+  $scope.companies = Registration.companyNames;
+  $scope.disableContinueBtn = true;
 
-    // check to make sure the form is completely valid
-    if (isValid) {
-      for (var i = 0; i < $scope.companies.length; i++) {
-        if ($scope.companies[i].name === $scope.companyName){
-          // To add to local storage
-          localStorageService.set('companyToRegister',$scope.companyName);
-          //companySearchService.add($scope.companyName);
-          $state.go('locationSearch');
-
-          //For Jasmine Testing
-          return true;
-        }
-      }
+  $scope.selectCompany = function(item) {
+    if (item) {
+      Registration.setCompanyName(item.name);
+      $scope.disableContinueBtn = false;
     }
-    //For Jasmine Testing
-    return false;
-
   };
-
-  $scope.companies = [
-    {
-      name: 'Apple'
-    },
-    {
-      name: 'Verizon'
-    },
-    {
-      name: 'Accenture'
-    },
-    {
-      name: 'EVERTEC'
-    },
-    {
-      name: 'Google'
-    },
-    {
-      name: 'Microsoft'
-    },
-    {
-      name: 'IBM'
-    }
-  ];
 
 });

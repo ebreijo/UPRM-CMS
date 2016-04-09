@@ -2,18 +2,21 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('LocationSearchCtrl', function($scope, $state, localStorageService) {
+app.controller('LocationSearchCtrl', function($scope, $state, Registration) {
 
-  //$scope.companyNames = companySearchService.get();
-  $scope.companyName = localStorageService.get('companyToRegister');
+  $scope.companyName = Registration.sessionStorage.companyName;
+
+  $scope.companyLocations = Registration.companyLocations;
+
+  $scope.companyLocation = {};
 
   $scope.selectLocation = function(isValid) {
     // check to make sure the form is completely valid
     if (isValid) {
-      for (var i = 0; i < $scope.apple.length; i++) {
-        if ($scope.apple[i].city + ', ' + $scope.apple[i].country === $scope.companyLocation){
+      for (var i = 0; i < $scope.companyLocations.length; i++) {
+        if ($scope.companyLocations[i].id === $scope.companyLocation.id) {
           // To add to local storage
-          localStorageService.set('companyLocationToRegister',$scope.companyLocation);
+          Registration.setCompanyLocation($scope.companyLocation);
           $state.go('recruiterRegistration');
           //Jasmine Test
           return true;
@@ -23,28 +26,5 @@ app.controller('LocationSearchCtrl', function($scope, $state, localStorageServic
     //Jasmine Test
     return false;
   };
-
-  $scope.apple = [
-    {
-      id: 2,
-      companyName: 'Apple',
-      streetAddress: 'Street 2nd',
-      city: 'Durham',
-      state: 'NY',
-      country: 'United States',
-      zipCode: '10504',
-      phoneNumber: null
-    },
-    {
-      id: 2,
-      companyName: 'Apple',
-      streetAddress: 'Street 1rst',
-      city: 'Armonk',
-      state: 'NY',
-      country: 'United States',
-      zipCode: '10504',
-      phoneNumber: null
-    }
-  ];
 
 });
