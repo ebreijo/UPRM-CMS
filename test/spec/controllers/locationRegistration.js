@@ -6,16 +6,18 @@ describe('Controller: Location Registration', function () {
   beforeEach(module('uprmcmsApp'));
 
   var $controller;
-  var locationRegistration;
   var scope;
 
   var $state;
-  var localStorageService;
+  var Registration;
+  var $sessionStorage;
+  var q;
 
   // Inject Custom Services:
-
   beforeEach(inject(function ($injector) {
-    localStorageService = $injector.get('localStorageService');
+    Registration = $injector.get('Registration');
+    $sessionStorage = $injector.get('$sessionStorage');
+    q = $injector.get('$q');
   }));
 
   // Inject AngularJS Services:
@@ -25,26 +27,37 @@ describe('Controller: Location Registration', function () {
     scope = $rootScope.$new();
     $state = _$state_;
 
+    Registration.sessionStorage = $sessionStorage;
+    Registration.sessionStorage.companyName = 'IBM';
+
     $controller('LocationRegistrationCtrl', {
       $scope: scope,
-      locationRegistration: locationRegistration,
-      $state: $state
+      $state: $state,
+      Registration: Registration
     });
 
   }));
 
   describe('scope.registerLocation function', function () {
 
-    it('It should register the recruiter and location and go to the recruiter company profile page if inputs in form are valid', function () {
+    beforeEach(function() {
+      scope.recruiter = {};
+      scope.compLocation = {};
+      spyOn(Registration, 'registerRecruiter').and.callFake(function() {
+        return q.when({});
+      });
+      spyOn($state, 'go');
+    });
 
+    it('It should register the recruiter and location with a valid form and go to the landing page', function () {
       expect(scope.registerLocation(true)).toEqual(true);
-
+      expect(Registration.registerRecruiter).toHaveBeenCalled();
     });
 
     it('It should stay on the locationRegistration web page if inputs in form are not valid', function () {
-
       expect(scope.registerLocation(false)).toEqual(false);
-
+      expect(Registration.registerRecruiter).not.toHaveBeenCalled();
+      expect($state.go).not.toHaveBeenCalled();
     });
 
   });

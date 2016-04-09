@@ -13,7 +13,10 @@ app.controller('RecruiterRegistrationCtrl', function($scope, $state, Registratio
     if (isValid) {
       $scope.recruiter.companyName = $scope.companyName;
       $scope.recruiter.companyLocationId = $scope.companyLocation.id;
-      Registration.registerRecruiter($scope.recruiter).then(function() {
+      var userInfo = {
+        recruiterInfo: $scope.recruiter
+      };
+      Registration.registerRecruiter(userInfo).then(function() {
         $scope.title = 'Congratulations';
         $scope.message = 'Registration was successful. You will receive an email once we have reviewed your information.';
         messageModal.modal('show');
@@ -23,6 +26,7 @@ app.controller('RecruiterRegistrationCtrl', function($scope, $state, Registratio
       }, function() {
         $scope.title = 'Warning';
         $scope.message = 'Email address already in use.';
+        messageModal.modal('show');
       });
     }
   };

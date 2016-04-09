@@ -16,9 +16,8 @@ app.factory('Registration', function(Restangular, $sessionStorage) {
     return Restangular.all('api/admins/register').post(user);
   };
 
-  obj.registerRecruiter = function(user) {
-    console.log(user);
-    return Restangular.all('api/companies/register').customPOST({'recruiterInfo': user});
+  obj.registerRecruiter = function(userInfo) {
+    return Restangular.all('api/companies/register').post(userInfo);
   };
 
   obj.getAllCompanyNamesForRecruiters = function() {
