@@ -250,7 +250,7 @@ describe('Companies Controller: ', function() {
     });
 
     describe('with a new company location, company has been registered previously', function () {
-      it('should register with valid information and return a 201 status code along with a registration message', function(done) {
+      it('should register an inactive recruiter with valid information and return a 201 status code along with a registration message', function(done) {
         var newRegistration = {
           "companyLocation": {
             "companyName": "EVERTEC",
