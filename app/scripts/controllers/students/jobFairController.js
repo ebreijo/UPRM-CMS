@@ -2,9 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('jobFairCtrl', function($scope, Majors, GeneralInformation) {
+app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo) {
 
-  $scope.generalInformation = GeneralInformation.getGeneralInformation();
+  $scope.generalInformation = JobFairGeneralInfo.getJobFairDate();
 
   $scope.majors = Majors.getAllMajors();
 
