@@ -36,7 +36,7 @@
                   <a href="#tab6" data-toggle="tab" ng-click="executeTab6()">Job Offers <span class="badge badge-theme">{{pendingJobOffers.length}}</span></a>
                 </li>
                 <li>
-                  <a href="#tab7" data-toggle="tab" ng-click="executeTab7()">Promotional Documents <span class="badge badge-theme">{{pendingPromotionalMaterials.length}}</span></a>
+                  <a href="#tab7" data-toggle="tab" ng-click="executeTab7()">Promotional Documents <span class="badge badge-theme">{{pendingPromotionalMaterial.length}}</span></a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -893,7 +893,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="promotionalDocument in pendingPromotionalMaterials">
+                          <tr ng-repeat="promotionalDocument in pendingPromotionalMaterial">
                             <td>
                               <a href="#">{{promotionalDocument.title}}</a>
                             </td>

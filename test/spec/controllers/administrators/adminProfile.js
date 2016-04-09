@@ -12,7 +12,7 @@ describe('Controller: AdminProfile', function () {
   var Majors;
   var Recruiters;
   var JobOffers;
-  var PromotionalMaterials;
+  var PromotionalMaterial;
   var Patterns;
   var filter;
   var _;
@@ -28,7 +28,7 @@ describe('Controller: AdminProfile', function () {
     Majors = $injector.get('Majors');
     Recruiters = $injector.get('Recruiters');
     JobOffers = $injector.get('JobOffers');
-    PromotionalMaterials = $injector.get('PromotionalMaterials');
+    PromotionalMaterial = $injector.get('PromotionalMaterial');
     Patterns = $injector.get('Patterns');
     filter = $injector.get('$filter');
     _ = $injector.get('_');
@@ -49,7 +49,7 @@ describe('Controller: AdminProfile', function () {
       Majors: Majors,
       Recruiters: Recruiters,
       JobOffers: JobOffers,
-      PromotionalMaterials: PromotionalMaterials,
+      PromotionalMaterial: PromotionalMaterial,
       Patterns: Patterns,
       $filter: filter,
       _: _
@@ -89,7 +89,7 @@ describe('Controller: AdminProfile', function () {
     });
 
     it('should have a pending recruiter object defined', function () {
-      expect(scope.pendingPromotionalMaterials).toBeDefined();
+      expect(scope.pendingPromotionalMaterial).toBeDefined();
     });
   });
 
@@ -757,7 +757,7 @@ describe('Controller: AdminProfile', function () {
     var form;
     beforeEach(function () {
       scope.executeTab7();
-      spyOn(PromotionalMaterials, 'updatePromotionalMaterials');
+      spyOn(PromotionalMaterial, 'updatePromotionalMaterial');
       form = {};
       scope.tempPromotionalDocument = {
         id: 2,
@@ -780,7 +780,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitAcceptPromotionalDocument(form);
           scope.$digest();
-          expect(PromotionalMaterials.updatePromotionalMaterials).not.toHaveBeenCalled();
+          expect(PromotionalMaterial.updatePromotionalMaterial).not.toHaveBeenCalled();
         });
       });
 
@@ -790,7 +790,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptPromotionalDocument(form);
           scope.$digest();
           expect(scope.tempPromotionalDocument.status).toEqual('approved');
-          expect(PromotionalMaterials.updatePromotionalMaterials).toHaveBeenCalledWith(scope.tempPromotionalDocument);
+          expect(PromotionalMaterial.updatePromotionalMaterial).toHaveBeenCalledWith(scope.tempPromotionalDocument);
         });
       });
     });
@@ -802,7 +802,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectPromotionalDocument(form);
           scope.$digest();
-          expect(PromotionalMaterials.updatePromotionalMaterials).not.toHaveBeenCalled();
+          expect(PromotionalMaterial.updatePromotionalMaterial).not.toHaveBeenCalled();
         });
       });
 
@@ -812,7 +812,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectPromotionalDocument(form);
           scope.$digest();
           expect(scope.tempPromotionalDocument.status).toEqual('rejected');
-          expect(PromotionalMaterials.updatePromotionalMaterials).toHaveBeenCalledWith(scope.tempPromotionalDocument);
+          expect(PromotionalMaterial.updatePromotionalMaterial).toHaveBeenCalledWith(scope.tempPromotionalDocument);
         });
       });
     });

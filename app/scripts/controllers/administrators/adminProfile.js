@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalMaterials, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalMaterial, Patterns, $filter, _) {
 
   $scope.patterns = Patterns.user;
 
@@ -313,7 +313,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Promotional Documents
    */
-  $scope.pendingPromotionalMaterials = PromotionalMaterials.getAllPendingPromotionalMaterials();
+  $scope.pendingPromotionalMaterial = PromotionalMaterial.getAllPendingPromotionalMaterial();
 
   $scope.executeTab7 = function() {
 
@@ -326,7 +326,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'approved';
-        PromotionalMaterials.updatePromotionalMaterials($scope.tempPromotionalDocument);
+        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
         removePromotionalDocumentFromPendingList();
         $('#acceptPromotionalDocumentModal').modal('hide');
       }
@@ -335,7 +335,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'rejected';
-        PromotionalMaterials.updatePromotionalMaterials($scope.tempPromotionalDocument);
+        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
         removePromotionalDocumentFromPendingList();
         $('#rejectPromotionalDocumentModal').modal('hide');
       }
@@ -343,7 +343,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     function removePromotionalDocumentFromPendingList() {
       // Remove element from the pending promotional documents array once accepted or rejected
-      _.remove($scope.pendingPromotionalMaterials, function(element) {
+      _.remove($scope.pendingPromotionalMaterial, function(element) {
         return element.id === $scope.tempPromotionalDocument.id;
       });
     }

@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters) {
+app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters, PromotionalMaterial) {
 
   var majors = Majors.getAllMajors();
 
@@ -18,36 +18,7 @@ app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recr
     companyStatus: 'Active'
   };
 
-  var promotionalMaterial = [
-    {
-      id: 1,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial1',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 2,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial2',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'pending'
-    },
-    {
-      id: 3,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial3',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 4,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial4',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    }
-  ];
+  var promotionalMaterial = PromotionalMaterial.getAllApprovedPromotionalMaterial();
 
   $scope.companyProfile = {
     'generalInfo':[
