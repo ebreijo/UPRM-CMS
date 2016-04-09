@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('jobFairCtrl', function($scope) {
+app.controller('jobFairCtrl', function($scope, Majors) {
 
   $scope.generalInformation = {
     id: 1,
@@ -23,35 +23,8 @@ app.controller('jobFairCtrl', function($scope) {
     fullTime: false
   };
 
-  $scope.majors = [
-    {
-      majorCode: 'CCOM',
-      nameEnglish: 'Computer Science',
-      nameSpanish: 'Ciencias de Computos'
-    },
-    {
-      majorCode: 'ICOM',
-      nameEnglish: 'Computer Engineering',
-      nameSpanish: 'Ingenieria en Computadoras'
-    },
-    {
-      majorCode: 'ININ',
-      nameEnglish: 'Industrial Engineering',
-      nameSpanish: 'Ingenieria Industrial'
-    },
-    {
-      majorCode: 'INME',
-      nameEnglish: 'Mechanical Engineering',
-      nameSpanish: 'Ingenieria Mecanica'
-    },
-    {
-      majorCode: 'INSO',
-      nameEnglish: 'Software Engineering',
-      nameSpanish: 'Ingenieria de Software'
-    }
-  ];
-
-
+  $scope.majors = Majors.getAllMajors();
+  
   $scope.jobFairCompanies = [
     {
       companyName: 'Apple',
