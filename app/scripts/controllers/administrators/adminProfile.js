@@ -37,11 +37,9 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
           $scope.company = null;
           $scope.tempContact = null;
+          form.$setPristine();
           $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
           $('#createCompanyModal').modal('hide');
-          $('#createCompanyModal').on('hidden.bs.modal', function(){
-            $(this).removeData('bs.modal');
-          });
         }
       }
     };
@@ -89,6 +87,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.newAdminAccess.adminAccountStatus = 'pending';
           AdminAccess.giveAdminAccess($scope.newAdminAccess);
           $scope.newAdminAccess = null;
+          form.$setPristine();
         }
       }
     };
@@ -146,6 +145,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.major.majorCode = $scope.major.majorCode.toUpperCase();
           Majors.createNewMajor($scope.major);
           $scope.major = null;
+          form.$setPristine();
         }
       }
     };

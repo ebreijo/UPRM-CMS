@@ -118,7 +118,10 @@ describe('Controller: AdminProfile', function () {
 
       describe('with a valid form', function() {
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
           scope.companies = [
             {
               name: 'Apple',
@@ -240,7 +243,10 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function() {
 
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
         });
 
         it('should make the giveAdminAccess request', function() {
@@ -407,7 +413,10 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function () {
 
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
         });
 
         it('should make the create New Major request', function () {
