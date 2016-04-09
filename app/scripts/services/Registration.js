@@ -2,21 +2,14 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('companySearchService', function() {
+app.factory('Registration', function(Restangular) {
 
-  var savedData = {};
+  var obj = {};
 
-  function set(data) {
-    savedData = data;
-  }
-
-  function get() {
-    return savedData;
-  }
-
-  return {
-    set: set,
-    get: get,
+  obj.registerAdmin = function(user) {
+    return Restangular.all('api/admins/register').post(user);
   };
+
+  return obj;
 
 });
