@@ -152,7 +152,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }
     }).state('adminRegistration', {
       url: '/adminRegistration',
-      templateUrl: 'partials/admin-registration.html',
+      templateUrl: 'partials/administrators/admin-registration.html',
+      controller: 'AdminRegistrationCtrl',
       data: {
         authorizedRoles: all
       }
