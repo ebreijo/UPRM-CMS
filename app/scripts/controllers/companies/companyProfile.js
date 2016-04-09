@@ -454,7 +454,11 @@ app.controller('CompanyCtrl', function($scope, _) {
   $scope.confirmAccountSettingsChanges  = function(form){
     if(form.$valid){
       $('#confirmAccountSettingsChangesModal').modal('show');
+      //Jasmine Test
+      return true;
     }
+    //Jasmine Test
+    return false;
   };
 
 });

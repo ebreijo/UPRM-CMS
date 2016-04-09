@@ -4,8 +4,11 @@ var app = angular.module('uprmcmsApp');
 
 //app.controller('AboutUsCtrl', function($scope, aboutUs) {
 //$scope.aboutUs = aboutUs.aboutUsInfo;
-app.controller('studentCompanyCtrl', function($scope, _) {
+app.controller('studentCompanyCtrl', function($scope, _, Majors) {
 
+  var majors = Majors.getAllMajors();
+
+  /*
   var majors = [
     {
       'majorCode': 'CCOM'
@@ -23,6 +26,8 @@ app.controller('studentCompanyCtrl', function($scope, _) {
       'majorCode': 'INEL'
     }
   ];
+  */
+
 
   var jobOffers = [
     {
