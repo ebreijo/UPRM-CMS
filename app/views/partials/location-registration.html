@@ -33,7 +33,7 @@
                 <label>Recruiter Email&nbsp;
                   <span class="required">*</span>
                 </label>
-                <input ng-model="recruiter.email" name="email" type="email" class="form-control" placeholder="Enter your email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
+                <input ng-model="recruiter.email" name="email" type="email" ng-maxlength="255" class="form-control" placeholder="Enter your email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="recruiterLeftForm.email.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="recruiterLeftForm.email.$invalid && !recruiterLeftForm.email.$pristine"></i>
               </div>
