@@ -4,6 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration) {
 
+  /*
   $scope.dropzoneConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/pictures',
@@ -21,6 +22,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration)
       }
     }
   };
+  */
 
   var messageModal = $('#messageModal');
 
