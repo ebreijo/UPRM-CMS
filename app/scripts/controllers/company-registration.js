@@ -2,27 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration) {
+app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, FileUpload) {
 
-  /*
-  $scope.dropzoneConfig = {
-    'options': { // passed into the Dropzone constructor
-      'url': '/api/pictures',
-      'paramName' : 'image', // The name that will be used to transfer the file
-      'maxFilesize': 10 // MB
-    },
-    'eventHandlers': {
-      'sending': function (file, xhr, formData) {
-        console.log('Sending!!!!');
-        console.log(file + xhr + formData);
-      },
-      'success': function (file, response) {
-        console.log('Success!!!!');
-        console.log(file + response);
-      }
-    }
-  };
-  */
+  $scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/pictures', 'image', 10);
 
   var messageModal = $('#messageModal');
 
