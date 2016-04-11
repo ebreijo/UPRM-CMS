@@ -4,7 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, FileUpload) {
 
-  $scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/pictures', 'image', 10);
+  $scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
 
   var messageModal = $('#messageModal');
 
