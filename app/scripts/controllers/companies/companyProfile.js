@@ -5,6 +5,7 @@ var app = angular.module('uprmcmsApp');
 app.controller('CompanyCtrl', function($scope, _, FileUpload) {
 
   $scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
+  $scope.promotionalMaterialUploadConfig = FileUpload.fileUploadConfig('/api/companies/promotionalMaterial/upload', 'image', 10);
 
   var majors = [
     {
