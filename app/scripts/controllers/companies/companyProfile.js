@@ -2,9 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-//app.controller('AboutUsCtrl', function($scope, aboutUs) {
-//$scope.aboutUs = aboutUs.aboutUsInfo;
-app.controller('CompanyCtrl', function($scope, _) {
+app.controller('CompanyCtrl', function($scope, _, FileUpload) {
+
+  $scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
 
   var majors = [
     {
