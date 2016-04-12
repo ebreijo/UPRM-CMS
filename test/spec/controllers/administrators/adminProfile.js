@@ -60,6 +60,7 @@ describe('Controller: AdminProfile', function () {
     httpBackend.whenGET('/api/admins/companies?status=pending').respond(200, []);
     httpBackend.whenGET('/api/admins/companies?status=active').respond(200, []);
     httpBackend.whenGET('/api/admins/companies?status=inactive').respond(200, []);
+    httpBackend.whenGET('/api/admins/pendingRecruiters').respond(200, []);
   }));
 
   describe('initial state', function () {
@@ -652,7 +653,9 @@ describe('Controller: AdminProfile', function () {
     beforeEach(function () {
       scope.executeTab5();
       form = {};
-      spyOn(Recruiters, 'updateRecruiterStatus');
+      spyOn(Recruiters, 'updateRecruiterStatus').and.callFake(function() {
+        return q.when({});
+      });
       scope.tempRecruiter = {
         email: 'juanito@gmail.com',
         companyName: 'Google',

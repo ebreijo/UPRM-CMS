@@ -237,9 +237,13 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Recruiter Registration Tab
    */
-  $scope.pendingRecruiters = Recruiters.getAllPendingRecruiters();
+  Recruiters.getAllPendingRecruiters();
+  $scope.pendingRecruiters = Recruiters.pendingRecruiters;
 
   $scope.executeTab5 = function() {
+
+    Recruiters.getAllPendingRecruiters();
+    $scope.pendingRecruiters = Recruiters.pendingRecruiters;
 
     $scope.setRecruiterToConfirm = function(recruiter) {
       $scope.tempRecruiter = angular.copy(recruiter);
@@ -248,18 +252,20 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'active';
-        Recruiters.updateRecruiterStatus($scope.tempRecruiter);
-        removeRecruiterFromPendingList();
-        $('#acceptRecruiterModal').modal('hide');
+        Recruiters.updateRecruiterStatus($scope.tempRecruiter).then(function() {
+          removeRecruiterFromPendingList();
+          $('#acceptRecruiterModal').modal('hide');
+        });
       }
     };
 
     $scope.submitRejectRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'inactive';
-        Recruiters.updateRecruiterStatus($scope.tempRecruiter);
-        removeRecruiterFromPendingList();
-        $('#rejectRecruiterModal').modal('hide');
+        Recruiters.updateRecruiterStatus($scope.tempRecruiter).then(function() {
+          removeRecruiterFromPendingList();
+          $('#rejectRecruiterModal').modal('hide');
+        });
       }
     };
 
