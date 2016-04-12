@@ -280,7 +280,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Pending Job Offers Tab
    */
-  $scope.pendingJobOffers = JobOffers.getAllPendingJobOffers();
+  JobOffers.getAllJobOffersAdmins('pending');
+  $scope.pendingJobOffers = JobOffers.jobOffers;
 
   $scope.executeTab6 = function() {
 
@@ -300,9 +301,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if(form.$valid && (new Date($scope.tempJobOffer.expirationDate) > (new Date()))) {
         $scope.showJobOfferDateError = false;
         $scope.tempJobOffer.jobOfferStatus = 'approved';
-        JobOffers.updateJobOffer($scope.tempJobOffer);
-        removeJobOfferFromPendingList();
-        $('#reviewAcceptJobOfferModal').modal('hide');
+        JobOffers.updateJobOffer($scope.tempJobOffer).then(function() {
+          removeJobOfferFromPendingList();
+          $('#reviewAcceptJobOfferModal').modal('hide');
+        });
       } else {
         $scope.showJobOfferDateError = true;
       }
@@ -311,9 +313,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectJobOffer = function(form) {
       if (form.$valid) {
         $scope.tempJobOffer.jobOfferStatus = 'rejected';
-        JobOffers.updateJobOffer($scope.tempJobOffer);
-        removeJobOfferFromPendingList();
-        $('#rejectJobOfferModal').modal('hide');
+        JobOffers.updateJobOffer($scope.tempJobOffer).then(function() {
+          removeJobOfferFromPendingList();
+          $('#rejectJobOfferModal').modal('hide');
+        });
       }
     };
 

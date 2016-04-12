@@ -57,10 +57,12 @@ describe('Controller: AdminProfile', function () {
       _: _
     });
 
+    // Mock http calls to the server
     httpBackend.whenGET('/api/admins/companies?status=pending').respond(200, []);
     httpBackend.whenGET('/api/admins/companies?status=active').respond(200, []);
     httpBackend.whenGET('/api/admins/companies?status=inactive').respond(200, []);
     httpBackend.whenGET('/api/admins/pendingRecruiters').respond(200, []);
+    httpBackend.whenGET('/api/admins/jobOffers?status=pending').respond(200, []);
   }));
 
   describe('initial state', function () {
@@ -726,7 +728,9 @@ describe('Controller: AdminProfile', function () {
     var form;
     beforeEach(function () {
       scope.executeTab6();
-      spyOn(JobOffers, 'updateJobOffer');
+      spyOn(JobOffers, 'updateJobOffer').and.callFake(function() {
+        return q.when({});
+      });
       form = {};
       scope.tempJobOffer = {
         id: 2,
