@@ -346,4 +346,9 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     }
   };
 
+  /**
+   * Account Settings Tab
+   */
+
+
 });

@@ -38,6 +38,9 @@
                 <li>
                   <a href="#tab7" data-toggle="tab" ng-click="executeTab7()">Promotional Documents <span class="badge badge-theme">{{pendingPromotionalMaterial.length}}</span></a>
                 </li>
+                <li>
+                  <a href="#tab8" data-toggle="tab">Account Settings</a>
+                </li>
               </ul>
               <div class="tab-content">
 
@@ -955,6 +958,126 @@
                       </div>
                     </form>
                   </div>
+                </div>
+
+                <div class="tab-pane" id="tab8">
+                  <form name="accountSettingsForm" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">My Settings</h3>
+                        <p>Please use this option if you wish to change any of the available settings in your account.<br></p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-2">
+                      </div>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine}">
+                          <input ng-model="adminLoggedInItem.firstName" name="adminLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.adminLoggedInFirstName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                      </article>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine}">
+                          <input ng-model="adminLoggedInItem.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInLastName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                      </article>
+                      <div class="col-md-2">
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="accountSettingsForm.$invalid"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                      </div>
+                    </div>
+                  </form>
+                  <hr width="90%">
+                  <form name="changePasswordForm" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">Change Password</h3>
+                        <p>Please use this option if you wish to change the password to your account.<br></p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-2">
+                      </div>
+                      <article class="contact-form col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{ 'has-error' : changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine }">
+                          <label>Current Password&nbsp;
+                            <span class="required">*</span>
+                          </label>
+                          <input ng-model="adminCurrentPassword" name="currentPassword" type="password" ng-minlength="6" ng-maxlength="40"
+                                 class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required
+                                 ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                             ng-show="changePasswordForm.currentPassword.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback"
+                             ng-show="changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="changePasswordForm.currentPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password
+                            is too short. Use at least 6 characters.</b></p>
+
+                          <p ng-show="changePasswordForm.currentPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password
+                            is too long. Use less than 40 characters.</b></p>
+
+                          <p ng-show="changePasswordForm.currentPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password
+                            must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
+
+                          <p ng-show="changePasswordForm.currentPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special
+                            Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' &lt; &gt; ?</b></p>
+                        </div>
+                      </article>
+                      <article class="contact-form col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{ 'has-error' : (changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine }">
+                          <label>Confirm Password&nbsp;
+                            <span class="required">*</span>
+                          </label>
+                          <input ng-model="password" name="newPassword" type="password" ng-minlength="6"
+                                 ng-maxlength="40" class="form-control" placeholder="Re-enter your new password"
+                                 style="border-radius: 0;" required
+                                 ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                             ng-show="(changePasswordForm.newPassword.$viewValue===changePasswordForm.currentPassword.$viewValue) && changePasswordForm.newPassword.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback"
+                             ng-show="(changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine"></i>
+                        </div>
+                        <div>
+                          <p
+                            ng-show="(changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine"
+                            style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
+                        </div>
+                      </article>
+                      <div class="col-md-2">
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                      </div>
+                    </div>
+                  </form>
+                  <hr>
+
+
                 </div>
 
               </div>
