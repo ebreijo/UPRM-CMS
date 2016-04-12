@@ -182,7 +182,9 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(Companies, 'updateCompanyStatus');
+        spyOn(Companies, 'updateCompanyStatus').and.callFake(function() {
+          return q.when({});
+        });
       });
 
       describe('with a invalid form', function() {
@@ -587,7 +589,9 @@ describe('Controller: AdminProfile', function () {
     beforeEach(function () {
       scope.executeTab4();
       form = {};
-      spyOn(Companies, 'updateCompanyStatus');
+      spyOn(Companies, 'updateCompanyStatus').and.callFake(function() {
+        return q.when({});
+      });
       scope.tempCompany = {
         name: 'Google',
         websiteUrl: 'https://www.google.com/',

@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function(Restangular ,_) {
+app.factory('Companies', function(Restangular) {
   var obj = {
     companies: [],
     pendingCompanies: []
@@ -42,11 +42,11 @@ app.factory('Companies', function(Restangular ,_) {
   };
 
   obj.updateCompanyStatus = function(company) {
-    var self = this;
-    Restangular.one('/api/admins/companies/', company.name).customPUT(company).then(function() {
-      var element = _.find(self.companies, { name: company.name});
-      _.merge(element, company);
-    });
+    return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
+  };
+
+  obj.acceptOrRejectCompany = function(company) {
+    return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 
   obj.getCompanyTemporaryContact = function(companyName) {

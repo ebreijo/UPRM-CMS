@@ -52,8 +52,11 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitCompanyStatusEdit = function(form) {
       if (form.$valid) {
-        Companies.updateCompanyStatus($scope.tempCompany);
-        $('#editCompanyStatusModal').modal('hide');
+        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+          var element = _.find($scope.companies, { name: $scope.tempCompany.name});
+          _.merge(element, $scope.tempCompany);
+          $('#editCompanyStatusModal').modal('hide');
+        });
       }
     };
 
@@ -196,6 +199,9 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.executeTab4 = function() {
 
+    Companies.getAllCompanies('pending');
+    $scope.pendingCompanies = Companies.pendingCompanies;
+
     $scope.setCompanyToConfirm = function(company) {
       $scope.tempCompany = angular.copy(company);
     };
@@ -203,22 +209,29 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'active';
-        Companies.updateCompanyStatus($scope.tempCompany);
-        Companies.getAllCompanies('pending');
-        $scope.pendingCompanies = Companies.pendingCompanies;
-        $('#acceptCompanyModal').modal('hide');
+        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+          removeCompanyFromPendingList();
+          $('#acceptCompanyModal').modal('hide');
+        });
       }
     };
 
     $scope.submitRejectCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
-        Companies.updateCompanyStatus($scope.tempCompany);
-        Companies.getAllCompanies('pending');
-        $scope.pendingCompanies = Companies.pendingCompanies;
-        $('#rejectCompanyModal').modal('hide');
+        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+          removeCompanyFromPendingList();
+          $('#rejectCompanyModal').modal('hide');
+        });
       }
     };
+
+    function removeCompanyFromPendingList() {
+      // Remove element from the pending recruiters array once accepted or rejected
+      _.remove($scope.pendingCompanies, function(element) {
+        return element.name === $scope.tempCompany.name;
+      });
+    }
   };
 
   /**
