@@ -13,7 +13,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.compStatusSelection = 'active';
     $scope.$watch('compStatusSelection', function (newValue) {
       $scope.compStatusSelection = newValue;
-      $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+      Companies.getAllCompanies($scope.compStatusSelection);
+      $scope.companies = Companies.companies;
     });
 
     $scope.company = {};
@@ -38,7 +39,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.company = null;
           $scope.tempContact = null;
           form.$setPristine();
-          $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+          Companies.getAllCompanies($scope.compStatusSelection);
+          $scope.companies = Companies.companies;
           $('#createCompanyModal').modal('hide');
         }
       }
@@ -190,7 +192,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Company Registration Tab
    */
-  $scope.pendingCompanies = Companies.getAllCompanies('pending');
+  Companies.getAllCompanies('pending');
+  $scope.pendingCompanies = Companies.pendingCompanies;
 
   $scope.executeTab4 = function() {
 

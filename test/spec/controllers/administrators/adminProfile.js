@@ -18,6 +18,7 @@ describe('Controller: AdminProfile', function () {
   var _;
   var q;
   var state;
+  var httpBackend;
 
   var adminProfileController;
 
@@ -34,6 +35,7 @@ describe('Controller: AdminProfile', function () {
     _ = $injector.get('_');
     q = $injector.get('$q');
     state = $injector.get('$state');
+    httpBackend = $injector.get('$httpBackend');
   }));
 
   // Call the controller and inject it with mock objects
@@ -55,8 +57,9 @@ describe('Controller: AdminProfile', function () {
       _: _
     });
 
-    scope.$digest();
-
+    httpBackend.whenGET('/api/admins/companies?status=pending').respond(200, []);
+    httpBackend.whenGET('/api/admins/companies?status=active').respond(200, []);
+    httpBackend.whenGET('/api/admins/companies?status=inactive').respond(200, []);
   }));
 
   describe('initial state', function () {
@@ -70,10 +73,6 @@ describe('Controller: AdminProfile', function () {
 
     it('should have a company object defined', function () {
       expect(scope.company).toBeDefined();
-    });
-
-    it('should have an array companies object defined', function () {
-      expect(scope.companies).toBeDefined();
     });
 
     it('should have a pending company registration object defined', function () {
@@ -102,6 +101,7 @@ describe('Controller: AdminProfile', function () {
       beforeEach(function () {
         form = {};
         spyOn(Companies, 'createNewCompany');
+        spyOn(Companies, 'createOrUpdateCompanyTemporaryContact');
         spyOn(Companies, 'getAllCompanies');
       });
 
@@ -113,6 +113,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitCreateCompany(form);
           scope.$digest();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
+          expect(Companies.createOrUpdateCompanyTemporaryContact).not.toHaveBeenCalled();
         });
       });
 
@@ -140,11 +141,12 @@ describe('Controller: AdminProfile', function () {
               registrationDate: '2016-03-27T20:01:47.000Z'
             }
           ];
+          httpBackend.whenPOST('/api/admins/companies/PepesCompany/tempContact').respond(201);
         });
 
         it('should make the createNewCompany request', function () {
           scope.company = {
-            name: 'Pepes Company',
+            name: 'PepesCompany',
             websiteUrl: 'http://www.pepe.com/',
             logoPath: null,
             companyDescription: 'This is Pepe',
@@ -153,6 +155,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitCreateCompany(form);
           scope.$digest();
           expect(Companies.createNewCompany).toHaveBeenCalled();
+          expect(Companies.createOrUpdateCompanyTemporaryContact).toHaveBeenCalled();
           expect(Companies.getAllCompanies).toHaveBeenCalled();
         });
 
@@ -169,7 +172,8 @@ describe('Controller: AdminProfile', function () {
           expect(scope.title).toEqual('Warning');
           expect(scope.message).toBeDefined();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
-          expect(Companies.getAllCompanies).not.toHaveBeenCalledWith('active');
+          expect(Companies.createOrUpdateCompanyTemporaryContact).not.toHaveBeenCalled();
+          expect(Companies.getAllCompanies).toHaveBeenCalledWith('active');
         });
       });
     });

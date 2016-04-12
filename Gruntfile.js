@@ -1,4 +1,4 @@
-// Generated on 2014-02-27 using generator-angular-fullstack 1.2.7
+// Generated on 2016-02-27 using generator-angular-fullstack 1.2.7
 'use strict';
 
 var fs = require('fs');
