@@ -61,7 +61,10 @@ app.factory('Recruiters', function(_) {
     ]
   };
 
-  // TODO: Make a request to get all pending recruiters
+  obj.getAllRecruiters = function() {
+    return this.recruiters;
+  };
+
   obj.getAllPendingRecruiters = function() {
     return _.filter(this.recruiters, { accountStatus: 'pending'});
   };

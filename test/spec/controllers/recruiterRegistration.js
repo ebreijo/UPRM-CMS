@@ -6,16 +6,18 @@ describe('Controller: Recruiter Registration', function () {
   beforeEach(module('uprmcmsApp'));
 
   var $controller;
-  var recruiterRegistration;
   var scope;
-
   var $state;
-  var localStorageService;
+  var Registration;
+  var $sessionStorage;
+  var q;
 
   // Inject Custom Services:
 
   beforeEach(inject(function ($injector) {
-    localStorageService = $injector.get('localStorageService');
+    Registration = $injector.get('Registration');
+    $sessionStorage = $injector.get('$sessionStorage');
+    q = $injector.get('$q');
   }));
 
   // Inject AngularJS Services:
@@ -25,26 +27,46 @@ describe('Controller: Recruiter Registration', function () {
     scope = $rootScope.$new();
     $state = _$state_;
 
+    Registration.sessionStorage = $sessionStorage;
+    Registration.sessionStorage.companyName = 'IBM';
+    Registration.sessionStorage.companyLocation = {
+      id: 1,
+      companyName: 'IBM',
+      streetAddress: '3039 E Cornwallis Road',
+      city: 'Durham',
+      state: 'NC',
+      country: 'United States',
+      zipCode: '27709',
+      phoneNumber: '787-344-4444'
+    };
+
     $controller('RecruiterRegistrationCtrl', {
       $scope: scope,
-      recruiterRegistration: recruiterRegistration,
-      $state: $state
+      $state: $state,
+      Registration: Registration
     });
 
   }));
 
   describe('scope.registerRecruiter function', function () {
 
-    it('It should register the recruiter and go to the recruiter company profile page if inputs in form are valid', function () {
-
-      expect(scope.registerRecruiter(true)).toEqual(true);
-
+    beforeEach(function() {
+      scope.recruiter = {};
+      spyOn(Registration, 'registerRecruiter').and.callFake(function() {
+        return q.when({});
+      });
     });
 
-    it('It should stay on the recruiterRegistration web page if inputs in form are not valid', function () {
+    describe('with an invalid form', function() {
+      it('It should stay on the recruiterRegistration web page if inputs in form are not valid', function () {
+        scope.registerRecruiter(false);
+        expect(Registration.registerRecruiter).not.toHaveBeenCalled();
+      });
+    });
 
-      expect(scope.registerRecruiter(false)).toEqual(false);
-
+    it('It should register the recruiter with a valid form', function () {
+      scope.registerRecruiter(true);
+      expect(Registration.registerRecruiter).toHaveBeenCalled();
     });
 
   });

@@ -64,6 +64,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     url: '/locationSearch',
     templateUrl: 'partials/location-search.html',
     controller: 'LocationSearchCtrl',
+    resolve: {
+      locationSearchPromise: ['Registration', function (Registration) {
+        Registration.getAllCompanyLocations(Registration.sessionStorage.companyName);
+      }]
+    },
     data: {
       authorizedRoles: all
     }
@@ -71,6 +76,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     url: '/companySearch',
     templateUrl: 'partials/company-search.html',
     controller: 'CompanySearchCtrl',
+    resolve: {
+      companySearchPromise: ['Registration', function (Registration) {
+        Registration.getAllCompanyNamesForRecruiters();
+      }]
+    },
     data: {
       authorizedRoles: all
     }
@@ -152,7 +162,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }
     }).state('adminRegistration', {
       url: '/adminRegistration',
-      templateUrl: 'partials/admin-registration.html',
+      templateUrl: 'partials/administrators/admin-registration.html',
+      controller: 'AdminRegistrationCtrl',
       data: {
         authorizedRoles: all
       }

@@ -6,14 +6,9 @@
   <div ng-include src="'views/partials/navbar.html'"></div>
   <!--//main-nav-->
 
-  <!--
-  <form
-    action="/file-upload"
-    class="dropzone"
-    id="my-awesome-dropzone"
-    uprm-file-uploader="dropzoneConfig">
-  </form>
-  -->
+  <!--<button uprm-file-uploader="dropzoneConfig">-->
+    <!--Drop Files Here-->
+  <!--</button>-->
 
   <!-- ******CONTENT****** -->
   <div class="content container">
@@ -22,13 +17,13 @@
       <ul class="slides">
 
         <li>
-          <img src="{{pictures[0].filePath}}" alt=""/>
+          <img ng-src="{{pictures[0].filePath}}" alt=""/>
         </li>
         <li>
-          <img src="{{pictures[1].filePath}}" alt=""/>
+          <img ng-src="{{pictures[1].filePath}}" alt=""/>
         </li>
         <li>
-          <img src="{{pictures[2].filePath}}" alt=""/>
+          <img ng-src="{{pictures[2].filePath}}" alt=""/>
         </li>
 
         <!--

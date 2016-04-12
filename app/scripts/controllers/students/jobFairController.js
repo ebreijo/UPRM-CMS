@@ -2,19 +2,11 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('jobFairCtrl', function($scope) {
+app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo) {
 
-  $scope.generalInformation = {
-    id: 1,
-    headerEnglish: '8th Spring Job Fair',
-    locationEnglish: 'Mayaguez Resort & Casino',
-    dateEnglish: 'Friday, February 19, 2016',
-    time: '8:30am - 2:30pm',
-    headerSpanish: '8va Feria de Empleo de Primavera',
-    locationSpanish: 'Hotel Mayaguez Resort & Casino',
-    dateSpanish: 'viernes, 19 de febrero de 2016',
-    resumeDeadlineDate: '2016-02-19T00:00:00.000Z'
-  };
+  $scope.generalInformation = JobFairGeneralInfo.getJobFairDate();
+
+  $scope.majors = Majors.getAllMajors();
 
   $scope.checkBox = {
     internship: false,
@@ -22,35 +14,6 @@ app.controller('jobFairCtrl', function($scope) {
     partTime: false,
     fullTime: false
   };
-
-  $scope.majors = [
-    {
-      majorCode: 'CCOM',
-      nameEnglish: 'Computer Science',
-      nameSpanish: 'Ciencias de Computos'
-    },
-    {
-      majorCode: 'ICOM',
-      nameEnglish: 'Computer Engineering',
-      nameSpanish: 'Ingenieria en Computadoras'
-    },
-    {
-      majorCode: 'ININ',
-      nameEnglish: 'Industrial Engineering',
-      nameSpanish: 'Ingenieria Industrial'
-    },
-    {
-      majorCode: 'INME',
-      nameEnglish: 'Mechanical Engineering',
-      nameSpanish: 'Ingenieria Mecanica'
-    },
-    {
-      majorCode: 'INSO',
-      nameEnglish: 'Software Engineering',
-      nameSpanish: 'Ingenieria de Software'
-    }
-  ];
-
 
   $scope.jobFairCompanies = [
     {

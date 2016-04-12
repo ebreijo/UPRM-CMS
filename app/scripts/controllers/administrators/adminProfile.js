@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalDocuments, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalMaterial, Patterns, $filter, _) {
 
   $scope.patterns = Patterns.user;
 
@@ -13,7 +13,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.compStatusSelection = 'active';
     $scope.$watch('compStatusSelection', function (newValue) {
       $scope.compStatusSelection = newValue;
-      $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+      Companies.getAllCompanies($scope.compStatusSelection);
+      $scope.companies = Companies.companies;
     });
 
     $scope.company = {};
@@ -37,11 +38,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
           $scope.company = null;
           $scope.tempContact = null;
-          $scope.companies = Companies.getAllCompanies($scope.compStatusSelection);
+          form.$setPristine();
+          Companies.getAllCompanies($scope.compStatusSelection);
+          $scope.companies = Companies.companies;
           $('#createCompanyModal').modal('hide');
-          $('#createCompanyModal').on('hidden.bs.modal', function(){
-            $(this).removeData('bs.modal');
-          });
         }
       }
     };
@@ -72,6 +72,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
    * Admins Tab
    */
   $scope.executeTab2 = function() {
+    AdminAccess.getAdminAccessList();
     $scope.adminAccessList = AdminAccess.adminAccessList;
     $scope.newAdminAccess = {};
     $scope.tempAdminAccess = {};
@@ -89,6 +90,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.newAdminAccess.adminAccountStatus = 'pending';
           AdminAccess.giveAdminAccess($scope.newAdminAccess);
           $scope.newAdminAccess = null;
+          form.$setPristine();
         }
       }
     };
@@ -100,11 +102,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     $scope.submitAdminAccessEdit = function(form) {
-      if ($scope.tempAdminAccess.adminTempAccountStatus === 'pending' && $scope.tempAdminAccess.adminAccountStatus === 'active') {
-        $scope.title = 'Warning';
-        $scope.message = 'Cannot activate the Administrator, it is still pending to register';
-        $('#messageModal').modal('toggle');
-      } else if (form.$valid) {
+      if (form.$valid) {
         // if admin access email changed, then check if that new email already exists.
         if (!_.isEqual($scope.tempAdminAccess.email, $scope.tempAdminAccess.currentEmail)) {
           var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.email});
@@ -117,8 +115,16 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         }
 
         $scope.tempAdminAccess.isRoot = false;
-        AdminAccess.updateAdminAccess($scope.tempAdminAccess);
-        $('#editAdminAccessModal').modal('hide');
+        AdminAccess.updateAdminAccess($scope.tempAdminAccess).then(function() {
+          var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.currentEmail});
+          _.merge(element, $scope.tempAdminAccess);
+          $('#editAdminAccessModal').modal('hide');
+        }, function(err) {
+          $scope.title = 'Warning';
+          $scope.message = err.data.message;
+          $('#messageModal').modal('toggle');
+        });
+
       }
     };
   };
@@ -128,6 +134,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
    * Majors Tab
    */
   $scope.executeTab3 = function() {
+    Majors.getAllMajors();
     $scope.majors = Majors.majors;
 
     $scope.major = {};
@@ -146,6 +153,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.major.majorCode = $scope.major.majorCode.toUpperCase();
           Majors.createNewMajor($scope.major);
           $scope.major = null;
+          form.$setPristine();
         }
       }
     };
@@ -190,7 +198,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Company Registration Tab
    */
-  $scope.pendingCompanies = Companies.getAllCompanies('pending');
+  Companies.getAllCompanies('pending');
+  $scope.pendingCompanies = Companies.pendingCompanies;
 
   $scope.executeTab4 = function() {
 
@@ -313,7 +322,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Promotional Documents
    */
-  $scope.pendingPromotionalDocuments = PromotionalDocuments.getAllPendingPromotionalDocuments();
+  $scope.pendingPromotionalMaterial = PromotionalMaterial.getAllPendingPromotionalMaterial();
 
   $scope.executeTab7 = function() {
 
@@ -326,7 +335,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'approved';
-        PromotionalDocuments.updatePromotionalDocuments($scope.tempPromotionalDocument);
+        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
         removePromotionalDocumentFromPendingList();
         $('#acceptPromotionalDocumentModal').modal('hide');
       }
@@ -335,7 +344,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'rejected';
-        PromotionalDocuments.updatePromotionalDocuments($scope.tempPromotionalDocument);
+        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
         removePromotionalDocumentFromPendingList();
         $('#rejectPromotionalDocumentModal').modal('hide');
       }
@@ -343,7 +352,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     function removePromotionalDocumentFromPendingList() {
       // Remove element from the pending promotional documents array once accepted or rejected
-      _.remove($scope.pendingPromotionalDocuments, function(element) {
+      _.remove($scope.pendingPromotionalMaterial, function(element) {
         return element.id === $scope.tempPromotionalDocument.id;
       });
     }

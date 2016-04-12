@@ -151,6 +151,15 @@ VALUES ('INME', 'Mechanical Engineering', 'Ingenieria Mecanica');
 INSERT INTO major (major_code, name_english, name_spanish)
 VALUES ('ININ', 'Industrial Engineering', 'Ingenieria Industrial');
 
+INSERT INTO major (major_code, name_english, name_spanish)
+VALUES ('INGL', 'English', 'Ingles');
+
+INSERT INTO major (major_code, name_english, name_spanish)
+VALUES ('ESPA', 'Spanish', 'Español');
+
+INSERT INTO major (major_code, name_english, name_spanish)
+VALUES ('MATE', 'Mathematics', 'Matematicas');
+
 INSERT INTO company_interested_majors (company_name, major_code)
 VALUES ('IBM', 'ICOM');
 

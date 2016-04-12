@@ -6,16 +6,15 @@ describe('Controller: Company Search', function () {
   beforeEach(module('uprmcmsApp'));
 
   var $controller;
-  var companySearch;
   var scope;
 
   var $state;
-  var localStorageService;
+  var Registration;
 
   // Inject Custom Services:
 
   beforeEach(inject(function ($injector) {
-    localStorageService = $injector.get('localStorageService');
+    Registration = $injector.get('Registration');
   }));
 
   // Inject AngularJS Services:
@@ -27,8 +26,7 @@ describe('Controller: Company Search', function () {
 
     $controller('CompanySearchCtrl', {
       $scope: scope,
-      companySearch: companySearch,
-      $state: $state
+      Registration: Registration
     });
 
     scope.companies = [
@@ -57,27 +55,28 @@ describe('Controller: Company Search', function () {
 
   }));
 
+  describe('Initial state', function() {
+    it('should have the continue button disabled', function() {
+      expect(scope.disableContinueBtn).toBeTruthy();
+    });
+  });
+
   describe('scope.selectCompany function', function () {
 
-    it('It should go to the locationSearch web page if a company is selected and the user presses continue', function () {
-      scope.companyName = 'Apple';
-
-      expect(scope.selectCompany(true)).toEqual(true);
-
+    beforeEach(function() {
+      spyOn(Registration, 'setCompanyName');
     });
 
-    it('It should stay on the companySearch web page if a company that is not registered is selected', function () {
-      scope.companyName = 'Papalaya';
-
-      expect(scope.selectCompany(true)).toEqual(false);
-
+    it('It should go to the locationSearch web page if a company is selected and the user presses continue', function () {
+      scope.selectCompany('Apple');
+      expect(Registration.setCompanyName).toHaveBeenCalled();
+      expect(scope.disableContinueBtn).toBeFalsy();
     });
 
     it('It should stay on the companySearch web page if a company is not selected', function () {
-      scope.companyName = null;
-
-      expect(scope.selectCompany(false)).toEqual(false);
-
+      scope.selectCompany(null);
+      expect(Registration.setCompanyName).not.toHaveBeenCalled();
+      expect(scope.disableContinueBtn).toBeTruthy();
     });
 
   });

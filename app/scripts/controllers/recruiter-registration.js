@@ -2,21 +2,33 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('RecruiterRegistrationCtrl', function($scope, $state, localStorageService) {
+app.controller('RecruiterRegistrationCtrl', function($scope, $state, Registration) {
 
-  $scope.companyName = localStorageService.get('companyToRegister');
-  $scope.companyLocation = localStorageService.get('companyLocationToRegister');
-
+  $scope.companyName = Registration.sessionStorage.companyName;
+  $scope.companyLocation = Registration.sessionStorage.companyLocation;
+  var messageModal = $('#messageModal');
 
   $scope.registerRecruiter = function(isValid) {
     // check to make sure the form is completely valid
     if (isValid) {
-      $state.go('company');
-      //Jasmine Test
-      return true;
+      $scope.recruiter.companyName = $scope.companyName;
+      $scope.recruiter.companyLocationId = $scope.companyLocation.id;
+      var userInfo = {
+        recruiterInfo: $scope.recruiter
+      };
+      Registration.registerRecruiter(userInfo).then(function() {
+        $scope.title = 'Congratulations';
+        $scope.message = 'Registration was successful. You will receive an email once we have reviewed your information.';
+        messageModal.modal('show');
+        messageModal.on('hidden.bs.modal', function () {
+          $state.go('landingPage');
+        });
+      }, function() {
+        $scope.title = 'Warning';
+        $scope.message = 'Email address already in use.';
+        messageModal.modal('show');
+      });
     }
-    //Jasmine Test
-    return false;
   };
 
 

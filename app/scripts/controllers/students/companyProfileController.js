@@ -2,136 +2,13 @@
 
 var app = angular.module('uprmcmsApp');
 
-//app.controller('AboutUsCtrl', function($scope, aboutUs) {
-//$scope.aboutUs = aboutUs.aboutUsInfo;
-app.controller('studentCompanyCtrl', function($scope, _) {
+app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters, PromotionalMaterial) {
 
-  var majors = [
-    {
-      'majorCode': 'CCOM'
-    },
-    {
-      'majorCode': 'ICOM'
-    },
-    {
-      'majorCode': 'INSO'
-    },
-    {
-      'majorCode': 'INME'
-    },
-    {
-      'majorCode': 'INEL'
-    }
-  ];
+  var majors = Majors.getAllMajors();
 
-  var jobOffers = [
-    {
-      id: 1,
-      companyName: 'IBM',
-      email: 'sergio@ibm.com',
-      title: 'Engineering Support Assistant',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Full-Time',
-      educationLevel: 'Bachelors',
-      recentGraduate: true,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 17177328217,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'approved',
-      location: 'Durham, NC'
-    },
-    {
-      id: 2,
-      companyName: 'IBM',
-      email: 'juanito@gmail.com',
-      title: 'Chief Electronics Engineer',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Part-Time',
-      educationLevel: 'Bachelors',
-      recentGraduate: false,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 33243554354,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'pending',
-      location: 'Durham, NC'
-    },
-    {
-      id: 3,
-      companyName: 'IBM',
-      email: 'leonardo@ibm.com',
-      title: 'Avionics Engineer',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Full-Time',
-      educationLevel: 'Masters',
-      recentGraduate: true,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 787867674676,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'approved',
-      location: 'Durham, NC'
-    }
-  ];
+  var jobOffers = JobOffers.getAllJobOffers();
 
-  var recruiters = [
-    {
-      email: 'juanito@gmail.com',
-      companyName: 'IBM',
-      firstName: 'Juanito',
-      lastName: 'Perez',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'pending',
-      registrationDate: '2016-03-29T01:31:59.000Z',
-      companyLocation: {
-        id: 4,
-        companyName: 'Google',
-        streetAddress: '1600 Amphitheatre Parkway',
-        city: 'Mountain View',
-        state: 'CA',
-        country: 'United States',
-        zipCode: '94043',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'leonardo@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Leonardo',
-      lastName: 'Dicaprio',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'inactive',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 2,
-        streetAddress: '1 New Orchard Road',
-        city: 'Armonk',
-        state: 'NY',
-        country: 'United States',
-        zipCode: '10504',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'sergio@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Sergio',
-      lastName: 'Rivera',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'active',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 1,
-        streetAddress: '3039 E Cornwallis Road',
-        city: 'Durham',
-        state: 'NC',
-        country: 'United States',
-        zipCode: '27709',
-        phoneNumber: null
-      }
-    }
-  ];
+  var recruiters = Recruiters.getAllRecruiters();
 
   var companyInfo = {
     name: 'IBM',
@@ -141,36 +18,7 @@ app.controller('studentCompanyCtrl', function($scope, _) {
     companyStatus: 'Active'
   };
 
-  var promotionalMaterial = [
-    {
-      id: 1,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial1',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 2,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial2',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'pending'
-    },
-    {
-      id: 3,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial3',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 4,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial4',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    }
-  ];
+  var promotionalMaterial = PromotionalMaterial.getAllApprovedPromotionalMaterial();
 
   $scope.companyProfile = {
     'generalInfo':[

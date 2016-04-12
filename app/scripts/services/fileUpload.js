@@ -1,25 +1,27 @@
 'use strict';
 
+/* jshint ignore:start */
 var app = angular.module('uprmcmsApp');
 
-app.factory('fileUpload', function() {
-  var obj = {
-    'options': { // passed into the Dropzone constructor
-      'url': '/api/pictures',
-      'paramName' : 'image', // The name that will be used to transfer the file
-      'maxFilesize': 10 // MB
-    },
-    'eventHandlers': {
-      'sending': function (file, xhr, formData) {
-        console.log('Sending!!!!');
-        console.log(file + xhr + formData);
-      },
-      'success': function (file, response) {
-        console.log('Success!!!!');
-        console.log(file + response);
-      }
+app.factory('FileUpload', function() {
+  return {
+    fileUploadConfig: function(route, paramName, maxFileSize) {
+      return {
+        'options': { // passed into the Dropzone constructor
+          'url': route,
+          'paramName': paramName,  // The name that will be used to transfer the file
+          'maxFilesize': maxFileSize // MB
+        },
+        'eventHandlers': {
+          'sending': function (file, xhr, formData) {
+            console.log('Sending!!!!');
+          },
+          'success': function (file, response) {
+            console.log('Success!!!!');
+          }
+        }
+      };
     }
   };
-
-  return obj;
 });
+/* jshint ignore:end */

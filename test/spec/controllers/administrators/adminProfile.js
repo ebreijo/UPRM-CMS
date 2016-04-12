@@ -12,12 +12,13 @@ describe('Controller: AdminProfile', function () {
   var Majors;
   var Recruiters;
   var JobOffers;
-  var PromotionalDocuments;
+  var PromotionalMaterial;
   var Patterns;
   var filter;
   var _;
   var q;
   var state;
+  var httpBackend;
 
   var adminProfileController;
 
@@ -28,12 +29,13 @@ describe('Controller: AdminProfile', function () {
     Majors = $injector.get('Majors');
     Recruiters = $injector.get('Recruiters');
     JobOffers = $injector.get('JobOffers');
-    PromotionalDocuments = $injector.get('PromotionalDocuments');
+    PromotionalMaterial = $injector.get('PromotionalMaterial');
     Patterns = $injector.get('Patterns');
     filter = $injector.get('$filter');
     _ = $injector.get('_');
     q = $injector.get('$q');
     state = $injector.get('$state');
+    httpBackend = $injector.get('$httpBackend');
   }));
 
   // Call the controller and inject it with mock objects
@@ -49,14 +51,15 @@ describe('Controller: AdminProfile', function () {
       Majors: Majors,
       Recruiters: Recruiters,
       JobOffers: JobOffers,
-      PromotionalDocuments: PromotionalDocuments,
+      PromotionalMaterial: PromotionalMaterial,
       Patterns: Patterns,
       $filter: filter,
       _: _
     });
 
-    scope.$digest();
-
+    httpBackend.whenGET('/api/admins/companies?status=pending').respond(200, []);
+    httpBackend.whenGET('/api/admins/companies?status=active').respond(200, []);
+    httpBackend.whenGET('/api/admins/companies?status=inactive').respond(200, []);
   }));
 
   describe('initial state', function () {
@@ -72,10 +75,6 @@ describe('Controller: AdminProfile', function () {
       expect(scope.company).toBeDefined();
     });
 
-    it('should have an array companies object defined', function () {
-      expect(scope.companies).toBeDefined();
-    });
-
     it('should have a pending company registration object defined', function () {
       expect(scope.pendingCompanies).toBeDefined();
     });
@@ -89,7 +88,7 @@ describe('Controller: AdminProfile', function () {
     });
 
     it('should have a pending recruiter object defined', function () {
-      expect(scope.pendingPromotionalDocuments).toBeDefined();
+      expect(scope.pendingPromotionalMaterial).toBeDefined();
     });
   });
 
@@ -102,6 +101,7 @@ describe('Controller: AdminProfile', function () {
       beforeEach(function () {
         form = {};
         spyOn(Companies, 'createNewCompany');
+        spyOn(Companies, 'createOrUpdateCompanyTemporaryContact');
         spyOn(Companies, 'getAllCompanies');
       });
 
@@ -113,12 +113,16 @@ describe('Controller: AdminProfile', function () {
           scope.submitCreateCompany(form);
           scope.$digest();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
+          expect(Companies.createOrUpdateCompanyTemporaryContact).not.toHaveBeenCalled();
         });
       });
 
       describe('with a valid form', function() {
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
           scope.companies = [
             {
               name: 'Apple',
@@ -137,11 +141,12 @@ describe('Controller: AdminProfile', function () {
               registrationDate: '2016-03-27T20:01:47.000Z'
             }
           ];
+          httpBackend.whenPOST('/api/admins/companies/PepesCompany/tempContact').respond(201);
         });
 
         it('should make the createNewCompany request', function () {
           scope.company = {
-            name: 'Pepes Company',
+            name: 'PepesCompany',
             websiteUrl: 'http://www.pepe.com/',
             logoPath: null,
             companyDescription: 'This is Pepe',
@@ -150,6 +155,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitCreateCompany(form);
           scope.$digest();
           expect(Companies.createNewCompany).toHaveBeenCalled();
+          expect(Companies.createOrUpdateCompanyTemporaryContact).toHaveBeenCalled();
           expect(Companies.getAllCompanies).toHaveBeenCalled();
         });
 
@@ -166,7 +172,8 @@ describe('Controller: AdminProfile', function () {
           expect(scope.title).toEqual('Warning');
           expect(scope.message).toBeDefined();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
-          expect(Companies.getAllCompanies).not.toHaveBeenCalledWith('active');
+          expect(Companies.createOrUpdateCompanyTemporaryContact).not.toHaveBeenCalled();
+          expect(Companies.getAllCompanies).toHaveBeenCalledWith('active');
         });
       });
     });
@@ -215,6 +222,8 @@ describe('Controller: AdminProfile', function () {
 
     beforeEach(function () {
       scope.executeTab2();
+      AdminAccess.getAdminAccessList();
+      httpBackend.whenGET('/api/adminsAccess').respond(200, []);
     });
 
     it('should have admin access list', function() {
@@ -240,7 +249,10 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function() {
 
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
         });
 
         it('should make the giveAdminAccess request', function() {
@@ -257,6 +269,28 @@ describe('Controller: AdminProfile', function () {
         });
 
         it('should not make the giveAdminAccess request if admin already exists', function() {
+          scope.adminAccessList = [
+            {
+              email: 'juan.rodriguez@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'active'
+            },
+            {
+              email: 'maria.hernandez@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'inactive'
+            },
+            {
+              email: 'pedro.rivera@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'pending'
+            },
+            {
+              email: 'placement@uprm.edu',
+              isRoot: true,
+              adminAccountStatus: 'active'
+            }
+          ];
           scope.newAdminAccess = {
             email: 'placement@uprm.edu'
           };
@@ -273,11 +307,13 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(AdminAccess, 'updateAdminAccess');
       });
 
       describe('with a invalid form', function() {
         it('should not make the updateAdminAccess request', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           form.$valid = false;
           scope.submitAdminAccessEdit(form);
           scope.$digest();
@@ -308,7 +344,14 @@ describe('Controller: AdminProfile', function () {
           ];
         });
 
-        it('should not make the updateAdminAccess request if changing status from pending to active', function() {
+        it('should make the updateAdminAccess request if changing status from pending to active but should receive a warning message', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.reject({
+              data: {
+                message: 'an error'
+              }
+            });
+          });
           scope.tempAdminAccess = {
             email: 'pedro.rivera@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',
@@ -317,12 +360,15 @@ describe('Controller: AdminProfile', function () {
           };
           scope.submitAdminAccessEdit(form);
           scope.$digest();
-          expect(AdminAccess.updateAdminAccess).not.toHaveBeenCalled();
+          expect(AdminAccess.updateAdminAccess).toHaveBeenCalled();
           expect(scope.title).toEqual('Warning');
           expect(scope.message).toBeDefined();
         });
 
         it('should not make the updateAdminAccess request when updating admin email to another that already exists', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           scope.tempAdminAccess = {
             email: 'juan.rodriguez@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',
@@ -337,6 +383,9 @@ describe('Controller: AdminProfile', function () {
         });
 
         it('should make the updateAdminAccess request', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           scope.tempAdminAccess = {
             email: 'pedro.rivera@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',
@@ -355,6 +404,7 @@ describe('Controller: AdminProfile', function () {
 
     beforeEach(function () {
       scope.executeTab3();
+      httpBackend.whenGET('/api/majors').respond(200, []);
     });
 
     it('should have majors list', function () {
@@ -407,7 +457,10 @@ describe('Controller: AdminProfile', function () {
       describe('with a valid form', function () {
 
         beforeEach(function () {
-          form.$valid = true;
+          form = {
+            $valid: true,
+            $setPristine: function() {}
+          };
         });
 
         it('should make the create New Major request', function () {
@@ -748,7 +801,7 @@ describe('Controller: AdminProfile', function () {
     var form;
     beforeEach(function () {
       scope.executeTab7();
-      spyOn(PromotionalDocuments, 'updatePromotionalDocuments');
+      spyOn(PromotionalMaterial, 'updatePromotionalMaterial');
       form = {};
       scope.tempPromotionalDocument = {
         id: 2,
@@ -771,7 +824,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitAcceptPromotionalDocument(form);
           scope.$digest();
-          expect(PromotionalDocuments.updatePromotionalDocuments).not.toHaveBeenCalled();
+          expect(PromotionalMaterial.updatePromotionalMaterial).not.toHaveBeenCalled();
         });
       });
 
@@ -781,7 +834,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptPromotionalDocument(form);
           scope.$digest();
           expect(scope.tempPromotionalDocument.status).toEqual('approved');
-          expect(PromotionalDocuments.updatePromotionalDocuments).toHaveBeenCalledWith(scope.tempPromotionalDocument);
+          expect(PromotionalMaterial.updatePromotionalMaterial).toHaveBeenCalledWith(scope.tempPromotionalDocument);
         });
       });
     });
@@ -793,7 +846,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectPromotionalDocument(form);
           scope.$digest();
-          expect(PromotionalDocuments.updatePromotionalDocuments).not.toHaveBeenCalled();
+          expect(PromotionalMaterial.updatePromotionalMaterial).not.toHaveBeenCalled();
         });
       });
 
@@ -803,7 +856,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectPromotionalDocument(form);
           scope.$digest();
           expect(scope.tempPromotionalDocument.status).toEqual('rejected');
-          expect(PromotionalDocuments.updatePromotionalDocuments).toHaveBeenCalledWith(scope.tempPromotionalDocument);
+          expect(PromotionalMaterial.updatePromotionalMaterial).toHaveBeenCalledWith(scope.tempPromotionalDocument);
         });
       });
     });

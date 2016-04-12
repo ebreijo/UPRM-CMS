@@ -72,12 +72,14 @@ app.factory('JobOffers', function(_) {
     ]
   };
 
-  // TODO: Make a request to get all pending job offers
+  obj.getAllJobOffers = function() {
+    return this.jobOffers;
+  };
+
   obj.getAllPendingJobOffers = function() {
     return _.filter(this.jobOffers, { jobOfferStatus: 'pending'});
   };
 
-  // TODO: Make a request to get all pending job offers
   obj.getAllApprovedJobOffers = function() {
     return _.filter(this.jobOffers, { jobOfferStatus: 'approved'});
   };

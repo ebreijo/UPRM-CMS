@@ -1,0 +1,167 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/navbar.html'"></div>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Admin Registration</h1>
+
+        <div class="breadcrumbs pull-right">
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row">
+          <div class="col-md-12" style="text-align:center; padding-bottom:5px">
+            <p><b>1. Since you are not registered on this website, please fill all the blanks to register yourself as an
+              admin.</b></p>
+
+            <p><b>2. After filling all the blanks, click the Register button at the end of the page.</b></p>
+          </div>
+        </div>
+        <div class="row" style="text-align:center; padding-bottom:15px">
+          <div class="col-md-12">
+            <h3 class="title">New Admin Registration</h3>
+          </div>
+        </div>
+        <div class="row">
+          <article class="contact-form col-md-6" style="float: none; margin: 0 auto;">
+            <form name="adminRegistrationForm" ng-submit="submitAdminRegistration(adminRegistrationForm.$valid && (adminRegistrationForm.password.$viewValue===adminRegistrationForm.confirmPassword.$viewValue))">
+              <div class="form-group has-feedback"
+                   ng-class="{ 'has-error' : adminRegistrationForm.email.$invalid && !adminRegistrationForm.email.$pristine}">
+                <label>Admin Email&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Enter your email" style="border-radius:0;" required ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                   ng-show="adminRegistrationForm.email.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback"
+                   ng-show="adminRegistrationForm.email.$invalid && !adminRegistrationForm.email.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="adminRegistrationForm.email.$invalid && !adminRegistrationForm.email.$pristine" style="color:#843534"
+                   class="help-block"><b>Enter a valid email address</b></p>
+              </div>
+              <!--//form-group-->
+              <div class="form-group has-feedback"
+                   ng-class="{ 'has-error' : adminRegistrationForm.firstName.$invalid && !adminRegistrationForm.firstName.$pristine}">
+                <label>Admin First Name&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="user.firstName" name="firstName" type="text" class="form-control"
+                       placeholder="Enter your first name" style="border-radius:0;" required
+                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{1,45})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                   ng-show="adminRegistrationForm.firstName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback"
+                   ng-show="adminRegistrationForm.firstName.$invalid && !adminRegistrationForm.firstName.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="adminRegistrationForm.firstName.$invalid && !adminRegistrationForm.firstName.$pristine" style="color:#843534"
+                   class="help-block"><b>Enter a valid First Name</b></p>
+              </div>
+              <!--//form-group-->
+              <div class="form-group has-feedback"
+                   ng-class="{ 'has-error' : adminRegistrationForm.lastName.$invalid && !adminRegistrationForm.lastName.$pristine}">
+                <label>Admin Last Name&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="user.lastName" name="lastName" type="text" class="form-control"
+                       placeholder="Enter your last name" style="border-radius:0;" required
+                       ng-pattern="/^([A-Z][A-Za-z ,ñÑáéíóúÁÉÍÓÚ.'`-]{1,45})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                   ng-show="adminRegistrationForm.lastName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback"
+                   ng-show="adminRegistrationForm.lastName.$invalid && !adminRegistrationForm.lastName.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="adminRegistrationForm.lastName.$invalid && !adminRegistrationForm.lastName.$pristine" style="color:#843534"
+                   class="help-block"><b>Enter a valid Last Name</b></p>
+              </div>
+              <div class="form-group has-feedback"
+                   ng-class="{ 'has-error' : adminRegistrationForm.password.$invalid && !adminRegistrationForm.password.$pristine }">
+                <label>New Password&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="user.password" name="password" type="password" ng-minlength="6" ng-maxlength="40"
+                       class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required
+                       ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                   ng-show="adminRegistrationForm.password.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback"
+                   ng-show="adminRegistrationForm.password.$invalid && !adminRegistrationForm.password.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="adminRegistrationForm.password.$error.minlength" style="color:#843534" class="help-block"><b>Password
+                  is too short. Use at least 6 characters.</b></p>
+
+                <p ng-show="adminRegistrationForm.password.$error.maxlength" style="color:#843534" class="help-block"><b>Password
+                  is too long. Use less than 40 characters.</b></p>
+
+                <p ng-show="adminRegistrationForm.password.$error.pattern" style="color:#843534" class="help-block"><b>Password
+                  must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
+
+                <p ng-show="adminRegistrationForm.password.$error.pattern" style="color:#843534" class="help-block"><b>Special
+                  Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' &lt; &gt; ?</b></p>
+              </div>
+              <div class="form-group has-feedback"
+                   ng-class="{ 'has-error' : (adminRegistrationForm.password.$viewValue!==adminRegistrationForm.confirmPassword.$viewValue) && !adminRegistrationForm.confirmPassword.$pristine }">
+                <label>Confirm Password&nbsp;
+                  <span class="required">*</span>
+                </label>
+                <input ng-model="user.confirmPassword" name="confirmPassword" type="password" ng-minlength="6"
+                       ng-maxlength="40" class="form-control" placeholder="Re-enter your new password"
+                       style="border-radius: 0;" required
+                       ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                   ng-show="(adminRegistrationForm.password.$viewValue===adminRegistrationForm.confirmPassword.$viewValue) && adminRegistrationForm.confirmPassword.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback"
+                   ng-show="(adminRegistrationForm.password.$viewValue!==adminRegistrationForm.confirmPassword.$viewValue) && !adminRegistrationForm.confirmPassword.$pristine"></i>
+              </div>
+              <div>
+                <p
+                  ng-show="(adminRegistrationForm.password.$viewValue!==adminRegistrationForm.confirmPassword.$viewValue) && !adminRegistrationForm.confirmPassword.$pristine"
+                  style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="padding-bottom:10px">
+                  <div style="text-align: center">
+                    <button type="submit" class="btn btn-theme" ng-disabled="adminRegistrationForm.$invalid || (adminRegistrationForm.password.$viewValue!==adminRegistrationForm.confirmPassword.$viewValue)">Register</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </article>
+          <!--//contact-form-->
+          <!--//page-sidebar-->
+        </div>
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+  </div>
+</div>
+<div id="messageModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color:black"><b>{{title}}</b></h4>
+        <br/>
+        <h5>{{message}}</h5>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--//main-nav-->
+<div ng-include src="'views/partials/footer.html'"></div>

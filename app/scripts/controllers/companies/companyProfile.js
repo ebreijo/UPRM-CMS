@@ -2,9 +2,10 @@
 
 var app = angular.module('uprmcmsApp');
 
-//app.controller('AboutUsCtrl', function($scope, aboutUs) {
-//$scope.aboutUs = aboutUs.aboutUsInfo;
-app.controller('CompanyCtrl', function($scope, _) {
+app.controller('CompanyCtrl', function($scope, _, FileUpload) {
+
+  $scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
+  $scope.promotionalMaterialUploadConfig = FileUpload.fileUploadConfig('/api/companies/promotionalMaterial/upload', 'image', 10);
 
   var majors = [
     {
@@ -454,7 +455,11 @@ app.controller('CompanyCtrl', function($scope, _) {
   $scope.confirmAccountSettingsChanges  = function(form){
     if(form.$valid){
       $('#confirmAccountSettingsChangesModal').modal('show');
+      //Jasmine Test
+      return true;
     }
+    //Jasmine Test
+    return false;
   };
 
 });

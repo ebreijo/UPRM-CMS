@@ -51,6 +51,12 @@ $scope.dropzoneConfig = {
  */
 
 /*
+
+// THIS WAY WORKED!!
+ <button uprm-file-uploader="dropzoneConfig">
+ Drop Files Here
+ </button>
+
 <form
 action="/file-upload"
 class="dropzone"
