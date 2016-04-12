@@ -404,6 +404,7 @@ describe('Controller: AdminProfile', function () {
 
     beforeEach(function () {
       scope.executeTab3();
+      httpBackend.whenGET('/api/majors').respond(200, []);
     });
 
     it('should have majors list', function () {

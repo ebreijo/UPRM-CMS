@@ -134,6 +134,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
    * Majors Tab
    */
   $scope.executeTab3 = function() {
+    Majors.getAllMajors();
     $scope.majors = Majors.majors;
 
     $scope.major = {};

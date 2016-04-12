@@ -2,50 +2,9 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Majors', function(_) {
+app.factory('Majors', function(Restangular, _) {
   var obj = {
-    majors: [
-      {
-        majorCode: 'CCOM',
-        nameEnglish: 'Computer Science',
-        nameSpanish: 'Ciencias de Computos'
-      },
-      {
-        majorCode: 'ICOM',
-        nameEnglish: 'Computer Engineering',
-        nameSpanish: 'Ingenieria en Computadoras'
-      },
-      {
-        majorCode: 'ININ',
-        nameEnglish: 'Industrial Engineering',
-        nameSpanish: 'Ingenieria Industrial'
-      },
-      {
-        majorCode: 'INME',
-        nameEnglish: 'Mechanical Engineering',
-        nameSpanish: 'Ingenieria Mecanica'
-      },
-      {
-        majorCode: 'INSO',
-        nameEnglish: 'Software Engineering',
-        nameSpanish: 'Ingenieria de Software'
-      },
-      {
-        majorCode: 'CISO',
-        nameEnglish: 'Social Science',
-        nameSpanish: 'Ciencias Sociales'
-      },
-      {
-        majorCode: 'INGL',
-        nameEnglish: 'English',
-        nameSpanish: 'Ingles'
-      },
-      {
-        majorCode: 'ESPA',
-        nameEnglish: 'Spanish',
-        nameSpanish: 'Español'
-      }
-    ]
+    majors: []
   };
 
   obj.companyInterestedMajors = [
@@ -77,26 +36,31 @@ app.factory('Majors', function(_) {
   ];
 
 
-  // TODO: Make a request to get all majors
   obj.getAllMajors = function() {
-    return this.majors;
+    Restangular.all('/api/majors').getList().then(function(majors) {
+      angular.copy(majors.plain(), obj.majors);
+    });
   };
 
-  // TODO: Make a request to create a new major
   obj.createNewMajor = function(newMajor) {
-    this.majors.push(newMajor);
+    Restangular.all('/api/majors').post(newMajor).then(function(major) {
+      obj.majors.push(major);
+    });
+
   };
 
-  // TODO: Make a request to update a major given the major code
   obj.editMajor = function(tempMajor) {
-    var element = _.find(this.majors, { majorCode: tempMajor.currentMajorCode});
-    _.merge(element, tempMajor);
+    Restangular.one('/api/majors', tempMajor.currentMajorCode).customPUT(tempMajor).then(function() {
+      var element = _.find(obj.majors, { majorCode: tempMajor.currentMajorCode});
+      _.merge(element, tempMajor);
+    });
   };
 
-  // TODO: Make a request to delete a major given the major code
   obj.deleteMajor = function(tempMajor) {
-    _.remove(this.majors, function(element) {
-      return element.majorCode === tempMajor.majorCode;
+    Restangular.one('/api/majors', tempMajor.majorCode).remove().then(function() {
+      _.remove(obj.majors, function(element) {
+        return element.majorCode === tempMajor.majorCode;
+      });
     });
   };
 
