@@ -39,7 +39,7 @@ module.exports = function(grunt) {
       },
       prod: {
         options: {
-          script: 'dist/server.js',
+          script: 'server.js',
           node_env: 'production'
         }
       }
@@ -430,8 +430,13 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('serve', function(target) {
-    if(target === 'dist') {
+    if (target === 'dist') {
       return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
+    }
+
+    // Execute these tasks when running in production
+    if (target === 'production') {
+      return grunt.task.run(['clean:server', 'bower-install', 'concurrent:server', 'autoprefixer', 'express:prod', 'express-keepalive']);
     }
 
     grunt.task.run([
