@@ -53,17 +53,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitCompanyStatusEdit = function(form) {
       if (form.$valid) {
         Companies.updateCompanyStatus($scope.tempCompany);
-        removeCompanyFromList();
         $('#editCompanyStatusModal').modal('hide');
       }
     };
 
-    function removeCompanyFromList() {
-      // Remove element from the companies array once status is changed
-      _.remove($scope.companies, function(element) {
-        return element.name === $scope.tempCompany.name;
-      });
-    }
   };
   $scope.executeTab1();
 
@@ -211,7 +204,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'active';
         Companies.updateCompanyStatus($scope.tempCompany);
-        removeCompanyFromPendingList();
+        Companies.getAllCompanies('pending');
+        $scope.pendingCompanies = Companies.pendingCompanies;
         $('#acceptCompanyModal').modal('hide');
       }
     };
@@ -220,17 +214,11 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
         Companies.updateCompanyStatus($scope.tempCompany);
-        removeCompanyFromPendingList();
+        Companies.getAllCompanies('pending');
+        $scope.pendingCompanies = Companies.pendingCompanies;
         $('#rejectCompanyModal').modal('hide');
       }
     };
-
-    function removeCompanyFromPendingList() {
-      // Remove element from the pending companies array once accepted or rejected
-      _.remove($scope.pendingCompanies, function(element) {
-        return element.name === $scope.tempCompany.name;
-      });
-    }
   };
 
   /**
