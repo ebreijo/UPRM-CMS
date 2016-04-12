@@ -4,7 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, Patterns, _) {
 
-  $scope.jobFairGeneralInformation = angular.copy(JobFairGeneralInfo.jobFairGeneralInfo);
+  $scope.jobFairGeneralInformation = JobFairGeneralInfo.jobFairGeneralInfo;
   $scope.jobFairCompaniesList = Companies.companies;
   $scope.company = {};
   $scope.jobFairCompanyAdditionalInfo = {};
@@ -91,8 +91,13 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
   $scope.submitJobFairGeneralInfo = function(form) {
     if (form.$valid) {
       $scope.jobFairGeneralInformation.resumeDeadlineDate = new Date($scope.jobFairGeneralInformation.resumeDeadlineDate).toISOString();
-      JobFairGeneralInfo.updateJobFairDateInfo($scope.jobFairGeneralInformation);
-      $('#confirmJobFairGeneralInformationModal').modal('hide');
+      JobFairGeneralInfo.updateJobFairDateInfo($scope.jobFairGeneralInformation).then(function() {
+        $('#confirmJobFairGeneralInformationModal').modal('hide');
+      }, function() {
+        $scope.title = 'Warning';
+        $scope.message = 'There was an error with Job Fair General Information';
+        $('#messageModal').modal('toggle');
+      });
     }
   };
 

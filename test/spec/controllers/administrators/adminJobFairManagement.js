@@ -150,7 +150,9 @@ describe('Controller: AdminJobFairManagement', function () {
         resumeDeadlineDate: '2016-02-19T00:00:00.000Z',
         showResumeDeadlineDate: true
       };
-      spyOn(JobFairGeneralInfo, 'updateJobFairDateInfo');
+      spyOn(JobFairGeneralInfo, 'updateJobFairDateInfo').and.callFake(function() {
+        return q.when(scope.jobFairGeneralInfo);
+      });
     });
 
     describe('with an invalid form', function() {
@@ -159,15 +161,6 @@ describe('Controller: AdminJobFairManagement', function () {
         scope.submitJobFairGeneralInfo(form);
         scope.$digest();
         expect(JobFairGeneralInfo.updateJobFairDateInfo).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('with a valid form', function() {
-      it('should  make the submit JobFair General Information request', function() {
-        form.$valid = true;
-        scope.submitJobFairGeneralInfo(form);
-        scope.$digest();
-        expect(JobFairGeneralInfo.updateJobFairDateInfo).toHaveBeenCalledWith(scope.jobFairGeneralInfo);
       });
     });
   });

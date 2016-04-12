@@ -2,30 +2,19 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('JobFairGeneralInfo', function(_) {
+app.factory('JobFairGeneralInfo', function(Restangular) {
   var obj = {
-    jobFairGeneralInfo: {
-      id: 1,
-      headerEnglish: '8th Spring Job Fair',
-      locationEnglish: 'Mayaguez Resort & Casino',
-      dateEnglish: 'Friday, February 19, 2016',
-      time: '8:30am - 2:30pm',
-      headerSpanish: '8va Feria de Empleo de Primavera',
-      locationSpanish: 'Hotel Mayaguez Resort & Casino',
-      dateSpanish: 'viernes, 19 de febrero de 2016',
-      resumeDeadlineDate: '2016-02-19T00:00:00.000Z',
-      showResumeDeadlineDate: true
-    }
+    jobFairGeneralInfo: {}
   };
 
-  // TODO: Make a request to get the job fair date information
   obj.getJobFairDate = function() {
-    return this.jobFairGeneralInfo;
+    return Restangular.all('/api/admins/jobFairDates').customGET().then(function(generalInfo) {
+      angular.copy(generalInfo.plain(), obj.jobFairGeneralInfo);
+    });
   };
 
-  // TODO: Make a request to update the job fair date information
   obj.updateJobFairDateInfo = function(jobFairDate) {
-    _.merge(this.jobFairGeneralInfo, jobFairDate);
+    return Restangular.all('/api/admins/jobFairDates').customPUT(jobFairDate);
   };
 
   return obj;

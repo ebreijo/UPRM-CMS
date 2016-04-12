@@ -183,6 +183,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/adminJobFairManagement',
       templateUrl: 'partials/administrators/job-fair-management.html',
       controller: 'AdminJobFairManagementCtrl',
+      resolve: {
+        jobFairGeneralInfoPromise: ['JobFairGeneralInfo', function (JobFairGeneralInfo) {
+          JobFairGeneralInfo.getJobFairDate();
+        }]
+      },
       data: {
         authorizedRoles: all
       }
