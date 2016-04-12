@@ -222,6 +222,8 @@ describe('Controller: AdminProfile', function () {
 
     beforeEach(function () {
       scope.executeTab2();
+      AdminAccess.getAdminAccessList();
+      httpBackend.whenGET('/api/adminsAccess').respond(200, []);
     });
 
     it('should have admin access list', function() {
@@ -267,6 +269,28 @@ describe('Controller: AdminProfile', function () {
         });
 
         it('should not make the giveAdminAccess request if admin already exists', function() {
+          scope.adminAccessList = [
+            {
+              email: 'juan.rodriguez@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'active'
+            },
+            {
+              email: 'maria.hernandez@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'inactive'
+            },
+            {
+              email: 'pedro.rivera@upr.edu',
+              isRoot: false,
+              adminAccountStatus: 'pending'
+            },
+            {
+              email: 'placement@uprm.edu',
+              isRoot: true,
+              adminAccountStatus: 'active'
+            }
+          ];
           scope.newAdminAccess = {
             email: 'placement@uprm.edu'
           };
@@ -283,11 +307,13 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(AdminAccess, 'updateAdminAccess');
       });
 
       describe('with a invalid form', function() {
         it('should not make the updateAdminAccess request', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           form.$valid = false;
           scope.submitAdminAccessEdit(form);
           scope.$digest();
@@ -318,7 +344,14 @@ describe('Controller: AdminProfile', function () {
           ];
         });
 
-        it('should not make the updateAdminAccess request if changing status from pending to active', function() {
+        it('should make the updateAdminAccess request if changing status from pending to active but should receive a warning message', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.reject({
+              data: {
+                message: 'an error'
+              }
+            });
+          });
           scope.tempAdminAccess = {
             email: 'pedro.rivera@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',
@@ -327,12 +360,15 @@ describe('Controller: AdminProfile', function () {
           };
           scope.submitAdminAccessEdit(form);
           scope.$digest();
-          expect(AdminAccess.updateAdminAccess).not.toHaveBeenCalled();
+          expect(AdminAccess.updateAdminAccess).toHaveBeenCalled();
           expect(scope.title).toEqual('Warning');
           expect(scope.message).toBeDefined();
         });
 
         it('should not make the updateAdminAccess request when updating admin email to another that already exists', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           scope.tempAdminAccess = {
             email: 'juan.rodriguez@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',
@@ -347,6 +383,9 @@ describe('Controller: AdminProfile', function () {
         });
 
         it('should make the updateAdminAccess request', function() {
+          spyOn(AdminAccess, 'updateAdminAccess').and.callFake(function() {
+            return q.when({});
+          });
           scope.tempAdminAccess = {
             email: 'pedro.rivera@upr.edu',
             currentEmail: 'pedro.rivera@upr.edu',

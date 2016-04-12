@@ -72,6 +72,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
    * Admins Tab
    */
   $scope.executeTab2 = function() {
+    AdminAccess.getAdminAccessList();
     $scope.adminAccessList = AdminAccess.adminAccessList;
     $scope.newAdminAccess = {};
     $scope.tempAdminAccess = {};
@@ -101,11 +102,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     };
 
     $scope.submitAdminAccessEdit = function(form) {
-      if ($scope.tempAdminAccess.adminTempAccountStatus === 'pending' && $scope.tempAdminAccess.adminAccountStatus === 'active') {
-        $scope.title = 'Warning';
-        $scope.message = 'Cannot activate the Administrator, it is still pending to register';
-        $('#messageModal').modal('toggle');
-      } else if (form.$valid) {
+      if (form.$valid) {
         // if admin access email changed, then check if that new email already exists.
         if (!_.isEqual($scope.tempAdminAccess.email, $scope.tempAdminAccess.currentEmail)) {
           var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.email});
@@ -118,8 +115,16 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         }
 
         $scope.tempAdminAccess.isRoot = false;
-        AdminAccess.updateAdminAccess($scope.tempAdminAccess);
-        $('#editAdminAccessModal').modal('hide');
+        AdminAccess.updateAdminAccess($scope.tempAdminAccess).then(function() {
+          var element = _.find($scope.adminAccessList, { email: $scope.tempAdminAccess.currentEmail});
+          _.merge(element, $scope.tempAdminAccess);
+          $('#editAdminAccessModal').modal('hide');
+        }, function(err) {
+          $scope.title = 'Warning';
+          $scope.message = err.data.message;
+          $('#messageModal').modal('toggle');
+        });
+
       }
     };
   };

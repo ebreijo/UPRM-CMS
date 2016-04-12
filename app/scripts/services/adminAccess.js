@@ -2,41 +2,27 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('AdminAccess', function(_) {
+app.factory('AdminAccess', function(Restangular) {
   var obj = {
-    adminAccessList: [
-      {
-        email: 'juan.rodriguez@upr.edu',
-        isRoot: false,
-        adminAccountStatus: 'active'
-      },
-      {
-        email: 'placement@uprm.edu',
-        isRoot: true,
-        adminAccountStatus: 'active'
-      },
-      {
-        email: 'pedro.rivera@upr.edu',
-        isRoot: false,
-        adminAccountStatus: 'pending'
-      },
-      {
-        email: 'maria.hernandez@upr.edu',
-        isRoot: false,
-        adminAccountStatus: 'inactive'
-      }
-    ]
+    adminAccessList: []
   };
 
-  // TODO: Make a request to give access to an admin given the email and account status
+  obj.getAdminAccessList = function() {
+    return Restangular.all('/api/adminsAccess').getList().then(function(adminAccessList) {
+      angular.copy(adminAccessList.plain(), obj.adminAccessList);
+    });
+  };
+
+
   obj.giveAdminAccess = function(newAdminAccess) {
-    this.adminAccessList.push(newAdminAccess);
+    var self = this;
+    Restangular.all('/api/adminsAccess').post(newAdminAccess).then(function() {
+      self.adminAccessList.push(newAdminAccess);
+    });
   };
 
-  // TODO: Make a request to update the access of an admin
   obj.updateAdminAccess = function(tempAdminAccess) {
-    var element = _.find(this.adminAccessList, { email: tempAdminAccess.currentEmail});
-    _.merge(element, tempAdminAccess);
+    return Restangular.all('/api/adminsAccess').customPUT(tempAdminAccess);
   };
 
   return obj;
