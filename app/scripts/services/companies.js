@@ -9,7 +9,7 @@ app.factory('Companies', function(Restangular) {
     temporaryContact: []
   };
 
-  obj.getAllCompanies = function(status) {
+  obj.getAllCompaniesForAdmins = function(status) {
     if (status === 'active' || status === 'inactive') {
       return Restangular.all('/api/admins/companies').getList({status: status}).then(function(data) {
         angular.copy(data.plain(), obj.companies);
@@ -40,7 +40,7 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  obj.updateCompanyStatus = function(company) {
+  obj.updateCompanyStatusFromAdmins = function(company) {
     return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 

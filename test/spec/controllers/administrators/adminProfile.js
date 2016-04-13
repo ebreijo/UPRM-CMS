@@ -106,7 +106,7 @@ describe('Controller: AdminProfile', function () {
         form = {};
         spyOn(Companies, 'createNewCompany');
         spyOn(Companies, 'createOrUpdateCompanyTemporaryContact');
-        spyOn(Companies, 'getAllCompanies');
+        spyOn(Companies, 'getAllCompaniesForAdmins');
       });
 
       describe('with a invalid form', function() {
@@ -160,7 +160,7 @@ describe('Controller: AdminProfile', function () {
           scope.$digest();
           expect(Companies.createNewCompany).toHaveBeenCalled();
           expect(Companies.createOrUpdateCompanyTemporaryContact).toHaveBeenCalled();
-          expect(Companies.getAllCompanies).toHaveBeenCalled();
+          expect(Companies.getAllCompaniesForAdmins).toHaveBeenCalled();
         });
 
         it('should not make the createNewCompany request when company already exists', function () {
@@ -177,7 +177,7 @@ describe('Controller: AdminProfile', function () {
           expect(scope.message).toBeDefined();
           expect(Companies.createNewCompany).not.toHaveBeenCalled();
           expect(Companies.createOrUpdateCompanyTemporaryContact).not.toHaveBeenCalled();
-          expect(Companies.getAllCompanies).toHaveBeenCalledWith('active');
+          expect(Companies.getAllCompaniesForAdmins).toHaveBeenCalledWith('active');
         });
       });
     });
@@ -186,7 +186,7 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(Companies, 'updateCompanyStatus').and.callFake(function() {
+        spyOn(Companies, 'updateCompanyStatusFromAdmins').and.callFake(function() {
           return q.when({});
         });
       });
@@ -198,7 +198,7 @@ describe('Controller: AdminProfile', function () {
         it('should not make the updateCompanyStatus request', function() {
           scope.submitCompanyStatusEdit(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatus).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -217,7 +217,7 @@ describe('Controller: AdminProfile', function () {
         it('should make the updateCompanyStatus request', function () {
           scope.submitCompanyStatusEdit(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
 
       });
@@ -593,7 +593,7 @@ describe('Controller: AdminProfile', function () {
     beforeEach(function () {
       scope.executeTab4();
       form = {};
-      spyOn(Companies, 'updateCompanyStatus').and.callFake(function() {
+      spyOn(Companies, 'updateCompanyStatusFromAdmins').and.callFake(function() {
         return q.when({});
       });
       scope.tempCompany = {
@@ -613,7 +613,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitAcceptCompany(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatus).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -623,7 +623,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('active');
-          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -635,7 +635,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectCompany(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatus).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -645,7 +645,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('inactive');
-          expect(Companies.updateCompanyStatus).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -656,7 +656,7 @@ describe('Controller: AdminProfile', function () {
     beforeEach(function () {
       scope.executeTab5();
       form = {};
-      spyOn(Recruiters, 'updateRecruiterStatus').and.callFake(function() {
+      spyOn(Recruiters, 'updateRecruiterStatusFromAdmins').and.callFake(function() {
         return q.when({});
       });
       scope.tempRecruiter = {
@@ -687,7 +687,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitAcceptRecruiter(form);
           scope.$digest();
-          expect(Recruiters.updateRecruiterStatus).not.toHaveBeenCalled();
+          expect(Recruiters.updateRecruiterStatusFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -697,7 +697,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptRecruiter(form);
           scope.$digest();
           expect(scope.tempRecruiter.accountStatus).toEqual('active');
-          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith(scope.tempRecruiter);
+          expect(Recruiters.updateRecruiterStatusFromAdmins).toHaveBeenCalledWith(scope.tempRecruiter);
         });
       });
     });
@@ -709,7 +709,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectRecruiter(form);
           scope.$digest();
-          expect(Recruiters.updateRecruiterStatus).not.toHaveBeenCalled();
+          expect(Recruiters.updateRecruiterStatusFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -719,7 +719,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectRecruiter(form);
           scope.$digest();
           expect(scope.tempRecruiter.accountStatus).toEqual('inactive');
-          expect(Recruiters.updateRecruiterStatus).toHaveBeenCalledWith(scope.tempRecruiter);
+          expect(Recruiters.updateRecruiterStatusFromAdmins).toHaveBeenCalledWith(scope.tempRecruiter);
         });
       });
     });
@@ -729,7 +729,7 @@ describe('Controller: AdminProfile', function () {
     var form;
     beforeEach(function () {
       scope.executeTab6();
-      spyOn(JobOffers, 'updateJobOffer').and.callFake(function() {
+      spyOn(JobOffers, 'updateJobOfferFromAdmins').and.callFake(function() {
         return q.when({});
       });
       form = {};
@@ -762,7 +762,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitJobOfferReviewAccept(form);
           scope.$digest();
-          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+          expect(JobOffers.updateJobOfferFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -772,7 +772,7 @@ describe('Controller: AdminProfile', function () {
           scope.tempJobOffer.expirationDate = new Date('October 13, 2013 11:13:00');
           scope.submitJobOfferReviewAccept(form);
           scope.$digest();
-          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+          expect(JobOffers.updateJobOfferFromAdmins).not.toHaveBeenCalled();
         });
 
         it('should make the accept job offer request if expiration date is a future date', function () {
@@ -781,7 +781,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitJobOfferReviewAccept(form);
           scope.$digest();
           expect(scope.tempJobOffer.jobOfferStatus).toEqual('approved');
-          expect(JobOffers.updateJobOffer).toHaveBeenCalledWith(scope.tempJobOffer);
+          expect(JobOffers.updateJobOfferFromAdmins).toHaveBeenCalledWith(scope.tempJobOffer);
         });
       });
     });
@@ -793,7 +793,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectJobOffer(form);
           scope.$digest();
-          expect(JobOffers.updateJobOffer).not.toHaveBeenCalled();
+          expect(JobOffers.updateJobOfferFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -803,7 +803,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectJobOffer(form);
           scope.$digest();
           expect(scope.tempJobOffer.jobOfferStatus).toEqual('rejected');
-          expect(JobOffers.updateJobOffer).toHaveBeenCalledWith(scope.tempJobOffer);
+          expect(JobOffers.updateJobOfferFromAdmins).toHaveBeenCalledWith(scope.tempJobOffer);
         });
       });
     });

@@ -13,7 +13,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.compStatusSelection = 'active';
     $scope.$watch('compStatusSelection', function (newValue) {
       $scope.compStatusSelection = newValue;
-      Companies.getAllCompanies($scope.compStatusSelection);
+      Companies.getAllCompaniesForAdmins($scope.compStatusSelection);
       $scope.companies = Companies.companies;
     });
 
@@ -39,7 +39,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
           $scope.company = null;
           $scope.tempContact = null;
           form.$setPristine();
-          Companies.getAllCompanies($scope.compStatusSelection);
+          Companies.getAllCompaniesForAdmins($scope.compStatusSelection);
           $scope.companies = Companies.companies;
           $('#createCompanyModal').modal('hide');
         }
@@ -52,7 +52,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitCompanyStatusEdit = function(form) {
       if (form.$valid) {
-        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
           var element = _.find($scope.companies, { name: $scope.tempCompany.name});
           _.merge(element, $scope.tempCompany);
           $('#editCompanyStatusModal').modal('hide');
@@ -194,12 +194,12 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Company Registration Tab
    */
-  Companies.getAllCompanies('pending');
+  Companies.getAllCompaniesForAdmins('pending');
   $scope.pendingCompanies = Companies.pendingCompanies;
 
   $scope.executeTab4 = function() {
 
-    Companies.getAllCompanies('pending');
+    Companies.getAllCompaniesForAdmins('pending');
     $scope.pendingCompanies = Companies.pendingCompanies;
 
     $scope.setCompanyToConfirm = function(company) {
@@ -209,7 +209,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'active';
-        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
           removeCompanyFromPendingList();
           $('#acceptCompanyModal').modal('hide');
         });
@@ -219,7 +219,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
-        Companies.updateCompanyStatus($scope.tempCompany).then(function() {
+        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
           removeCompanyFromPendingList();
           $('#rejectCompanyModal').modal('hide');
         });
@@ -237,12 +237,12 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Recruiter Registration Tab
    */
-  Recruiters.getAllPendingRecruiters();
+  Recruiters.getAllPendingRecruitersForAdmins();
   $scope.pendingRecruiters = Recruiters.pendingRecruiters;
 
   $scope.executeTab5 = function() {
 
-    Recruiters.getAllPendingRecruiters();
+    Recruiters.getAllPendingRecruitersForAdmins();
     $scope.pendingRecruiters = Recruiters.pendingRecruiters;
 
     $scope.setRecruiterToConfirm = function(recruiter) {
@@ -252,7 +252,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'active';
-        Recruiters.updateRecruiterStatus($scope.tempRecruiter).then(function() {
+        Recruiters.updateRecruiterStatusFromAdmins($scope.tempRecruiter).then(function() {
           removeRecruiterFromPendingList();
           $('#acceptRecruiterModal').modal('hide');
         });
@@ -262,7 +262,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectRecruiter = function(form) {
       if (form.$valid) {
         $scope.tempRecruiter.accountStatus = 'inactive';
-        Recruiters.updateRecruiterStatus($scope.tempRecruiter).then(function() {
+        Recruiters.updateRecruiterStatusFromAdmins($scope.tempRecruiter).then(function() {
           removeRecruiterFromPendingList();
           $('#rejectRecruiterModal').modal('hide');
         });
@@ -301,7 +301,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
       if(form.$valid && (new Date($scope.tempJobOffer.expirationDate) > (new Date()))) {
         $scope.showJobOfferDateError = false;
         $scope.tempJobOffer.jobOfferStatus = 'approved';
-        JobOffers.updateJobOffer($scope.tempJobOffer).then(function() {
+        JobOffers.updateJobOfferFromAdmins($scope.tempJobOffer).then(function() {
           removeJobOfferFromPendingList();
           $('#reviewAcceptJobOfferModal').modal('hide');
         });
@@ -313,7 +313,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectJobOffer = function(form) {
       if (form.$valid) {
         $scope.tempJobOffer.jobOfferStatus = 'rejected';
-        JobOffers.updateJobOffer($scope.tempJobOffer).then(function() {
+        JobOffers.updateJobOfferFromAdmins($scope.tempJobOffer).then(function() {
           removeJobOfferFromPendingList();
           $('#rejectJobOfferModal').modal('hide');
         });
