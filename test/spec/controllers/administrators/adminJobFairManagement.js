@@ -88,7 +88,7 @@ describe('Controller: AdminJobFairManagement', function () {
           id: 4,
           companyName: 'Apple',
           majorCode: 'ICOM'
-        }]
+        }];
       };
       spyOn(JobFairCompaniesInfo, 'getJobFairInfoPerCompany').and.callFake(function() {
         return {
