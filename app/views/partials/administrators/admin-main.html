@@ -1019,50 +1019,50 @@
                       </div>
                       <article class="contact-form col-md-4">
                         <div class="form-group has-feedback"
-                             ng-class="{ 'has-error' : changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine }">
-                          <label>Current Password&nbsp;
+                             ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                          <label>New Password&nbsp;
                             <span class="required">*</span>
                           </label>
-                          <input ng-model="adminCurrentPassword" name="currentPassword" type="password" ng-minlength="6" ng-maxlength="40"
+                          <input ng-model="newPassword" name="newPassword" type="password" ng-minlength="6" ng-maxlength="40"
                                  class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required
                                  ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
-                             ng-show="changePasswordForm.currentPassword.$valid"></i>
+                             ng-show="changePasswordForm.newPassword.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback"
-                             ng-show="changePasswordForm.currentPassword.$invalid && !changePasswordForm.currentPassword.$pristine"></i>
+                             ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="changePasswordForm.currentPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password
+                          <p ng-show="changePasswordForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password
                             is too short. Use at least 6 characters.</b></p>
 
-                          <p ng-show="changePasswordForm.currentPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password
+                          <p ng-show="changePasswordForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password
                             is too long. Use less than 40 characters.</b></p>
 
-                          <p ng-show="changePasswordForm.currentPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password
+                          <p ng-show="changePasswordForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password
                             must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
 
-                          <p ng-show="changePasswordForm.currentPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special
+                          <p ng-show="changePasswordForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special
                             Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' &lt; &gt; ?</b></p>
                         </div>
                       </article>
                       <article class="contact-form col-md-4">
                         <div class="form-group has-feedback"
-                             ng-class="{ 'has-error' : (changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine }">
+                             ng-class="{ 'has-error' : (changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine }">
                           <label>Confirm Password&nbsp;
                             <span class="required">*</span>
                           </label>
-                          <input ng-model="password" name="newPassword" type="password" ng-minlength="6"
+                          <input ng-model="password" name="password" type="password" ng-minlength="6"
                                  ng-maxlength="40" class="form-control" placeholder="Re-enter your new password"
                                  style="border-radius: 0;" required
                                  ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
-                             ng-show="(changePasswordForm.newPassword.$viewValue===changePasswordForm.currentPassword.$viewValue) && changePasswordForm.newPassword.$valid"></i>
+                             ng-show="(changePasswordForm.password.$viewValue===changePasswordForm.newPassword.$viewValue) && changePasswordForm.password.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback"
-                             ng-show="(changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine"></i>
+                             ng-show="(changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine"></i>
                         </div>
                         <div>
                           <p
-                            ng-show="(changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue) && !changePasswordForm.newPassword.$pristine"
+                            ng-show="(changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine"
                             style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
                         </div>
                       </article>
@@ -1071,7 +1071,7 @@
                     </div>
                     <div class="row text-center">
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid || (changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue)"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid || (changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue)"  style="margin-bottom:5px"><b>Save Changes</b></button>
                       </div>
                     </div>
                   </form>

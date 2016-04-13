@@ -392,6 +392,12 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.confirmChangePassword = function(form) {
     if (form.$valid) {
+      if ($scope.password !== $scope.newPassword) {
+        $scope.title = 'Warning';
+        $scope.message = 'Password does not match. Please verify you have entered the same password in both fields.';
+        $('#messageModal').modal('show');
+        return;
+      }
       $('#confirmChangePassword').modal('show');
     }
   };
@@ -400,10 +406,10 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     Administrator.changePassword($scope.password).then(function() {
       $('#confirmChangePassword').modal('hide');
       $scope.password = null;
-      $scope.adminCurrentPassword = null;
+      $scope.newPassword = null;
       $scope.changePasswordForm.$setPristine();
       $scope.title = 'Congratulations';
-      $scope.message = 'Next time you log in make sure to use the new password!';
+      $scope.message = 'Password was successfully changed. Next time you log in make sure to use the new password!';
       $('#messageModal').modal('show');
     });
   };
