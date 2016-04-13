@@ -1174,18 +1174,22 @@ describe('Companies Controller: ', function() {
 
       it('should add the interested major to the company and return a 201 status code', function (done) {
         var newInterestedMajor = {
-          "id": 1,
-          "companyName": "IBM",
-          "majorCode": "INME"
+          "interestedMajors": [
+            {
+              "id": 1,
+              "companyName": "IBM",
+              "majorCode": "ESPA"
+            }
+          ]
         };
         interestedMajor.send(newInterestedMajor)
           .expect('Content-Type', /json/)
           .expect(201)
-          .end(help.isBodyEqual({
+          .end(help.isBodyEqual([{
             "id": 6,
             "companyName": "IBM",
-            "majorCode": "INME"
-          }, done));
+            "majorCode": "ESPA"
+          }], done));
       });
     });
 
@@ -1193,9 +1197,13 @@ describe('Companies Controller: ', function() {
 
       it('should not add the interested major and return a 404 status code if the major is not found', function (done) {
         var newInterestedMajor = {
-          "id": 1,
-          "companyName": "IBM",
-          "majorCode": "ZZZZ"
+          "interestedMajors": [
+            {
+              "id": 1,
+              "companyName": "IBM",
+              "majorCode": "ZZZZ"
+            }
+          ]
         };
         interestedMajor.send(newInterestedMajor)
           .expect('Content-Type', /json/)
@@ -1214,15 +1222,25 @@ describe('Companies Controller: ', function() {
 
   describe('Remove a company interested major', function() {
     it('should remove an existing company interested major for IBM (given its ID) and return a 200 status code', function(done) {
+      var removeInterestedMajor = {
+        "interestedMajors": [
+          {
+            "id": 1,
+            "companyName": "IBM",
+            "majorCode": "ESPA"
+          }
+        ]
+      };
       request(app)
-        .del('/api/companies/IBM/companyInterestedMajors/6')
+        .put('/api/companies/IBM/companyInterestedMajors')
+        .send(removeInterestedMajor)
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual({
+        .end(help.isBodyEqual([{
           "id": 6,
           "companyName": "IBM",
-          "majorCode": "INME"
-        } ,done));
+          "majorCode": "ESPA"
+        }] ,done));
     });
   });
 

@@ -46,6 +46,7 @@ describe('Controller: AdminJobFairManagement', function () {
 
     httpBackend.whenGET('/api/companies/Apple/companyLookingFor').respond(200, []);
     httpBackend.whenGET('/api/admins/jobFairInformation').respond(200, []);
+    httpBackend.whenGET('/api/companies/Apple/companyInterestedMajors').respond(200, []);
 
   }));
 
@@ -80,6 +81,15 @@ describe('Controller: AdminJobFairManagement', function () {
     beforeEach(function() {
       scope.companySelection = 'Apple';
       scope.jobFairCompanyAdditionalInfo = {};
+      var expectedArray = [];
+      // mock plain function
+      expectedArray.plain = function() {
+        return [{
+          id: 4,
+          companyName: 'Apple',
+          majorCode: 'ICOM'
+        }]
+      };
       spyOn(JobFairCompaniesInfo, 'getJobFairInfoPerCompany').and.callFake(function() {
         return {
           companyName: 'Apple',
@@ -91,6 +101,9 @@ describe('Controller: AdminJobFairManagement', function () {
           attending: true,
           websiteApplication: 'http://www.apple.com/jobs/us/'
         };
+      });
+      spyOn(Majors, 'getInterestedMajorsPerCompany').and.callFake(function() {
+        return q.when(expectedArray);
       });
       scope.$digest();
     });
@@ -210,7 +223,8 @@ describe('Controller: AdminJobFairManagement', function () {
       ];
       spyOn(JobFairCompaniesInfo, 'updateJobFairInfoPerCompany');
       spyOn(CompanyLookingForPositions, 'updateCompanyLookingForPositions');
-      spyOn(Majors, 'setInterestedMajorsPerCompany');
+      spyOn(Majors, 'setAddInterestedMajorsPerCompany');
+      spyOn(Majors, 'setRemoveInterestedMajorsPerCompany');
       scope.$digest();
     });
 
@@ -221,7 +235,8 @@ describe('Controller: AdminJobFairManagement', function () {
         scope.$digest();
         expect(JobFairCompaniesInfo.updateJobFairInfoPerCompany).not.toHaveBeenCalled();
         expect(CompanyLookingForPositions.updateCompanyLookingForPositions).not.toHaveBeenCalled();
-        expect(Majors.setInterestedMajorsPerCompany).not.toHaveBeenCalled();
+        expect(Majors.setAddInterestedMajorsPerCompany).not.toHaveBeenCalled();
+        expect(Majors.setRemoveInterestedMajorsPerCompany).not.toHaveBeenCalled();
       });
     });
 
@@ -242,7 +257,8 @@ describe('Controller: AdminJobFairManagement', function () {
         scope.$digest();
         expect(JobFairCompaniesInfo.updateJobFairInfoPerCompany).toHaveBeenCalledWith(scope.jobFairCompanyAdditionalInfo);
         expect(CompanyLookingForPositions.updateCompanyLookingForPositions).toHaveBeenCalledWith(scope.companySelection, scope.companyJobPositions);
-        expect(Majors.setInterestedMajorsPerCompany).toHaveBeenCalledWith(scope.majors);
+        expect(Majors.setAddInterestedMajorsPerCompany).toHaveBeenCalledWith(scope.companySelection, scope.majors);
+        expect(Majors.setRemoveInterestedMajorsPerCompany).toHaveBeenCalledWith(scope.companySelection, scope.majors);
       });
     });
   });
