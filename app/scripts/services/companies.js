@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function(Restangular) {
+app.factory('Companies', function(Restangular, _) {
   var obj = {
     companies: [],
     pendingCompanies: [],
@@ -22,13 +22,8 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.getCompany = function(companyName) {
-    var activeOrInactiveCompany = obj.companies.filter(function(company) {
-      return company.name === companyName;
-    })[0];
-
-    var pendingCompany = obj.pendingCompanies.filter(function(company) {
-      return company.name === companyName;
-    })[0];
+    var activeOrInactiveCompany = _.find(obj.companies, { 'name': companyName});
+    var pendingCompany = _.find(obj.pendingCompanies, { 'name': companyName});
 
     return activeOrInactiveCompany || pendingCompany;
   };

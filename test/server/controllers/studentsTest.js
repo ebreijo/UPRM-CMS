@@ -105,11 +105,7 @@ describe('Students Controller: ', function() {
             "lookingFor": [
               {
                 "companyName": "Apple",
-                "jobPosition": "Internship"
-              },
-              {
-                "companyName": "Apple",
-                "jobPosition": "Full-Time"
+                "jobPosition": "CO-OP"
               }
             ],
             "interestedMajors": [
