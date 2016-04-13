@@ -332,7 +332,8 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Promotional Documents
    */
-  $scope.pendingPromotionalMaterial = PromotionalMaterial.getAllPendingPromotionalMaterial();
+  PromotionalMaterial.getAllPendingPromotionalMaterialForAdmins('pending');
+  $scope.pendingPromotionalMaterial = PromotionalMaterial.promotionalMaterial;
 
   $scope.executeTab7 = function() {
 
@@ -345,18 +346,20 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'approved';
-        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
-        removePromotionalDocumentFromPendingList();
-        $('#acceptPromotionalDocumentModal').modal('hide');
+        PromotionalMaterial.updatePromotionalMaterialFromAdmins($scope.tempPromotionalDocument).then(function() {
+          removePromotionalDocumentFromPendingList();
+          $('#acceptPromotionalDocumentModal').modal('hide');
+        });
       }
     };
 
     $scope.submitRejectPromotionalDocument = function(form) {
       if(form.$valid) {
         $scope.tempPromotionalDocument.status = 'rejected';
-        PromotionalMaterial.updatePromotionalMaterial($scope.tempPromotionalDocument);
-        removePromotionalDocumentFromPendingList();
-        $('#rejectPromotionalDocumentModal').modal('hide');
+        PromotionalMaterial.updatePromotionalMaterialFromAdmins($scope.tempPromotionalDocument).then(function() {
+          removePromotionalDocumentFromPendingList();
+          $('#rejectPromotionalDocumentModal').modal('hide');
+        });
       }
     };
 

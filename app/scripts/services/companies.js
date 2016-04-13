@@ -5,10 +5,9 @@ var app = angular.module('uprmcmsApp');
 app.factory('Companies', function(Restangular) {
   var obj = {
     companies: [],
-    pendingCompanies: []
+    pendingCompanies: [],
+    temporaryContact: []
   };
-
-  obj.temporaryContact = [];
 
   obj.getAllCompanies = function(status) {
     if (status === 'active' || status === 'inactive') {
@@ -55,7 +54,6 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  // TODO: Make a request to create or update the company temporary contact
   obj.createOrUpdateCompanyTemporaryContact = function(temporaryContact) {
     var self = this;
     Restangular.one('/api/admins/companies/', temporaryContact.companyName).post('tempContact', temporaryContact).then(function() {
