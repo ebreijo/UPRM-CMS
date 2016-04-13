@@ -2,50 +2,41 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('JobFairCompaniesInfo', function(_) {
+app.factory('JobFairCompaniesInfo', function(Restangular, _) {
   var obj = {
-    jobFairCompaniesInfo: [
-      {
-        companyName: 'Apple',
-        minGpa: 3.4,
-        extraInformation: 'This is Apple attending the Job Fair',
-        collectingResumesBeforeJobFair: true,
-        mustFillOnline: false,
-        interviewsDuringWeekend: false,
-        attending: true,
-        websiteApplication: 'http://www.apple.com/jobs/us/'
-      },
-      {
-        companyName: 'IBM',
-        minGpa: 3.3,
-        extraInformation: 'This is a company attending the Job Fair',
-        collectingResumesBeforeJobFair: true,
-        mustFillOnline: false,
-        interviewsDuringWeekend: true,
-        attending: true,
-        websiteApplication: 'http://www-03.ibm.com/employment/us/'
-      }
-    ]
+    companiesJobFair: [],
+    jobFairCompaniesInfo: []
   };
 
-  // TODO: Make a request to get the job fair additional information for all companies
+  obj.getAllCompaniesForJobFairManagement = function() {
+    Restangular.all('/api/admins/companiesJobFair').getList().then(function(companies) {
+      angular.copy(companies.plain(), obj.companiesJobFair);
+    });
+  };
+
+  obj.getCompanyForJobFair = function(companyName) {
+    return _.find(obj.companiesJobFair, {'name': companyName});
+  };
+
   obj.getJobFairCompaniesInfo = function() {
-    return this.jobFairCompaniesInfo;
+    return Restangular.all('/api/admins/jobFairInformation').getList().then(function(companiesInfo) {
+      angular.copy(companiesInfo.plain(), obj.jobFairCompaniesInfo);
+    });
   };
 
-  // TODO: Make a request to get the job fair additional information per company
   obj.getJobFairInfoPerCompany = function(companyName) {
     return _.find(this.jobFairCompaniesInfo, { companyName: companyName});
   };
 
-  // TODO: Make a request to update the job fair additional information per company
   obj.updateJobFairInfoPerCompany = function(jobFairInfo) {
-    var element = _.find(this.jobFairCompaniesInfo, { companyName: jobFairInfo.companyName});
-    if (element) {
-      _.merge(element, jobFairInfo);
-    } else {
-      this.jobFairCompaniesInfo.push(jobFairInfo);
-    }
+    Restangular.one('/api/admins/jobFairInformation', jobFairInfo.companyName).customPOST(jobFairInfo).then(function() {
+      var element = _.find(obj.jobFairCompaniesInfo, { companyName: jobFairInfo.companyName});
+      if (element) {
+        _.merge(element, jobFairInfo);
+      } else {
+        this.jobFairCompaniesInfo.push(jobFairInfo);
+      }
+    });
   };
 
   return obj;

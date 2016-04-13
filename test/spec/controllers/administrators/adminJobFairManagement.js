@@ -7,7 +7,6 @@ describe('Controller: AdminJobFairManagement', function () {
 
   var $controller;
   var scope;
-  var Companies;
   var JobFairGeneralInfo;
   var JobFairCompaniesInfo;
   var CompanyLookingForPositions;
@@ -15,10 +14,10 @@ describe('Controller: AdminJobFairManagement', function () {
   var Patterns;
   var _;
   var q;
+  var httpBackend;
 
   // Get params for AdminJobFairManagement controller
   beforeEach(inject(function ($injector) {
-    Companies = $injector.get('Companies');
     JobFairGeneralInfo = $injector.get('JobFairGeneralInfo');
     JobFairCompaniesInfo = $injector.get('JobFairCompaniesInfo');
     CompanyLookingForPositions = $injector.get('CompanyLookingForPositions');
@@ -26,6 +25,7 @@ describe('Controller: AdminJobFairManagement', function () {
     Patterns = $injector.get('Patterns');
     _ = $injector.get('_');
     q = $injector.get('$q');
+    httpBackend = $injector.get('$httpBackend');
   }));
 
   // Call the controller and inject it with mock objects
@@ -36,7 +36,6 @@ describe('Controller: AdminJobFairManagement', function () {
 
     $controller('AdminJobFairManagementCtrl', {
       $scope: scope,
-      Companies: Companies,
       JobFairGeneralInfo: JobFairGeneralInfo,
       JobFairCompaniesInfo: JobFairCompaniesInfo,
       CompanyLookingForPositions: CompanyLookingForPositions,
@@ -45,6 +44,8 @@ describe('Controller: AdminJobFairManagement', function () {
       _: _
     });
 
+    httpBackend.whenGET('/api/companies/Apple/companyLookingFor').respond(200, []);
+    httpBackend.whenGET('/api/admins/jobFairInformation').respond(200, []);
 
   }));
 
@@ -78,6 +79,19 @@ describe('Controller: AdminJobFairManagement', function () {
 
     beforeEach(function() {
       scope.companySelection = 'Apple';
+      scope.jobFairCompanyAdditionalInfo = {};
+      spyOn(JobFairCompaniesInfo, 'getJobFairInfoPerCompany').and.callFake(function() {
+        return {
+          companyName: 'Apple',
+          minGpa: 3.4,
+          extraInformation: 'This is Apple attending the Job Fair',
+          collectingResumesBeforeJobFair: true,
+          mustFillOnline: false,
+          interviewsDuringWeekend: true,
+          attending: true,
+          websiteApplication: 'http://www.apple.com/jobs/us/'
+        };
+      });
       scope.$digest();
     });
 
@@ -170,16 +184,6 @@ describe('Controller: AdminJobFairManagement', function () {
 
     beforeEach(function() {
       scope.companySelection = 'Apple';
-      scope.jobFairCompanyAdditionalInfo = {
-        companyName: 'Apple',
-        minGpa: 3.40,
-        extraInformation: 'This is Apple attending the Job Fair',
-        collectingResumesBeforeJobFair: true,
-        mustFillOnline: false,
-        interviewsDuringWeekend: false,
-        attending: true,
-        websiteApplication: 'http://www.apple.com/jobs/us/'
-      };
       scope.companyJobPositions = [
         {
           companyName: 'Apple',
@@ -222,12 +226,22 @@ describe('Controller: AdminJobFairManagement', function () {
     });
 
     describe('with a valid form', function() {
-      it('should  make the submit Job Fair management changes request', function() {
+      it('should make the submit Job Fair management changes request', function() {
         form.$valid = true;
+        scope.jobFairCompanyAdditionalInfo = {
+          companyName: 'Apple',
+          minGpa: 3.40,
+          extraInformation: 'This is Apple attending the Job Fair',
+          collectingResumesBeforeJobFair: true,
+          mustFillOnline: false,
+          interviewsDuringWeekend: false,
+          attending: true,
+          websiteApplication: 'http://www.apple.com/jobs/us/'
+        };
         scope.submitJobFairManagementChanges(form);
         scope.$digest();
         expect(JobFairCompaniesInfo.updateJobFairInfoPerCompany).toHaveBeenCalledWith(scope.jobFairCompanyAdditionalInfo);
-        expect(CompanyLookingForPositions.updateCompanyLookingForPositions).toHaveBeenCalledWith(scope.companyJobPositions);
+        expect(CompanyLookingForPositions.updateCompanyLookingForPositions).toHaveBeenCalledWith(scope.companySelection, scope.companyJobPositions);
         expect(Majors.setInterestedMajorsPerCompany).toHaveBeenCalledWith(scope.majors);
       });
     });

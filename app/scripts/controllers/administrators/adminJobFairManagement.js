@@ -2,10 +2,10 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, Patterns, _) {
+app.controller('AdminJobFairManagementCtrl', function($scope, JobFairGeneralInfo, JobFairCompaniesInfo, CompanyLookingForPositions, Majors, Patterns, _) {
 
   $scope.jobFairGeneralInformation = JobFairGeneralInfo.jobFairGeneralInfo;
-  $scope.jobFairCompaniesList = Companies.companies;
+  $scope.jobFairCompaniesList = JobFairCompaniesInfo.companiesJobFair;
   $scope.company = {};
   $scope.jobFairCompanyAdditionalInfo = {};
   $scope.patterns = Patterns.jobFairManagement;
@@ -16,21 +16,41 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
   $scope.companySelection = 'Select Company';
   $scope.isDisable = true;
 
+  $scope.companyJobPositions = [];
+
   $scope.$watch('companySelection', function (newValue) {
     $scope.companySelection = newValue;
     if ($scope.companySelection === 'Select Company') {
       $scope.isDisable = true;
     } else {
       $scope.isDisable = false;
+      CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection).then(function(companyLookingForPositions) {
+        $scope.companyJobPositions = angular.copy(companyLookingForPositions.plain());
+        var positions = [];
+        _.forEach($scope.companyJobPositions,  function(element) {
+          positions.push(element.jobPosition);
+        });
+        _.forEach(jobPositions,  function(position) {
+          if(positions.indexOf(position) < 0){
+            var dummyObject = {
+              companyName: $scope.companySelection,
+              jobPosition: position,
+              status: false
+            };
+            $scope.companyJobPositions.push(dummyObject);
+          }
+        });
+      });
     }
 
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
+    $scope.company = JobFairCompaniesInfo.getCompanyForJobFair($scope.companySelection);
     if ($scope.jobFairCompanyAdditionalInfo) {
       if ($scope.jobFairCompanyAdditionalInfo.minGpa) {
-        $scope.jobFairCompanyAdditionalInfo.minGpa = ($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
+        $scope.jobFairCompanyAdditionalInfo.minGpa = Number($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
       }
     }
-    $scope.companyJobPositions = angular.copy(CompanyLookingForPositions.getCompanyLookingForPositions($scope.companySelection));
+    $scope.companyJobPositions = [];
     $scope.majors = Majors.getInterestedMajorsPerCompany($scope.companySelection);
 
     var positions = [];
@@ -114,7 +134,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, Companies, JobFair
         $scope.jobFairCompanyAdditionalInfo.minGpa = (Number($scope.jobFairCompanyAdditionalInfo.minGpa)).toFixed(2);
       }
       JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
-      CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companyJobPositions);
+      CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companySelection, $scope.companyJobPositions);
       Majors.setInterestedMajorsPerCompany($scope.majors);
       $('#confirmJobFairManagementModal').modal('hide');
     }

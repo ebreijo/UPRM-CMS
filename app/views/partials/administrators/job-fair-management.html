@@ -46,6 +46,8 @@
                       <option value="Select Company">Select Company </option>
                       <option ng-repeat="item in jobFairCompaniesList" value="{{item.name}}">{{item.name}}</option>
                     </select>
+                    <div class="contact-form col-md-1 form-inline" style="margin-top:10px"><span ng-show="company" class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-warning': company.companyStatus === 'pending', 'label-danger': company.companyStatus === 'inactive'}">{{company.companyStatus | capitalize}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -145,7 +147,7 @@
             </div>
             <div class="row">
               <h4 class="title text-center" style="margin-top:15px; margin-bottom:15px">Job Positions</h4>
-              <div class="col-md-3" style="padding-bottom:10px" ng-repeat="item in companyJobPositions">
+              <div class="col-md-3" style="padding-bottom:10px" ng-repeat="item in companyJobPositions | orderBy:'jobPosition'">
                 <ul class="list-group">
                   <li class="list-group-item">
                     <label class="control-label">

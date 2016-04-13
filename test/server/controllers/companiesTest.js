@@ -1236,11 +1236,13 @@ describe('Companies Controller: ', function() {
         .end(help.isBodyEqual([
           {
             "companyName": "Apple",
-            "jobPosition": "Internship"
+            "jobPosition": "Internship",
+            "status": true
           },
           {
             "companyName": "Apple",
-            "jobPosition": "Full-Time"
+            "jobPosition": "Full-Time",
+            "status": true
           }
         ], done));
     });
@@ -1254,28 +1256,30 @@ describe('Companies Controller: ', function() {
 
     describe('with a valid object sent', function () {
 
-      it('should add the new position to look for in the company and return a 200 status code', function (done) {
+      it('should add the new positions or update positions already exists in the company and return a 200 status code', function (done) {
         var newPositionLookingFor = {
-          "jobPosition": "Part-Time",
-          "status": true
-        };
-        positionLookingFor.send(newPositionLookingFor)
-          .expect('Content-Type', /json/)
-          .expect(200)
-          .end(function(err, res) {
-            if(err) {
-              done(err);
-            } else {
-              expect(res.body.message).to.match(/Change successful/);
-              done();
+          "companyPositions": [
+            {
+              "companyName": "Apple",
+              "jobPosition": "Internship",
+              "status": false
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "Full-Time",
+              "status": false
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "CO-OP",
+              "status": true
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "Part-Time",
+              "status": false
             }
-          });
-      });
-
-      it('should remove the new position to look for in the company and return a 200 status code', function (done) {
-        var newPositionLookingFor = {
-          "jobPosition": "Part-Time",
-          "status": false
+          ]
         };
         positionLookingFor.send(newPositionLookingFor)
           .expect('Content-Type', /json/)
@@ -1295,8 +1299,28 @@ describe('Companies Controller: ', function() {
 
       it('should not add the new position to look for and return a 400 status code because of validation error', function (done) {
         var newPositionLookingFor = {
-          "jobPosition": "Time",
-          "status": false
+          "companyPositions": [
+            {
+              "companyName": "Apple",
+              "jobPosition": "",
+              "status": false
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "Full-Time",
+              "status": false
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "CO-OP",
+              "status": true
+            },
+            {
+              "companyName": "Apple",
+              "jobPosition": "Part-Time",
+              "status": false
+            }
+          ]
         };
         positionLookingFor.send(newPositionLookingFor)
           .expect('Content-Type', /json/)

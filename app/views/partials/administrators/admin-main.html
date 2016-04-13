@@ -961,7 +961,7 @@
                 </div>
 
                 <div class="tab-pane" id="tab8">
-                  <form name="accountSettingsForm" novalidate>
+                  <form name="accountSettingsForm" ng-submit="confirmNameChanges(accountSettingsForm)" novalidate>
                     <div class="row">
                       <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
                         <h3 class="title">My Settings</h3>
@@ -976,12 +976,12 @@
                           <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine}">
-                          <input ng-model="adminLoggedInItem.firstName" name="adminLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <input ng-model="admin.firstName" name="adminLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{1,45})$/i"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.adminLoggedInFirstName.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="accountSettingsForm.adminLoggedInFirstName.$invalid && !accountSettingsForm.adminLoggedInFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid First Name</b></p>
                         </div>
                       </article>
                       <article class="contact-form col-md-4">
@@ -989,12 +989,12 @@
                           <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine}">
-                          <input ng-model="adminLoggedInItem.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <input ng-model="admin.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{1,45})$/i"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInLastName.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Last Name</b></p>
                         </div>
                       </article>
                       <div class="col-md-2">
@@ -1007,7 +1007,7 @@
                     </div>
                   </form>
                   <hr width="90%">
-                  <form name="changePasswordForm" novalidate>
+                  <form name="changePasswordForm" ng-submit="confirmChangePassword(changePasswordForm)" novalidate>
                     <div class="row">
                       <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
                         <h3 class="title">Change Password</h3>
@@ -1071,15 +1071,13 @@
                     </div>
                     <div class="row text-center">
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid || (changePasswordForm.newPassword.$viewValue!==changePasswordForm.currentPassword.$viewValue)"  style="margin-bottom:5px"><b>Save Changes</b></button>
                       </div>
                     </div>
                   </form>
                   <hr>
 
-
                 </div>
-
               </div>
             </div>
             <!--//featured-courses-->
@@ -1093,6 +1091,51 @@
     <!--//page-->
   </div>
   <!--//content-->
+</div>
+<div id="confirmNameChanges" class="modal fade">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <form class="form-horizontal" name="modalNameChangesForm" ng-submit="submitNameChanges(modalNameChangesForm)" novalidate>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+        </div>
+        <!-- dialog body -->
+        <div class="modal-body">
+          <h5>Are you sure you want to save these changes?</h5>
+        </div>
+        <!-- dialog buttons -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-theme">Submit</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="confirmChangePassword" class="modal fade">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <form class="form-horizontal" name="modalConfirmPasswordForm" ng-submit="submitChangePassword(modalConfirmPasswordForm)" novalidate>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+        </div>
+        <!-- dialog body -->
+        <div class="modal-body">
+          <h5>Are you sure you want to save these changes?</h5>
+        </div>
+        <!-- dialog buttons -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-theme">Submit</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 <!--//wrapper-->
 <div id="messageModal" class="modal fade">

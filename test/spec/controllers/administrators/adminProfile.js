@@ -64,6 +64,7 @@ describe('Controller: AdminProfile', function () {
     httpBackend.whenGET('/api/admins/pendingRecruiters').respond(200, []);
     httpBackend.whenGET('/api/admins/jobOffers?status=pending').respond(200, []);
     httpBackend.whenGET('/api/admins/promotionalMaterial?status=pending').respond(200, []);
+    httpBackend.whenGET('/api/administrators/me').respond(200, {});
   }));
 
   describe('initial state', function () {

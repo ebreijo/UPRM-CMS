@@ -186,6 +186,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       resolve: {
         jobFairGeneralInfoPromise: ['JobFairGeneralInfo', function (JobFairGeneralInfo) {
           JobFairGeneralInfo.getJobFairDate();
+        }],
+        companiesJobFairPromise: ['JobFairCompaniesInfo', function(JobFairCompaniesInfo) {
+          JobFairCompaniesInfo.getAllCompaniesForJobFairManagement();
+        }],
+        jobFairCompaniesInfoPromise: ['JobFairCompaniesInfo', function(JobFairCompaniesInfo) {
+          JobFairCompaniesInfo.getJobFairCompaniesInfo();
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
         }]
       },
       data: {
@@ -216,7 +225,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       controller: 'AdminCompanyProfileCtrl',
       resolve: {
         adminCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
-          console.log($stateParams.companyName);
           return Companies.getCompany($stateParams.companyName);
         }]
       },
