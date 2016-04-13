@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalMaterial, Patterns, $filter, _) {
+app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majors, Recruiters, JobOffers, PromotionalMaterial, Administrator, Patterns, $filter, _) {
 
   $scope.patterns = Patterns.user;
 
@@ -374,6 +374,38 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
   /**
    * Account Settings Tab
    */
+  Administrator.getMyInformation();
+  $scope.admin = Administrator.administrator;
 
+
+  $scope.confirmNameChanges = function(form) {
+    if (form.$valid) {
+      $('#confirmNameChanges').modal('show');
+    }
+  };
+
+  $scope.submitNameChanges = function() {
+    Administrator.updateNames($scope.admin).then(function() {
+      $('#confirmNameChanges').modal('hide');
+    });
+  };
+
+  $scope.confirmChangePassword = function(form) {
+    if (form.$valid) {
+      $('#confirmChangePassword').modal('show');
+    }
+  };
+
+  $scope.submitChangePassword = function() {
+    Administrator.changePassword($scope.password).then(function() {
+      $('#confirmChangePassword').modal('hide');
+      $scope.password = null;
+      $scope.adminCurrentPassword = null;
+      $scope.changePasswordForm.$setPristine();
+      $scope.title = 'Congratulations';
+      $scope.message = 'Next time you log in make sure to use the new password!';
+      $('#messageModal').modal('show');
+    });
+  };
 
 });

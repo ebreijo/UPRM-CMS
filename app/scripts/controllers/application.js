@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS, _) {
+app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS, Session, _) {
 
   // variables for use in child scopes.
   $scope.currentUser = null;
@@ -18,6 +18,11 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
     $scope.currentUser = null;
   });
+
+  // Get current user in the session
+  $scope.getCurrentUser = function() {
+    return Session.user;
+  };
 
 
   //For Document Items in Navbar
