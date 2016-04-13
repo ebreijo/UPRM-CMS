@@ -9,8 +9,8 @@ app.factory('FileUpload', function() {
       return {
         'options': { // passed into the Dropzone constructor
           'url': route,
-          'paramName': paramName,  // The name that will be used to transfer the file
-          'maxFilesize': maxFileSize // MB
+          'paramName': paramName,     // The name that will be used to transfer the file
+          'maxFilesize': maxFileSize // in MBs
         },
         'eventHandlers': {
           'sending': function (file, xhr, formData) {
