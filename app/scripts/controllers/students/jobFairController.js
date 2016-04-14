@@ -2,11 +2,11 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo) {
+app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo, JobFairCompaniesInfo) {
 
-  $scope.generalInformation = JobFairGeneralInfo.getJobFairDate();
-
-  $scope.majors = Majors.getAllMajors();
+  $scope.generalInformation = JobFairGeneralInfo.jobFairGeneralInfo;
+  $scope.majors = Majors.majors;
+  $scope.jobFairCompanies = JobFairCompaniesInfo.studentJobFairCompaniesInfo;
 
   $scope.checkBox = {
     internship: false,
@@ -15,113 +15,13 @@ app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo) {
     fullTime: false
   };
 
-  $scope.jobFairCompanies = [
-    {
-      companyName: 'Apple',
-      minGpa: 3.4,
-      extraInformation: 'This is Apple attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: false,
-      interviewsDuringWeekend: true,
-      websiteApplication: 'http://www.apple.com/jobs/us/',
-      lookingFor: [
-        {
-          companyName: 'Apple',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'Apple',
-          jobPosition: 'Full-Time'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'Apple',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'Apple',
-          majorCode: 'CCOM'
-        }
-      ]
-    },
-    {
-      companyName: 'IBM',
-      minGpa: 3.3,
-      extraInformation: 'This is a company attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: false,
-      interviewsDuringWeekend: true,
-      websiteApplication: 'http://www-03.ibm.com/employment/us/',
-      lookingFor: [
-        {
-          companyName: 'IBM',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'IBM',
-          jobPosition: 'Full-Time'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'IBM',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'IBM',
-          majorCode: 'CCOM'
-        },
-        {
-          companyName: 'IBM',
-          majorCode: 'INSO'
-        }
-      ]
-    },
-    {
-      companyName: 'Drug Enforcement Administration',
-      minGpa: 3.0,
-      extraInformation: 'This is a company attending the Job Fair',
-      collectingResumesBeforeJobFair: true,
-      mustFillOnline: true,
-      interviewsDuringWeekend: true,
-      websiteApplication: 'http://www.dea.gov/careers/occupations.shtml',
-      lookingFor: [
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'Internship'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'Full-Time'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          jobPosition: 'COOP'
-        }
-      ],
-      interestedMajors: [
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'ICOM'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'CCOM'
-        },
-        {
-          companyName: 'Drug Enforcement Administration',
-          majorCode: 'INSO'
-        }
-      ]
-    }
-  ];
 
   $scope.printCheckbox = function() {
     console.log('internship: ' + $scope.checkBox.internship);
     console.log('coop: ' + $scope.checkBox.coop);
     console.log('partTime: ' + $scope.checkBox.partTime);
     console.log('fullTime: ' + $scope.checkBox.fullTime);
+    console.log('companies list: ' + $scope.jobFairCompanies);
     console.log('');
   };
 

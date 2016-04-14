@@ -5,12 +5,19 @@ var app = angular.module('uprmcmsApp');
 app.factory('JobFairCompaniesInfo', function(Restangular, _) {
   var obj = {
     companiesJobFair: [],
-    jobFairCompaniesInfo: []
+    jobFairCompaniesInfo: [],
+    studentJobFairCompaniesInfo: []
   };
 
   obj.getAllCompaniesForJobFairManagement = function() {
     Restangular.all('/api/admins/companiesJobFair').getList().then(function(companies) {
       angular.copy(companies.plain(), obj.companiesJobFair);
+    });
+  };
+
+  obj.getAllCompaniesForStudentJobFair = function() {
+    Restangular.all('/api/students/jobFair').getList().then(function(companies) {
+      angular.copy(companies.plain(), obj.studentJobFairCompaniesInfo);
     });
   };
 

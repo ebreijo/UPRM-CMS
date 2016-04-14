@@ -239,6 +239,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       controller: 'jobFairCtrl',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        jobFairPromise: ['JobFairCompaniesInfo', function (JobFairCompaniesInfo) {
+          JobFairCompaniesInfo.getAllCompaniesForStudentJobFair();
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
+        }],
+        jobFairGeneralInfoPromise: ['JobFairGeneralInfo', function (JobFairGeneralInfo) {
+          JobFairGeneralInfo.getJobFairDate();
+        }]
       }
     }).state('studentCalendar', {
       url: '/studentCalendar',
