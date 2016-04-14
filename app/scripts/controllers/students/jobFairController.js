@@ -15,16 +15,6 @@ app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo, JobFa
     fullTime: false
   };
 
-
-  $scope.printCheckbox = function() {
-    console.log('internship: ' + $scope.checkBox.internship);
-    console.log('coop: ' + $scope.checkBox.coop);
-    console.log('partTime: ' + $scope.checkBox.partTime);
-    console.log('fullTime: ' + $scope.checkBox.fullTime);
-    console.log('companies list: ' + $scope.jobFairCompanies);
-    console.log('');
-  };
-
   $scope.getLookingForString = function(lookingFor) {
     var lookingForString = '';
 
