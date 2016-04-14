@@ -6,7 +6,8 @@ app.factory('Companies', function(Restangular, _) {
   var obj = {
     companies: [],
     pendingCompanies: [],
-    temporaryContact: []
+    temporaryContact: [],
+    studentCompanies: []
   };
 
   obj.getAllCompaniesForAdmins = function(status) {
@@ -20,6 +21,12 @@ app.factory('Companies', function(Restangular, _) {
       });
     }
   };
+
+  obj.getAllCompaniesForStudents = function() {
+      return Restangular.all('/api/students/companies').getList().then(function(data) {
+        angular.copy(data.plain(), obj.studentCompanies);
+      });
+    };
 
   obj.getCompany = function(companyName) {
     var activeOrInactiveCompany = _.find(obj.companies, { 'name': companyName});
