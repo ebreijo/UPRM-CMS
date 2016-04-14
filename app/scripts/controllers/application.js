@@ -24,6 +24,10 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
     return Session.user;
   };
 
+  $scope.studentLogin = function() {
+    Auth.studentLogin();
+  };
+
 
   //For Document Items in Navbar
   var documents = [

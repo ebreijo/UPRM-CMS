@@ -22,6 +22,16 @@ app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES, Resta
     });
   };
 
+  obj.studentLogin = function() {
+    return Session.studentLogin().then(function(user) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, user);
+      return user;
+    }).catch(function(err) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginFailed, err);
+      throw err;
+    });
+  };
+
   /**
    * Unauthenticate user
    * @return {Promise}

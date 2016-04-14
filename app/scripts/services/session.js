@@ -6,6 +6,8 @@ app.service('Session', function (Restangular, $sessionStorage) {
   var login = Restangular.all('/api/login');
   var logout = Restangular.all('/api/logout');
 
+  var studentLogin = Restangular.all('/api/students/login');
+
   var self = this;
   /**
    * Authenticated user
@@ -20,6 +22,19 @@ app.service('Session', function (Restangular, $sessionStorage) {
    */
   this.login = function(credentials) {
     return login.post(credentials).then(function(user) {
+      self.user = user;
+      $sessionStorage.user = user;
+      return user;
+    });
+  };
+
+
+  /**
+   * Authenticate the student and save the session
+   * @returns {Promise}
+   */
+  this.studentLogin = function() {
+    return studentLogin.post({user: 'student', keypass: 'student'}).then(function(user) {
       self.user = user;
       $sessionStorage.user = user;
       return user;
