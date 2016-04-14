@@ -4,7 +4,7 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('jobOffersCtrl', function($scope, JobOffers) {
 
-  $scope.jobOffers = JobOffers.getAllApprovedJobOffers();
+  $scope.jobOffers = JobOffers.studentJobOffers;
 
   $scope.checkBox = {
     internship: false,

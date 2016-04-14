@@ -4,12 +4,19 @@ var app = angular.module('uprmcmsApp');
 
 app.factory('JobOffers', function(Restangular, _) {
   var obj = {
-    jobOffers: []
+    jobOffers: [],
+    studentJobOffers: []
   };
 
   obj.getAllJobOffersAdmins = function(status) {
     Restangular.all('/api/admins/jobOffers').getList({status: status}).then(function(pendingJobOffers) {
       angular.copy(pendingJobOffers.plain(), obj.jobOffers);
+    });
+  };
+
+  obj.getAllJobOffersStudents = function() {
+    Restangular.all('/api/students/jobOffers').getList().then(function(approvedJobOffers) {
+      angular.copy(approvedJobOffers.plain(), obj.studentJobOffers);
     });
   };
 

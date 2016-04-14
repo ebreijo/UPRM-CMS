@@ -275,6 +275,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       controller: 'jobOffersCtrl',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        jobOffersPromise: ['JobOffers', function (JobOffers) {
+          JobOffers.getAllJobOffersStudents();
+        }]
       }
     }).state('studentCompanyList', {
       url: '/studentCompanyList',
