@@ -216,6 +216,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/adminCareerFair',
       templateUrl: 'partials/administrators/career-fair.html',
       controller: 'jobFairCtrl',
+      resolve: {
+        jobFairPromise: ['JobFairCompaniesInfo', function (JobFairCompaniesInfo) {
+          JobFairCompaniesInfo.getAllCompaniesForStudentJobFair();
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
+        }],
+        jobFairGeneralInfoPromise: ['JobFairGeneralInfo', function (JobFairGeneralInfo) {
+          JobFairGeneralInfo.getJobFairDate();
+        }]
+      },
       data: {
         authorizedRoles: all
       }
