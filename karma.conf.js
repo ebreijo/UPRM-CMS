@@ -61,7 +61,7 @@ module.exports = function(config) {
     // - Firefox
     // - Opera
     // - Safari (only Mac)
-    // - PhantomJS
+    // - PhantomJS - To use it, need to install dependency in package.json: "karma-phantomjs-launcher": "~1.0.0",
     // - IE (only Windows)
     browsers: ['Chrome'],
 
