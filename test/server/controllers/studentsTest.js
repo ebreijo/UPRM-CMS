@@ -64,19 +64,17 @@ describe('Students Controller: ', function() {
         .get('/api/students/jobOffers/1')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual({
-          "id": 1,
-          "companyName": "IBM",
-          "title": "New Job Offer",
-          "description": "This is a job offer",
-          "jobPosition": "Full-Time",
-          "educationLevel": "Bachelors",
-          "recentGraduate": true,
-          "expirationDate": "2016-07-22T16:12:12.000Z",
-          "announcementNumber": null,
-          "flyerPath": null,
-          "location": "Durham, NC"
-        }, done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.id).to.match(/1/);
+            expect(res.body.companyName).to.match(/IBM/);
+            expect(res.body.title).to.match(/New Job Offer/);
+            expect(res.body.jobPosition).to.match(/Full-Time/);
+            done();
+          }
+        });
     });
 
     it('should return 404 for a job offer not found', function (done) {
@@ -210,34 +208,21 @@ describe('Students Controller: ', function() {
         .get('/api/students/companies/Apple/jobOffers')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            "id": 4,
-            "companyName": "Apple",
-            "title": "Apple Job Offer",
-            "description": "This is a job offer",
-            "jobPosition": "Full-Time",
-            "educationLevel": "Bachelors",
-            "recentGraduate": true,
-            "expirationDate": "2016-07-22T16:12:12.000Z",
-            "announcementNumber": null,
-            "flyerPath": null,
-            "location": "Cupertino, CA"
-          },
-          {
-            "id": 5,
-            "companyName": "Apple",
-            "title": "Apple Different Job Offer",
-            "description": "This is a job offer",
-            "jobPosition": "Part-Time",
-            "educationLevel": "Bachelors",
-            "recentGraduate": true,
-            "expirationDate": "2016-07-22T16:12:12.000Z",
-            "announcementNumber": null,
-            "flyerPath": null,
-            "location": "Cupertino, CA"
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/4/);
+            expect(res.body[0].companyName).to.match(/Apple/);
+            expect(res.body[0].title).to.match(/Apple Job Offer/);
+            expect(res.body[0].jobPosition).to.match(/Full-Time/);
+            expect(res.body[1].id).to.match(/5/);
+            expect(res.body[1].companyName).to.match(/Apple/);
+            expect(res.body[1].title).to.match(/Apple Different Job Offer/);
+            expect(res.body[1].jobPosition).to.match(/Part-Time/);
+            done();
           }
-        ], done));
+        });
     });
   });
 
@@ -247,19 +232,17 @@ describe('Students Controller: ', function() {
         .get('/api/students/companies/Apple/jobOffers/4')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual({
-          "id": 4,
-          "companyName": "Apple",
-          "title": "Apple Job Offer",
-          "description": "This is a job offer",
-          "jobPosition": "Full-Time",
-          "educationLevel": "Bachelors",
-          "recentGraduate": true,
-          "expirationDate": "2016-07-22T16:12:12.000Z",
-          "announcementNumber": null,
-          "flyerPath": null,
-          "location": "Cupertino, CA"
-        }, done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.id).to.match(/4/);
+            expect(res.body.companyName).to.match(/Apple/);
+            expect(res.body.title).to.match(/Apple Job Offer/);
+            expect(res.body.jobPosition).to.match(/Full-Time/);
+            done();
+          }
+        });
     });
 
     it('should return 404 for a job offer not found', function (done) {
@@ -276,15 +259,16 @@ describe('Students Controller: ', function() {
         .get('/api/students/companies/IBM/promotionalMaterial')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            "id": 1,
-            "companyName": "IBM",
-            "title": "Promotion1",
-            "filePath": "/lib/promotionalMaterial",
-            "expirationDate": "2016-07-22T16:12:12.000Z"
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/1/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].title).to.match(/Promotion1/);
+            done();
           }
-        ], done));
+        });
     });
   });
 
@@ -294,13 +278,16 @@ describe('Students Controller: ', function() {
         .get('/api/students/companies/IBM/promotionalMaterial/1')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual({
-          "id": 1,
-          "companyName": "IBM",
-          "title": "Promotion1",
-          "filePath": "/lib/promotionalMaterial",
-          "expirationDate": "2016-07-22T16:12:12.000Z"
-        }, done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.id).to.match(/1/);
+            expect(res.body.companyName).to.match(/IBM/);
+            expect(res.body.title).to.match(/Promotion1/);
+            done();
+          }
+        });
     });
 
     it('should return 404 for a job offer not found', function (done) {

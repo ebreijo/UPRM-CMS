@@ -984,50 +984,46 @@ describe('Administrators Controller: ', function() {
    * Administrators Promotional Material Tests
    */
   describe('Get all pending promotional material', function() {
-    it('should find all pending company promotional' +
-      'material  and return a 200 status code', function(done) {
+    it('should find all pending company promotional material  and return a 200 status code', function(done) {
       request(app)
         .get('/api/admins/promotionalMaterial?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            id: 2,
-            companyName: 'IBM',
-            title: 'Promotion2',
-            filePath: '/lib/promotionalMaterial',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'pending'
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/2/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].title).to.match(/Promotion2/);
+            expect(res.body[0].status).to.match(/pending/);
+            done();
           }
-        ], done));
+        });
     });
   });
 
   describe('Get all approved promotional material', function() {
-    it('should find all approved company promotional' +
-      'material  and return a 200 status code', function(done) {
+    it('should find all approved company promotional material  and return a 200 status code', function(done) {
       request(app)
         .get('/api/admins/promotionalMaterial?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            id: 1,
-            companyName: 'IBM',
-            title: 'Promotion1',
-            filePath: '/lib/promotionalMaterial',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'approved'
-          },
-          {
-            id: 4,
-            companyName: 'Apple',
-            title: 'Promotion4',
-            filePath: '/lib/promotionalMaterial',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'approved'
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/1/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].title).to.match(/Promotion1/);
+            expect(res.body[0].status).to.match(/approved/);
+            expect(res.body[1].id).to.match(/4/);
+            expect(res.body[1].companyName).to.match(/Apple/);
+            expect(res.body[1].title).to.match(/Promotion4/);
+            expect(res.body[1].status).to.match(/approved/);
+            done();
           }
-        ], done));
+        });
     });
   });
 
@@ -1037,16 +1033,17 @@ describe('Administrators Controller: ', function() {
         .get('/api/admins/promotionalMaterial?status=rejected')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            id: 3,
-            companyName: 'IBM',
-            title: 'Promotion3',
-            filePath: '/lib/promotionalMaterial',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'rejected'
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/3/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].title).to.match(/Promotion3/);
+            expect(res.body[0].status).to.match(/rejected/);
+            done();
           }
-        ], done));
+        });
     });
   });
 
@@ -1116,52 +1113,28 @@ describe('Administrators Controller: ', function() {
         .get('/api/admins/jobOffers?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          { id: 1,
-            companyName: 'IBM',
-            email: 'sergio@ibm.com',
-            title: 'New Job Offer',
-            description: 'This is a job offer',
-            jobPosition: 'Full-Time',
-            educationLevel: 'Bachelors',
-            recentGraduate: true,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: null,
-            flyerPath: null,
-            jobOfferStatus: 'approved',
-            location: 'Durham, NC'
-          },
-          { id: 4,
-            companyName: 'Apple',
-            email: 'pepe@apple.com',
-            title: 'Apple Job Offer',
-            description: 'This is a job offer',
-            jobPosition: 'Full-Time',
-            educationLevel: 'Bachelors',
-            recentGraduate: true,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: null,
-            flyerPath: null,
-            jobOfferStatus: 'approved',
-            location: 'Cupertino, CA'
-          },
-          { id: 5,
-            companyName: 'Apple',
-            email: 'pepe@apple.com',
-            title: 'Apple Different Job Offer',
-            description: 'This is a job offer',
-            jobPosition: 'Part-Time',
-            educationLevel: 'Bachelors',
-            recentGraduate: true,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: null,
-            flyerPath: null,
-            jobOfferStatus: 'approved',
-            location: 'Cupertino, CA'
-          } ], done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/1/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].email).to.match(/sergio@ibm.com/);
+            expect(res.body[0].title).to.match(/New Job Offer/);
+            expect(res.body[0].jobOfferStatus).to.match(/approved/);
+            expect(res.body[1].id).to.match(/4/);
+            expect(res.body[1].companyName).to.match(/Apple/);
+            expect(res.body[1].email).to.match(/pepe@apple.com/);
+            expect(res.body[1].title).to.match(/Apple Job Offer/);
+            expect(res.body[1].jobOfferStatus).to.match(/approved/);
+            expect(res.body[2].id).to.match(/5/);
+            expect(res.body[2].companyName).to.match(/Apple/);
+            expect(res.body[2].email).to.match(/pepe@apple.com/);
+            expect(res.body[2].title).to.match(/Apple Different Job Offer/);
+            expect(res.body[2].jobOfferStatus).to.match(/approved/);
+            done();
+          }
+        });
     });
   });
 
@@ -1171,23 +1144,18 @@ describe('Administrators Controller: ', function() {
         .get('/api/admins/jobOffers?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            id: 2,
-            companyName: 'IBM',
-            email: 'sergio@ibm.com',
-            title: 'Different Job Offer',
-            description: 'This is a job offer which is different',
-            jobPosition: 'CO-OP',
-            educationLevel: 'Bachelors',
-            recentGraduate: false,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: null,
-            flyerPath: null,
-            jobOfferStatus: 'pending',
-            location: 'Durham, NC'
-          } ], done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/2/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].email).to.match(/sergio@ibm.com/);
+            expect(res.body[0].title).to.match(/Different Job Offer/);
+            expect(res.body[0].jobOfferStatus).to.match(/pending/);
+            done();
+          }
+        });
     });
   });
 
@@ -1197,23 +1165,18 @@ describe('Administrators Controller: ', function() {
         .get('/api/admins/jobOffers?status=rejected')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([
-          {
-            id: 3,
-            companyName: 'IBM',
-            email: 'sergio@ibm.com',
-            title: 'Another different Job Offer',
-            description: 'This is a job offer which is different from all the job offers',
-            jobPosition: 'Internship',
-            educationLevel: 'Bachelors',
-            recentGraduate: false,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: null,
-            flyerPath: null,
-            jobOfferStatus: 'rejected',
-            location: 'Durham, NC'
-          } ], done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body[0].id).to.match(/3/);
+            expect(res.body[0].companyName).to.match(/IBM/);
+            expect(res.body[0].email).to.match(/sergio@ibm.com/);
+            expect(res.body[0].title).to.match(/Another different Job Offer/);
+            expect(res.body[0].jobOfferStatus).to.match(/rejected/);
+            done();
+          }
+        });
     });
   });
 
