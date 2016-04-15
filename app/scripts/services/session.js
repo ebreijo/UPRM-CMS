@@ -34,7 +34,7 @@ app.service('Session', function (Restangular, $sessionStorage) {
    * @returns {Promise}
    */
   this.studentLogin = function() {
-    return studentLogin.post({user: 'student', keypass: 'student'}).then(function(user) {
+    return studentLogin.post({user: 'student', secret: 'student'}).then(function(user) {
       self.user = user;
       $sessionStorage.user = user;
       return user;
