@@ -327,6 +327,20 @@ CREATE TABLE `requirements` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `Sessions`
+--
+
+DROP TABLE IF EXISTS `Sessions`;
+CREATE TABLE IF NOT EXISTS `Sessions` (
+  `sid` VARCHAR(32) NOT NULL,
+  `expires` DATETIME NOT NULL,
+  `data` TEXT NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedAt` DATETIME NOT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `student_services`
 --
 
