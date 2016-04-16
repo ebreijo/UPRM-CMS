@@ -1080,6 +1080,7 @@ describe('Administrators Controller: ', function() {
           {
             "companyName": "IBM",
             "title" : "doc1",
+            "expirationDate": "2100-04-04",
             "filePath" : "testPath"
           }
         )
@@ -1089,6 +1090,7 @@ describe('Administrators Controller: ', function() {
           "status": "pending",
           "id": 5,
           "companyName": "IBM",
+          "expirationDate": "2100-04-04",
           "title": "doc1"
         }, done));
     });

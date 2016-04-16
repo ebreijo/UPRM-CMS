@@ -867,6 +867,7 @@ describe('Companies Controller: ', function() {
           {
             "companyName": "IBM",
             "title" : "doc1",
+            "expirationDate": "2100-04-04",
             "filePath" : "testPath"
           }
         )
@@ -876,6 +877,7 @@ describe('Companies Controller: ', function() {
           status: 'pending',
           id: 6,
           companyName: 'IBM',
+          "expirationDate": "2100-04-04",
           title: 'doc1'
         }, done));
     });
@@ -929,6 +931,7 @@ describe('Companies Controller: ', function() {
         .send({
           "companyName": "IBM",
           "title": "doc1",
+          "expirationDate": "2100-04-04",
           "filePath": "testPath"
         })
         .expect('Content-Type', /json/)
@@ -941,6 +944,7 @@ describe('Companies Controller: ', function() {
         .send({
           "companyName": "IBM",
           "title" : "doc1",
+          "expirationDate": "2100-04-04",
           "filePath" : "testPath"
         })
         .expect('Content-Type', /json/)
@@ -953,6 +957,7 @@ describe('Companies Controller: ', function() {
         .send({
           "companyName": "IBM",
           "title" : "doc1",
+          "expirationDate": "2100-04-04",
           "filePath" : "testPath"
         })
         .expect('Content-Type', /json/)
