@@ -13,9 +13,11 @@ app.controller('LandingPageCtrl', function($scope, Pictures) {
 
     // Slider
     $(document).ready(function() {
-      $('.flexslider').flexslider({
-        animation: 'slide'
-      });
+      setTimeout(function() {
+        $('.flexslider').flexslider({
+          animation: 'slide'
+        }).show();
+      }, 100);
     });
   });
 
