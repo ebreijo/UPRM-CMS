@@ -1595,6 +1595,74 @@ describe('Companies Controller: ', function() {
     });
   });
 
+  describe('Disable a job offer for IBM', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
+    var jobOffer = null;
+    beforeEach(function () {
+      jobOffer = this.session.put('/api/companies/IBM/jobOffers/6');
+    });
+
+    describe('with a valid job offer object sent', function () {
+
+      it('should disable the job offer and return a 200 status code', function (done) {
+        var disableJobOffer = {
+          "jobOfferStatus": "rejected"
+        };
+        jobOffer.send(disableJobOffer)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Job Offer was successfully removed/);
+              done();
+            }
+          });
+      });
+
+      it('should not disable a job offer that has been disabled and return a 404 status code', function (done) {
+        var disableJobOffer = {
+          "jobOfferStatus": "rejected"
+        };
+        jobOffer.send(disableJobOffer)
+          .expect('Content-Type', /json/)
+          .expect(404)
+          .end(function(err, res) {
+            if(err) {
+              done(err);
+            } else {
+              expect(res.body.message).to.match(/Job Offer not found/);
+              done();
+            }
+          });
+      });
+    });
+
+  });
+
   describe('Get all interested majors from a specific company', function() {
 
     before(function (done) {
