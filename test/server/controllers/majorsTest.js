@@ -5,12 +5,36 @@ var request = require('supertest'),
     help = require('../help.js'),
     app = require('../../../server');
 
+var Session = require('supertest-session')({
+  app: app
+});
 
 describe('Majors Controller: ', function() {
 
+  // Run before all tests
+  before(function (done) {
+    this.session = new Session();
+    this.session.post('/api/login')
+      .send({
+        email: 'placement@uprm.edu',
+        password: '1q@W#e'
+      }).expect(200)
+      .end(help.isBodyEqual({
+        "email": "placement@uprm.edu",
+        "firstName": "Placement",
+        "lastName": "Office",
+        "authType": "admin"
+      }, done));
+  });
+
+  // Run after all tests
+  after(function () {
+    this.session.destroy();
+  });
+
   describe('Get a major', function() {
     it('should find a major with a majorCode ICOM', function(done) {
-      request(app)
+      this.session
         .get('/api/majors/ICOM')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -22,7 +46,7 @@ describe('Majors Controller: ', function() {
     });
 
     it('should return 404 for a Major not found', function(done) {
-      request(app)
+      this.session
         .get('/api/majors/ZZZZ')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -32,7 +56,7 @@ describe('Majors Controller: ', function() {
   describe('Create a major', function() {
     var major = null;
     beforeEach(function() {
-      major = request(app).post('/api/majors');
+      major = this.session.post('/api/majors');
     });
 
     describe('with a valid major object sent', function() {
@@ -43,6 +67,7 @@ describe('Majors Controller: ', function() {
           "nameEnglish": "Social Science",
           "nameSpanish": "Ciencias Sociales"
         };
+        var getMajor = this.session;
         var expectedMajorCode = 'CISO';
         major.send(newMajor)
           .expect('Content-Type', /json/)
@@ -51,7 +76,7 @@ describe('Majors Controller: ', function() {
             if(err) {
               done(err);
             } else {
-              request(app).get('/api/majors/' + expectedMajorCode)
+              getMajor.get('/api/majors/' + expectedMajorCode)
                 .expect(200, done);
             }
           });
@@ -110,7 +135,7 @@ describe('Majors Controller: ', function() {
     var major = null;
     describe('with a valid major object sent', function() {
       it('should update the majorCode and return a 200 status code', function (done) {
-        major = request(app).put('/api/majors/CISO');
+        major = this.session.put('/api/majors/CISO');
         var updatedMajor = {
           "majorCode": "COEN",
           "nameEnglish": "New CISO",
@@ -130,7 +155,7 @@ describe('Majors Controller: ', function() {
       });
 
       it('should not update the majorCode if that new major code already exists', function (done) {
-        major = request(app).put('/api/majors/COEN');
+        major = this.session.put('/api/majors/COEN');
         var updatedMajor = {
           "majorCode": "ININ",
           "nameEnglish": "New CISO",
@@ -156,13 +181,14 @@ describe('Majors Controller: ', function() {
     describe('with a valid majorCode sent', function() {
       it('should delete the major and return a 200 status code', function (done) {
         var majorDelete = 'COEN';
-        request(app).del('/api/majors/' + majorDelete)
+        var getMajor = this.session;
+        this.session.del('/api/majors/' + majorDelete)
           .expect(200)
           .end(function (err) {
             if (err) {
               done(err);
             } else {
-              request(app).get('/api/majors/' + majorDelete)
+              getMajor.get('/api/majors/' + majorDelete)
                 .expect(404, done);
             }
           });

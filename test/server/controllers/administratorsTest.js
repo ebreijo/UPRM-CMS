@@ -11,12 +11,33 @@ var Session = require('supertest-session')({
 
 describe('Administrators Controller: ', function() {
 
+  // Run before all tests
+  before(function (done) {
+    this.session = new Session();
+    this.session.post('/api/login')
+      .send({
+        email: 'placement@uprm.edu',
+        password: '1q@W#e'
+      }).expect(200)
+      .end(help.isBodyEqual({
+        "email": "placement@uprm.edu",
+        "firstName": "Placement",
+        "lastName": "Office",
+        "authType": "admin"
+      }, done));
+  });
+
+  // Run after all tests
+  after(function () {
+    this.session.destroy();
+  });
+
   /**
    * Admins Access List tests
    */
   describe('Get an admin from the access list', function() {
     it('should find an admin with an email placement@uprm.edu', function(done) {
-      request(app)
+      this.session
         .post('/api/adminsAccessGet')
         .send({"email": "placement@uprm.edu"})
         .expect('Content-Type', /json/)
@@ -29,7 +50,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should return 404 for an admin not found in the access list', function(done) {
-      request(app)
+      this.session
         .post('/api/adminsAccessGet')
         .send({"email": "zzzz@upr.edu"})
         .expect('Content-Type', /json/)
@@ -40,7 +61,7 @@ describe('Administrators Controller: ', function() {
   describe('Grant access to an admin', function() {
     var adminAccess = null;
     beforeEach(function() {
-      adminAccess = request(app).post('/api/adminsAccess');
+      adminAccess = this.session.post('/api/adminsAccess');
     });
 
     describe('with a valid admin object sent', function() {
@@ -109,7 +130,7 @@ describe('Administrators Controller: ', function() {
 
     describe('with a valid admin object sent', function() {
       it('should update the email and admin access status and return a 200 status code', function (done) {
-        var admin = request(app).put('/api/adminsAccess');
+        var admin = this.session.put('/api/adminsAccess');
         var updatedAdmin = {
           "email": "maria.picapiedras@upr.edu",
           "currentEmail": "maria.hernandez@upr.edu",
@@ -123,7 +144,7 @@ describe('Administrators Controller: ', function() {
       });
 
       it('should not update admin account status to active if the admin is still pending to register', function (done) {
-        var admin = request(app).put('/api/adminsAccess');
+        var admin = this.session.put('/api/adminsAccess');
         var updatedAdmin = {
           "currentEmail": "pedro.rivera@upr.edu",
           "adminAccountStatus": "active"
@@ -150,7 +171,7 @@ describe('Administrators Controller: ', function() {
   describe('Register as a new admin', function() {
     var admin = null;
     beforeEach(function() {
-      admin = request(app).post('/api/admins/register');
+      admin = this.session.post('/api/admins/register');
     });
 
     describe('with a valid admin object sent', function() {
@@ -246,28 +267,9 @@ describe('Administrators Controller: ', function() {
   describe('Login as an admin', function() {
     describe('with a valid email and password object sent', function() {
 
-      before(function (done) {
-        this.session = new Session();
-        this.session.post('/api/login')
-          .send({
-            email: 'pedro.rivera@upr.edu',
-            password: '1q@W#e'
-          }).expect(200)
-          .end(help.isBodyEqual({
-            "email": "pedro.rivera@upr.edu",
-            "firstName": "Pedro",
-            "lastName": "Rivera",
-            "authType": "admin"
-          }, done));
-      });
-
-      after(function () {
-        this.session.destroy();
-      });
-
       it('should be able to change their personal information', function(done) {
         var adminChange = {
-          "email": "pedro.rivera@upr.edu",
+          "email": "placement@uprm.edu",
           "firstName": "Papo"
         };
         this.session.post('/api/administrators/me')
@@ -281,11 +283,22 @@ describe('Administrators Controller: ', function() {
           .expect('Content-Type', /json/)
           .expect(200)
           .end(help.isBodyEqual({
-            "email": "pedro.rivera@upr.edu",
+            "email": "placement@uprm.edu",
             "firstName": "Papo",
-            "lastName": "Rivera",
+            "lastName": "Office",
             "authType": "admin"
           }, done));
+      });
+
+      it('should be able to change back their personal information', function(done) {
+        var adminChange = {
+          "email": "placement@uprm.edu",
+          "firstName": "Placement"
+        };
+        this.session.post('/api/administrators/me')
+          .send(adminChange)
+          .expect('Content-Type', /json/)
+          .expect(200, done);
       });
     });
   });
@@ -295,7 +308,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get latest job fair dates', function() {
     it('should find job fair dates and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobFairDates')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -317,7 +330,7 @@ describe('Administrators Controller: ', function() {
   describe('Update job fair date', function() {
     var jobFairDates = null;
     beforeEach(function() {
-      jobFairDates = request(app).put('/api/admins/jobFairDates');
+      jobFairDates = this.session.put('/api/admins/jobFairDates');
     });
 
     describe('with a valid job fair date object sent', function() {
@@ -380,7 +393,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get all job fair information', function() {
     it('should find the job fair information of all companies that have attended', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobFairInformation')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -411,7 +424,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get only one job fair information for a given company', function() {
     it('should find the job fair information of IBM that has attended', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobFairInformation/IBM')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -428,7 +441,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should not find the job fair information of EVERTEC since they has not attended', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobFairInformation/EVERTEC')
         .expect('Content-Type', /json/)
         .expect(404)
@@ -455,7 +468,7 @@ describe('Administrators Controller: ', function() {
         "websiteApplication": "IBM.COM"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/jobFairInformation/IBM')
         .send(jobFairInfo)
         .expect('Content-Type', /json/)
@@ -481,7 +494,7 @@ describe('Administrators Controller: ', function() {
         "websiteApplication": "EVERTEC.COM"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/jobFairInformation/EVERTEC')
         .send(jobFairInfo)
         .expect('Content-Type', /json/)
@@ -507,7 +520,7 @@ describe('Administrators Controller: ', function() {
         "websiteApplication": "ZZZZZ.COM"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/jobFairInformation/ZZZZZ')
         .send(jobFairInfo)
         .expect('Content-Type', /json/)
@@ -528,7 +541,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get all companies registered for admins to see', function () {
     it('should find all active companies and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies?status=active')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -544,7 +557,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should find all pending companies and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -559,7 +572,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should find all inactive companies and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies?status=inactive')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -576,7 +589,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get a company registered for admins to see', function () {
     it('should find a company named IBM and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/IBM')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -591,7 +604,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should not find a company not registered and return a 404 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/ZZZZ')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -602,7 +615,7 @@ describe('Administrators Controller: ', function() {
 
     describe('with a valid company object sent', function() {
       it('should update the company description and return a 200 status code', function (done) {
-        var admin = request(app).put('/api/admins/companies/Apple');
+        var admin = this.session.put('/api/admins/companies/Apple');
         var updatedCompany = {
           "name": "Apple",
           "websiteUrl": "http://www.apple.com/",
@@ -619,7 +632,7 @@ describe('Administrators Controller: ', function() {
 
     describe('with an invalid company object sent', function() {
       it('should not update the company with invalid fields', function (done) {
-        var admin = request(app).put('/api/admins/companies/Apple');
+        var admin = this.session.put('/api/admins/companies/Apple');
         var updatedCompany = {
           "name": "Apple",
           "websiteUrl": "http://www.apple.com/",
@@ -641,7 +654,7 @@ describe('Administrators Controller: ', function() {
       });
 
       it('should not update the company with a name that already exists', function (done) {
-        var admin = request(app).put('/api/admins/companies/Apple');
+        var admin = this.session.put('/api/admins/companies/Apple');
         var updatedCompany = {
           "name": "EVERTEC",
           "websiteUrl": "http://www.apple.com/",
@@ -669,7 +682,7 @@ describe('Administrators Controller: ', function() {
 
     var admin = null;
     beforeEach(function() {
-      admin = request(app).post('/api/admins/companies');
+      admin = this.session.post('/api/admins/companies');
     });
 
     describe('with a valid company object sent', function() {
@@ -716,7 +729,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get a company temporary contact for admins to see', function () {
     it('should find a temporary contact from Google and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/Google/tempContact')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -730,7 +743,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should not find a temporary contact for a company that does not exists and return a 404 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/ZZZZ/tempContact')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -746,7 +759,7 @@ describe('Administrators Controller: ', function() {
         "phoneNumber": "787-555-5555"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/companies/IBM/tempContact')
         .send(newTempContact)
         .expect('Content-Type', /json/)
@@ -769,7 +782,7 @@ describe('Administrators Controller: ', function() {
         "phoneNumber": "787-555-8888"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/companies/Google/tempContact')
         .send(updatedTempContact)
         .expect('Content-Type', /json/)
@@ -792,7 +805,7 @@ describe('Administrators Controller: ', function() {
         "phoneNumber": "787-555-8888"
       };
 
-      request(app)
+      this.session
         .post('/api/admins/companies/Google/tempContact')
         .send(updatedTempContact)
         .expect('Content-Type', /json/)
@@ -813,7 +826,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get all pending recruiter registrations', function() {
     it('should find all pending recruiter registrations and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/pendingRecruiters')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -830,7 +843,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get a pending recruiter registration', function() {
     it('should find a pending recruiter registration and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/admins/pendingRecruiters')
         .send({"email": "juanito@gmail.com"})
         .expect('Content-Type', /json/)
@@ -850,7 +863,7 @@ describe('Administrators Controller: ', function() {
 
     var admin = null;
     beforeEach(function() {
-      admin = request(app).put('/api/admins/recruiters');
+      admin = this.session.put('/api/admins/recruiters');
     });
 
     describe('with a valid status object sent', function() {
@@ -929,7 +942,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get all active or inactive recruiter per company', function() {
     it('should find all active recruiter from IBM and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/IBM/recruiters?status=active')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -945,7 +958,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should find all active recruiter from IBM and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/companies/IBM/recruiters?status=inactive')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -955,7 +968,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get a recruiter for a given company', function() {
     it('should find a recruiter for IBM and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/admins/companies/IBM/recruiters')
         .send({"email": "sergio@ibm.com"})
         .expect('Content-Type', /json/)
@@ -971,7 +984,7 @@ describe('Administrators Controller: ', function() {
     });
 
     it('should not find a recruiter with an invalid email for IBM and return a 404 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/admins/companies/IBM/recruiters')
         .send({"email": "zzzzz@ibm.com"})
         .expect('Content-Type', /json/)
@@ -985,7 +998,7 @@ describe('Administrators Controller: ', function() {
    */
   describe('Get all pending promotional material', function() {
     it('should find all pending company promotional material  and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/promotionalMaterial?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1005,7 +1018,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get all approved promotional material', function() {
     it('should find all approved company promotional material  and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/promotionalMaterial?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1029,7 +1042,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get all rejected promotional material (again)', function() {
     it('should convert "rejected" to "approved" in the URL', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/promotionalMaterial?status=rejected')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1051,7 +1064,7 @@ describe('Administrators Controller: ', function() {
   describe('Modify a Promotional Material', function() {
     it('should modify an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .put('/api/admins/promotionalMaterial/3')
         .send(
           {
@@ -1074,7 +1087,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Delete a Company Promotional Material', function() {
     it('should add a promotional material for IBM and return a 201 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/companies/IBM/promotionalMaterial')
         .send(
           {
@@ -1097,7 +1110,7 @@ describe('Administrators Controller: ', function() {
 
     it('should delete an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .del('/api/admins/promotionalMaterial/5')
         .expect('Content-Type', /json/)
         .expect(200,done);
@@ -1111,7 +1124,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get all Approved Job Offers', function() {
     it('should find all approved job offers and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobOffers?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1142,7 +1155,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get all Pending Job Offers', function() {
     it('should find all pending job offers and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobOffers?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1163,7 +1176,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Get all Rejected Job Offers', function() {
     it('should find all rejected job offers and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/admins/jobOffers?status=rejected')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1184,7 +1197,7 @@ describe('Administrators Controller: ', function() {
 
   describe('Modify a Job Offer', function() {
     it('should modify an existing job offer (given its ID) and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .put('/api/admins/jobOffers/3')
         .send({
             "companyName": "IBM",

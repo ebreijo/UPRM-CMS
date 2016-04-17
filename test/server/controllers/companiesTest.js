@@ -38,8 +38,33 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get a company given its ID', function() {
+
+    // Run before all tests
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          email: 'sergio@ibm.com',
+          password: '1q@W#e'
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    // Run after all tests
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find a company with a company name IBM', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -51,11 +76,11 @@ describe('Companies Controller: ', function() {
         }, done));
     });
 
-    it('should return 404 for a company not found', function(done) {
-      request(app)
+    it('should return 403 when looking for another company different from recruiter\'s company', function(done) {
+      this.session
         .get('/api/companies/zzzz')
         .expect('Content-Type', /json/)
-        .expect(404, done);
+        .expect(403, done);
     });
   });
 
@@ -372,8 +397,31 @@ describe('Companies Controller: ', function() {
   describe('Update company information', function() {
 
     describe('with a valid company object sent', function() {
+
+      before(function (done) {
+        this.session = new Session();
+        this.session.post('/api/login')
+          .send({
+            "email": "diana@gmail.com",
+            "password": "1q@W#e"
+          }).expect(200)
+          .end(help.isBodyEqual({
+            "email": "diana@gmail.com",
+            "companyName": "Google",
+            "companyLocationId": 4,
+            "firstName": "Diana",
+            "lastName": "Diaz",
+            "phoneNumber": "787-555-5555",
+            "authType": "recruiter"
+          }, done));
+      });
+
+      after(function () {
+        this.session.destroy();
+      });
+
       it('should update the company name, description, but not the company status and registration date', function (done) {
-        var company = request(app).put('/api/companies/Google');
+        var company = this.session.put('/api/companies/Google');
         var updatedCompany = {
           "name": "Google INC",
           "websiteUrl": "https://www.google.com/",
@@ -396,15 +444,39 @@ describe('Companies Controller: ', function() {
     });
 
     describe('with an invalid company object sent', function() {
+
+      before(function (done) {
+        this.session = new Session();
+        this.session.post('/api/login')
+          .send({
+            "email": "celia@evertec.com",
+            "password": "1q@W#e"
+          }).expect(200)
+          .end(help.isBodyEqual({
+            "email": "celia@evertec.com",
+            "companyName": "EVERTEC",
+            "companyLocationId": 5,
+            "firstName": "Celia",
+            "lastName": "Santiago",
+            "phoneNumber": "787-555-5555",
+            "authType": "recruiter"
+          }, done));
+      });
+
+      after(function () {
+        this.session.destroy();
+      });
+
+
       it('should not update the company information and return a 500 status code', function (done) {
-        var company = request(app).put('/api/companies/EVERTEC');
+        var company = this.session.put('/api/companies/EVERTEC');
         company.send({})
           .expect('Content-Type', /json/)
           .expect(500, done);
       });
 
       it('should not update the company information because of validation error and return a 400 status code', function (done) {
-        var company = request(app).put('/api/companies/EVERTEC');
+        var company = this.session.put('/api/companies/EVERTEC');
         var updatedCompany = {
           "name": "EVERTEC",
           "websiteUrl": "",
@@ -425,7 +497,7 @@ describe('Companies Controller: ', function() {
       });
 
       it('should not update the company name for an existing registered company', function (done) {
-        var company = request(app).put('/api/companies/EVERTEC');
+        var company = this.session.put('/api/companies/EVERTEC');
         var updatedCompany = {
           "name": "IBM",
           "websiteUrl": "evertec.com",
@@ -448,8 +520,33 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all active recruiter from a company', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
+
+
     it('should find all recruiters from IBM and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/recruiters')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -490,9 +587,31 @@ describe('Companies Controller: ', function() {
 
   describe('Get an active recruiter from a company', function() {
 
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     describe('with a valid ID', function() {
       it('should find an recruiter from IBM and return a 200 status code', function(done) {
-        request(app)
+        this.session
           .post('/api/companies/IBM/recruiters')
           .send({"email": "sergio@ibm.com"})
           .expect('Content-Type', /json/)
@@ -517,7 +636,7 @@ describe('Companies Controller: ', function() {
 
     describe('with an invalid ID', function() {
       it('should find an recruiter from IBM and return a 404 status code', function(done) {
-        request(app)
+        this.session
           .post('/api/companies/IBM/recruiters')
           .send({"email": "pedro@us.ibm.com"})
           .expect('Content-Type', /json/)
@@ -600,9 +719,32 @@ describe('Companies Controller: ', function() {
 
   describe('Remove a recruiter from a given company, in this case IBM', function() {
 
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
+
     var recruiter = null;
     beforeEach(function() {
-      recruiter = request(app).put('/api/companies/IBM/recruiters');
+      recruiter = this.session.put('/api/companies/IBM/recruiters');
     });
 
     describe('with a valid recruiter object sent', function() {
@@ -675,8 +817,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all company locations for a given company', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all company locations for IBM and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/companyLocations')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -706,8 +871,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get a company location given its company and location ID', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find an IBM company location with ID 1', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/companyLocations/1')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -724,7 +912,7 @@ describe('Companies Controller: ', function() {
     });
 
     it('should return 404 for a company location not found for IBM', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/companyLocations/6')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -733,9 +921,31 @@ describe('Companies Controller: ', function() {
 
   describe('Update company location for a given company', function() {
 
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     var companyLocation = null;
     beforeEach(function() {
-      companyLocation = request(app).put('/api/companies/IBM/companyLocations/1');
+      companyLocation = this.session.put('/api/companies/IBM/companyLocations/1');
     });
 
     describe('with a valid company location object sent', function() {
@@ -800,8 +1010,31 @@ describe('Companies Controller: ', function() {
    */
 
   describe('Get all pending promotional material', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all pending company promotional material and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/promotionalMaterial?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -820,8 +1053,30 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all approved promotional material', function() {
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all approved company promotional material  and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/promotionalMaterial?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -840,8 +1095,30 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all approved promotional material (again)', function() {
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should convert "rejected" to "approved" in the URL', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/promotionalMaterial?status=rejected')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -860,8 +1137,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Add a Company Promotional Material', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should add a promotional material for IBM and return a 201 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/companies/IBM/promotionalMaterial')
         .send(
           {
@@ -884,9 +1184,32 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Modify a Company Promotional Material', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should modify an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .put('/api/companies/IBM/promotionalMaterial/3')
         .send(
           {
@@ -908,9 +1231,32 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Delete a Company Promotional Material', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should delete an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .del('/api/companies/IBM/promotionalMaterial/3')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -925,8 +1271,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Add a lot of Company Promotional Material until reach a maximum of 5', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should add one promotional material and return a 201 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/companies/IBM/promotionalMaterial')
         .send({
           "companyName": "IBM",
@@ -939,7 +1308,7 @@ describe('Companies Controller: ', function() {
     });
 
     it('should add another promotional material and return a 201 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/companies/IBM/promotionalMaterial')
         .send({
           "companyName": "IBM",
@@ -952,7 +1321,7 @@ describe('Companies Controller: ', function() {
     });
 
     it('should get a message saying that the maximum amount of promotional material have reached return a 401 status code', function(done) {
-      request(app)
+      this.session
         .post('/api/companies/IBM/promotionalMaterial')
         .send({
           "companyName": "IBM",
@@ -978,8 +1347,31 @@ describe('Companies Controller: ', function() {
    */
 
   describe('Get all Approved Job Offers', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all approved job offers and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/jobOffers?status=approved')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -999,8 +1391,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all Pending Job Offers', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all pending job offers and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/jobOffers?status=pending')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1020,8 +1435,30 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get a specific Job Offer', function() {
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find a job offers with its ID and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/jobOffers/1')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1040,7 +1477,7 @@ describe('Companies Controller: ', function() {
     });
 
     it('should get a not found message and return a 404 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/jobOffers/1234')
         .expect('Content-Type', /json/)
         .expect(404)
@@ -1056,9 +1493,32 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Create a new job offer for IBM', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     var jobOffer = null;
     beforeEach(function () {
-      jobOffer = request(app).post('/api/companies/IBM/jobOffers');
+      jobOffer = this.session.post('/api/companies/IBM/jobOffers');
     });
 
     describe('with a valid job offer object sent', function () {
@@ -1136,8 +1596,31 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Get all interested majors from a specific company', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all interested majors given IBM as company and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/IBM/companyInterestedMajors')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1162,9 +1645,32 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Add a new interested major', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     var interestedMajor = null;
     beforeEach(function () {
-      interestedMajor = request(app).post('/api/companies/IBM/companyInterestedMajors');
+      interestedMajor = this.session.post('/api/companies/IBM/companyInterestedMajors');
     });
 
     describe('with a valid object sent', function () {
@@ -1218,6 +1724,28 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Remove a company interested major', function() {
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "sergio@ibm.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should remove an existing company interested major for IBM (given its ID) and return a 200 status code', function(done) {
       var removeInterestedMajor = {
         "interestedMajors": [
@@ -1228,7 +1756,7 @@ describe('Companies Controller: ', function() {
           }
         ]
       };
-      request(app)
+      this.session
         .put('/api/companies/IBM/companyInterestedMajors')
         .send(removeInterestedMajor)
         .expect('Content-Type', /json/)
@@ -1243,8 +1771,31 @@ describe('Companies Controller: ', function() {
 
 
   describe('Get all positions a company is looking for', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "pepe@apple.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "pepe@apple.com",
+          "companyName": "Apple",
+          "companyLocationId": 3,
+          "firstName": "Pepe",
+          "lastName": "Tembleque",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     it('should find all positions Apple is looking for and return a 200 status code', function(done) {
-      request(app)
+      this.session
         .get('/api/companies/Apple/companyLookingFor')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -1264,9 +1815,32 @@ describe('Companies Controller: ', function() {
   });
 
   describe('Add a position to look for', function() {
+
+    before(function (done) {
+      this.session = new Session();
+      this.session.post('/api/login')
+        .send({
+          "email": "pepe@apple.com",
+          "password": "1q@W#e"
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "pepe@apple.com",
+          "companyName": "Apple",
+          "companyLocationId": 3,
+          "firstName": "Pepe",
+          "lastName": "Tembleque",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    after(function () {
+      this.session.destroy();
+    });
+
     var positionLookingFor = null;
     beforeEach(function () {
-      positionLookingFor = request(app).post('/api/companies/Apple/companyLookingFor');
+      positionLookingFor = this.session.post('/api/companies/Apple/companyLookingFor');
     });
 
     describe('with a valid object sent', function () {
