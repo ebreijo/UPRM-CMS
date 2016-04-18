@@ -72,7 +72,7 @@ describe('Students Controller: ', function() {
         .end(help.isBodyEqual([
           {
             "companyName": "Apple",
-            "minGpa": 3.4,
+            "minGpa": '3.40',
             "extraInformation": "This is Apple attending the Job Fair",
             "collectingResumesBeforeJobFair": true,
             "mustFillOnline": false,
@@ -97,7 +97,7 @@ describe('Students Controller: ', function() {
           },
           {
             "companyName": "IBM",
-            "minGpa": 3.7,
+            "minGpa": '3.70',
             "extraInformation": "This is IBM attending the Job Fair",
             "collectingResumesBeforeJobFair": true,
             "mustFillOnline": false,

@@ -831,7 +831,7 @@
                           <p>Expiration Date: {{tempJobOffer.expirationDate | date: 'EEE, MMMM d, y'}}</p>
                           <div class="input-group text-center date">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="jobOfferExpirationDatePicker" ng-model="tempJobOffer.expirationDate" type="text" ng-click="showJobOfferDateError=false" class="form-control" readonly required>
+                            <input id="jobOfferExpirationDatePicker" ng-model="tempJobOffer.expirationDate" type="date" ng-click="showJobOfferDateError=false" class="form-control" readonly required>
                           </div>
                           <div>
                             <p ng-show="showJobOfferDateError" style="color:#843534" class="help-block"><b>Expiration date must be at least one day after today. Please select a new date.</b></p>

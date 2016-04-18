@@ -141,7 +141,7 @@ CREATE TABLE `home_page_photos` (
 DROP TABLE IF EXISTS `job_fair_company_information`;
 CREATE TABLE `job_fair_company_information` (
   `company_name` varchar(63) NOT NULL,
-  `min_gpa` decimal(4,2) DEFAULT '0.00',
+  `min_gpa` varchar(4) DEFAULT NULL,
   `extra_information` varchar(255) DEFAULT NULL,
   `collecting_resumes_before_job_fair` tinyint(1) NOT NULL DEFAULT '0',
   `must_fill_online` tinyint(1) NOT NULL DEFAULT '0',
@@ -182,7 +182,7 @@ CREATE TABLE `job_fair_dates` (
   `header_es` varchar(63) NOT NULL,
   `location_es` varchar(63) NOT NULL,
   `date_es` varchar(63) NOT NULL,
-  `resume_deadline_date` date NOT NULL,
+  `resume_deadline_date` DATETIME NOT NULL,
   `show_resume_deadline_date` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

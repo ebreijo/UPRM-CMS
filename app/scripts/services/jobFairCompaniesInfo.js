@@ -41,7 +41,7 @@ app.factory('JobFairCompaniesInfo', function(Restangular, _) {
       if (element) {
         _.merge(element, jobFairInfo);
       } else {
-        this.jobFairCompaniesInfo.push(jobFairInfo);
+        obj.jobFairCompaniesInfo.push(jobFairInfo);
       }
     });
   };

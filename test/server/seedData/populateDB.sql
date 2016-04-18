@@ -116,7 +116,13 @@ INSERT INTO recruiter (email, password, company_name, first_name, last_name, pho
 VALUES ('juanito@gmail.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'Google', 'Juanito', 'Perez', '787-555-5555', '4');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
+VALUES ('diana@gmail.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'Google', 'Diana', 'Diaz', '787-555-5555', 'active', '4');
+
+INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('pancho@evertec.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'EVERTEC', 'Pancho', 'Rivera', '787-555-5555', 'inactive', '5');
+
+INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
+VALUES ('celia@evertec.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'EVERTEC', 'Celia', 'Santiago', '787-555-5555', 'active', '5');
 
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('pepe@apple.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'Apple', 'Pepe', 'Tembleque', '787-555-5555', 'active', '3');

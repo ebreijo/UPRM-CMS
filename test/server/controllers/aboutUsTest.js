@@ -4,11 +4,36 @@ var request = require('supertest');
 var help = require('../help.js');
 var app = require('../../../server');
 
+var Session = require('supertest-session')({
+  app: app
+});
+
 describe('About Us Controller: ', function() {
 
-  describe('Get all descriptions from aboutUs.', function() {
+  // Run before all tests
+  before(function (done) {
+    this.session = new Session();
+    this.session.post('/api/login')
+      .send({
+        email: 'placement@uprm.edu',
+        password: '1q@W#e'
+      }).expect(200)
+      .end(help.isBodyEqual({
+        "email": "placement@uprm.edu",
+        "firstName": "Placement",
+        "lastName": "Office",
+        "authType": "admin"
+      }, done));
+  });
+
+  // Run after all tests
+  after(function () {
+    this.session.destroy();
+  });
+
+  describe('Update all descriptions from aboutUs.', function() {
     it('should fetch all existing about us descriptions in the database.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs')
         .send({
           "vision" : "updated vision",
@@ -30,7 +55,7 @@ describe('About Us Controller: ', function() {
 
   describe('Update a List of Requirement.', function() {
     it('should update a list of requirements, given their IDs.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs/requirements')
         .send({
           "requirements" : [{
@@ -54,7 +79,7 @@ describe('About Us Controller: ', function() {
 
   describe('Add a Requirement.', function() {
     it('should add a new requirement to the database, given its description.', function(done) {
-      request(app)
+       this.session
         .post('/api/aboutUs/requirements')
         .send({ "requirement" : "new requirement" })
         .expect('Content-Type', /json/)
@@ -68,7 +93,7 @@ describe('About Us Controller: ', function() {
 
   describe('Delete a Requirement.', function() {
     it('should delete a requirement, given its ID.', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/requirements/1')
         .send()
         .expect('Content-Type', /json/)
@@ -85,7 +110,7 @@ describe('About Us Controller: ', function() {
 
   describe('Update a List of Company Services. ', function() {
     it('should update a list of company services, given their IDs.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs/companyServices')
         .send({
           "companyServices" : [{
@@ -109,7 +134,7 @@ describe('About Us Controller: ', function() {
 
   describe('Add a Company Service.', function() {
     it('should add a new company service to the database, given its service description.', function(done) {
-      request(app)
+       this.session
         .post('/api/aboutUs/companyServices')
         .send({ "service" : "new service" })
         .expect('Content-Type', /json/)
@@ -123,7 +148,7 @@ describe('About Us Controller: ', function() {
 
   describe('Delete a Company Service.', function() {
     it('should delete a service, given its ID.', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/companyServices/1')
         .send()
         .expect('Content-Type', /json/)
@@ -140,7 +165,7 @@ describe('About Us Controller: ', function() {
 
   describe('Update a List of Policies. ', function() {
     it('should update a list of policies, given their IDs.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs/policies')
         .send({
           "policies" : [{
@@ -165,7 +190,7 @@ describe('About Us Controller: ', function() {
 
   describe('Add a Policy.', function() {
     it('should add a new policy to the database, given its policy description', function(done) {
-      request(app)
+       this.session
         .post('/api/aboutUs/policies')
         .send({ "policy" : "new policy" })
         .expect('Content-Type', /json/)
@@ -179,7 +204,7 @@ describe('About Us Controller: ', function() {
 
   describe('Delete a Policy.', function() {
     it('should delete a policy, given its ID', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/policies/1')
         .send()
         .expect('Content-Type', /json/)
@@ -190,7 +215,7 @@ describe('About Us Controller: ', function() {
     });
 
     it('should not delete a policy that does not exist', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/policies/30')
         .send()
         .expect('Content-Type', /json/)
@@ -204,7 +229,7 @@ describe('About Us Controller: ', function() {
 
   describe('Update a List of Staff Members. ', function() {
     it('should update a list of policies, given their IDs.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs/ourStaff')
         .send({
           "ourStaff" : [{
@@ -232,7 +257,7 @@ describe('About Us Controller: ', function() {
 
   describe('Add a Staff Member.', function() {
     it('should add a new staff member to the database, given his or her name and position.', function(done) {
-      request(app)
+       this.session
         .post('/api/aboutUs/ourStaff')
         .send({
           "name" : "breijo",
@@ -249,7 +274,7 @@ describe('About Us Controller: ', function() {
 
   describe('Delete a Staff Member.', function() {
     it('should delete a staff member, given its ID.', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/ourStaff/1')
         .send()
         .expect('Content-Type', /json/)
@@ -266,7 +291,7 @@ describe('About Us Controller: ', function() {
 
   describe('Update a List of Student Services. ', function() {
     it('should update a list of student services, given their IDs.', function(done) {
-      request(app)
+       this.session
         .put('/api/aboutUs/studentServices')
         .send({
           "studentServices" : [{
@@ -290,7 +315,7 @@ describe('About Us Controller: ', function() {
 
   describe('Add a Student Service.', function() {
     it('should add a new student service to the database, given its service description.', function(done) {
-      request(app)
+       this.session
         .post('/api/aboutUs/studentServices')
         .send({ "service" : "new service" })
         .expect('Content-Type', /json/)
@@ -304,7 +329,7 @@ describe('About Us Controller: ', function() {
 
   describe('Delete a Student Service.', function() {
     it('should delete a service, given its ID.', function(done) {
-      request(app)
+       this.session
         .del('/api/aboutUs/studentServices/1')
         .send()
         .expect('Content-Type', /json/)
