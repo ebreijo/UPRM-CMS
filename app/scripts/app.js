@@ -305,11 +305,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       }
     }).state('studentCompanyProfile', {
-      url: '/studentCompanyProfile',
+      url: '/studentCompanyProfile/:companyName',
       templateUrl: 'partials/students/student-company-profile.html',
       controller: 'studentCompanyCtrl',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        studentCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
+          return Companies.getStudentCompany($stateParams.companyName);
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
+        }]
       }
     });
 
