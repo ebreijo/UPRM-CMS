@@ -67,7 +67,7 @@ app.controller('AdminJobFairManagementCtrl', function($scope, JobFairGeneralInfo
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
     $scope.company = JobFairCompaniesInfo.getCompanyForJobFair($scope.companySelection);
     if ($scope.jobFairCompanyAdditionalInfo) {
-      if ($scope.jobFairCompanyAdditionalInfo.minGpa) {
+      if ($scope.jobFairCompanyAdditionalInfo.minGpa === 0 || $scope.jobFairCompanyAdditionalInfo.minGpa !== 0) {
         $scope.jobFairCompanyAdditionalInfo.minGpa = Number($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
       }
     }
