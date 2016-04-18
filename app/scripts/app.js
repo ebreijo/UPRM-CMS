@@ -212,8 +212,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
-    }).state('adminCareerFair', {
-      url: '/adminCareerFair',
+    }).state('adminJobFair', {
+      url: '/adminJobFair',
       templateUrl: 'partials/administrators/career-fair.html',
       controller: 'jobFairCtrl',
       resolve: {
