@@ -144,7 +144,7 @@
               <div class="panel-body" style="margin:0;padding:0">
                 <ul class="list-group" style="margin-bottom:1px">
                   <li class="list-group-item">
-                    <strong>Link:</strong>
+                    <strong> Link: </strong>
                     <a href={{company.websiteApplication}}>{{company.websiteApplication}}</a>
                   </li>
                   <li class="list-group-item">
@@ -158,6 +158,10 @@
                   <li class="list-group-item">
                     <strong>Majors:</strong>&nbsp;
                     {{ getInterestedMajorsString(company.interestedMajors)}}
+                  </li>
+                  <li class="list-group-item" ng-if="company.extraInformation">
+                    <strong> Extra Information: </strong>
+                    {{company.extraInformation}}
                   </li>
                 </ul>
               </div>
