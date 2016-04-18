@@ -151,12 +151,11 @@
                   <li class="list-group-item" ng-if="company.minGpa">
                     <strong>Minimum GPA:</strong>&nbsp;{{company.minGpa}}
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" ng-if="company.lookingFor">
                     <strong>Job Positions:</strong>&nbsp;
                     {{ getLookingForString(company.lookingFor)}}
                   </li>
-
-                  <li class="list-group-item">
+                  <li class="list-group-item" ng-if="company.interestedMajors">
                     <strong>Majors:</strong>&nbsp;
                     {{ getInterestedMajorsString(company.interestedMajors)}}
                   </li>
