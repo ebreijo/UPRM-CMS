@@ -126,6 +126,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       controller: 'CompanyCtrl',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
+        }]
       }
     }).state('companyAboutUs', {
       url: '/companyAboutUs',

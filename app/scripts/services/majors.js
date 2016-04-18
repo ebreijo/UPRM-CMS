@@ -4,7 +4,8 @@ var app = angular.module('uprmcmsApp');
 
 app.factory('Majors', function(Restangular, _) {
   var obj = {
-    majors: []
+    majors: [],
+    majorsForASpecificCompany: []
   };
 
   obj.getAllMajors = function() {

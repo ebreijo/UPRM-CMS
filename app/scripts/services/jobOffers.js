@@ -5,7 +5,8 @@ var app = angular.module('uprmcmsApp');
 app.factory('JobOffers', function(Restangular, _) {
   var obj = {
     jobOffers: [],
-    studentJobOffers: []
+    studentJobOffers: [],
+    companyJobOffers: []
   };
 
   obj.getAllJobOffersAdmins = function(status) {
@@ -27,6 +28,12 @@ app.factory('JobOffers', function(Restangular, _) {
 
   obj.updateJobOfferFromAdmins = function(jobOffer) {
     return Restangular.one('/api/admins/jobOffers', jobOffer.id).customPUT(jobOffer);
+  };
+
+  obj.getJobOffersPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('jobOffers').then(function(compJobOffers){
+      angular.copy(compJobOffers.plain(), obj.companyJobOffers);
+    });
   };
 
   return obj;

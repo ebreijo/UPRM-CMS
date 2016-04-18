@@ -7,7 +7,8 @@ app.factory('Companies', function(Restangular, _) {
     companies: [],
     pendingCompanies: [],
     temporaryContact: [],
-    studentCompanies: []
+    studentCompanies: [],
+    companyGeneralInfo: []
   };
 
   obj.getAllCompaniesForAdmins = function(status) {
@@ -62,6 +63,18 @@ app.factory('Companies', function(Restangular, _) {
       self.temporaryContact.push(temporaryContact);
     });
   };
+
+  obj.getCompanyGeneralInformation = function(companyName) {
+    return Restangular.one('/api/companies', companyName).get().then(function(compGeneralInfo) {
+      angular.copy(compGeneralInfo.plain(), obj.companyGeneralInfo);
+    });
+  };
+
+  /*
+  obj.getInterestedMajorsPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('companyInterestedMajors');
+  };
+  */
 
   return obj;
 });

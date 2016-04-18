@@ -2,176 +2,10 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyCtrl', function($scope, _, FileUpload) {
+app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers) {
 
   $scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
   $scope.promotionalMaterialUploadConfig = FileUpload.fileUploadConfig('/api/companies/promotionalMaterial/upload', 'image', 10);
-
-  var majors = [
-    {
-      'majorCode': 'CCOM'
-    },
-    {
-      'majorCode': 'ICOM'
-    },
-    {
-      'majorCode': 'INSO'
-    },
-    {
-      'majorCode': 'INME'
-    },
-    {
-      'majorCode': 'INEL'
-    }
-  ];
-
-  var jobOffers = [
-    {
-      id: 1,
-      companyName: 'IBM',
-      email: 'sergio@ibm.com',
-      title: 'Engineering Support Assistant',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Full-Time',
-      educationLevel: 'Bachelors',
-      recentGraduate: true,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 17177328217,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'approved',
-      location: 'Durham, NC'
-    },
-    {
-      id: 2,
-      companyName: 'IBM',
-      email: 'juanito@gmail.com',
-      title: 'Chief Electronics Engineer',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Part-Time',
-      educationLevel: 'Bachelors',
-      recentGraduate: false,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 33243554354,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'pending',
-      location: 'Durham, NC'
-    },
-    {
-      id: 3,
-      companyName: 'IBM',
-      email: 'leonardo@ibm.com',
-      title: 'Avionics Engineer',
-      description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-      jobPosition: 'Full-Time',
-      educationLevel: 'Masters',
-      recentGraduate: true,
-      creationDate: '2016-02-22T16:12:12.000Z',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      announcementNumber: 787867674676,
-      flyerPath: 'documents/pdf-sample.pdf',
-      jobOfferStatus: 'approved',
-      location: 'Durham, NC'
-    }
-  ];
-
-  var recruiters = [
-    {
-      email: 'juanito@gmail.com',
-      companyName: 'IBM',
-      firstName: 'Juanito',
-      lastName: 'Perez',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'pending',
-      registrationDate: '2016-03-29T01:31:59.000Z',
-      companyLocation: {
-        id: 4,
-        companyName: 'Google',
-        streetAddress: '1600 Amphitheatre Parkway',
-        city: 'Mountain View',
-        state: 'CA',
-        country: 'United States',
-        zipCode: '94043',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'leonardo@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Leonardo',
-      lastName: 'Dicaprio',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'inactive',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 2,
-        streetAddress: '1 New Orchard Road',
-        city: 'Armonk',
-        state: 'NY',
-        country: 'United States',
-        zipCode: '10504',
-        phoneNumber: null
-      }
-    },
-    {
-      email: 'sergio@ibm.com',
-      companyName: 'IBM',
-      firstName: 'Sergio',
-      lastName: 'Rivera',
-      phoneNumber: '787-555-5555',
-      accountStatus: 'active',
-      registrationDate: '2016-03-29T14:51:52.000Z',
-      companyLocation: {
-        id: 1,
-        streetAddress: '3039 E Cornwallis Road',
-        city: 'Durham',
-        state: 'NC',
-        country: 'United States',
-        zipCode: '27709',
-        phoneNumber: null
-      }
-    }
-  ];
-
-  var companyInfo = {
-    name: 'IBM',
-    websiteUrl: 'http://www.ibm.com/us-en/',
-    logoPath: null,
-    companyDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.',
-    companyStatus: 'Active'
-  };
-
-  var promotionalMaterial = [
-    {
-      id: 1,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial1',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 2,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial2',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'pending'
-    },
-    {
-      id: 3,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial3',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    },
-    {
-      id: 4,
-      companyName: 'IBM',
-      title: 'PromotionalMaterial4',
-      expirationDate: '2016-07-22T16:12:12.000Z',
-      status: 'approved'
-    }
-  ];
 
   $scope.companyProfile = {
     'generalInfo':[
@@ -201,10 +35,16 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
   var today = (new Date()).toISOString();
 
   //For Edit Company Description Modal------------------------------------------------------------
+  var companyInfo = {};
+  Companies.getCompanyGeneralInformation($scope.getCurrentUser().companyName).then(function() {
+    companyInfo = Companies.companyGeneralInfo;
+    $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
+
+  });
 
   $scope.CompanyDescriptionItem = {};
 
-  $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
+  //$scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
 
   $scope.getCompanyDescriptionItem = function(item) {
     $scope.CompanyDescriptionItem = angular.copy(item);
@@ -224,11 +64,31 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
 
   //For Edit Interested Majors Modal------------------------------------------------------------
 
+  var majors = Majors.majors;
+
+  Majors.getInterestedMajorsPerCompany($scope.getCurrentUser().companyName).then(function(interestedMajors) {
+    console.log('current company name is: ' + $scope.getCurrentUser().companyName);
+    angular.forEach(interestedMajors.plain(), function (item) {
+      $scope.companyProfile.interestedMajors.push({name: item.majorCode, value: false});
+    });
+
+    angular.forEach(majors, function(item) {
+      if(!contains(item.majorCode, $scope.companyProfile.interestedMajors)){
+        $scope.majorList.push({name: item.majorCode, value: false});
+      }
+    });
+  });
+
   $scope.majorList = [];
 
-  for (var i = 0; i < majors.length; i++) {
-    $scope.majorList.push({name: majors[i].majorCode, value: false});
-  }
+  var contains = function(element, list){
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name === element){
+        return true;
+      }
+    }
+    return false;
+  };
 
   $scope.addMajors = function() {
     angular.forEach($scope.majorList, function (item) {
@@ -261,14 +121,6 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
     });
   };
 
-  var contains = function(element, list){
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].name === element){
-        return true;
-      }
-    }
-    return false;
-  };
 
   var clearList = function(list) {
     while(list.length > 0){
@@ -276,11 +128,20 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
     }
   };
 
-
   //For Edit Promotional Material Modal------------------------------------------------------------
 
   $('#editPromotionalDocumentExpirationDatePicker').datepicker({
     format: 'yyyy-mm-dd'
+  });
+
+  var promotionalMaterial = [];
+
+  PromotionalMaterial.getPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
+    promotionalMaterial = PromotionalMaterial.companyPromotionalMaterial;
+
+    for (var i = 0; i < promotionalMaterial.length; i++) {
+      $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
+    }
   });
 
   $scope.PromotionalMaterialItem = {};
@@ -289,9 +150,7 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
   $scope.showPromotionalMaterialError = false;
   $scope.showEditPromotionalMaterialDateError = false;
 
-  for (i = 0; i < promotionalMaterial.length; i++) {
-    $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
-  }
+
 
   $scope.getPromotionalMaterialItem = function(item) {
     $scope.PromotionalMaterialItem = angular.copy(item);
@@ -352,9 +211,15 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
 
   //For Deleting Recruiters------------------------------------------------------------
 
-  for (i = 0; i < recruiters.length; i++) {
-    $scope.companyProfile.recruiterList.push(recruiters[i]);
-  }
+  var recruiters = [];
+
+  Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
+    recruiters = Recruiters.companyRecruiters;
+
+    for (var i = 0; i < recruiters.length; i++) {
+      $scope.companyProfile.recruiterList.push(recruiters[i]);
+    }
+  });
 
   $scope.deleteRecruiter = function(item){
     _.remove(this.companyProfile.recruiterList, function(element) {
@@ -363,9 +228,15 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
   };
 
   //For Viewing and deleting Job Offers------------------------------------------------------------
-  for (i = 0; i < jobOffers.length; i++) {
-    $scope.companyProfile.jobOfferList.push(jobOffers[i]);
-  }
+  var jobOffers = [];
+
+  JobOffers.getJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
+    jobOffers = JobOffers.companyJobOffers;
+
+    for (var i = 0; i < jobOffers.length; i++) {
+      $scope.companyProfile.jobOfferList.push(jobOffers[i]);
+    }
+  });
 
   $scope.deleteJobOffer = function(item){
     _.remove(this.companyProfile.jobOfferList, function(element) {
@@ -422,7 +293,7 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
   //For Pending Requests Tab------------------------------------------------------------
   $scope.indexPendingRequests = 0;
 
-  for (i = 0; i < $scope.companyProfile.jobOfferList.length; i++) {
+  for (var i = 0; i < $scope.companyProfile.jobOfferList.length; i++) {
     if ($scope.companyProfile.jobOfferList[i].jobOfferStatus==='pending'){
       $scope.indexPendingRequests++;
       $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Job Offer: ' + $scope.companyProfile.jobOfferList[i].title, status: 'pending'});
@@ -437,11 +308,11 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload) {
   }
 
   //For Account Settings Tab------------------------------------------------------------
-  $scope.recruiterLoggedIn = 'sergio@ibm.com';
+  $scope.recruiterLoggedIn = $scope.getCurrentUser().email;
   $scope.recruiterLoggedInItem = {};
 
   for (i = 0; i < $scope.companyProfile.recruiterList.length; i++) {
-    if ($scope.companyProfile.recruiterList[i].email === 'sergio@ibm.com'){
+    if ($scope.companyProfile.recruiterList[i].email === $scope.getCurrentUser().email){
       $scope.recruiterLoggedInItem = angular.copy($scope.companyProfile.recruiterList[i]);
     }
   }
