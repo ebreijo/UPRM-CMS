@@ -15,7 +15,7 @@ app.factory('Patterns', function() {
     },
     jobFairManagement: {
       companyAdditionalInformation: /^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i,
-      minGpa: /^([0-3]\.\d\d?|4\.00?)$/i,
+      minGpa: /^([0-3]\.\d\d|4\.00)$/i,
       applicationWebsiteUrl: /^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i
     }
   };

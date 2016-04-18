@@ -66,11 +66,6 @@ app.controller('AdminJobFairManagementCtrl', function($scope, JobFairGeneralInfo
 
     $scope.jobFairCompanyAdditionalInfo = angular.copy(JobFairCompaniesInfo.getJobFairInfoPerCompany($scope.companySelection));
     $scope.company = JobFairCompaniesInfo.getCompanyForJobFair($scope.companySelection);
-    if ($scope.jobFairCompanyAdditionalInfo) {
-      if ($scope.jobFairCompanyAdditionalInfo.minGpa === 0 || $scope.jobFairCompanyAdditionalInfo.minGpa !== 0) {
-        $scope.jobFairCompanyAdditionalInfo.minGpa = Number($scope.jobFairCompanyAdditionalInfo.minGpa).toFixed(2);
-      }
-    }
     $scope.companyJobPositions = [];
 
     var positions = [];
@@ -133,8 +128,8 @@ app.controller('AdminJobFairManagementCtrl', function($scope, JobFairGeneralInfo
   $scope.submitJobFairManagementChanges = function(form){
     if (form.$valid) {
       $scope.jobFairCompanyAdditionalInfo.companyName = $scope.companySelection;
-      if ($scope.jobFairCompanyAdditionalInfo.minGpa) {
-        $scope.jobFairCompanyAdditionalInfo.minGpa = (Number($scope.jobFairCompanyAdditionalInfo.minGpa)).toFixed(2);
+      if ($scope.jobFairCompanyAdditionalInfo.minGpa === '') {
+        $scope.jobFairCompanyAdditionalInfo.minGpa = null;
       }
       JobFairCompaniesInfo.updateJobFairInfoPerCompany($scope.jobFairCompanyAdditionalInfo);
       CompanyLookingForPositions.updateCompanyLookingForPositions($scope.companySelection, $scope.companyJobPositions);
