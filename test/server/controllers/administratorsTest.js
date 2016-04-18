@@ -400,7 +400,7 @@ describe('Administrators Controller: ', function() {
         .end(help.isBodyEqual([
           {
             "companyName": "Apple",
-            "minGpa": 3.4,
+            "minGpa": '3.40',
             "extraInformation": "This is Apple attending the Job Fair",
             "collectingResumesBeforeJobFair": true,
             "mustFillOnline": false,
@@ -410,7 +410,7 @@ describe('Administrators Controller: ', function() {
           },
           {
             "companyName": "IBM",
-            "minGpa": 3.3,
+            "minGpa": '3.30',
             "extraInformation": "This is a company attending the Job Fair",
             "collectingResumesBeforeJobFair": true,
             "mustFillOnline": false,
@@ -430,7 +430,7 @@ describe('Administrators Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual({
           "companyName": "IBM",
-          "minGpa": 3.3,
+          "minGpa": '3.30',
           "extraInformation": "This is a company attending the Job Fair",
           "collectingResumesBeforeJobFair": true,
           "mustFillOnline": false,
@@ -459,7 +459,7 @@ describe('Administrators Controller: ', function() {
   describe('Add or update job fair information for a given company', function() {
     it('should set the job fair information for IBM', function(done) {
       var jobFairInfo = {
-        "minGpa": 3.7,
+        "minGpa": '3.70',
         "extraInformation": "This is IBM attending the Job Fair",
         "collectingResumesBeforeJobFair": true,
         "mustFillOnline": false,
@@ -485,7 +485,7 @@ describe('Administrators Controller: ', function() {
 
     it('should set the job fair information for EVERTEC', function(done) {
       var jobFairInfo = {
-        "minGpa": 3.0,
+        "minGpa": '3.00',
         "extraInformation": "EVERTEC from PR",
         "collectingResumesBeforeJobFair": true,
         "mustFillOnline": true,
@@ -511,7 +511,7 @@ describe('Administrators Controller: ', function() {
 
     it('should not set the job fair information for ZZZZZ', function(done) {
       var jobFairInfo = {
-        "minGpa": 3.0,
+        "minGpa": '3.00',
         "extraInformation": "ZZZZZ",
         "collectingResumesBeforeJobFair": true,
         "mustFillOnline": true,
