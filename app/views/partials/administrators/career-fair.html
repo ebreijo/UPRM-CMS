@@ -160,6 +160,10 @@
                     <strong>Majors:</strong>&nbsp;
                     {{ getInterestedMajorsString(company.interestedMajors)}}
                   </li>
+                  <li class="list-group-item" ng-if="company.extraInformation">
+                    <strong> Extra Information: </strong>
+                    {{company.extraInformation}}
+                  </li>
                 </ul>
               </div>
             </div>
