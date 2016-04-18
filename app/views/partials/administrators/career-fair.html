@@ -106,7 +106,7 @@
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-12" style="margin-top:10px">
-                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair (Deadline: {{ generalInformation.resumeDeadlineDate | date: 'MMMM d, y' }}).
+                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair<span ng-if="generalInformation.resumeDeadlineDate"> (Deadline: {{ generalInformation.resumeDeadlineDate | date: 'MMMM d, y' }})</span>.
               </div>
             </div>
             <div class="row">
