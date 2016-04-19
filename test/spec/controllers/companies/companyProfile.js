@@ -32,6 +32,17 @@ describe('Controller: Company Profile', function () {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
     scope = $rootScope.$new();
+    scope.getCurrentUser = function() {
+      return {
+        email: 'sergio@ibm.com',
+        companyName: 'IBM',
+        companyLocationId: 1,
+        firstName: 'Sergio',
+        lastName: 'Rivera',
+        phoneNumber: '787-555-5555',
+        authType: 'recruiter'
+      };
+    };
 
     $controller('CompanyCtrl', {
       $scope: scope,
