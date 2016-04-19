@@ -42,7 +42,7 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  obj.updateCompanyStatusFromAdmins = function(company) {
+  obj.updateCompanyFromAdmins = function(company) {
     return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 

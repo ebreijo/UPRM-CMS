@@ -52,7 +52,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
     $scope.submitCompanyStatusEdit = function(form) {
       if (form.$valid) {
-        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
+        Companies.updateCompanyFromAdmins($scope.tempCompany).then(function() {
           var element = _.find($scope.companies, { name: $scope.tempCompany.name});
           _.merge(element, $scope.tempCompany);
           $('#editCompanyStatusModal').modal('hide');
@@ -209,7 +209,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitAcceptCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'active';
-        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
+        Companies.updateCompanyFromAdmins($scope.tempCompany).then(function() {
           removeCompanyFromPendingList();
           $('#acceptCompanyModal').modal('hide');
         });
@@ -219,7 +219,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
     $scope.submitRejectCompany = function (form) {
       if (form.$valid) {
         $scope.tempCompany.companyStatus = 'inactive';
-        Companies.updateCompanyStatusFromAdmins($scope.tempCompany).then(function() {
+        Companies.updateCompanyFromAdmins($scope.tempCompany).then(function() {
           removeCompanyFromPendingList();
           $('#rejectCompanyModal').modal('hide');
         });

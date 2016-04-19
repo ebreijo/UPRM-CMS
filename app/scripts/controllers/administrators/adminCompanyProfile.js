@@ -3,7 +3,7 @@
 var app = angular.module('uprmcmsApp');
 
 
-app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, temporaryContactPromise, Patterns, _) {
+app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, temporaryContactPromise, Companies, Patterns, _) {
 
   $scope.company = adminCompanyPromise;
   var majorList = Majors.majors;
@@ -11,8 +11,21 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
   $scope.patterns = Patterns.user;
 
   $scope.executeTab1 = function() {
+
+    $scope.getCompanyDescriptionItem = function(companyInfo) {
+      $scope.CompanyDescriptionItem = angular.copy(companyInfo);
+    };
+
+    $scope.submitCompanyDescription = function(form) {
+      if (form.$valid) {
+        Companies.updateCompanyFromAdmins($scope.CompanyDescriptionItem).then(function() {
+          _.merge($scope.company, $scope.CompanyDescriptionItem);
+          $('#editCompanyDescriptionModal').modal('hide');
+        });
+      }
+    };
+
     Majors.getInterestedMajorsPerCompany(adminCompanyPromise.name).then(function(interestedMajors) {
-      $scope.interestedMajors = angular.copy(interestedMajors.plain());
       $scope.majors = angular.copy(interestedMajors.plain());
 
       var majorCodes = [];
@@ -31,8 +44,31 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
           $scope.majors.push(dummyObject);
         }
       });
-
     });
+
+    $scope.submitCompanyInterestedMajors = function(form) {
+      if (form.$valid) {
+        var setAddInterestedMajorsPromise = Majors.setAddInterestedMajorsPerCompany(adminCompanyPromise.name, $scope.majors);
+        if (setAddInterestedMajorsPromise) {
+          setAddInterestedMajorsPromise.then(function(results) {
+            _.forEach(results, function(element) {
+              var major = _.find($scope.majors, function(major) { return (major.majorCode === element.majorCode) && major.isSet; });
+              _.merge(major, element);
+            });
+          });
+        }
+        var setRemoveInterestedMajorsPromise = Majors.setRemoveInterestedMajorsPerCompany(adminCompanyPromise.name, $scope.majors);
+        if (setRemoveInterestedMajorsPromise) {
+          setRemoveInterestedMajorsPromise.then(function(results) {
+            _.forEach(results, function(element) {
+              var major = _.find($scope.majors, function(major) { return (major.majorCode === element.majorCode) && !major.isSet; });
+              delete major.id;
+            });
+          });
+        }
+        $('#editInterestedMajorsModal').modal('hide');
+      }
+    };
 
     $scope.promMaterialStatusSelection = 'approved';
     $scope.$watch('promMaterialStatusSelection', function (newValue) {
@@ -40,10 +76,6 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
       PromotionalMaterial.getPromotionalMaterialPerCompanyForAdmIns(adminCompanyPromise.name, $scope.promMaterialStatusSelection);
       $scope.promotionalMaterial = PromotionalMaterial.companyPromotionalMaterialForAdmins;
     });
-
-    $scope.getCompanyDescriptionItem = function(companyInfo) {
-      $scope.CompanyDescriptionItem = angular.copy(companyInfo);
-    };
   };
   $scope.executeTab1();
 
