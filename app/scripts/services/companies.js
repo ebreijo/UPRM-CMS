@@ -24,10 +24,10 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.getAllCompaniesForStudents = function() {
-      return Restangular.all('/api/students/companies').getList().then(function(data) {
-        angular.copy(data.plain(), obj.studentCompanies);
-      });
-    };
+    return Restangular.all('/api/students/companies').getList().then(function(data) {
+      angular.copy(data.plain(), obj.studentCompanies);
+    });
+  };
 
   obj.getCompany = function(companyName) {
     return Restangular.one('/api/admins/companies', companyName).get().then(function(company) {
@@ -51,8 +51,8 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.getCompanyTemporaryContact = function(companyName) {
-    return Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
-      return tempContact;
+    Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
+      angular.copy(tempContact.plain(), obj.temporaryContact);
     });
   };
 
