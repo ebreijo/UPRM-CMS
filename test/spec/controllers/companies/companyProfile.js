@@ -6,14 +6,25 @@ describe('Controller: Company Profile', function () {
   beforeEach(module('uprmcmsApp'));
 
   var $controller;
-  var companyProfile;
   var scope;
   var _;
+  var FileUpload;
+  var Majors;
+  var Companies;
+  var PromotionalMaterial;
+  var Recruiters;
+  var JobOffers;
 
   // Inject Custom Services:
 
   beforeEach(inject(function ($injector) {
     _ = $injector.get('_');
+    FileUpload = $injector.get('FileUpload');
+    Majors = $injector.get('Majors');
+    Companies = $injector.get('Companies');
+    PromotionalMaterial = $injector.get('PromotionalMaterial');
+    Recruiters = $injector.get('Recruiters');
+    JobOffers = $injector.get('JobOffers');
   }));
 
   // Inject AngularJS Services:
@@ -24,8 +35,13 @@ describe('Controller: Company Profile', function () {
 
     $controller('CompanyCtrl', {
       $scope: scope,
-      companyProfile: companyProfile,
-      _: _
+      _: _,
+      FileUpload: FileUpload,
+      Majors: Majors,
+      Companies: Companies,
+      PromotionalMaterial: PromotionalMaterial,
+      Recruiters: Recruiters,
+      JobOffers: JobOffers
     });
 
   }));
