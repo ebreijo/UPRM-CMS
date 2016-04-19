@@ -51,8 +51,8 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.getCompanyTemporaryContact = function(companyName) {
-    Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
-      angular.copy(tempContact.plain(), obj.temporaryContact);
+    return Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
+      return tempContact.plain();
     });
   };
 

@@ -3,7 +3,7 @@
 var app = angular.module('uprmcmsApp');
 
 
-app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, Companies, Patterns, _) {
+app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, temporaryContactPromise, Patterns, _) {
 
   $scope.company = adminCompanyPromise;
   var majorList = Majors.majors;
@@ -65,7 +65,7 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
     });
   };
 
-  $scope.tempContact = Companies.temporaryContact[0];
+  $scope.tempContact = temporaryContactPromise[0];
 
 
 });

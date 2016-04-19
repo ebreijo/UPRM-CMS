@@ -247,7 +247,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
           Majors.getAllMajors();
         }],
         temporaryContactPromise: ['$stateParams', 'Companies', function ($stateParams, Companies) {
-          Companies.getCompanyTemporaryContact($stateParams.companyName);
+          return Companies.getCompanyTemporaryContact($stateParams.companyName);
         }]
       },
       data: {
