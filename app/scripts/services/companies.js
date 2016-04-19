@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function(Restangular, _) {
+app.factory('Companies', function(Restangular) {
   var obj = {
     companies: [],
     pendingCompanies: [],
@@ -30,10 +30,9 @@ app.factory('Companies', function(Restangular, _) {
     };
 
   obj.getCompany = function(companyName) {
-    var activeOrInactiveCompany = _.find(obj.companies, { 'name': companyName});
-    var pendingCompany = _.find(obj.pendingCompanies, { 'name': companyName});
-
-    return activeOrInactiveCompany || pendingCompany;
+    return Restangular.one('/api/admins/companies', companyName).get().then(function(company) {
+      return company.plain();
+    });
   };
 
   obj.createNewCompany = function(company) {

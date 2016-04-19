@@ -242,6 +242,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       resolve: {
         adminCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
           return Companies.getCompany($stateParams.companyName);
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
         }]
       },
       data: {

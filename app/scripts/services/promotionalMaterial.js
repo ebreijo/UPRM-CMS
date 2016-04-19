@@ -5,7 +5,9 @@ var app = angular.module('uprmcmsApp');
 app.factory('PromotionalMaterial', function(Restangular, _) {
   var obj = {
     promotionalMaterial: [],
-    companyPromotionalMaterial: []
+    companyPromotionalMaterial: [],
+    companyPromotionalMaterialForAdmins: []
+
   };
 
   obj.getAllApprovedPromotionalMaterial = function() {
@@ -20,6 +22,12 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
 
   obj.updatePromotionalMaterialFromAdmins = function(promMaterial) {
     return Restangular.one('/api/admins/promotionalMaterial', promMaterial.id).customPUT(promMaterial);
+  };
+
+  obj.getPromotionalMaterialPerCompanyForAdmIns = function(companyName, status) {
+    return Restangular.one('/api/admins/companies', companyName).getList('promotionalMaterial', {status: status}).then(function(compPromoMaterialForAdmins){
+      angular.copy(compPromoMaterialForAdmins.plain(), obj.companyPromotionalMaterialForAdmins);
+    });
   };
 
   obj.getPromotionalMaterialPerCompany = function(companyName) {
