@@ -3,7 +3,7 @@
 var app = angular.module('uprmcmsApp');
 
 
-app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, _) {
+app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, _) {
 
   $scope.company = adminCompanyPromise;
   var majorList = Majors.majors;
@@ -31,11 +31,22 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
 
   });
 
-  $scope.compStatusSelection = 'approved';
-  $scope.$watch('compStatusSelection', function (newValue) {
-    $scope.compStatusSelection = newValue;
-    PromotionalMaterial.getPromotionalMaterialPerCompanyForAdmIns(adminCompanyPromise.name, $scope.compStatusSelection);
+  $scope.promMaterialStatusSelection = 'approved';
+  $scope.$watch('promMaterialStatusSelection', function (newValue) {
+    $scope.promMaterialStatusSelection = newValue;
+    PromotionalMaterial.getPromotionalMaterialPerCompanyForAdmIns(adminCompanyPromise.name, $scope.promMaterialStatusSelection);
     $scope.promotionalMaterial = PromotionalMaterial.companyPromotionalMaterialForAdmins;
   });
+
+  $scope.recruiterStatusSelection = 'active';
+  $scope.$watch('recruiterStatusSelection', function (newValue) {
+    $scope.recruiterStatusSelection = newValue;
+    Recruiters.getRecruitersPerCompanyForAdmins(adminCompanyPromise.name, $scope.recruiterStatusSelection);
+    $scope.recruiterList = Recruiters.companyRecruitersForAdmins;
+  });
+
+  $scope.getCompanyDescriptionItem = function(companyInfo) {
+    $scope.CompanyDescriptionItem = angular.copy(companyInfo);
+  };
 
 });

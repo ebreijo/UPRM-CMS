@@ -47,7 +47,7 @@
                           <a href="{{company.websiteUrl}}">{{company.websiteUrl}}</a>
                         </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(companyProfile.generalInfo[0])" type="button" class="btn btn-theme btn-sm">Edit Description</button>
+                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(company)" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
@@ -58,14 +58,14 @@
                         </div>
                         <h3 class="title">Promotional Material</h3>
                         <div class="row page-row">
-                          <div class="col-md-12" style="text-align: center">
+                          <div class="col-md-11" style="text-align: center">
                             <form class="form-inline" role="form" action="" method="post">
                               <div class="input-group">
-                                <span><label class="control-label">Company Status:&nbsp</label></span>
+                                <span><label class="control-label">Promotional Material Status:&nbsp</label></span>
 
                                 <div class="form-group">
                                   <div class="sort">
-                                    <select class="sort-options form-control" ng-model="compStatusSelection">
+                                    <select class="sort-options form-control" ng-model="promMaterialStatusSelection">
                                       <option value="approved">Approved</option>
                                       <option value="pending">Pending</option>
                                       <option value="rejected">Rejected</option>
@@ -128,25 +128,46 @@
                 </div>
                 <div class="tab-pane" id="tab2">
                   <div class="row">
+                    <div class="col-title col-md-12 col-sm-12">
+                      <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
+                    </div>
+                    <div class="row page-row">
+                      <div class="col-md-11" style="text-align: center">
+                        <form class="form-inline" role="form" action="" method="post">
+                          <div class="input-group">
+                            <span><label class="control-label">Recruiter Status:&nbsp</label></span>
+
+                            <div class="form-group">
+                              <div class="sort">
+                                <select class="sort-options form-control" ng-model="recruiterStatusSelection">
+                                  <option value="active">Active</option>
+                                  <option value="inactive">Inactive</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                     <!--//course-list-header-->
                     <div class="course-item-header row-divider hidden-sm hidden-xs">
                       <div class="row">
-                        <div class="col-title col-md-12 col-sm-12">
-                          <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
-                        </div>
-                        <div class="col-title col-md-4 col-sm-6">
+                        <div class="col-title col-md-3 col-sm-6">
                           <strong>Name</strong>
                         </div>
-                        <div class="col-meta col-md-8 col-sm-6">
+                        <div class="col-meta col-md-9 col-sm-6">
                           <div class="row">
-                            <div class="col-start col-md-4">
+                            <div class="col-start col-md-3">
                               <strong>Email</strong>
                             </div>
-                            <div class="col-duration col-md-5">
+                            <div class="col-start col-md-2">
+                              <strong>Phone Number</strong>
+                            </div>
+                            <div class="col-duration col-md-3">
                               <strong>Company Location</strong>
                             </div>
                             <div class="col-location col-md-2">
-                              <strong>Delete</strong>
+                              <strong>Status</strong>
                             </div>
                           </div>
                         </div>
@@ -155,19 +176,18 @@
                       <!---//row-->
                     </div>
                     <!--//course-item-header-->
-                    <article class="course-item row-divider" ng-repeat="item in companyProfile.recruiterList">
+                    <article class="course-item row-divider" ng-repeat="item in recruiterList">
                       <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">{{item.firstName}} {{item.lastName}}
-                          <span class="label label-success" ng-show="item.accountStatus === 'active'">Approved</span>
-                          <!--<span class="label label-danger" ng-show="item.accountStatus === 'inactive'">Inactive</span>-->
-                          <!--<span class="label label-warning" ng-show="item.accountStatus === 'pending'">Pending</span>-->
+                        <div class="col-title col-md-3 col-sm-6">{{item.firstName}} {{item.lastName}}
+                          <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus}}</span>
                         </div>
-                        <div class="col-meta col-md-8 col-sm-6">
+                        <div class="col-meta col-md-9 col-sm-6">
                           <div class="row">
-                            <div class="col-start col-md-4">{{item.email}}</div>
-                            <div class="col-duration col-md-5">{{item.companyLocation.city}}, {{item.companyLocation.state}}, {{item.companyLocation.country}}</div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button ng-show="item.email!==recruiterLoggedIn" type="button" class="btn btn-theme btn-xs" ng-click="deleteRecruiter(item)">Delete</button>
+                            <div class="col-start col-md-3">{{item.email}}</div>
+                            <div class="col-duration col-md-2">{{item.phoneNumber}}</div>
+                            <div class="col-duration col-md-3">{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</div>
+                            <div class="col-location col-md-2">
+                              <button type="button" class="btn btn-theme btn-xs" ng-click="changeRecruiterStatus(item)">Change</button>
                             </div>
                           </div>
                         </div>
