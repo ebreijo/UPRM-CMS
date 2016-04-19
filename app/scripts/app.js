@@ -324,6 +324,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
           Majors.getAllMajors();
         }]
       }
+    }).state('continueStudent', {
+      url: '/student?ticket',
+      templateUrl: 'partials/students/continue.html',
+      controller: 'ContinueStudentCtrl',
+      data: {
+        authorizedRoles: all
+      }
     });
 
   $urlRouterProvider.otherwise('/');
