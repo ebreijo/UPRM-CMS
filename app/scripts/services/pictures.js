@@ -19,6 +19,16 @@ app.factory('Pictures', function() {
         id: 3,
         fileLabel: 'photo3',
         filePath: '../../media/landing/slide-3.jpg'
+      },
+      {
+        id: 4,
+        fileLabel: 'photo4',
+        filePath: '../../media/landing/slide-3.jpg'
+      },
+      {
+        id: 5,
+        fileLabel: 'photo5',
+        filePath: '../../media/landing/slide-3.jpg'
       }
     ]
   };
