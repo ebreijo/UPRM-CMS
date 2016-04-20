@@ -23,6 +23,7 @@
         </div>
         <!--//breadcrumbs-->
       </header>
+
       <div class="page-content">
         <div class="row" style="margin-top:15px">
           <div class="col-md-12">
@@ -34,10 +35,17 @@
               <img width="900px" height="400px" ng-src="{{pictures[0].filePath}}"/>
           </article>
           <article class="col-md-12 col-sm-12 text-center">
-            <label for="slide1-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
-            <input style="display: none;" id="slide1-upload" type="file" accept="image/jpeg,image/png"/>
+
+            <label type="button" uprm-file-uploader="uploadPictureConfig" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">
+              Change Slide Image
+            </label>
+
+
+            <!--<label for="slide1-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>-->
+            <!--<input style="display: none;" id="slide1-upload" type="file" accept="image/jpeg,image/png"/>-->
           </article>
         </div>
+
         <div class="row" style="margin-top:15px">
           <div class="col-md-12">
             <h2 class="title">Slide 2</h2>
