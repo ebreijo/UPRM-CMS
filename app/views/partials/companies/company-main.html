@@ -18,7 +18,9 @@
           </b>
         </h1>
         <span class="label label-success" style="padding:5px; margin-left:5px"><big>{{companyProfile.generalInfo[0].companyStatus}}</big></span>
-        <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
+        <label type="button" uprm-file-uploader="updateLogoConfig" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
+        <!--<button type="button" uprm-file-uploader="fileUploadConfig" class="btn btn-primary"> Choose Logo</button>-->
+
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
       <div class="page-content">

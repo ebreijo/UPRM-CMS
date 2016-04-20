@@ -12,7 +12,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration)
       'paramName': 'image',     // The name that will be used to transfer the file
       'maxFilesize': 10, // in MBs
       'maxFiles': 2,
-      'acceptedFiles': 'image/jpeg,image/png,image/gif'
+      'acceptedFiles': 'image/jpeg,image/png'
     },
     'eventHandlers': {
       'sending': function (file, xhr, formData) {
