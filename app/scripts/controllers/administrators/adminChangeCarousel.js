@@ -5,10 +5,17 @@ var app = angular.module('uprmcmsApp');
 app.controller('AdminChangeCarousel', function($scope, Pictures) {
 
   $scope.pictures = Pictures.pictures;
-  $scope.selectedPicture = 1;
+  $scope.selectedPicture = 0;
   $scope.printValue = function(){
     console.log($scope.selectedPicture);
   };
+
+  /*
+  {
+    "filePath":"lolllllo",
+    "fileLabel":"laFoto"
+  }
+  */
 
   /* jshint ignore:start */
   $scope.uploadPictureConfig = {
@@ -27,8 +34,8 @@ app.controller('AdminChangeCarousel', function($scope, Pictures) {
       'success': function (file, response) {
         console.log('Success!!!!');
         this.removeAllFiles();
-        //Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
-        //$scope.companyProfile.generalInfo[0].logoPath = response.filePath;
+        Pictures.updateLandingPagePicture({'filePath': response.filePath, 'fileLabel':response.fileLabel}, $scope.selectedPicture+1);
+        $scope.pictures[$scope.selectedPicture].filePath = response.filePath;
       },
       'error': function(file, response) {
         this.removeAllFiles();

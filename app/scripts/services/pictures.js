@@ -14,5 +14,9 @@ app.factory('Pictures', function(Restangular) {
     });
   };
 
+  obj.updateLandingPagePicture = function(changes, pictureId) {
+    return Restangular.one('/api/pictures', pictureId).customPUT(changes);
+  };
+
   return obj;
 });
