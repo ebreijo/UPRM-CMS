@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function(Restangular) {
+app.factory('Companies', function(Restangular, _) {
   var obj = {
     companies: [],
     pendingCompanies: [],
@@ -24,15 +24,16 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.getAllCompaniesForStudents = function() {
-    return Restangular.all('/api/students/companies').getList().then(function(data) {
-      angular.copy(data.plain(), obj.studentCompanies);
-    });
-  };
+      return Restangular.all('/api/students/companies').getList().then(function(data) {
+        angular.copy(data.plain(), obj.studentCompanies);
+      });
+    };
 
   obj.getCompany = function(companyName) {
-    return Restangular.one('/api/admins/companies', companyName).get().then(function(company) {
-      return company.plain();
-    });
+    var activeOrInactiveCompany = _.find(obj.companies, { 'name': companyName});
+    var pendingCompany = _.find(obj.pendingCompanies, { 'name': companyName});
+
+    return activeOrInactiveCompany || pendingCompany;
   };
 
   obj.createNewCompany = function(company) {
@@ -42,7 +43,7 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  obj.updateCompanyFromAdmins = function(company) {
+  obj.updateCompanyStatusFromAdmins = function(company) {
     return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 
@@ -52,7 +53,7 @@ app.factory('Companies', function(Restangular) {
 
   obj.getCompanyTemporaryContact = function(companyName) {
     return Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
-      return tempContact.plain();
+      return tempContact;
     });
   };
 

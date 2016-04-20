@@ -249,12 +249,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     }
   };
 
-
-
-
-
-
-
   //For Deleting Recruiters------------------------------------------------------------
 
   var recruiters = [];
