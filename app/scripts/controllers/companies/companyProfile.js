@@ -14,7 +14,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'paramName': 'image',     // The name that will be used to transfer the file
       'maxFilesize': 10, // in MBs
       'maxFiles': 1,
-      'acceptedFiles': 'image/jpeg,image/png'
+      'acceptedFiles': 'image/jpeg,image/png',
+      'createImageThumbnails': false
     },
     'eventHandlers': {
       'sending': function (file, xhr, formData) {
@@ -24,6 +25,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
         console.log('Success!!!!');
         this.removeAllFiles();
         Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
+        $scope.companyProfile.generalInfo[0].logoPath = response.filePath;
       }
     }
   };
