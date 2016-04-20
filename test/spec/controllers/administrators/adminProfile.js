@@ -187,7 +187,7 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(Companies, 'updateCompanyStatusFromAdmins').and.callFake(function() {
+        spyOn(Companies, 'updateCompanyFromAdmins').and.callFake(function() {
           return q.when({});
         });
       });
@@ -199,7 +199,7 @@ describe('Controller: AdminProfile', function () {
         it('should not make the updateCompanyStatus request', function() {
           scope.submitCompanyStatusEdit(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -218,7 +218,7 @@ describe('Controller: AdminProfile', function () {
         it('should make the updateCompanyStatus request', function () {
           scope.submitCompanyStatusEdit(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
 
       });
@@ -594,7 +594,7 @@ describe('Controller: AdminProfile', function () {
     beforeEach(function () {
       scope.executeTab4();
       form = {};
-      spyOn(Companies, 'updateCompanyStatusFromAdmins').and.callFake(function() {
+      spyOn(Companies, 'updateCompanyFromAdmins').and.callFake(function() {
         return q.when({});
       });
       scope.tempCompany = {
@@ -614,7 +614,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitAcceptCompany(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -624,7 +624,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('active');
-          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -636,7 +636,7 @@ describe('Controller: AdminProfile', function () {
           form.$valid = false;
           scope.submitRejectCompany(form);
           scope.$digest();
-          expect(Companies.updateCompanyStatusFromAdmins).not.toHaveBeenCalled();
+          expect(Companies.updateCompanyFromAdmins).not.toHaveBeenCalled();
         });
       });
 
@@ -646,7 +646,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('inactive');
-          expect(Companies.updateCompanyStatusFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
         });
       });
     });
@@ -750,10 +750,6 @@ describe('Controller: AdminProfile', function () {
         jobOfferStatus: 'pending',
         location: 'Durham, NC'
       };
-    });
-
-    it('should have today\'s date defined', function () {
-      expect(scope.today).toBeDefined();
     });
 
     describe('submit to accept a new job offer from a company', function () {

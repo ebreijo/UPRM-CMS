@@ -9,8 +9,8 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title"> <img ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
-        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-warning': company.companyStatus === 'pending', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
+        <h1 class="heading-title"> <img ng-if="company.logoPath" ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
+        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-warning': company.companyStatus === 'pending', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus | capitalize}}</big></span>
         <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
@@ -20,28 +20,28 @@
             <div class="featured-courses tabbed-info page-row">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab1" data-toggle="tab">Profile</a>
+                  <a href="#tab1" data-toggle="tab" ng-click="executeTab1()">Profile</a>
                 </li>
                 <li>
-                  <a href="#tab2" data-toggle="tab">Recruiters</a>
+                  <a href="#tab2" data-toggle="tab" ng-click="executeTab2()">Recruiters</a>
                 </li>
                 <li>
-                  <a href="#tab3" data-toggle="tab">Job Offers</a>
+                  <a href="#tab3" data-toggle="tab" ng-click="executeTab3()">Job Offers</a>
                 </li>
                 <li>
-                  <a href="#tab4" data-toggle="tab">Requests Status <span class="badge badge-theme">{{indexPendingRequests}}</span></a>
-                </li>
-                <li>
-                  <a href="#tab5" data-toggle="tab">Temporary Contact</a>
+                  <a href="#tab4" data-toggle="tab">Temporary Contact</a>
                 </li>
               </ul>
               <div class="tab-content">
+
                 <div class="tab-pane active" id="tab1">
                   <div class="page-content">
-                    <div class="row page-row">
+                    <div class="row">
                       <article class="welcome" style="padding-top:15px">
-                        <h3 class="title">Company Description<br></h3>
-                        <p>{{company.companyDescription}}</p>
+                        <div class="col-md-12" style="padding-bottom:5px">
+                          <h3 class="title">Company Description<br></h3>
+                          <p>{{company.companyDescription}}</p>
+                        </div>
                         <div class ="row text-center" style="margin-bottom:15px">
                           <span>Website: </span>
                           <a href="{{company.websiteUrl}}">{{company.websiteUrl}}</a>
@@ -49,14 +49,16 @@
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
                           <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(company)" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
-                        <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
-                          <button class="btn btn-theme btn-xs" ng-repeat="item in interestedMajors" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.majorCode}}</b></button>
+                          <h3 class="title">Interested Majors</h3>
+                          <button class="btn btn-theme btn-xs" ng-repeat="item in majors | filter:true" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.majorCode}}</b></button>
                         </div>
                         <div class="col-md-12" style="text-align: center">
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
-                        <h3 class="title">Promotional Material</h3>
+                        <div class="col-md-12" style="padding-bottom:5px">
+                          <h3 class="title">Promotional Material</h3>
+                        </div>
                         <div class="row page-row">
                           <div class="col-md-11" style="text-align: center">
                             <form class="form-inline" role="form" action="" method="post">
@@ -67,7 +69,6 @@
                                   <div class="sort">
                                     <select class="sort-options form-control" ng-model="promMaterialStatusSelection">
                                       <option value="approved">Approved</option>
-                                      <option value="pending">Pending</option>
                                       <option value="rejected">Rejected</option>
                                     </select>
                                   </div>
@@ -76,51 +77,37 @@
                             </form>
                           </div>
                         </div>
-                        <div class="course-item-header row-divider hidden-sm hidden-xs">
-                          <div class="row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <strong>Name</strong>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-duration col-md-4">
-                                  <strong>Expiration Date</strong>
-                                </div>
-                                <div class="col-level col-md-2">
-                                  <strong>Edit</strong>
-                                </div>
-                                <div class="col-location col-md-2">
-                                  <strong>Delete</strong>
-                                </div>
-                                <div class="col-start col-md-4">
-                                </div>
-                              </div>
+                        <article class="contact-form col-md-12">
+                          <div class="course-item-header">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Expiration Date</th>
+                                  <th>Edit</th>
+                                  <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="item in promotionalMaterial | filter:{status:promMaterialStatusSelection}:true">
+                                    <td>
+                                      <a href="">{{item.title}}</a> <span class="label" ng-class="{'label-success': item.status === 'approved', 'label-danger': item.status === 'rejected'}">{{item.status | capitalize}}</span>
+                                    </td>
+                                    <td>{{item.expirationDate | date: 'EEE, MMMM d, y'}}</td>
+                                    <td>
+                                      <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" class="btn btn-theme btn-xs" ng-click="setPromotionalMaterialItem(item)" >Edit</button>
+                                    </td>
+                                    <td>
+                                      <button type="button" data-toggle="modal" data-target="#confirmDeletePromotionalMaterialModal" class="btn btn-theme btn-xs" ng-click="setCompanyPromotionalMaterial(item)">Delete</button>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <!--//table-->
                             </div>
                           </div>
-                        </div>
-                        <div ng-repeat="item in promotionalMaterial">
-                          <article class="course-item row-divider">
-                            <div class="details row">
-                              <div class="col-title col-md-4 col-sm-6">
-                                <a href="documents/pdf-sample.pdf" target="_blank">{{item.title}}</a> <span class="label" ng-class="{'label-success': item.status === 'approved', 'label-warning': item.status === 'pending', 'label-danger': item.status === 'rejected'}">{{item.status}}</span>
-                              </div>
-                              <div class="col-meta col-md-8 col-sm-6">
-                                <div class="row">
-                                  <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
-                                  <div class="col-level col-md-2" style="padding-top:2px">
-                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="getPromotionalMaterialItem(item)" class="btn btn-theme btn-xs">Edit</button>
-                                  </div>
-                                  <div class="col-location col-md-2" style="padding-top:2px">
-                                    <button type="button" class="btn btn-theme btn-xs" ng-click="deleteCompanyPromotionalMaterial(item)">Delete</button>
-                                  </div>
-                                  <div class="col-duration col-md-4"></div>
-                                </div>
-                              </div>
-                              <!--//col-meta-->
-                            </div>
-                            <!--//details-->
-                          </article>
-                        </div>
+                        </article>
                       </article>
                     </div>
                   </div>
@@ -149,68 +136,75 @@
                         </form>
                       </div>
                     </div>
-                    <!--//course-list-header-->
-                    <div class="course-item-header row-divider hidden-sm hidden-xs">
-                      <div class="row">
-                        <div class="col-title col-md-3 col-sm-6">
-                          <strong>Name</strong>
+                    <article class="contact-form col-md-12">
+                      <div class="course-item-header">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Phone Number</th>
+                              <th>Company Location</th>
+                              <th>Registration Date</th>
+                              <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="item in recruiterList | filter:{accountStatus:recruiterStatusSelection}:true">
+                                <td>
+                                  {{item.firstName}} {{item.lastName}} <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus | capitalize}}</span>
+                                </td>
+                                <td>{{item.email}}</td>
+                                <td>{{item.phoneNumber}}</td>
+                                <td>{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</td>
+                                <td>{{item.registrationDate | date: 'EEE, MMMM d, y'}}</td>
+                                <td>
+                                  <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#editRecruiterStatusModal" ng-click="changeRecruiterStatus(item)">Change</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <!--//table-->
                         </div>
-                        <div class="col-meta col-md-9 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-3">
-                              <strong>Email</strong>
-                            </div>
-                            <div class="col-start col-md-2">
-                              <strong>Phone Number</strong>
-                            </div>
-                            <div class="col-duration col-md-3">
-                              <strong>Company Location</strong>
-                            </div>
-                            <div class="col-location col-md-2">
-                              <strong>Status</strong>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
                       </div>
-                      <!---//row-->
-                    </div>
-                    <!--//course-item-header-->
-                    <article class="course-item row-divider" ng-repeat="item in recruiterList">
-                      <div class="details row">
-                        <div class="col-title col-md-3 col-sm-6">{{item.firstName}} {{item.lastName}}
-                          <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus}}</span>
-                        </div>
-                        <div class="col-meta col-md-9 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-3">{{item.email}}</div>
-                            <div class="col-duration col-md-2">{{item.phoneNumber}}</div>
-                            <div class="col-duration col-md-3">{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</div>
-                            <div class="col-location col-md-2">
-                              <button type="button" class="btn btn-theme btn-xs" ng-click="changeRecruiterStatus(item)">Change</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
                     </article>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab3">
                   <div class="row">
-                    <div class="jobs-wrapper col-md-10 col-sm-9">
+                    <div class="col-title col-md-12 col-sm-12">
                       <h3 class="title" style="margin-bottom:25px">Job Offer List</h3>
-                      <div class="panel panel-default page-row" ng-repeat="item in companyProfile.jobOfferList">
+                    </div>
+                    <div class="row page-row">
+                      <div class="col-md-11" style="text-align: center">
+                        <form class="form-inline" role="form" action="" method="post">
+                          <div class="input-group">
+                            <span><label class="control-label">Job Offer Status:&nbsp</label></span>
+
+                            <div class="form-group">
+                              <div class="sort">
+                                <select class="sort-options form-control" ng-model="jobOfferStatusSelection">
+                                  <option value="approved">Approved</option>
+                                  <option value="rejected">Rejected</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="jobs-wrapper col-md-10 col-sm-9">
+                      <div class="panel panel-default page-row" ng-repeat="item in jobOfferList">
                         <div class="panel-heading">
-                          <h3 class="panel-title">{{item.title}} <span class="label label-success" ng-show="item.jobOfferStatus === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.jobOfferStatus === 'pending'">Pending</span> <span class="label label-info pull-right">{{item.educationLevel}}</span> <span class="label label-primary pull-right" style="margin-right:10px">{{item.jobPosition}}</span></h3>
+                          <h3 class="panel-title">{{item.title}} <span class="label" ng-class="{'label-success': item.jobOfferStatus === 'approved', 'label-danger': item.jobOfferStatus === 'rejected'}">{{item.jobOfferStatus | capitalize}}</span> <span class="label label-info pull-right">{{item.educationLevel}}</span> <span class="label label-primary pull-right" style="margin-right:10px">{{item.jobPosition}}</span></h3>
                         </div>
                         <div class="panel-body">
                           {{item.description}} <span ng-show="item.recentGraduate"><b>**For Recent Graduates**</b></span>
                         </div>
                         <ul class="list-group">
                           <li class="list-group-item">
-                            <strong>Anouncement Number:</strong>&nbsp;{{item.announcementNumber}}
+                            <strong>Announcement Number:</strong>&nbsp;{{item.announcementNumber}}
                           </li>
                           <li class="list-group-item">
                             <strong>Location:</strong> {{item.location}}
@@ -226,7 +220,7 @@
                         <div class="panel-footer">
                           <div class="row">
                             <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                              <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Delete Job Offer</button>
+                              <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Edit Status</button>
                             </ul>
                             <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
                               Open Until: {{item.expirationDate | date: 'MMMM d, y'}}
@@ -239,102 +233,71 @@
                 </div>
 
                 <div class="tab-pane" id="tab4">
-                  <div class="row">
-                    <div class="col-md-12" style="padding-bottom:5px">
-                      <h3 class="title">Status of Company Requests</h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <!--//course-list-header-->
-                    <article class="contact-form col-md-12 page-row">
-                      <h4 class="title text-center">Pending Requests</h4>
-                      <div class="table-responsive">
-                        <table class="table table-bordered">
-                          <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr ng-repeat="item in companyProfile.pendingRequests">
-                            <td>{{item.id}}</td>
-                            <td>{{item.name}}</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!--//table-->
-                      </div>
-                      <div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-
-                <div class="tab-pane" id="tab5">
-                  <form name="accountSettingsForm" ng-submit="confirmAccountSettingsChanges(accountSettingsForm)" novalidate>
+                  <form name="temporaryContactForm" ng-submit="confirmAccountSettingsChanges(temporaryContactForm)" novalidate>
                     <div class="row">
                       <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
-                        <h3 class="title">My Settings</h3>
-                        <p>Please use this option if you wish to change any of the available settings in your account.<br></p>
+                        <h3 class="title">Temporary Contact</h3>
                       </div>
                     </div>
-                    <div class="row" style="margin-top:20px">
-                      <div class="col-md-2">
-                      </div>
+                    <div class="col-md-12 col-md-offset-2">
                       <article class="contact-form col-md-4">
                         <div class="input-group">
                           <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
                         </div>
-                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.firstName" name="recruiterLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
-                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$valid"></i>
-                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine"></i>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine}">
+                          <input ng-model="tempContact.firstName" name="tempContactFirstName" type="text" class="form-control" placeholder="Enter temporary contact First Name" style="border-radius:0;" ng-pattern="patterns.firstName" required/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactFirstName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
                         </div>
                       </article>
                       <article class="contact-form col-md-4">
                         <div class="input-group">
                           <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
                         </div>
-                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
-                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInLastName.$valid"></i>
-                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine"></i>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine}">
+                          <input ng-model="tempContact.lastName" name="tempContactLastName" type="text" class="form-control" placeholder="Enter temporary contact Last Name" style="border-radius:0;" ng-pattern="patterns.lastName" required/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactLastName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
                         </div>
-                      </article>
-                      <div class="col-md-2">
-                      </div>
+                    </article>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4">
+                    <div class="col-md-12 col-md-offset-2">
+                    <article class="contact-form col-md-4">
+                      <div class="input-group">
+                        <span><label class="control-label">Email<span class="required">*</span> :</label></span>
                       </div>
-                      <article class="contact-form col-md-4">
-                        <div class="input-group">
-                          <span><label class="control-label">Phone Number<span class="required">*</span> :</label></span>
-                        </div>
-                        <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.phoneNumber" type="tel" name="recruiterLoggedInPhone" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" ng-pattern="/^[\s()+-]*([0-9][\s()+-]*){6,20}(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/>
-                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInPhone.$valid"></i>
-                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine"></i>
-                        </div>
-                        <div>
-                          <p ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Phone Number</b></p>
-                        </div>
-                      </article>
-                      <div class="col-md-4">
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine}">
+                        <input ng-model="tempContact.email" name="tempContactEmail" type="email" class="form-control" placeholder="Enter temporary contact email" style="border-radius:0;" ng-pattern="patterns.email" required/>
+                        <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactEmail.$valid"></i>
+                        <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine"></i>
                       </div>
+                      <div>
+                        <p ng-show="temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email</b></p>
+                      </div>
+                    </article>
+                    <article class="contact-form col-md-4">
+                      <div class="input-group">
+                        <span><label class="control-label">Phone Number<span class="required">*</span> :</label></span>
+                      </div>
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine}">
+                        <input ng-model="tempContact.phoneNumber" type="tel" name="tempContactPhone" class="form-control" placeholder="Enter temporary contact phone number" style="border-radius:0;" ng-pattern="patterns.phoneNumber" required/>
+                        <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactPhone.$valid"></i>
+                        <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine"></i>
+                      </div>
+                      <div>
+                        <p ng-show="temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number. Formats: +x-xxx-xxx-xxxx, x-xxx-xxx-xxxx, xxx-xxx-xxxx</b></p>
+                      </div>
+                    </article>
                     </div>
                     <div class="row text-center">
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="accountSettingsForm.$invalid"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="temporaryContactForm.$invalid"  style="margin-top:5px; margin-bottom:5px"><b>Save Changes</b></button>
                       </div>
                     </div>
                   </form>
@@ -397,7 +360,7 @@
         <!--//featured-courses-->
       </div>
       <div class="modal-footer">
-        <button type="button" ng-click="closeCompanyDescriptionModal()" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -412,12 +375,12 @@
         <h4 class="modal-title pull-left" style="color:black"><b>Interested Majors</b></h4>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <form name="displayMajors">
+        <form name="editInterestedMajorsForm" ng-submit="submitCompanyInterestedMajors(editInterestedMajorsForm)" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
+              <div class="panel panel-default">
+                <div class="panel-body">
                   <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
                     <li class="list-group-item" ng-repeat="item in majors | filter:false">
                       <label class="control-label">
@@ -425,15 +388,13 @@
                       </label>
                     </li>
                   </ul>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <form name="selectedMajors">
+            <div class="col-md-6">
+              <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
+              <div class="panel panel-default">
+                <div class="panel-body">
                   <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
                     <li class="list-group-item" ng-repeat="item in majors | filter:true">
                       <label class="control-label">
@@ -441,14 +402,19 @@
                       </label>
                     </li>
                   </ul>
-                </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-12" style="text-align: center">
+              <button type="submit" class="btn btn-theme btn-sm"><b>Submit</b></button>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -465,34 +431,41 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="editCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterial(editCompanyPromotionalMaterialForm)" novalidate>
+            <form name="editCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterialChanges(editCompanyPromotionalMaterialForm)" novalidate>
               <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
-                <input ng-model="PromotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="promotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
               </div>
               <div>
                 <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
               </div>
-              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{PromotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{promotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
               <div class="alert alert-danger alert-dismissable" ng-show="showEditPromotionalMaterialDateError">
                 <button type="button" class="close" ng-click="showEditPromotionalMaterialDateError=false" aria-hidden="true">&times;</button>
                 <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
               </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
-                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="PromotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
+                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="promotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
               </div>
               <div>
                 <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
               </div>
+              <div class="input-group text-center" style="margin-top: 30px;">
+                <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+                <select class="sort-options form-control" ng-model="promotionalMaterialItem.status" name="modalPromotionalMaterialStatusStatus" style="border-radius:0; -webkit-appearance: none;">
+                  <option value="approved">Approve</option>
+                  <option value="rejected">Reject</option>
+                </select>
+              </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid" style="margin-right:15px; margin-top: 20px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-top: 20px; margin-bottom:5px"><b>Cancel</b></button>
                 </div>
               </div>
             </form>
@@ -501,6 +474,63 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="confirmDeletePromotionalMaterialModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <form class="form-horizontal" name="modalDeletePromotionalMaterialForm" ng-submit="submitDeleteCompanyPromotionalMaterial(modalDeletePromotionalMaterialForm)" novalidate>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>Are you sure you want to delete {{promotionalMaterialItem.title}}?</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-theme">Submit</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="editRecruiterStatusModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Change Recruiter Status</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="modalRecruiterStatusForm" ng-submit="submitRecruiterStatusChange(modalRecruiterStatusForm)" novalidate>
+          <h4>Recruiter: {{tempRecruiter.firstName}} {{tempRecruiter.lastName}}</h4>
+          <div class="input-group text-center">
+            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+            <select class="sort-options form-control" ng-model="tempRecruiter.accountStatus" name="modalRecruiterStatus" style="border-radius:0; -webkit-appearance: none;">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+              <button type="submit" class="btn btn-theme">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

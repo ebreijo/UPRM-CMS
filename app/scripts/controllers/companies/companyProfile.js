@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers) {
+app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, FileUpload, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers) {
 
   $scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
   $scope.promotionalMaterialUploadConfig = FileUpload.fileUploadConfig('/api/companies/promotionalMaterial/upload', 'image', 10);
@@ -31,20 +31,26 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
     ]
   };
 
-
   var today = (new Date()).toISOString();
 
-  //For Edit Company Description Modal------------------------------------------------------------
-  var companyInfo = {};
-  Companies.getCompanyGeneralInformation($scope.getCurrentUser().companyName).then(function() {
-    companyInfo = Companies.companyGeneralInfo;
-    $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
 
-  });
+  //---------------------------------------Execute Tab 1---------------------------------------------
+  $scope.executeTab1 = function() {
+
+    var companyInfo = {};
+
+    Companies.getCompanyGeneralInformation($scope.getCurrentUser().companyName).then(function() {
+      companyInfo = Companies.companyGeneralInfo;
+      $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
+    });
+
+  };
+  //---------------------------------------End Tab 1---------------------------------------------
+
+  $scope.executeTab1();
+  //For Edit Company Description Modal------------------------------------------------------
 
   $scope.CompanyDescriptionItem = {};
-
-  //$scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
 
   $scope.getCompanyDescriptionItem = function(item) {
     $scope.CompanyDescriptionItem = angular.copy(item);
@@ -52,9 +58,16 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
 
   $scope.submitCompanyDescription = function(form){
     if(form.$valid){
-      $scope.companyProfile.generalInfo[0].websiteUrl = $scope.CompanyDescriptionItem.websiteUrl;
-      $scope.companyProfile.generalInfo[0].companyDescription = $scope.CompanyDescriptionItem.companyDescription;
+      Companies.updateCompanyGeneralInformation($scope.CompanyDescriptionItem, $scope.getCurrentUser().companyName);
+      $scope.getCurrentUser().companyName = $scope.CompanyDescriptionItem.name;
       $('#editCompanyDescriptionModal').modal('hide');
+      $('#editCompanyDescriptionModal').on('hidden.bs.modal', function () {
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      });
       //Jasmine Test
       return true;
     }
@@ -62,14 +75,14 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
     return false;
   };
 
-  //For Edit Interested Majors Modal------------------------------------------------------------
+//For Edit Interested Majors Modal------------------------------------------------------------
 
   var majors = Majors.majors;
 
   Majors.getInterestedMajorsPerCompany($scope.getCurrentUser().companyName).then(function(interestedMajors) {
     console.log('current company name is: ' + $scope.getCurrentUser().companyName);
     angular.forEach(interestedMajors.plain(), function (item) {
-      $scope.companyProfile.interestedMajors.push({name: item.majorCode, value: false});
+      $scope.companyProfile.interestedMajors.push({id: item.id, companyName: item.companyName, name: item.majorCode, value: false});
     });
 
     angular.forEach(majors, function(item) {
@@ -91,6 +104,17 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   };
 
   $scope.addMajors = function() {
+    var interestedMajorList = {
+      interestedMajors: []
+    };
+    angular.forEach($scope.majorList, function (item){
+      if(item.value === true){
+        interestedMajorList.interestedMajors.push({majorCode: item.name});
+      }
+    });
+
+    Majors.addCompanyInterestedMajors(interestedMajorList, $scope.getCurrentUser().companyName);
+
     angular.forEach($scope.majorList, function (item) {
       if (item.value === true && (contains(item.name, $scope.companyProfile.interestedMajors) === false)){
         $scope.companyProfile.interestedMajors.push({name: item.name, value: false});
@@ -100,6 +124,17 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   };
 
   $scope.removeMajors = function() {
+    var listMajors = {
+      interestedMajors: []
+    };
+    angular.forEach($scope.companyProfile.interestedMajors, function (item){
+      if(item.value === true){
+        listMajors.interestedMajors.push({majorCode: item.name});
+      }
+    });
+
+    Majors.removeCompanyInterestedMajors(listMajors, $scope.getCurrentUser().companyName);
+
     angular.forEach($scope.companyProfile.interestedMajors, function (item) {
       if (item.value === true && (contains(item.name, $scope.majorList) === false)){
         $scope.majorList.push({name: item.name, value: false});
@@ -136,8 +171,8 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
 
   var promotionalMaterial = [];
 
-  PromotionalMaterial.getPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
-    promotionalMaterial = PromotionalMaterial.companyPromotionalMaterial;
+  PromotionalMaterial.getApprovedPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
+    promotionalMaterial = PromotionalMaterial.approvedCompanyPromotionalMaterial;
 
     for (var i = 0; i < promotionalMaterial.length; i++) {
       $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
@@ -151,12 +186,14 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   $scope.showEditPromotionalMaterialDateError = false;
 
 
-
   $scope.getPromotionalMaterialItem = function(item) {
     $scope.PromotionalMaterialItem = angular.copy(item);
   };
 
   $scope.deleteCompanyPromotionalMaterial = function(item){
+
+    PromotionalMaterial.removePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, item.id);
+
     _.remove(this.companyProfile.promotionalMaterial, function(element) {
       return element.id === item.id;
     });
@@ -197,6 +234,9 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
     if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
       this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
       $scope.showAddPromotionalMaterialDateError = false;
+      //PromotionalMaterial.addPromotionalMaterialPerCompany(interestedMajorList, $scope.getCurrentUser().companyName).then(function(newPromotionalMaterial){
+
+     // });
       $('#addPromotionalMaterialModal').modal('hide');
       indexPromotionalMaterial++;
       //Jasmine Test
@@ -212,12 +252,17 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   //For Deleting Recruiters------------------------------------------------------------
 
   var recruiters = [];
+  $scope.recruiterLoggedInItem = {};
+
 
   Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
     recruiters = Recruiters.companyRecruiters;
 
     for (var i = 0; i < recruiters.length; i++) {
       $scope.companyProfile.recruiterList.push(recruiters[i]);
+      if (recruiters[i].email === $scope.getCurrentUser().email){
+        $scope.recruiterLoggedInItem = angular.copy(recruiters[i]);
+      }
     }
   });
 
@@ -230,8 +275,8 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   //For Viewing and deleting Job Offers------------------------------------------------------------
   var jobOffers = [];
 
-  JobOffers.getJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    jobOffers = JobOffers.companyJobOffers;
+  JobOffers.getApprovedJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
+    jobOffers = JobOffers.approvedCompanyJobOffers;
 
     for (var i = 0; i < jobOffers.length; i++) {
       $scope.companyProfile.jobOfferList.push(jobOffers[i]);
@@ -291,31 +336,29 @@ app.controller('CompanyCtrl', function($scope, _, FileUpload, Majors, Companies,
   };
 
   //For Pending Requests Tab------------------------------------------------------------
-  $scope.indexPendingRequests = 0;
+  $scope.indexPendingRequests = 1;
+  var pendingPromotionalMaterial = [];
+  var pendingJobOffers = [];
 
-  for (var i = 0; i < $scope.companyProfile.jobOfferList.length; i++) {
-    if ($scope.companyProfile.jobOfferList[i].jobOfferStatus==='pending'){
-      $scope.indexPendingRequests++;
-      $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Job Offer: ' + $scope.companyProfile.jobOfferList[i].title, status: 'pending'});
-    }
-  }
 
-  for (i = 0; i < $scope.companyProfile.promotionalMaterial.length; i++) {
-    if ($scope.companyProfile.promotionalMaterial[i].status==='pending'){
-      $scope.indexPendingRequests++;
-      $scope.companyProfile.pendingRequests.push({id: $scope.indexPendingRequests, name: 'Promotional Material: ' +  $scope.companyProfile.promotionalMaterial[i].title, status: 'pending'});
+  PromotionalMaterial.getPendingPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
+    pendingPromotionalMaterial = PromotionalMaterial.pendingCompanyPromotionalMaterial;
+    for (var i = 0; i < pendingPromotionalMaterial.length; i++) {
+      $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  pendingPromotionalMaterial[i].title, status: 'pending'});
     }
-  }
+  });
+
+  JobOffers.getPendingJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
+    pendingJobOffers = JobOffers.pendingCompanyJobOffers;
+
+    for (var i = 0; i < pendingJobOffers.length; i++) {
+      $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + pendingJobOffers[i].title, status: 'pending'});
+      $scope.indexPendingRequests++;
+    }
+  });
 
   //For Account Settings Tab------------------------------------------------------------
   $scope.recruiterLoggedIn = $scope.getCurrentUser().email;
-  $scope.recruiterLoggedInItem = {};
-
-  for (i = 0; i < $scope.companyProfile.recruiterList.length; i++) {
-    if ($scope.companyProfile.recruiterList[i].email === $scope.getCurrentUser().email){
-      $scope.recruiterLoggedInItem = angular.copy($scope.companyProfile.recruiterList[i]);
-    }
-  }
   // TODO
   $scope.submitAccountSettingsChanges = function(){
     var recruiterLoggedInElement = _.find($scope.companyProfile.recruiterList, { email: $scope.recruiterLoggedInItem.email});

@@ -24,10 +24,10 @@ app.factory('Companies', function(Restangular, _) {
   };
 
   obj.getAllCompaniesForStudents = function() {
-      return Restangular.all('/api/students/companies').getList().then(function(data) {
-        angular.copy(data.plain(), obj.studentCompanies);
-      });
-    };
+    return Restangular.all('/api/students/companies').getList().then(function(data) {
+      angular.copy(data.plain(), obj.studentCompanies);
+    });
+  };
 
   obj.getCompany = function(companyName) {
     return Restangular.one('/api/admins/companies', companyName).get().then(function(company) {
@@ -47,7 +47,7 @@ app.factory('Companies', function(Restangular, _) {
     });
   };
 
-  obj.updateCompanyStatusFromAdmins = function(company) {
+  obj.updateCompanyFromAdmins = function(company) {
     return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 
@@ -57,7 +57,7 @@ app.factory('Companies', function(Restangular, _) {
 
   obj.getCompanyTemporaryContact = function(companyName) {
     return Restangular.one('/api/admins/companies', companyName).getList('tempContact').then(function(tempContact) {
-      return tempContact;
+      return tempContact.plain();
     });
   };
 
@@ -74,11 +74,9 @@ app.factory('Companies', function(Restangular, _) {
     });
   };
 
-  /*
-  obj.getInterestedMajorsPerCompany = function(companyName) {
-    return Restangular.one('/api/companies', companyName).getList('companyInterestedMajors');
+  obj.updateCompanyGeneralInformation = function(changes, companyName) {
+    return Restangular.one('/api/companies', companyName).customPUT(changes);
   };
-  */
 
   return obj;
 });
