@@ -18,7 +18,6 @@ app.factory('Majors', function(Restangular, _) {
     Restangular.all('/api/majors').post(newMajor).then(function(major) {
       obj.majors.push(major);
     });
-
   };
 
   obj.editMajor = function(tempMajor) {

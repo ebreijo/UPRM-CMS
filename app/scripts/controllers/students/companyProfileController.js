@@ -2,14 +2,15 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters, PromotionalMaterial) {
+app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recruiters, Companies, studentCompanyPromise) {
 
-  var majors = Majors.getAllMajors();
-
+  var companyInfo = studentCompanyPromise;
+  var majors = Majors.majors;
   var jobOffers = JobOffers.getAllJobOffers();
-
   var recruiters = Recruiters.getAllRecruiters();
+  var promotionalMaterial = Companies.getStudentCompany();
 
+  /*
   var companyInfo = {
     name: 'IBM',
     websiteUrl: 'http://www.ibm.com/us-en/',
@@ -17,8 +18,7 @@ app.controller('studentCompanyCtrl', function($scope, _, Majors, JobOffers, Recr
     companyDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat quis elit a vestibulum. Mauris leo sem, lacinia eu dapibus a, tempor eget metus. In vehicula maximus magna. Vestibulum pulvinar purus in tristique pellentesque. Sed porta imperdiet ultricies. Cras ac ipsum aliquam, condimentum risus non, euismod quam. Morbi posuere lobortis auctor. Aliquam massa eros, ultrices a viverra a, lacinia sed sem.',
     companyStatus: 'Active'
   };
-
-  var promotionalMaterial = PromotionalMaterial.getAllApprovedPromotionalMaterial();
+  */
 
   $scope.companyProfile = {
     'generalInfo':[

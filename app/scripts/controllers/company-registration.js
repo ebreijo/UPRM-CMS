@@ -2,15 +2,42 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, FileUpload) {
+app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration) {
 
-  $scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
+  //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
+  /* jshint ignore:start */
+  $scope.fileUploadConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/companies/logos',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 10, // in MBs
+      'maxFiles': 2,
+      'acceptedFiles': 'image/jpeg,image/png,image/gif'
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        if(this.files.length === 2){
+          this.removeFile(this.files[0]);
+        }
+        $scope.logoPath = response.filePath;
+      }
+    }
+  };
+  /* jshint ignore:end */
+
 
   var messageModal = $('#messageModal');
 
   $scope.registerCompany = function(isValid) {
     // check to make sure the form is completely valid
     if (isValid) {
+      if($scope.logoPath){
+        $scope.company.logoPath = $scope.logoPath;
+      }
       var userInfo = {
         companyInfo: $scope.company,
         companyLocation: $scope.compLocation,

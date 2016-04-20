@@ -9,7 +9,14 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title"> <img src="../../../images/company.png" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{companyProfile.generalInfo[0].name}}</big></b></h1>
+        <h1 class="heading-title">
+          <!-- COMPANY LOGO:-->
+          <img ng-if="companyProfile.generalInfo[0].logoPath" src={{companyProfile.generalInfo[0].logoPath}} alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" />
+          <b style="padding-left:15px">
+            <!-- COMPANY NAME:-->
+            <big>{{companyProfile.generalInfo[0].name}}</big>
+          </b>
+        </h1>
         <span class="label label-success" style="padding:5px; margin-left:5px"><big>{{companyProfile.generalInfo[0].companyStatus}}</big></span>
         <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>

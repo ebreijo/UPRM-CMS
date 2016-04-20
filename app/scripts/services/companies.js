@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.factory('Companies', function(Restangular) {
+app.factory('Companies', function(Restangular, _) {
   var obj = {
     companies: [],
     pendingCompanies: [],
@@ -33,6 +33,11 @@ app.factory('Companies', function(Restangular) {
     return Restangular.one('/api/admins/companies', companyName).get().then(function(company) {
       return company.plain();
     });
+  };
+
+  obj.getStudentCompany = function(companyName) {
+    var studentCompany = _.find(obj.studentCompanies, { 'name': companyName});
+    return studentCompany;
   };
 
   obj.createNewCompany = function(company) {
