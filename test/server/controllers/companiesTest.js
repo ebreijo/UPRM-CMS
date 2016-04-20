@@ -1173,13 +1173,17 @@ describe('Companies Controller: ', function() {
         )
         .expect('Content-Type', /json/)
         .expect(201)
-        .end(help.isBodyEqual({
-          status: 'pending',
-          id: 6,
-          companyName: 'IBM',
-          "expirationDate": "2100-04-04",
-          title: 'doc1'
-        }, done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.id).to.match(/6/);
+            expect(res.body.title).to.match(/doc1/);
+            expect(res.body.companyName).to.match(/IBM/);
+            expect(res.body.status).to.match(/pending/);
+            done();
+          }
+        });
     });
   });
 
@@ -1534,7 +1538,7 @@ describe('Companies Controller: ', function() {
           "educationLevel": "Bachelors",
           "recentGraduate": false,
           "creationDate": "2016-02-22 16:12:12",
-          "expirationDate": "2016-07-22 16:12:12",
+          "expirationDate": "2030-07-22 16:12:12",
           "announcementNumber": null,
           "flyerPath": null,
           "jobOfferStatus": "approved",
@@ -1553,7 +1557,7 @@ describe('Companies Controller: ', function() {
             "jobPosition": "Part-Time",
             "educationLevel": "Bachelors",
             "recentGraduate": false,
-            "expirationDate": "2016-07-22 16:12:12",
+            "expirationDate": "2030-07-22T20:12:12.000Z",
             "announcementNumber": null,
             "flyerPath": null,
             "location": "Durham, NC"

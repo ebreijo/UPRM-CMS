@@ -195,7 +195,7 @@
                       </div>
                     </div>
                     <div class="jobs-wrapper col-md-10 col-sm-9">
-                      <div class="panel panel-default page-row" ng-repeat="item in jobOfferList">
+                      <div class="panel panel-default page-row" ng-repeat="item in jobOfferList | filter:{jobOfferStatus:jobOfferStatusSelection}:true">
                         <div class="panel-heading">
                           <h3 class="panel-title">{{item.title}} <span class="label" ng-class="{'label-success': item.jobOfferStatus === 'approved', 'label-danger': item.jobOfferStatus === 'rejected'}">{{item.jobOfferStatus | capitalize}}</span> <span class="label label-info pull-right">{{item.educationLevel}}</span> <span class="label label-primary pull-right" style="margin-right:10px">{{item.jobPosition}}</span></h3>
                         </div>
@@ -220,7 +220,7 @@
                         <div class="panel-footer">
                           <div class="row">
                             <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                              <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Edit Status</button>
+                              <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#editJobOfferStatusModal" ng-click="setJobOfferItem(item)" style="margin-top:5px">Edit Status</button>
                             </ul>
                             <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
                               Open Until: {{item.expirationDate | date: 'MMMM d, y'}}
@@ -531,6 +531,42 @@
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+              <button type="submit" class="btn btn-theme">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editJobOfferStatusModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Change Job Offer Status</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="modalJobOfferStatusForm" ng-submit="submitJobOfferStatus(modalJobOfferStatusForm)" novalidate>
+          <h5>Job Offer: {{tempJobOffer.title}}</h5>
+          <div class="input-group text-center">
+            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+            <select class="sort-options form-control" ng-model="tempJobOffer.jobOfferStatus" name="modalJobOfferStatus" style="border-radius:0; -webkit-appearance: none;">
+              <option value="approved">Approve</option>
+              <option value="rejected">Reject</option>
+            </select>
+          </div>
+          <div class="alert alert-danger alert-dismissable" ng-show="showJobOfferExpirationError" style="margin-top: 10px;">
+            <button type="button" class="close" ng-click="showJobOfferExpirationError=false" aria-hidden="true">&times;</button>
+            <strong class="alert-link" >This Job Offer has expired. You cannot approve it.</strong>
           </div>
           <div class="row">
             <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">

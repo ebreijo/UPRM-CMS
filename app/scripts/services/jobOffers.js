@@ -44,6 +44,10 @@ app.factory('JobOffers', function(Restangular, _) {
     });
   };
 
+  obj.updateJobOfferStatusPerCompanyForAdmins = function(companyName, jobOffer) {
+    return Restangular.one('/api/admins/companies', companyName).one('jobOffers', jobOffer.id).customPUT(jobOffer);
+  };
+
   obj.getApprovedJobOffersPerCompany = function(companyName) {
     return Restangular.one('/api/companies', companyName).getList('jobOffers').then(function(compJobOffers){
       angular.copy(compJobOffers.plain(), obj.approvedCompanyJobOffers);

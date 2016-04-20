@@ -143,6 +143,22 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
       JobOffers.getJobOffersPerCompanyForAdmins(adminCompanyPromise.name, $scope.jobOfferStatusSelection);
       $scope.jobOfferList = JobOffers.companyJobOffersForAdmins;
     });
+
+    $scope.setJobOfferItem =  function(item) {
+      $scope.tempJobOffer = angular.copy(item);
+    };
+
+    $scope.submitJobOfferStatus = function(form) {
+      if (form.$valid) {
+        JobOffers.updateJobOfferStatusPerCompanyForAdmins(adminCompanyPromise.name, $scope.tempJobOffer).then(function() {
+          var element = _.find($scope.jobOfferList, { id: $scope.tempJobOffer.id});
+          _.merge(element, $scope.tempJobOffer);
+          $('#editJobOfferStatusModal').modal('hide');
+        }, function() {
+          $scope.showJobOfferExpirationError = true;
+        });
+      }
+    };
   };
 
   $scope.tempContact = temporaryContactPromise[0];
