@@ -179,9 +179,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }
     }).state('adminChangeCarousel', {
       url: '/adminChangeCarousel',
+      controller: 'AdminChangeCarousel',
       templateUrl: 'partials/administrators/change-carousel.html',
       data: {
         authorizedRoles: all
+      },
+      resolve: {
+        picturesPromise: ['Pictures', function(Pictures) {
+          Pictures.getAllLandingPagePictures();
+        }]
       }
     }).state('adminCalendar', {
       url: '/adminCalendar',

@@ -31,7 +31,7 @@
         </div>
         <div class="row page-row">
           <article class="col-md-12 col-sm-12 text-center">
-              <img width="900px" height="400px" ng-src="images/slides/slide-1.jpg"/>
+              <img width="900px" height="400px" ng-src="{{pictures[0].filePath}}"/>
           </article>
           <article class="col-md-12 col-sm-12 text-center">
             <label for="slide1-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
@@ -45,13 +45,14 @@
         </div>
         <div class="row page-row">
           <article class="col-md-12 col-sm-12 text-center">
-            <img width="900px" height="400px" ng-src="images/slides/slide-2.jpg"/>
+            <img width="900px" height="400px" ng-src="{{pictures[1].filePath}}"/>
           </article>
           <article class="col-md-12 col-sm-12 text-center">
             <label for="slide2-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
             <input style="display: none;" id="slide2-upload" type="file" accept="image/jpeg,image/png"/>
           </article>
         </div>
+
         <div class="row" style="margin-top:15px">
           <div class="col-md-12">
             <h2 class="title">Slide 3</h2>
@@ -59,13 +60,44 @@
         </div>
         <div class="row page-row">
           <article class="col-md-12 col-sm-12 text-center">
-            <img width="900px" height="400px" ng-src="images/slides/slide-3.jpg"/>
+            <img width="900px" height="400px" ng-src="{{pictures[2].filePath}}"/>
           </article>
           <article class="col-md-12 col-sm-12 text-center">
             <label for="slide3-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
             <input style="display: none;" id="slide3-upload" type="file" accept="image/jpeg,image/png"/>
           </article>
         </div>
+
+        <div class="row" style="margin-top:15px">
+          <div class="col-md-12">
+            <h2 class="title">Slide 4</h2>
+          </div>
+        </div>
+        <div class="row page-row">
+          <article class="col-md-12 col-sm-12 text-center">
+            <img width="900px" height="400px" ng-src="{{pictures[3].filePath}}"/>
+          </article>
+          <article class="col-md-12 col-sm-12 text-center">
+            <label for="slide3-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
+            <input style="display: none;" id="slide4-upload" type="file" accept="image/jpeg,image/png"/>
+          </article>
+        </div>
+
+        <div class="row" style="margin-top:15px">
+          <div class="col-md-12">
+            <h2 class="title">Slide 5</h2>
+          </div>
+        </div>
+        <div class="row page-row">
+          <article class="col-md-12 col-sm-12 text-center">
+            <img width="900px" height="400px" ng-src="{{pictures[4].filePath}}"/>
+          </article>
+          <article class="col-md-12 col-sm-12 text-center">
+            <label for="slide3-upload" class="btn btn-theme btn-sm" style="vertical-align: text-bottom; margin-bottom:5px; margin-top:10px">Change Slide Image</label>
+            <input style="display: none;" id="slide5-upload" type="file" accept="image/jpeg,image/png"/>
+          </article>
+        </div>
+
         <div class="row">
           <div class="col-md-12" style="margin-top:20px">
             <div style="text-align: center">
