@@ -379,7 +379,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/logos',
       'paramName': 'image',     // The name that will be used to transfer the file
-      'maxFilesize': 10, // in MBs
+      'maxFilesize': 2, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'image/jpeg,image/png',
       'createImageThumbnails': false
