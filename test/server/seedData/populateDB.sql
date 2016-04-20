@@ -82,6 +82,12 @@ VALUES ('photo2', 'media/landing/slide-2.jpg');
 INSERT INTO home_page_photos (file_label, file_path)
 VALUES ('photo3', 'media/landing/slide-3.jpg');
 
+INSERT INTO home_page_photos (file_label, file_path)
+VALUES ('photo4', 'media/landing/slide-3.jpg');
+
+INSERT INTO home_page_photos (file_label, file_path)
+VALUES ('photo5', 'media/landing/slide-3.jpg');
+
 INSERT INTO job_fair_company_information (company_name, min_gpa, extra_information, collecting_resumes_before_job_fair, must_fill_online, interviews_during_weekend, attending, website_application)
 VALUES ('IBM', '3.30', 'This is a company attending the Job Fair', '1', '0', '1', '1', 'http://www-03.ibm.com/employment/us/');
 
