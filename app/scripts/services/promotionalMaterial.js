@@ -5,8 +5,10 @@ var app = angular.module('uprmcmsApp');
 app.factory('PromotionalMaterial', function(Restangular, _) {
   var obj = {
     promotionalMaterial: [],
+    companyPromotionalMaterial: [],
     approvedCompanyPromotionalMaterial: [],
-    pendingCompanyPromotionalMaterial: []
+    pendingCompanyPromotionalMaterial: [],
+    companyPromotionalMaterialForAdmins: []
   };
 
   obj.getAllApprovedPromotionalMaterial = function() {
@@ -23,6 +25,26 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     return Restangular.one('/api/admins/promotionalMaterial', promMaterial.id).customPUT(promMaterial);
   };
 
+  obj.getPromotionalMaterialPerCompanyForAdmins = function(companyName, status) {
+    return Restangular.one('/api/admins/companies', companyName).getList('promotionalMaterial', {status: status}).then(function(compPromoMaterialForAdmins) {
+      angular.copy(compPromoMaterialForAdmins.plain(), obj.companyPromotionalMaterialForAdmins);
+    });
+  };
+
+  obj.updatePromotionalMaterialPerCompanyFromAdmins = function(companyName, promotionalMaterial) {
+    return Restangular.one('/api/admins/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
+  };
+
+  obj.deletePromotionalMaterialPerCompanyFromAdmins = function(companyName, promotionalMaterialId) {
+    return Restangular.one('/api/admins/companies', companyName).one('promotionalMaterial', promotionalMaterialId).remove();
+  };
+
+  obj.getPromotionalMaterialPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('promotionalMaterial').then(function(compPromoMaterial){
+      angular.copy(compPromoMaterial.plain(), obj.companyPromotionalMaterial);
+    });
+  };
+
   obj.getApprovedPromotionalMaterialPerCompany = function(companyName) {
     return Restangular.one('/api/companies', companyName).getList('promotionalMaterial').then(function(compPromoMaterial){
       angular.copy(compPromoMaterial.plain(), obj.approvedCompanyPromotionalMaterial);
@@ -33,6 +55,10 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     return Restangular.one('/api/companies', companyName).getList('promotionalMaterial?status=pending').then(function(compPromoMaterial){
       angular.copy(compPromoMaterial.plain(), obj.pendingCompanyPromotionalMaterial);
     });
+  };
+
+  obj.updatePromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
+    return Restangular.one('/api/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
   };
 
   obj.removePromotionalMaterialPerCompany = function(companyName, id) {

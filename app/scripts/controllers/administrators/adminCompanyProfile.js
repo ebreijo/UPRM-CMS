@@ -98,9 +98,18 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
       }
     };
 
+    $scope.setCompanyPromotionalMaterial = function(promMaterial) {
+      $scope.promotionalMaterialItem = angular.copy(promMaterial);
+    };
 
-
-
+    $scope.submitDeleteCompanyPromotionalMaterial = function(form) {
+      if (form.$valid) {
+        PromotionalMaterial.deletePromotionalMaterialPerCompanyFromAdmins(adminCompanyPromise.name, $scope.promotionalMaterialItem.id).then(function() {
+          _.remove($scope.promotionalMaterial, { id: $scope.promotionalMaterialItem.id});
+          $('#confirmDeletePromotionalMaterialModal').modal('hide');
+        });
+      }
+    };
   };
   $scope.executeTab1();
 
