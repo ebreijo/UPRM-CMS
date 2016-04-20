@@ -6,7 +6,8 @@ app.factory('JobOffers', function(Restangular, _) {
   var obj = {
     jobOffers: [],
     studentJobOffers: [],
-    companyJobOffers: []
+    approvedCompanyJobOffers: [],
+    pendingCompanyJobOffers: []
   };
 
   obj.getAllJobOffersAdmins = function(status) {
@@ -30,9 +31,15 @@ app.factory('JobOffers', function(Restangular, _) {
     return Restangular.one('/api/admins/jobOffers', jobOffer.id).customPUT(jobOffer);
   };
 
-  obj.getJobOffersPerCompany = function(companyName) {
+  obj.getApprovedJobOffersPerCompany = function(companyName) {
     return Restangular.one('/api/companies', companyName).getList('jobOffers').then(function(compJobOffers){
-      angular.copy(compJobOffers.plain(), obj.companyJobOffers);
+      angular.copy(compJobOffers.plain(), obj.approvedCompanyJobOffers);
+    });
+  };
+
+  obj.getPendingJobOffersPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('jobOffers?status=pending').then(function(compJobOffers){
+      angular.copy(compJobOffers.plain(), obj.pendingCompanyJobOffers);
     });
   };
 

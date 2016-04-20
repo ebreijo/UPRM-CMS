@@ -5,7 +5,8 @@ var app = angular.module('uprmcmsApp');
 app.factory('PromotionalMaterial', function(Restangular, _) {
   var obj = {
     promotionalMaterial: [],
-    companyPromotionalMaterial: []
+    approvedCompanyPromotionalMaterial: [],
+    pendingCompanyPromotionalMaterial: []
   };
 
   obj.getAllApprovedPromotionalMaterial = function() {
@@ -22,10 +23,24 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     return Restangular.one('/api/admins/promotionalMaterial', promMaterial.id).customPUT(promMaterial);
   };
 
-  obj.getPromotionalMaterialPerCompany = function(companyName) {
+  obj.getApprovedPromotionalMaterialPerCompany = function(companyName) {
     return Restangular.one('/api/companies', companyName).getList('promotionalMaterial').then(function(compPromoMaterial){
-      angular.copy(compPromoMaterial.plain(), obj.companyPromotionalMaterial);
+      angular.copy(compPromoMaterial.plain(), obj.approvedCompanyPromotionalMaterial);
     });
+  };
+
+  obj.getPendingPromotionalMaterialPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('promotionalMaterial?status=pending').then(function(compPromoMaterial){
+      angular.copy(compPromoMaterial.plain(), obj.pendingCompanyPromotionalMaterial);
+    });
+  };
+
+  obj.removePromotionalMaterialPerCompany = function(companyName, id) {
+    return Restangular.one('/api/companies', companyName).customDELETE('promotionalMaterial/' + id);
+  };
+
+  obj.addPromotionalMaterialPerCompany = function(changes, companyName) {
+    return Restangular.one('/api/companies', companyName).customPOST(changes, 'promotionalMaterial');
   };
 
   return obj;

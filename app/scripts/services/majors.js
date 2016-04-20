@@ -36,10 +36,6 @@ app.factory('Majors', function(Restangular, _) {
     });
   };
 
-  obj.getInterestedMajorsPerCompany = function(companyName) {
-    return Restangular.one('/api/companies', companyName).getList('companyInterestedMajors');
-  };
-
   obj.setAddInterestedMajorsPerCompany = function(companyName, companyMajors) {
     var addedCompanyInterestedMajors = _.filter(companyMajors, function(major) { return !major.id && major.isSet; });
     if (addedCompanyInterestedMajors[0]) {
@@ -52,6 +48,18 @@ app.factory('Majors', function(Restangular, _) {
     if (removedCompanyInterestedMajors[0]) {
       return Restangular.one('/api/companies', companyName).customPUT({interestedMajors: removedCompanyInterestedMajors}, 'companyInterestedMajors');
     }
+  };
+
+  obj.getInterestedMajorsPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('companyInterestedMajors');
+  };
+
+  obj.addCompanyInterestedMajors = function(changes, companyName) {
+    return Restangular.one('/api/companies', companyName).customPOST(changes, 'companyInterestedMajors');
+  };
+
+  obj.removeCompanyInterestedMajors = function(changes, companyName) {
+    return Restangular.one('/api/companies', companyName).customPUT(changes, 'companyInterestedMajors');
   };
 
   return obj;

@@ -20,7 +20,7 @@
             <div class="featured-courses tabbed-info page-row">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab1" data-toggle="tab">Profile</a>
+                  <a href="#tab1" data-toggle="tab" ng-click="executeTab1()">Profile</a>
                 </li>
                 <li>
                   <a href="#tab2" data-toggle="tab">Recruiters</a>
@@ -451,12 +451,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title pull-left" style="color:black">Edit Company Description</h4>
+        <h4 class="modal-title pull-left" style="color:black">Edit General Company Information</h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
             <form name="editCompanyDescriptionForm" ng-submit="submitCompanyDescription(editCompanyDescriptionForm)" novalidate>
+              <label><h5 class="title text-highlight"><b>Company Name:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyName.$invalid && !editCompanyDescriptionForm.companyName.$pristine}">
+                <input ng-model="CompanyDescriptionItem.name" name="companyName" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 ,.'`$?&@!/^%-()ñÑáéíóúÁÉÍÓÚ]{2,63}(\.)?$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.companyName.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyName.$invalid && !editCompanyDescriptionForm.companyName.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyDescriptionForm.companyName.$invalid && !editCompanyDescriptionForm.companyName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid name</b></p>
+              </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
                 <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
                 <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
@@ -478,7 +488,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyDescriptionForm.companyName.$invalid || editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
                   <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
                 </div>
               </div>
@@ -542,6 +552,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <p>{{companyProfile.interestedMajors}}</p>
         </div>
       </div>
       <div class="modal-footer">

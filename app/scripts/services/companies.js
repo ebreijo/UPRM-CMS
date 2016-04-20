@@ -70,11 +70,9 @@ app.factory('Companies', function(Restangular, _) {
     });
   };
 
-  /*
-  obj.getInterestedMajorsPerCompany = function(companyName) {
-    return Restangular.one('/api/companies', companyName).getList('companyInterestedMajors');
+  obj.updateCompanyGeneralInformation = function(changes, companyName) {
+    return Restangular.one('/api/companies', companyName).customPUT(changes);
   };
-  */
 
   return obj;
 });

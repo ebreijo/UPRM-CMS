@@ -112,6 +112,9 @@ VALUES ('sergio@ibm.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGy
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
 VALUES ('leonardo@ibm.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'IBM', 'Leonardo', 'Dicaprio', '787-555-5555', 'active', '2');
 
+INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, account_status, company_location)
+VALUES ('pending@ibm.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'IBM', 'Pending', 'Pending', '787-555-5555', 'pending', '2');
+
 INSERT INTO recruiter (email, password, company_name, first_name, last_name, phone_number, company_location)
 VALUES ('juanito@gmail.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'Google', 'Juanito', 'Perez', '787-555-5555', '4');
 
@@ -219,6 +222,9 @@ VALUES ('IBM', 'Promotion2', '/lib/promotionalMaterial', '2016-08-01 12:12:12', 
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
 VALUES ('IBM', 'Promotion3', '/lib/promotionalMaterial', '2016-11-30 12:12:12', 'approved');
+
+INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
+VALUES ('IBM', 'Promotion5', '/lib/promotionalMaterial', '2016-07-12 12:12:12', 'pending');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
 VALUES ('IBM', 'Promotion3', '/lib/promotionalMaterial', '2016-07-22 12:12:12', 'rejected');
