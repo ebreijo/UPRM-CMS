@@ -337,6 +337,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       data: {
         authorizedRoles: all
       }
+    }).state('404Error', {
+      url: '/NotFound',
+      templateUrl: 'partials/404.html'
     });
 
   $urlRouterProvider.otherwise('/');
@@ -379,6 +382,10 @@ app.run(function($rootScope, $state, Auth, AUTH_EVENTS, USER_ROLES) {
 
   $rootScope.$on('$stateChangeSuccess', function (event, current) {
     $rootScope.bodyClass = current.bodyClass || 'uprmcms';
+  });
+
+  $rootScope.$on('$stateChangeError', function() {
+    $state.go('404Error');
   });
 
 });

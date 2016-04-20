@@ -3,7 +3,7 @@
 var app = angular.module('uprmcmsApp');
 
 
-app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, temporaryContactPromise, Companies, Patterns, _) {
+app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, Majors, PromotionalMaterial, Recruiters, JobOffers, temporaryContactPromise, Companies, Patterns, $state, _) {
 
   $scope.company = adminCompanyPromise;
   var majorList = Majors.majors;
@@ -18,7 +18,8 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
 
     $scope.submitCompanyDescription = function(form) {
       if (form.$valid) {
-        Companies.updateCompanyFromAdmins($scope.CompanyDescriptionItem).then(function() {
+        Companies.updateCompanyFromAdmins(adminCompanyPromise.name, $scope.CompanyDescriptionItem).then(function() {
+          $state.go('.', {companyName: $scope.CompanyDescriptionItem.name}, {notify: false});
           _.merge($scope.company, $scope.CompanyDescriptionItem);
           $('#editCompanyDescriptionModal').modal('hide');
         });
