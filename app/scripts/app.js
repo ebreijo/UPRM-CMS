@@ -38,6 +38,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     controller: 'LandingPageCtrl',
     data: {
       authorizedRoles: all
+    },
+    resolve: {
+      picturesPromise: ['Pictures', function(Pictures) {
+        Pictures.getAllLandingPagePictures();
+      }]
     }
   }).state('companyRegistration', {
     url: '/companyRegistration',
