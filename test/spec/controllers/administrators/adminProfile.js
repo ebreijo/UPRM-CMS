@@ -752,10 +752,6 @@ describe('Controller: AdminProfile', function () {
       };
     });
 
-    it('should have today\'s date defined', function () {
-      expect(scope.today).toBeDefined();
-    });
-
     describe('submit to accept a new job offer from a company', function () {
 
       describe('with a invalid form', function () {

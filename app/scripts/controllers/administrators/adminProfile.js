@@ -285,8 +285,6 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
 
   $scope.executeTab6 = function() {
 
-    $scope.today = new Date();
-
     $('#jobOfferExpirationDatePicker').datepicker({
       format: 'yyyy-mm-dd'
     });

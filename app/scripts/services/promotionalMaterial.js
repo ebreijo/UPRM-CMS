@@ -24,8 +24,8 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     return Restangular.one('/api/admins/promotionalMaterial', promMaterial.id).customPUT(promMaterial);
   };
 
-  obj.getPromotionalMaterialPerCompanyForAdmIns = function(companyName, status) {
-    return Restangular.one('/api/admins/companies', companyName).getList('promotionalMaterial', {status: status}).then(function(compPromoMaterialForAdmins){
+  obj.getPromotionalMaterialPerCompanyForAdmins = function(companyName, status) {
+    return Restangular.one('/api/admins/companies', companyName).getList('promotionalMaterial', {status: status}).then(function(compPromoMaterialForAdmins) {
       angular.copy(compPromoMaterialForAdmins.plain(), obj.companyPromotionalMaterialForAdmins);
     });
   };
@@ -34,6 +34,14 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     return Restangular.one('/api/companies', companyName).getList('promotionalMaterial').then(function(compPromoMaterial){
       angular.copy(compPromoMaterial.plain(), obj.companyPromotionalMaterial);
     });
+  };
+
+  obj.updatePromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
+    return Restangular.one('/api/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
+  };
+
+  obj.updatePromotionalMaterialPerCompanyFromAdmins = function(companyName, promotionalMaterial) {
+    return Restangular.one('/api/admins/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
   };
 
   return obj;

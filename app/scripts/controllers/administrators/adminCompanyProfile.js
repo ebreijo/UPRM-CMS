@@ -73,9 +73,34 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
     $scope.promMaterialStatusSelection = 'approved';
     $scope.$watch('promMaterialStatusSelection', function (newValue) {
       $scope.promMaterialStatusSelection = newValue;
-      PromotionalMaterial.getPromotionalMaterialPerCompanyForAdmIns(adminCompanyPromise.name, $scope.promMaterialStatusSelection);
+      PromotionalMaterial.getPromotionalMaterialPerCompanyForAdmins(adminCompanyPromise.name, $scope.promMaterialStatusSelection);
       $scope.promotionalMaterial = PromotionalMaterial.companyPromotionalMaterialForAdmins;
     });
+
+    $('#editPromotionalDocumentExpirationDatePicker').datepicker({
+      format: 'yyyy-mm-dd'
+    });
+
+    $scope.setPromotionalMaterialItem = function(promMaterial) {
+      $scope.promotionalMaterialItem = angular.copy(promMaterial);
+    };
+
+    $scope.submitCompanyPromotionalMaterialChanges = function (form) {
+      console.log($scope.promotionalMaterialItem.expirationDate);
+      if (form.$valid && (new Date($scope.promotionalMaterialItem.expirationDate) > (new Date()))) {
+        PromotionalMaterial.updatePromotionalMaterialPerCompanyFromAdmins(adminCompanyPromise.name, $scope.promotionalMaterialItem).then(function() {
+          var element = _.find($scope.promotionalMaterial, { id: $scope.promotionalMaterialItem.id});
+          _.merge(element, $scope.promotionalMaterialItem);
+          $('#editCompanyPromotionalMaterialModal').modal('hide');
+        });
+      } else {
+        $scope.showEditPromotionalMaterialDateError = true;
+      }
+    };
+
+
+
+
   };
   $scope.executeTab1();
 
