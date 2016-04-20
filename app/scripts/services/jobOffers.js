@@ -6,6 +6,8 @@ app.factory('JobOffers', function(Restangular, _) {
   var obj = {
     jobOffers: [],
     studentJobOffers: [],
+    approvedCompanyJobOffers: [],
+    pendingCompanyJobOffers: [],
     companyJobOffers: [],
     companyJobOffersForAdmins: []
   };
@@ -26,7 +28,6 @@ app.factory('JobOffers', function(Restangular, _) {
     return _.filter(this.jobOffers, { jobOfferStatus: 'approved'});
   };
 
-
   obj.updateJobOfferFromAdmins = function(jobOffer) {
     return Restangular.one('/api/admins/jobOffers', jobOffer.id).customPUT(jobOffer);
   };
@@ -40,6 +41,18 @@ app.factory('JobOffers', function(Restangular, _) {
   obj.getJobOffersPerCompanyForAdmins = function(companyName, status) {
     return Restangular.one('/api/admins/companies', companyName).getList('jobOffers', {status: status}).then(function(compJobOffers) {
       angular.copy(compJobOffers.plain(), obj.companyJobOffersForAdmins);
+    });
+  };
+
+  obj.getApprovedJobOffersPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('jobOffers').then(function(compJobOffers){
+      angular.copy(compJobOffers.plain(), obj.approvedCompanyJobOffers);
+    });
+  };
+
+  obj.getPendingJobOffersPerCompany = function(companyName) {
+    return Restangular.one('/api/companies', companyName).getList('jobOffers?status=pending').then(function(compJobOffers){
+      angular.copy(compJobOffers.plain(), obj.pendingCompanyJobOffers);
     });
   };
 
