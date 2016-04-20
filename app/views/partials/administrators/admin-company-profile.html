@@ -151,7 +151,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                              <tr ng-repeat="item in recruiterList"">
+                              <tr ng-repeat="item in recruiterList | filter:{accountStatus:recruiterStatusSelection}:true">
                                 <td>
                                   {{item.firstName}} {{item.lastName}} <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus | capitalize}}</span>
                                 </td>
@@ -160,7 +160,7 @@
                                 <td>{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</td>
                                 <td>{{item.registrationDate | date: 'EEE, MMMM d, y'}}</td>
                                 <td>
-                                  <button type="button" class="btn btn-theme btn-xs" ng-click="changeRecruiterStatus(item)">Change</button>
+                                  <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#editRecruiterStatusModal" ng-click="changeRecruiterStatus(item)">Change</button>
                                 </td>
                               </tr>
                             </tbody>
@@ -501,6 +501,38 @@
         </div>
       </div>
     </form>
+  </div>
+</div>
+
+<div id="editRecruiterStatusModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Change Recruiter Status</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="modalRecruiterStatusForm" ng-submit="submitRecruiterStatusChange(modalRecruiterStatusForm)" novalidate>
+          <h4>Recruiter: {{tempRecruiter.firstName}} {{tempRecruiter.lastName}}</h4>
+          <div class="input-group text-center">
+            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+            <select class="sort-options form-control" ng-model="tempRecruiter.accountStatus" name="modalRecruiterStatus" style="border-radius:0; -webkit-appearance: none;">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-center" style="float: none; margin: 0 auto; padding-top:10px">
+              <button type="submit" class="btn btn-theme">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>
 

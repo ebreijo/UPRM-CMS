@@ -86,7 +86,6 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
     };
 
     $scope.submitCompanyPromotionalMaterialChanges = function (form) {
-      console.log($scope.promotionalMaterialItem.expirationDate);
       if (form.$valid && (new Date($scope.promotionalMaterialItem.expirationDate) > (new Date()))) {
         PromotionalMaterial.updatePromotionalMaterialPerCompanyFromAdmins(adminCompanyPromise.name, $scope.promotionalMaterialItem).then(function() {
           var element = _.find($scope.promotionalMaterial, { id: $scope.promotionalMaterialItem.id});
@@ -120,6 +119,20 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
       Recruiters.getRecruitersPerCompanyForAdmins(adminCompanyPromise.name, $scope.recruiterStatusSelection);
       $scope.recruiterList = Recruiters.companyRecruitersForAdmins;
     });
+
+    $scope.changeRecruiterStatus = function(recruiter) {
+      $scope.tempRecruiter = angular.copy(recruiter);
+    };
+
+    $scope.submitRecruiterStatusChange = function(form) {
+      if (form.$valid) {
+        Recruiters.updateRecruiterStatusPerCompanyForAdmins(adminCompanyPromise.name, $scope.tempRecruiter).then(function() {
+          var element = _.find($scope.recruiterList, { email: $scope.tempRecruiter.email});
+          _.merge(element, $scope.tempRecruiter);
+          $('#editRecruiterStatusModal').modal('hide');
+        });
+      }
+    };
   };
 
   $scope.executeTab3 = function() {
