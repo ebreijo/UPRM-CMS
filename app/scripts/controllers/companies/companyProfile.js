@@ -4,33 +4,6 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers) {
 
-  //$scope.jobOfferUploadConfig = FileUpload.fileUploadConfig('/api/companies/jobOffers', 'image', 10);
-  //$scope.promotionalMaterialUploadConfig = FileUpload.fileUploadConfig('/api/companies/promotionalMaterial/upload', 'image', 10);
-
-  /* jshint ignore:start */
-  $scope.updateLogoConfig = {
-    'options': { // passed into the Dropzone constructor
-      'url': '/api/companies/logos',
-      'paramName': 'image',     // The name that will be used to transfer the file
-      'maxFilesize': 10, // in MBs
-      'maxFiles': 1,
-      'acceptedFiles': 'image/jpeg,image/png',
-      'createImageThumbnails': false
-    },
-    'eventHandlers': {
-      'sending': function (file, xhr, formData) {
-        console.log('Sending!!!!');
-      },
-      'success': function (file, response) {
-        console.log('Success!!!!');
-        this.removeAllFiles();
-        Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
-        $scope.companyProfile.generalInfo[0].logoPath = response.filePath;
-      }
-    }
-  };
-  /* jshint ignore:end */
-
   $scope.companyProfile = {
     'generalInfo':[
 
@@ -399,5 +372,35 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     //Jasmine Test
     return false;
   };
+
+  // For File Upload -------------------------------------------------------------------
+  /* jshint ignore:start */
+  $scope.updateLogoConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/companies/logos',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 10, // in MBs
+      'maxFiles': 1,
+      'acceptedFiles': 'image/jpeg,image/png',
+      'createImageThumbnails': false
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        this.removeAllFiles();
+        Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
+        $scope.companyProfile.generalInfo[0].logoPath = response.filePath;
+      },
+      'error': function(file, response) {
+        this.removeAllFiles();
+        alert('ERROR: File Too Large!');
+      }
+    }
+  };
+  /* jshint ignore:end */
+
 
 });
