@@ -5,6 +5,10 @@ var app = angular.module('uprmcmsApp');
 app.controller('AdminChangeCarousel', function($scope, Pictures) {
 
   $scope.pictures = Pictures.pictures;
+  $scope.selectedPicture = 1;
+  $scope.printValue = function(){
+    console.log($scope.selectedPicture);
+  };
 
   /* jshint ignore:start */
   $scope.uploadPictureConfig = {
