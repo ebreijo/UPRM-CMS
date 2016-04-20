@@ -22,8 +22,8 @@ app.factory('Auth', function($rootScope, Session, AUTH_EVENTS, USER_ROLES, Resta
     });
   };
 
-  obj.studentLogin = function() {
-    return Session.studentLogin().then(function(user) {
+  obj.studentLogin = function(param) {
+    return Session.studentLogin(param).then(function(user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, user);
       return user;
     }).catch(function(err) {

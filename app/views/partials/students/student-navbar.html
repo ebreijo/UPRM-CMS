@@ -16,13 +16,13 @@
     <div class="navbar-collapse collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="nav-item">
+          <a ui-sref="jobFair">Job Fair</a>
+        </li>
+        <li class="nav-item">
           <a ui-sref="studentJobOffers">Job Offers</a>
         </li>
         <li class="nav-item">
           <a ui-sref="studentCompanyList">Companies</a>
-        </li>
-        <li class="nav-item">
-          <a ui-sref="jobFair">Job Fair</a>
         </li>
         <li class="nav-item">
           <a ui-sref="studentCalendar">Calendar</a>
@@ -46,20 +46,19 @@
           </ul>
         </li>
 
-        <!--//dropdown-->
         <li class="nav-item">
-          <a ui-sref="studentAboutUs">About Us</a>
+          <a href="http://dev.uprm.edu/studentcatalogue/"> Student Catalogue </a>
         </li>
 
         <li class="nav-item">
-          <a ui-sref="studentCatalogue"> Student Catalogue </a>
+          <a ui-sref="studentAboutUs">About Us</a>
         </li>
 
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <a ui-sref="landingPage">Sign Out</a>
+          <a ui-sref="landingPage" ng-click="logout()">Sign Out</a>
         </li>
       </ul>
 

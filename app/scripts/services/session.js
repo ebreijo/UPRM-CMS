@@ -33,8 +33,8 @@ app.service('Session', function (Restangular, $sessionStorage) {
    * Authenticate the student and save the session
    * @returns {Promise}
    */
-  this.studentLogin = function() {
-    return studentLogin.post({user: 'student', secret: 'student'}).then(function(user) {
+  this.studentLogin = function(user) {
+    return studentLogin.post({user: 'student', secret: user.param}).then(function(user) {
       self.user = user;
       $sessionStorage.user = user;
       return user;

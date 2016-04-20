@@ -5,7 +5,8 @@ var app = angular.module('uprmcmsApp');
 app.factory('Recruiters', function(Restangular) {
   var obj = {
     pendingRecruiters: [],
-    companyRecruiters: []
+    companyRecruiters: [],
+    companyRecruitersForAdmins: []
   };
 
   obj.getAllPendingRecruitersForAdmins = function() {
@@ -16,6 +17,12 @@ app.factory('Recruiters', function(Restangular) {
 
   obj.updateRecruiterStatusFromAdmins = function(recruiter) {
     return Restangular.all('/api/admins/recruiters').customPUT(recruiter);
+  };
+
+  obj.getRecruitersPerCompanyForAdmins = function(companyName, status) {
+    return Restangular.one('/api/admins/companies', companyName).getList('recruiters', {status: status}).then(function(recruiters) {
+      angular.copy(recruiters.plain(), obj.companyRecruitersForAdmins);
+    });
   };
 
   obj.getRecruitersPerCompany = function(companyName) {

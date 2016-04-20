@@ -341,6 +341,17 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `student_ticket` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `student_services`
 --
 

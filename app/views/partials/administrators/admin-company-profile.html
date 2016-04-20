@@ -9,8 +9,8 @@
   <div class="content container">
     <div class="page-wrapper">
       <header class="page-heading clearfix">
-        <h1 class="heading-title"> <img ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
-        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-danger': company.companyStatus === 'inactive', 'label-warning': company.companyStatus === 'pending'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
+        <h1 class="heading-title"> <img ng-if="company.logoPath" ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
+        <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-warning': company.companyStatus === 'pending', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus}}</big></span>
         <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
       </header>
@@ -20,16 +20,16 @@
             <div class="featured-courses tabbed-info page-row">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab1" data-toggle="tab">Profile</a>
+                  <a href="#tab1" data-toggle="tab" ng-click="executeTab1()">Profile</a>
                 </li>
                 <li>
-                  <a href="#tab2" data-toggle="tab">Recruiters</a>
+                  <a href="#tab2" data-toggle="tab" ng-click="executeTab2()">Recruiters</a>
                 </li>
                 <li>
-                  <a href="#tab3" data-toggle="tab">Job Offers</a>
+                  <a href="#tab3" data-toggle="tab" ng-click="executeTab3()">Job Offers</a>
                 </li>
                 <li>
-                  <a href="#tab4" data-toggle="tab">Requests Status <span class="badge badge-theme">3</span></a>
+                  <a href="#tab4" data-toggle="tab">Temporary Contact</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -44,46 +44,34 @@
                           <a href="{{company.websiteUrl}}">{{company.websiteUrl}}</a>
                         </div>
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" type="button" class="btn btn-theme btn-sm">Edit Description</button>
+                          <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(company)" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
                         <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
-                          <button type="button" class="btn btn-theme btn-xs" style="margin-right: 4px; margin-top: 5px; background-color: #069256">ICOM</button>
+                          <button class="btn btn-theme btn-xs" ng-repeat="item in majors | filter:true" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.majorCode}}</b></button>
                         </div>
                         <div class="col-md-12" style="text-align: center">
-                          <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-bottom:5px">Add Major</button>
-                          <button type="button" class="btn btn-theme btn-sm" style="margin-left:10px; margin-bottom:5px">Delete Major</button>
+                          <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
                         <h3 class="title">Promotional Material</h3>
+                        <div class="row page-row">
+                          <div class="col-md-11" style="text-align: center">
+                            <form class="form-inline" role="form" action="" method="post">
+                              <div class="input-group">
+                                <span><label class="control-label">Promotional Material Status:&nbsp</label></span>
+
+                                <div class="form-group">
+                                  <div class="sort">
+                                    <select class="sort-options form-control" ng-model="promMaterialStatusSelection">
+                                      <option value="approved">Approved</option>
+                                      <option value="rejected">Rejected</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
                         <div class="course-item-header row-divider hidden-sm hidden-xs">
                           <div class="row">
                             <div class="col-title col-md-4 col-sm-6">
@@ -104,133 +92,30 @@
                                 </div>
                               </div>
                             </div>
-                            <!--//course-list-header-->
-                            <!--//course-item-header-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
-                            <!--//course-item-->
                           </div>
                         </div>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
+                        <div ng-repeat="item in promotionalMaterial | filter:{status:promMaterialStatusSelection}:true">
+                          <article class="course-item row-divider">
+                            <div class="details row" >
+                              <div class="col-title col-md-4 col-sm-6">
+                                <a href="documents/pdf-sample.pdf" target="_blank">{{item.title}}</a> <span class="label" ng-class="{'label-success': item.status === 'approved', 'label-danger': item.status === 'rejected'}">{{item.status}}</span>
                               </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
+                              <div class="col-meta col-md-8 col-sm-6">
+                                <div class="row">
+                                  <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
+                                  <div class="col-level col-md-2" style="padding-top:2px">
+                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="setPromotionalMaterialItem(item)" class="btn btn-theme btn-xs">Edit</button>
+                                  </div>
+                                  <div class="col-location col-md-2" style="padding-top:2px">
+                                    <button type="button" class="btn btn-theme btn-xs" ng-click="deleteCompanyPromotionalMaterial(item)">Delete</button>
+                                  </div>
+                                  <div class="col-duration col-md-4"></div>
                                 </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
                               </div>
+                              <!--//col-meta-->
                             </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <article class="course-item row-divider">
-                          <div class="details row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <a href="course-single.html">Engineering Jobs</a>
-                              <span class="label label-success">New</span>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-start col-md-4">10 Sep 2016</div>
-                                <div class="col-level col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                                </div>
-                                <div class="col-location col-md-2" style="padding-top:2px">
-                                  <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                                </div>
-                                <div class="col-duration col-md-4"></div>
-                              </div>
-                            </div>
-                            <!--//col-meta-->
-                          </div>
-                          <!--//details-->
-                        </article>
-                        <div class="col-md-12 text-center" style="padding-bottom:5px">
-                          <button type="button" class="btn btn-theme btn-sm">Add Promotional Material</button>
+                            <!--//details-->
+                          </article>
                         </div>
                       </article>
                     </div>
@@ -239,28 +124,46 @@
                 </div>
                 <div class="tab-pane" id="tab2">
                   <div class="row">
+                    <div class="col-title col-md-12 col-sm-12">
+                      <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
+                    </div>
+                    <div class="row page-row">
+                      <div class="col-md-11" style="text-align: center">
+                        <form class="form-inline" role="form" action="" method="post">
+                          <div class="input-group">
+                            <span><label class="control-label">Recruiter Status:&nbsp</label></span>
+
+                            <div class="form-group">
+                              <div class="sort">
+                                <select class="sort-options form-control" ng-model="recruiterStatusSelection">
+                                  <option value="active">Active</option>
+                                  <option value="inactive">Inactive</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                     <!--//course-list-header-->
                     <div class="course-item-header row-divider hidden-sm hidden-xs">
                       <div class="row">
-                        <div class="col-title col-md-12 col-sm-12">
-                          <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
-                        </div>
-                        <div class="col-title col-md-4 col-sm-6">
+                        <div class="col-title col-md-3 col-sm-6">
                           <strong>Name</strong>
                         </div>
-                        <div class="col-meta col-md-8 col-sm-6">
+                        <div class="col-meta col-md-9 col-sm-6">
                           <div class="row">
-                            <div class="col-start col-md-4">
+                            <div class="col-start col-md-3">
                               <strong>Email</strong>
+                            </div>
+                            <div class="col-start col-md-2">
+                              <strong>Phone Number</strong>
                             </div>
                             <div class="col-duration col-md-3">
                               <strong>Company Location</strong>
                             </div>
-                            <div class="col-level col-md-2">
-                              <strong>Edit</strong>
-                            </div>
                             <div class="col-location col-md-2">
-                              <strong>Delete</strong>
+                              <strong>Status</strong>
                             </div>
                           </div>
                         </div>
@@ -269,20 +172,18 @@
                       <!---//row-->
                     </div>
                     <!--//course-item-header-->
-                    <article class="course-item row-divider">
+                    <article class="course-item row-divider" ng-repeat="item in recruiterList">
                       <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
+                        <div class="col-title col-md-3 col-sm-6">{{item.firstName}} {{item.lastName}}
+                          <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus}}</span>
                         </div>
-                        <div class="col-meta col-md-8 col-sm-6">
+                        <div class="col-meta col-md-9 col-sm-6">
                           <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
+                            <div class="col-start col-md-3">{{item.email}}</div>
+                            <div class="col-duration col-md-2">{{item.phoneNumber}}</div>
+                            <div class="col-duration col-md-3">{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</div>
+                            <div class="col-location col-md-2">
+                              <button type="button" class="btn btn-theme btn-xs" ng-click="changeRecruiterStatus(item)">Change</button>
                             </div>
                           </div>
                         </div>
@@ -290,404 +191,142 @@
                       </div>
                       <!--//details-->
                     </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <article class="course-item row-divider">
-                      <div class="details row">
-                        <div class="col-title col-md-4 col-sm-6">
-                          <a href="course-single.html">Sergio Mendoza Rivera</a>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">smendoza@us.ibm.com</div>
-                            <div class="col-duration col-md-3">Cambridge, MA</div>
-                            <div class="col-level col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Edit</button>
-                            </div>
-                            <div class="col-location col-md-2" style="padding-top:2px">
-                              <button type="button" class="btn btn-theme btn-xs">Delete</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!--//details-->
-                    </article>
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
-                    <!--//course-item-->
                   </div>
-                  <!--//row-->
                 </div>
                 <div class="tab-pane" id="tab3">
                   <div class="row">
-                    <div class="col-md-12 text-center" style="padding-bottom:5px">
-                      <button type="button" class="btn btn-theme btn-sm">Add Job Offer</button>
+                    <div class="col-title col-md-12 col-sm-12">
+                      <h3 class="title" style="margin-bottom:25px">Job Offer List</h3>
                     </div>
-                  </div>
-                  <div class="row">
-                    <!--//course-list-header-->
-                    <div class="course-item-header row-divider">
-                      <div class="jobs-wrapper col-md-10 col-sm-9">
-                        <h3 class="title" style="margin-bottom:25px">Job Offer List</h3>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
+                    <div class="row page-row">
+                      <div class="col-md-11" style="text-align: center">
+                        <form class="form-inline" role="form" action="" method="post">
+                          <div class="input-group">
+                            <span><label class="control-label">Job Offer Status:&nbsp</label></span>
+
+                            <div class="form-group">
+                              <div class="sort">
+                                <select class="sort-options form-control" ng-model="jobOfferStatusSelection">
+                                  <option value="approved">Approved</option>
+                                  <option value="rejected">Rejected</option>
+                                </select>
                               </div>
                             </div>
                           </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="jobs-wrapper col-md-10 col-sm-9">
+                      <div class="panel panel-default page-row" ng-repeat="item in jobOfferList">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">{{item.title}} <span class="label" ng-class="{'label-success': item.jobOfferStatus === 'approved', 'label-danger': item.jobOfferStatus === 'rejected'}">{{item.jobOfferStatus}}</span> <span class="label label-info pull-right">{{item.educationLevel}}</span> <span class="label label-primary pull-right" style="margin-right:10px">{{item.jobPosition}}</span></h3>
                         </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="panel-body">
+                          {{item.description}} <span ng-show="item.recentGraduate"><b>**For Recent Graduates**</b></span>
                         </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="panel panel-default page-row">
-                          <div class="panel-heading">
-                            <h3 class="panel-title"><a href="job-single.html">Engineering Support Assistant</a> <span class="label label-info pull-right">Bachelors</span> <span class="label label-success pull-right" style="margin-right:10px">Full Time</span></h3>
-                          </div>
-                          <div class="panel-body">
-                            Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit. **For Recent Graduates**
-                          </div>
-                          <ul class="list-group">
-                            <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;17177328217
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Majors:</strong> ICOM, INEL, INCI, INQU
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Location:</strong> North Carolina, United States
-                            </li>
-                            <li class="list-group-item">
-                              <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">engineering_support_assitant.pdf</a>
-                            </li>
-                          </ul>
-                          <div class="panel-footer">
-                            <div class="row">
-                              <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-right:10px; margin-top:5px">Edit Job Offer</button>
-                                <button type="button" class="btn btn-theme btn-sm" style="margin-top:5px">Delete Job Offer</button>
-                              </ul>
-                              <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
-                                <small>Open until 5/4/2016</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <!--//panel-->
-                        <ul class="pagination">
-                          <li class="disabled">
-                            <a href="#">«</a>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <strong>Anouncement Number:</strong>&nbsp;{{item.announcementNumber}}
                           </li>
-                          <li class="active">
-                            <a href="#">1<span class="sr-only">(current)</span></a>
+                          <li class="list-group-item">
+                            <strong>Location:</strong> {{item.location}}
                           </li>
-                          <li>
-                            <a href="#">2</a>
+                          <li class="list-group-item">
+                            <strong>Promotional Document:</strong>&nbsp;
+                            <a href="/documents/pdf-sample.pdf">document.pdf</a>
                           </li>
-                          <li>
-                            <a href="#">3</a>
-                          </li>
-                          <li>
-                            <a href="#">4</a>
-                          </li>
-                          <li>
-                            <a href="#">5</a>
-                          </li>
-                          <li>
-                            <a href="#">»</a>
+                          <li class="list-group-item">
+                            <strong>Open Since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
                           </li>
                         </ul>
-                        <!--//pagination-->
-                      </div>
-                      <div class="row">
+                        <div class="panel-footer">
+                          <div class="row">
+                            <ul class="list-inline col-md-8 col-sm-6 col-xs-6">
+                              <button type="button" class="btn btn-theme btn-sm" ng-click="deleteJobOffer(item)" style="margin-top:5px">Edit Status</button>
+                            </ul>
+                            <div class="meta col-md-4 col-sm-6 col-xs-6 text-right">
+                              Open Until: {{item.expirationDate | date: 'MMMM d, y'}}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="tab-pane" id="tab4">
-                  <div class="row">
-                    <div class="col-md-12" style="padding-bottom:5px">
-                      <h3 class="title">Status of Company Requests</h3>
+                  <form name="temporaryContactForm" ng-submit="confirmAccountSettingsChanges(temporaryContactForm)" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">Temporary Contact</h3>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <!--//course-list-header-->
-                    <article class="contact-form col-md-6 col-sm-6  page-row">
-                      <h4 class="title text-center">Pending Requests</h4>
-                      <div class="table-responsive">
-                        <table class="table table-boxed">
-                          <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Job Position: Material Engineer</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Document: math_tutor.pdf</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Job Position: Music Professor</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!--//table-->
+                    <div class="col-md-12 col-md-offset-2">
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine}">
+                          <input ng-model="tempContact.firstName" name="tempContactFirstName" type="text" class="form-control" placeholder="Enter temporary contact First Name" style="border-radius:0;" ng-pattern="patterns.firstName" required/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactFirstName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                      </article>
+                      <article class="contact-form col-md-4">
+                        <div class="input-group">
+                          <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine}">
+                          <input ng-model="tempContact.lastName" name="tempContactLastName" type="text" class="form-control" placeholder="Enter temporary contact Last Name" style="border-radius:0;" ng-pattern="patterns.lastName" required/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactLastName.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                        </div>
+                    </article>
+                    </div>
+                    <div class="col-md-12 col-md-offset-2">
+                    <article class="contact-form col-md-4">
+                      <div class="input-group">
+                        <span><label class="control-label">Email<span class="required">*</span> :</label></span>
+                      </div>
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine}">
+                        <input ng-model="tempContact.email" name="tempContactEmail" type="email" class="form-control" placeholder="Enter temporary contact email" style="border-radius:0;" ng-pattern="patterns.email" required/>
+                        <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactEmail.$valid"></i>
+                        <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine"></i>
+                      </div>
+                      <div>
+                        <p ng-show="temporaryContactForm.tempContactEmail.$invalid && !temporaryContactForm.tempContactEmail.$pristine" style="color:#843534" class="help-block"><b>Enter a valid email</b></p>
                       </div>
                     </article>
-                    <article class="contact-form col-md-6 col-sm-6  page-row">
-                      <h4 class="title text-center">Approved Requests</h4>
-                      <div class="table-responsive">
-                        <table class="table table-boxed">
-                          <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Job Position: English Professor</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Job Position: Math Professor</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Document: resume_workshop.pdf</td>
-                            <td><span class="label label-success">Approved</span></td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <!--//table-->
+                    <article class="contact-form col-md-4">
+                      <div class="input-group">
+                        <span><label class="control-label">Phone Number<span class="required">*</span> :</label></span>
+                      </div>
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine}">
+                        <input ng-model="tempContact.phoneNumber" type="tel" name="tempContactPhone" class="form-control" placeholder="Enter temporary contact phone number" style="border-radius:0;" ng-pattern="patterns.phoneNumber" required/>
+                        <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="temporaryContactForm.tempContactPhone.$valid"></i>
+                        <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine"></i>
+                      </div>
+                      <div>
+                        <p ng-show="temporaryContactForm.tempContactPhone.$invalid && !temporaryContactForm.tempContactPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number. Formats: +x-xxx-xxx-xxxx, x-xxx-xxx-xxxx, xxx-xxx-xxxx</b></p>
                       </div>
                     </article>
-                  </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="temporaryContactForm.$invalid"  style="margin-top:5px; margin-bottom:5px"><b>Save Changes</b></button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+
               </div>
             </div>
-            <!--//featured-courses-->
           </div>
           <!--//courses-wrapper-->
         </div>
@@ -701,7 +340,7 @@
 </div>
 
 <div id="editCompanyDescriptionModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-md">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -711,10 +350,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="editCompanyDescriptionForm">
+            <form name="editCompanyDescriptionForm" ng-submit="submitCompanyDescription(editCompanyDescriptionForm)" novalidate>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
                 <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
-                <textarea ng-model="tempCompanyInfo[0].companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:15px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$valid"></i>
                 <i style="margin-top:15px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine"></i>
               </div>
@@ -724,20 +363,134 @@
               <label><h5 class="title text-highlight"><b>Company Website:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
-                <input ng-model="tempCompanyInfo[0].websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
               </div>
               <div>
                 <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
               </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
+        <!--//featured-courses-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editInterestedMajorsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Interested Majors</b></h4>
+      </div>
+      <div class="modal-body">
+        <form name="editInterestedMajorsForm" ng-submit="submitCompanyInterestedMajors(editInterestedMajorsForm)" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <h5 class="text-center text-highlight"><b>List of Majors:</b></h5>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
+                    <li class="list-group-item" ng-repeat="item in majors | filter:false">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.isSet">&nbsp; {{item.majorCode}}
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h5 class="text-center text-highlight"><b>Selected Majors:</b></h5>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <ul class="list-group" style="max-height: 300px; overflow-y:scroll;">
+                    <li class="list-group-item" ng-repeat="item in majors | filter:true">
+                      <label class="control-label">
+                        <input type="checkbox" ng-model="item.isSet">&nbsp; {{item.majorCode}}
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" style="text-align: center">
+              <button type="submit" class="btn btn-theme btn-sm"><b>Submit</b></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editCompanyPromotionalMaterialModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black">Edit Company Promotional Material</h4>
+      </div>
+      <div class="modal-body">
         <div class="row">
-          <div class="col-md-12" style="text-align: center">
-            <button type="submit" class="btn btn-theme btn-sm" ng-click="updateCompanyDescription(editCompanyDescriptionForm.companyDescription.$valid && editCompanyDescriptionForm.url.$valid)" ng-disabled="editCompanyDescriptionForm.companyDescription.$invalid || editCompanyDescriptionForm.url.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Update</b></button>
-            <button type="submit" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+          <div class="col-md-12">
+            <form name="editCompanyPromotionalMaterialForm" ng-submit="submitCompanyPromotionalMaterialChanges(editCompanyPromotionalMaterialForm)" novalidate>
+              <label><h5 class="title text-highlight"><b>Name:</b><br></h5>
+              </label>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine}">
+                <input ng-model="promotionalMaterialItem.title" name="promotionalMaterialTitle" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z0-9 ,.ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+              </div>
+              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label> {{promotionalMaterialItem.expirationDate | date: 'MMMM d, y'}}
+              <div class="alert alert-danger alert-dismissable" ng-show="showEditPromotionalMaterialDateError">
+                <button type="button" class="close" ng-click="showEditPromotionalMaterialDateError=false" aria-hidden="true">&times;</button>
+                <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
+              </div>
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine}">
+                <input id="editPromotionalDocumentExpirationDatePicker" ng-model="promotionalMaterialItem.expirationDate" name="promotionalMaterialExpirationDate" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([A-Za-z0-9 ,.:'`-]{0,30})$/i"/>
+                <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$valid"></i>
+                <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine"></i>
+              </div>
+              <div>
+                <p ng-show="editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid && !editCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Date</b></p>
+              </div>
+              <div class="input-group text-center" style="margin-top: 30px;">
+                <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-edit"></i></span>
+                <select class="sort-options form-control" ng-model="promotionalMaterialItem.status" name="modalPromotionalMaterialStatusStatus" style="border-radius:0; -webkit-appearance: none;">
+                  <option value="approved">Approve</option>
+                  <option value="rejected">Reject</option>
+                </select>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="editCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid" style="margin-right:15px; margin-top: 20px; margin-bottom:5px"><b>Update</b></button>
+                  <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-top: 20px; margin-bottom:5px"><b>Cancel</b></button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -747,6 +500,30 @@
     </div>
   </div>
 </div>
+
+<div id="confirmAccountSettingsChangesModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Are you sure you want to change your account settings?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
+        <button type="button" class="btn btn-success pull-right" ng-click="submitAccountSettingsChanges()" style="margin-top: 5px; margin-right: 5px">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--//wrapper-->
 <!-- ******FOOTER****** -->
 <div ng-include src="'views/partials/footer.html'"></div>

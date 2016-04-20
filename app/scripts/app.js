@@ -242,6 +242,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       resolve: {
         adminCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
           return Companies.getCompany($stateParams.companyName);
+        }],
+        majorsPromise: ['Majors', function(Majors) {
+          Majors.getAllMajors();
+        }],
+        temporaryContactPromise: ['$stateParams', 'Companies', function ($stateParams, Companies) {
+          return Companies.getCompanyTemporaryContact($stateParams.companyName);
         }]
       },
       data: {
@@ -323,6 +329,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         majorsPromise: ['Majors', function(Majors) {
           Majors.getAllMajors();
         }]
+      }
+    }).state('continueStudent', {
+      url: '/student?ticket',
+      templateUrl: 'partials/students/continue.html',
+      controller: 'ContinueStudentCtrl',
+      data: {
+        authorizedRoles: all
       }
     });
 
