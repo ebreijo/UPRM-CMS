@@ -161,6 +161,20 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
     };
   };
 
+  $scope.confirmTemporaryContactChanges = function(form) {
+    if (form.$valid) {
+      $('#confirmTemporaryContactChangesModal').modal('show');
+    }
+  };
+
+  $scope.submitTemporaryContactChanges = function(form) {
+    if (form.$valid) {
+      $scope.tempContact.companyName = adminCompanyPromise.name;
+      Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
+      $('#confirmTemporaryContactChangesModal').modal('hide');
+    }
+  };
+
   $scope.tempContact = temporaryContactPromise[0];
 
 
