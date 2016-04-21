@@ -674,8 +674,19 @@
 
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
-                  <button ng-model="resetDocument()" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
+
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyPromotionalMaterialForm.promotionalMaterialTitle.$invalid || addCompanyPromotionalMaterialForm.promotionalMaterialExpirationDate.$invalid" style="margin-right:15px; margin-bottom:5px">
+                    <b>
+                      Create
+                    </b>
+                  </button>
+
+                  <button ng-click="resetDocument()" class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px">
+                    <b>
+                      Cancel
+                    </b>
+                  </button>
+
                 </div>
               </div>
 
@@ -685,7 +696,7 @@
       </div>
 
       <div class="modal-footer">
-        <button ng-model="resetDocument()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-click="resetDocument()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
 
     </div>

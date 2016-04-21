@@ -231,9 +231,15 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
       this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
       $scope.showAddPromotionalMaterialDateError = false;
-      //PromotionalMaterial.addPromotionalMaterialPerCompany(interestedMajorList, $scope.getCurrentUser().companyName).then(function(newPromotionalMaterial){
 
-     // });
+      PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName,
+        {
+          title: $scope.addPromotionalMaterialItemTitle,
+          expirationDate: $scope.addPromotionalMaterialItemExpirationDate,
+          companyName: $scope.getCurrentUser().companyName,
+          filePath : $scope.promoMaterialFilePath
+        });
+
       $('#addPromotionalMaterialModal').modal('hide');
       indexPromotionalMaterial++;
       //Jasmine Test
@@ -404,9 +410,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
   $scope.promoMaterialFilePath = '';
   $scope.resetDocument = function(){
-    console.log('before being called: ' + $scope.promoMaterialFilePath);
     $scope.promoMaterialFilePath = '';
-    console.log('after being called: ' + $scope.promoMaterialFilePath);
   };
 
   /* jshint ignore:start */

@@ -58,6 +58,10 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     });
   };
 
+  obj.addPromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
+    return Restangular.one('/api/companies', companyName).one('promotionalMaterial').customPOST(promotionalMaterial);
+  };
+
   obj.updatePromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
     return Restangular.one('/api/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
   };
