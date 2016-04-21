@@ -6,6 +6,7 @@ npm install -g bower
 # Install dependencies
 npm install
 bower install --allow-root
+npm rebuild
 
 # Set environement variables (only for production)
 export NODE_ENV=production # This will depend on what CTI wants
