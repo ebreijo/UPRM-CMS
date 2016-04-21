@@ -8,7 +8,8 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
     companyPromotionalMaterial: [],
     approvedCompanyPromotionalMaterial: [],
     pendingCompanyPromotionalMaterial: [],
-    companyPromotionalMaterialForAdmins: []
+    companyPromotionalMaterialForAdmins: [],
+    companyPromotionalMaterialForStudents: []
   };
 
   obj.getAllApprovedPromotionalMaterial = function() {
@@ -63,6 +64,12 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
 
   obj.removePromotionalMaterialPerCompany = function(companyName, id) {
     return Restangular.one('/api/companies', companyName).customDELETE('promotionalMaterial/' + id);
+  };
+
+  obj.getPromotionalMaterialPerCompanyForStudents = function(companyName) {
+    return Restangular.one('/api/students/companies', companyName).getList('promotionalMaterial').then(function(promotionalMaterial) {
+      angular.copy(promotionalMaterial.plain(), obj.companyPromotionalMaterialForStudents);
+    });
   };
 
   return obj;

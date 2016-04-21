@@ -329,17 +329,23 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     }).state('studentCompanyProfile', {
       url: '/studentCompanyProfile/:companyName',
       templateUrl: 'partials/students/student-company-profile.html',
-      controller: 'studentCompanyCtrl',
-      data: {
-        authorizedRoles: all
-      },
+      controller: 'StudentCompanyProfileCtrl',
       resolve: {
         studentCompanyPromise: ['$stateParams',  'Companies', function ($stateParams, Companies) {
           return Companies.getStudentCompany($stateParams.companyName);
         }],
-        majorsPromise: ['Majors', function(Majors) {
-          Majors.getAllMajors();
+        studentCompanyInterestedMajorsPromise: ['$stateParams', 'Majors', function($stateParams, Majors) {
+          Majors.getInterestedMajorsPerCompanyForStudents($stateParams.companyName);
+        }],
+        studentCompanyPromotionalMaterialPromise: ['$stateParams', 'PromotionalMaterial', function($stateParams, PromotionalMaterial) {
+          PromotionalMaterial.getPromotionalMaterialPerCompanyForStudents($stateParams.companyName);
+        }],
+        studentCompanyJobOfferPromise: ['$stateParams', 'JobOffers', function($stateParams, JobOffers) {
+          JobOffers.getJobOffersPerCompanyForStudents($stateParams.companyName);
         }]
+      },
+      data: {
+        authorizedRoles: all
       }
     }).state('continueStudent', {
       url: '/student?ticket',
@@ -350,7 +356,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }
     }).state('404Error', {
       url: '/NotFound',
-      templateUrl: 'partials/404.html'
+      templateUrl: 'partials/404.html',
+      data: {
+        authorizedRoles: all
+      }
     });
 
   $urlRouterProvider.otherwise('/');
