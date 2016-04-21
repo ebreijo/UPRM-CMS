@@ -405,9 +405,9 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   /* jshint ignore:start */
   $scope.updatePromotionalMaterialConfig = {
     'options': { // passed into the Dropzone constructor
-      'url': '/api/companies/logos',
+      'url': '/api/companies/promotionalMaterial/upload',
       'paramName': 'image',     // The name that will be used to transfer the file
-      'maxFilesize': 2, // in MBs
+      'maxFilesize': 5, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'application/pdf',
       'createImageThumbnails': false
