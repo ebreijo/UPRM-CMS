@@ -68,7 +68,11 @@
                         <div class="col-md-12" style="text-align: center">
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
-                        <h3 class="title">Promotional Material</h3>
+
+                        <h3 class="title">
+                          Promotional Material
+                        </h3>
+
                         <div class="alert alert-danger alert-dismissable" ng-show="showPromotionalMaterialError">
                           <button type="button" class="close" ng-click="showPromotionalMaterialError=false" aria-hidden="true">&times;</button>
                           <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document either: delete or edit one of the existing materials listed below.</strong>
@@ -99,7 +103,7 @@
                           <article class="course-item row-divider">
                             <div class="details row">
                               <div class="col-title col-md-4 col-sm-6">
-                                <a href="documents/pdf-sample.pdf" target="_blank">{{item.title}}</a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
+                                <a href={{item.filePath}}  target="_blank"> {{item.title}} </a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
                               </div>
                               <div class="col-meta col-md-8 col-sm-6">
                                 <div class="row">

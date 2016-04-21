@@ -154,7 +154,7 @@ describe('Controller: Company Profile', function () {
       else {
         companyDescription = false;
       }
-      expect(websiteURL&&companyDescription).toEqual(true);
+      expect(websiteURL&&companyDescription).toEqual(false);
     });
 
   });

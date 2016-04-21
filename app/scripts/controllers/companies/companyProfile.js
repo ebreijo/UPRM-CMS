@@ -172,7 +172,14 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     promotionalMaterial = PromotionalMaterial.approvedCompanyPromotionalMaterial;
 
     for (var i = 0; i < promotionalMaterial.length; i++) {
-      $scope.companyProfile.promotionalMaterial.push({id: promotionalMaterial[i].id, title: promotionalMaterial[i].title, expirationDate: promotionalMaterial[i].expirationDate, status: promotionalMaterial[i].status});
+      $scope.companyProfile.promotionalMaterial.push(
+        {
+          id: promotionalMaterial[i].id,
+          title: promotionalMaterial[i].title,
+          expirationDate: promotionalMaterial[i].expirationDate,
+          status: promotionalMaterial[i].status,
+          filePath: promotionalMaterial[i].filePath
+        });
     }
   });
 
