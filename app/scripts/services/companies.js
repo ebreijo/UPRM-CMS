@@ -79,5 +79,9 @@ app.factory('Companies', function(Restangular) {
     return Restangular.one('/api/companies', companyName).customPUT(changes);
   };
 
+  obj.submitOnCampusServices = function (serviceInfo) {
+    return Restangular.all('/api/onCampusServices').post(serviceInfo);
+  };
+
   return obj;
 });

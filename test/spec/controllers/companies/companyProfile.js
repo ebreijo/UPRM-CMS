@@ -14,6 +14,7 @@ describe('Controller: Company Profile', function () {
   var PromotionalMaterial;
   var Recruiters;
   var JobOffers;
+  var q;
 
   // Inject Custom Services:
 
@@ -25,6 +26,7 @@ describe('Controller: Company Profile', function () {
     PromotionalMaterial = $injector.get('PromotionalMaterial');
     Recruiters = $injector.get('Recruiters');
     JobOffers = $injector.get('JobOffers');
+    q = $injector.get('$q');
   }));
 
   // Inject AngularJS Services:
@@ -607,15 +609,19 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.confirmSubmissionCampusService', function () {
 
-    it('Should increase the size of confirmSubmissionCampusService list', function () {
-      scope.companyProfile = {
-        campusServiceRequests : []
-      };
+    var form = {};
 
-      scope.campusServiceEventType = 'sample event';
+    beforeEach(function() {
+      scope.onCampusService = {};
+      form.$valid = true;
+      spyOn(Companies, 'submitOnCampusServices').and.callFake(function() {
+        return q.when({});
+      });
+    });
 
+    it('Should submit the on campus service with a valid form', function () {
       scope.confirmSubmissionCampusService();
-      expect(scope.companyProfile.campusServiceRequests.length).toBe(1);
+      expect(Companies.submitOnCampusServices).toHaveBeenCalled();
     });
   });
 

@@ -226,6 +226,7 @@
                       </div>
                   </div>
                 </div>
+
                 <div class="tab-pane" id="tab4">
                   <form name="requestOnCampusServiceForm" ng-submit="submitCampusService(requestOnCampusServiceForm)" novalidate>
                     <div class="row">
@@ -242,7 +243,7 @@
                             <span><label>Type of Event<span class="required">*</span>&nbsp:&nbsp</label></span>
                             <div class="form-group" style="text-align:center">
                               <div class="sort">
-                                <select class="sort-options form-control" ng-model="campusServiceEventType" ng-init="campusServiceEventType=null" required>
+                                <select class="sort-options form-control" ng-model="onCampusService.typeEvent" ng-init="campusServiceEventType=null" required>
                                   <option>Info-session</option>
                                   <option>Workshop</option>
                                   <option>Interview</option>
@@ -252,12 +253,12 @@
                             </div>
                           </div>
                       </article>
-                      <article class="contact-form col-md-5" ng-show="campusServiceEventType==='Other'">
+                      <article class="contact-form col-md-5" ng-show="onCampusService.typeEvent==='Other'">
                         <div class="input-group">
                           <span><label class="control-label">Other Event Description<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern}">
-                          <input ng-model="otherTypeOfEvent" name="otherTypeOfEvent" type="text" class="form-control" placeholder="Enter description for other event" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <input ng-model="onCampusService.otherEventDescription" name="otherTypeOfEvent" type="text" class="form-control" placeholder="Enter description for other event" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern && !requestOnCampusServiceForm.otherTypeOfEvent.$modelValue === false"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.otherTypeOfEvent.$error.pattern"></i>
                         </div>
@@ -279,7 +280,7 @@
                               <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>
                             </div>
                             <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceDate.$invalid && !requestOnCampusServiceForm.campusServiceDate.$pristine}">
-                              <input id="requestCampusServiceDatePicker" ng-model="campusServiceDate" name="campusServiceDate" placeholder="Click on this input to select the event date" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
+                              <input id="requestCampusServiceDatePicker" ng-model="onCampusService.date" name="campusServiceDate" placeholder="Click on this input to select the event date" type="date" class="form-control" class="form-control" style="border-radius:0;" readonly required ng-pattern="/^([0-9-]{0,30})$/i"/>
                               <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.campusServiceDate.$valid"></i>
                               <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceDate.$invalid && !requestOnCampusServiceForm.campusServiceDate.$pristine"></i>
                             </div>
@@ -292,7 +293,7 @@
                           <div class="input-group">
                             <span><label class="control-label">Hour<span class="required">*</span> :</label></span>
                             <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine}">
-                              <input ng-model="campusServiceHour" name="campusServiceHour" type="text" class="form-control" placeholder="Enter the Hour of Event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()]{0,20})$/i"/>
+                              <input ng-model="onCampusService.hour" name="campusServiceHour" type="text" class="form-control" placeholder="Enter the Hour of Event" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()]{0,20})$/i"/>
                               <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="requestOnCampusServiceForm.campusServiceHour.$valid"></i>
                               <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceHour.$invalid && !requestOnCampusServiceForm.campusServiceHour.$pristine"></i>
                             </div>
@@ -311,7 +312,7 @@
                           <div class="input-group">
                             <span><label class="control-label">Expected Capacity (Optional):</label></span>
                             <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceCapacity.$error.pattern}">
-                              <input ng-model="campusServiceCapacity" name="campusServiceCapacity" type="number" min="0" class="form-control" placeholder="Enter the Expected Capacity of Persons" style="border-radius:0;" ng-pattern="/^([0-9]{0,10})$/i"/>
+                              <input ng-model="onCampusService.expectedCapacity" name="campusServiceCapacity" type="number" min="0" class="form-control" placeholder="Enter the Expected Capacity of Persons" style="border-radius:0;" ng-pattern="/^([0-9]{0,10})$/i"/>
                               <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!requestOnCampusServiceForm.campusServiceCapacity.$error.pattern && !requestOnCampusServiceForm.campusServiceCapacity.$modelValue === false"></i>
                               <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceCapacity.$error.pattern"></i>
                             </div>
@@ -324,7 +325,7 @@
                         <div class="form-group message">
                           <label>Additional Information (Optional) :</label>
                           <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern}">
-                            <textarea ng-model="campusServiceAdditionalInformation" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                            <textarea ng-model="onCampusService.additionalInfo" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                             <i style="color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="!requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern && requestOnCampusServiceForm.campusServiceAdditionalInformation.$modelValue === false"></i>
                             <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern"></i>
                           </div>
@@ -848,8 +849,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
-        <button type="button" class="btn btn-success pull-right" ng-click="confirmSubmissionCampusService()" style="margin-top: 5px; margin-right: 5px">Ok</button>
+        <button type="submit" class="btn btn-theme" ng-click="confirmSubmissionCampusService()">Submit</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -871,8 +872,27 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
-        <button type="button" class="btn btn-success pull-right" ng-click="submitAccountSettingsChanges()" style="margin-top: 5px; margin-right: 5px">Ok</button>
+        <button type="submit" class="btn btn-theme" ng-click="submitAccountSettingsChanges()">Submit</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="messageModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title pull-left" style="color:black"><b>{{title}}</b></h4>
+      </div>
+      <!-- dialog body -->
+      <div class="modal-body">
+        <p>{{message}}</p>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
       </div>
     </div>
   </div>

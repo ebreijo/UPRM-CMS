@@ -327,22 +327,39 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     format: 'yyyy-mm-dd'
   });
 
-  var indexCampusService = 0;
-  // TODO
-  $scope.submitCampusService = function(form){
-    if(form.$valid && $scope.campusServiceDate.toISOString() > today){
+  $scope.submitCampusService = function(form) {
+    if(form.$valid && (new Date($scope.onCampusService.date) > (new Date()))) {
       $('#confirmCampusServiceRequest').modal('show');
       $scope.showCampusServiceDateError=false;
     }
-    else if(($scope.campusServiceDate.toISOString()) <= today){
+    else {
       $scope.showCampusServiceDateError=true;
     }
   };
 
-  $scope.confirmSubmissionCampusService = function(){
-    this.companyProfile.campusServiceRequests.push({id: indexCampusService, eventType: $scope.campusServiceEventType, otherEventDescription: $scope.otherTypeOfEvent, eventDate: $scope.campusServiceDate, eventHour: $scope.campusServiceHour, eventCapacity: $scope.campusServiceCapacity, eventAdditionalInformation: $scope.campusServiceAdditionalInformation});
-    indexCampusService++;
+  $scope.confirmSubmissionCampusService = function() {
     $('#confirmCampusServiceRequest').modal('hide');
+    $scope.onCampusService.date = new Date($scope.onCampusService.date).toDateString();
+    if (!$scope.onCampusService.otherEventDescription) {
+      $scope.onCampusService.otherEventDescription = 'No description';
+    }
+    if (!$scope.onCampusService.additionalInfo) {
+      $scope.onCampusService.additionalInfo = 'No description';
+    }
+    if (!$scope.onCampusService.expectedCapacity) {
+      $scope.onCampusService.expectedCapacity = 'No description';
+    }
+    Companies.submitOnCampusServices($scope.onCampusService).then(function() {
+      $scope.onCampusService = null;
+      $scope.requestOnCampusServiceForm.$setPristine();
+      $scope.title = 'Success';
+      $scope.message = 'Your request has been sent successfully';
+      $('#messageModal').modal('show');
+    }, function() {
+      $scope.title = 'Sorry';
+      $scope.message = 'Looks like something went wrong';
+      $('#messageModal').modal('show');
+    });
   };
 
   //For Pending Requests Tab------------------------------------------------------------
