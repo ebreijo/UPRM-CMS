@@ -402,5 +402,33 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
   /* jshint ignore:end */
 
+  /* jshint ignore:start */
+  $scope.updatePromotionalMaterialConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/companies/logos',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 2, // in MBs
+      'maxFiles': 1,
+      'acceptedFiles': 'application/pdf',
+      'createImageThumbnails': false
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        this.removeAllFiles();
+        //Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
+        //$scope.companyProfile.generalInfo[0].logoPath = response.filePath;
+      },
+      'error': function(file, response) {
+        this.removeAllFiles();
+        alert('ERROR: File Too Large!');
+      }
+    }
+  };
+  /* jshint ignore:end */
+
 
 });
