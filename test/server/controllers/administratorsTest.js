@@ -1099,13 +1099,17 @@ describe('Administrators Controller: ', function() {
         )
         .expect('Content-Type', /json/)
         .expect(201)
-        .end(help.isBodyEqual({
-          "status": "pending",
-          "id": 5,
-          "companyName": "IBM",
-          "expirationDate": "2100-04-04",
-          "title": "doc1"
-        }, done));
+        .end(function (err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.id).to.match(/5/);
+            expect(res.body.title).to.match(/doc1/);
+            expect(res.body.companyName).to.match(/IBM/);
+            expect(res.body.status).to.match(/pending/);
+            done();
+          }
+        });
     });
 
     it('should delete an existing promotional material ' +

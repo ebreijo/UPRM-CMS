@@ -137,19 +137,19 @@ INSERT INTO recruiter (email, password, company_name, first_name, last_name, pho
 VALUES ('pepe@apple.com', '$2a$08$FSYCTTU7tqmyPx3JuVW5De/a3S0b0N5G7tUedxmZyV6fGyxo42r1a', 'Apple', 'Pepe', 'Tembleque', '787-555-5555', 'active', '3');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
+VALUES ('IBM', 'New Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2030-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, creation_date, recruiter_email, location)
-VALUES ('IBM', 'Different Job Offer', 'This is a job offer which is different', 'CO-OP', 'Bachelors', '0', '2016-07-22 12:12:12', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
+VALUES ('IBM', 'Different Job Offer', 'This is a job offer which is different', 'CO-OP', 'Bachelors', '0', '2030-07-22 12:12:12', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('IBM', 'Another different Job Offer', 'This is a job offer which is different from all the job offers', 'Internship', 'Bachelors', '0', '2016-07-22 12:12:12', 'rejected', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
+VALUES ('IBM', 'Another different Job Offer', 'This is a job offer which is different from all the job offers', 'Internship', 'Bachelors', '0', '2030-07-22 12:12:12', 'rejected', '2016-02-22 12:12:12', 'sergio@ibm.com', 'Durham, NC');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('Apple', 'Apple Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
+VALUES ('Apple', 'Apple Job Offer', 'This is a job offer', 'Full-Time', 'Bachelors', '1', '2030-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
 
 INSERT INTO job_offer (company_name, title, description, job_position, education_level, recent_graduate, expiration_date, job_offer_status, creation_date, recruiter_email, location)
-VALUES ('Apple', 'Apple Different Job Offer', 'This is a job offer', 'Part-Time', 'Bachelors', '1', '2016-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
+VALUES ('Apple', 'Apple Different Job Offer', 'This is a job offer', 'Part-Time', 'Bachelors', '1', '2030-07-22 12:12:12', 'approved', '2016-02-22 12:12:12', 'pepe@apple.com', 'Cupertino, CA');
 
 INSERT INTO major (major_code, name_english, name_spanish)
 VALUES ('ICOM', 'Computer Engineering', 'Ingenieria en Computadoras');
@@ -218,16 +218,16 @@ INSERT INTO policies (policy)
 VALUES ('Students that accept a job offer should notify the Placement Office.');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
-VALUES ('IBM', 'Promotion1', '/lib/promotionalMaterial', '2016-07-22 12:12:12', 'approved');
+VALUES ('IBM', 'Promotion1', '/lib/promotionalMaterial', '2030-07-22 12:12:12', 'approved');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date)
-VALUES ('IBM', 'Promotion2', '/lib/promotionalMaterial', '2016-08-01 12:12:12');
+VALUES ('IBM', 'Promotion2', '/lib/promotionalMaterial', '2030-08-01 12:12:12');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
 VALUES ('IBM', 'Promotion3', '/lib/promotionalMaterial', '2016-11-30 12:12:12', 'rejected');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
-VALUES ('Apple', 'Promotion4', '/lib/promotionalMaterial', '2016-07-22 12:12:12', 'approved');
+VALUES ('Apple', 'Promotion4', '/lib/promotionalMaterial', '2030-07-22 12:12:12', 'approved');
 
 INSERT INTO public_documents (file_label, file_path)
 VALUES ('document1', '/lib/documents');

@@ -5,7 +5,8 @@ var app = angular.module('uprmcmsApp');
 app.factory('Majors', function(Restangular, _) {
   var obj = {
     majors: [],
-    majorsForASpecificCompany: []
+    majorsForASpecificCompany: [],
+    studentCompanyInterestedMajors: []
   };
 
   obj.getAllMajors = function() {
@@ -59,6 +60,12 @@ app.factory('Majors', function(Restangular, _) {
 
   obj.removeCompanyInterestedMajors = function(changes, companyName) {
     return Restangular.one('/api/companies', companyName).customPUT(changes, 'companyInterestedMajors');
+  };
+
+  obj.getInterestedMajorsPerCompanyForStudents = function(companyName) {
+    return Restangular.one('/api/students/companies', companyName).getList('interestedMajors').then(function(companyInterestedMajors) {
+      angular.copy(companyInterestedMajors.plain(), obj.studentCompanyInterestedMajors);
+    });
   };
 
   return obj;

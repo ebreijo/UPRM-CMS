@@ -9,7 +9,8 @@ app.factory('JobOffers', function(Restangular, _) {
     approvedCompanyJobOffers: [],
     pendingCompanyJobOffers: [],
     companyJobOffers: [],
-    companyJobOffersForAdmins: []
+    companyJobOffersForAdmins: [],
+    companyJobOffersForStudents: []
   };
 
   obj.getAllJobOffersAdmins = function(status) {
@@ -21,6 +22,12 @@ app.factory('JobOffers', function(Restangular, _) {
   obj.getAllJobOffersStudents = function() {
     Restangular.all('/api/students/jobOffers').getList().then(function(approvedJobOffers) {
       angular.copy(approvedJobOffers.plain(), obj.studentJobOffers);
+    });
+  };
+
+  obj.getJobOffersPerCompanyForStudents = function(companyName) {
+    Restangular.one('/api/students/companies', companyName).getList('jobOffers').then(function(companyJobOffers) {
+      angular.copy(companyJobOffers.plain(), obj.companyJobOffersForStudents);
     });
   };
 
@@ -42,6 +49,10 @@ app.factory('JobOffers', function(Restangular, _) {
     return Restangular.one('/api/admins/companies', companyName).getList('jobOffers', {status: status}).then(function(compJobOffers) {
       angular.copy(compJobOffers.plain(), obj.companyJobOffersForAdmins);
     });
+  };
+
+  obj.updateJobOfferStatusPerCompanyForAdmins = function(companyName, jobOffer) {
+    return Restangular.one('/api/admins/companies', companyName).one('jobOffers', jobOffer.id).customPUT(jobOffer);
   };
 
   obj.getApprovedJobOffersPerCompany = function(companyName) {
