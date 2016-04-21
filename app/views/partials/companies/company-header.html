@@ -11,24 +11,26 @@
     </div>
   </div>
   <div class="header-main container">
-    <h1 class="logo col-md-4 col-sm-4"><a ui-sref="company">
-      <img id="logo" src="../../../images/logo.png" alt="Logo">
-    </a></h1>
+    <h1 class="logo col-md-4 col-sm-4">
+      <a>
+        <img id="logo" src="images/logo.png" alt="Logo">
+      </a>
+    </h1>
     <!--//logo-->
     <div class="info col-md-8 col-sm-8">
       <ul class="menu-top navbar-right hidden-xs">
         <li class="divider">
-          <a ui-sref="company">Home</a>
+          <a ui-sref="company">Profile</a>
         </li>
         <li>
-          <a ui-sref="studentCatalogue">My Profile</a>
+          <a href="http://dev.uprm.edu/studentcatalogue/">Student Catalog</a>
         </li>
       </ul>
       <!--//menu-top-->
       <br />
       <div class="contact pull-right">
-        <p class="phone"><a>Welcome Recruiter!</a></p>
-        <p class="email"><a href="#"><i class="fa fa-sign-out"></i></a><a ui-sref="landingPage">Sign Out</a></p>
+        <p class="phone"><a>Welcome {{getCurrentUser().firstName}}!</a></p>
+        <p class="email"><a href="#"><i class="fa fa-sign-out"></i></a><a ui-sref="landingPage" ng-click="logout()">Sign Out</a></p>
       </div>
       <!--//contact-->
     </div>
