@@ -6,7 +6,8 @@ app.factory('Recruiters', function(Restangular) {
   var obj = {
     pendingRecruiters: [],
     companyRecruiters: [],
-    companyRecruitersForAdmins: []
+    companyRecruitersForAdmins: [],
+    recruiter: {}
   };
 
   obj.getAllPendingRecruitersForAdmins = function() {
@@ -33,6 +34,20 @@ app.factory('Recruiters', function(Restangular) {
 
   obj.updateRecruiterStatusPerCompanyForAdmins = function(companyName, recruiter) {
     return Restangular.one('/api/admins/companies', companyName).customPUT(recruiter, 'recruiters');
+  };
+
+  obj.getMyInformation = function() {
+    return Restangular.one('/api/recruiters', 'me').get().then(function(recruiter) {
+      angular.copy(recruiter.plain(), obj.recruiter);
+    });
+  };
+
+  obj.updatePersonalInfo = function(changes) {
+    return Restangular.one('/api/recruiters', 'me').customPOST(changes);
+  };
+
+  obj.changePassword = function(password) {
+    return Restangular.one('/api/recruiters', 'me').customPOST({password: password});
   };
 
   return obj;

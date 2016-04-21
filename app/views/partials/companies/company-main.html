@@ -199,7 +199,7 @@
                           </div>
                           <ul class="list-group">
                             <li class="list-group-item">
-                              <strong>Anouncement Number:</strong>&nbsp;{{item.announcementNumber}}
+                              <strong>Announcement Number:</strong>&nbsp;{{item.announcementNumber}}
                             </li>
                             <li class="list-group-item">
                               <strong>Location:</strong> {{item.location}}
@@ -379,11 +379,11 @@
                 </div>
 
                 <div class="tab-pane" id="tab6">
-                  <form name="accountSettingsForm" ng-submit="confirmAccountSettingsChanges(accountSettingsForm)" novalidate>
+                  <form name="accountSettingsForm" ng-submit="confirmPersonalInformationChanges(accountSettingsForm)" novalidate>
                     <div class="row">
                       <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
                         <h3 class="title">My Settings</h3>
-                        <p>Please use this option if you wish to change any of the available settings in your account.<br></p>
+                        <p>Please use this option if you wish to change your personal information.<br></p>
                       </div>
                     </div>
                     <div class="row" style="margin-top:20px">
@@ -394,7 +394,7 @@
                           <span><label class="control-label">First Name<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.firstName" name="recruiterLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <input ng-model="recruiter.firstName" name="recruiterLoggedInFirstName" type="text" class="form-control" placeholder="Enter your First Name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{1,45})$/i"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInFirstName.$invalid && !accountSettingsForm.recruiterLoggedInFirstName.$pristine"></i>
                         </div>
@@ -407,7 +407,7 @@
                           <span><label class="control-label">Last Name<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,50})$/i"/>
+                          <input ng-model="recruiter.lastName" name="recruiterLoggedInLastName" type="text" class="form-control" placeholder="Enter your Last Name" style="border-radius:0;" required ng-pattern="/^([A-Z][A-Za-z ,.ñÑáéíóúÁÉÍÓÚ'`-]{1,45})$/i"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInLastName.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInLastName.$invalid && !accountSettingsForm.recruiterLoggedInLastName.$pristine"></i>
                         </div>
@@ -426,12 +426,12 @@
                           <span><label class="control-label">Phone Number<span class="required">*</span> :</label></span>
                         </div>
                         <div class="form-group has-feedback" ng-class="{ 'has-error' : accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine}">
-                          <input ng-model="recruiterLoggedInItem.phoneNumber" type="tel" name="recruiterLoggedInPhone" class="form-control" placeholder="Enter your office phone number" style="border-radius:0;" ng-pattern="/^[\s()+-]*([0-9][\s()+-]*){6,20}(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i"/>
+                          <input ng-model="recruiter.phoneNumber" type="tel" name="recruiterLoggedInPhone" class="form-control" placeholder="Enter your phone number" style="border-radius:0;" required ng-pattern="/^\+?([1]{1})?[-]?([0-9]{3})\)?[-]([0-9]{3})[-]([0-9]{4})$/"/>
                           <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="accountSettingsForm.recruiterLoggedInPhone.$valid"></i>
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Phone Number</b></p>
+                          <p ng-show="accountSettingsForm.recruiterLoggedInPhone.$invalid && !accountSettingsForm.recruiterLoggedInPhone.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Phone Number. Formats: +x-xxx-xxx-xxxx, x-xxx-xxx-xxxx, xxx-xxx-xxxx</b></p>
                         </div>
                       </article>
                       <div class="col-md-4">
@@ -440,6 +440,76 @@
                     <div class="row text-center">
                       <div class="col-md-12">
                         <button type="submit" class="btn btn-theme btn-sm" ng-disabled="accountSettingsForm.$invalid"  style="margin-bottom:5px"><b>Save Changes</b></button>
+                      </div>
+                    </div>
+                  </form>
+
+                  <hr width="90%">
+                  <form name="changePasswordForm" ng-submit="confirmChangePassword(changePasswordForm)" novalidate>
+                    <div class="row">
+                      <div class="col-md-12" style="padding-bottom:5px; padding-top:15px">
+                        <h3 class="title">Change Password</h3>
+                        <p>Please use this option if you wish to change the password to your account.<br></p>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:20px">
+                      <div class="col-md-2">
+                      </div>
+                      <article class="contact-form col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{ 'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine }">
+                          <label>New Password&nbsp;
+                            <span class="required">*</span>
+                          </label>
+                          <input ng-model="newPassword" name="newPassword" type="password" ng-minlength="6" ng-maxlength="40"
+                                 class="form-control" placeholder="Enter your new password" style="border-radius: 0;" required
+                                 ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                             ng-show="changePasswordForm.newPassword.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback"
+                             ng-show="changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine"></i>
+                        </div>
+                        <div>
+                          <p ng-show="changePasswordForm.newPassword.$error.minlength" style="color:#843534" class="help-block"><b>Password
+                            is too short. Use at least 6 characters.</b></p>
+
+                          <p ng-show="changePasswordForm.newPassword.$error.maxlength" style="color:#843534" class="help-block"><b>Password
+                            is too long. Use less than 40 characters.</b></p>
+
+                          <p ng-show="changePasswordForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Password
+                            must contain at least one: special character, lowercase letter, uppercase letter and number.</b></p>
+
+                          <p ng-show="changePasswordForm.newPassword.$error.pattern" style="color:#843534" class="help-block"><b>Special
+                            Characters supported: \ ! @ # $ % ^ , & * ( ) [ ] { } - _ + = ~ ` | : ; ' &lt; &gt; ?</b></p>
+                        </div>
+                      </article>
+                      <article class="contact-form col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{ 'has-error' : (changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine }">
+                          <label>Confirm Password&nbsp;
+                            <span class="required">*</span>
+                          </label>
+                          <input ng-model="password" name="password" type="password" ng-minlength="6"
+                                 ng-maxlength="40" class="form-control" placeholder="Re-enter your new password"
+                                 style="border-radius: 0;" required
+                                 ng-pattern="/^(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,.?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{6,}$/"/>
+                          <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A"
+                             ng-show="(changePasswordForm.password.$viewValue===changePasswordForm.newPassword.$viewValue) && changePasswordForm.password.$valid"></i>
+                          <i class="glyphicon glyphicon-remove form-control-feedback"
+                             ng-show="(changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine"></i>
+                        </div>
+                        <div>
+                          <p
+                            ng-show="(changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue) && !changePasswordForm.password.$pristine"
+                            style="color:#843534" class="help-block"><b>Passwords don't match. Please try again!</b></p>
+                        </div>
+                      </article>
+                      <div class="col-md-2">
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-theme btn-sm" ng-disabled="changePasswordForm.$invalid || (changePasswordForm.password.$viewValue!==changePasswordForm.newPassword.$viewValue)"  style="margin-bottom:5px"><b>Save Changes</b></button>
                       </div>
                     </div>
                   </form>
@@ -856,7 +926,7 @@
   </div>
 </div>
 
-<div id="confirmAccountSettingsChangesModal" class="modal fade" role="dialog">
+<div id="confirmPersonalInformationChangesModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-md">
     <!-- Modal content-->
     <div class="modal-content">
@@ -867,15 +937,38 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <p>Are you sure you want to change your account settings?</p>
+            <p>Are you sure you want to change your personal information?</p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-theme" ng-click="submitAccountSettingsChanges()">Submit</button>
+        <button type="submit" class="btn btn-theme" ng-click="submitPersonalInformationChanges()">Submit</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="confirmChangePassword" class="modal fade">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <form class="form-horizontal" name="modalConfirmPasswordForm" ng-submit="submitChangePassword(modalConfirmPasswordForm)" novalidate>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title pull-left" style="color:black"><b>Confirm</b></h4>
+        </div>
+        <!-- dialog body -->
+        <div class="modal-body">
+          <h5>Are you sure you want to change your password?</h5>
+        </div>
+        <!-- dialog buttons -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-theme">Submit</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 

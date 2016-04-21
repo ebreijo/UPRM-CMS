@@ -384,24 +384,52 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     }
   });
 
-  //For Account Settings Tab------------------------------------------------------------
-  $scope.recruiterLoggedIn = $scope.getCurrentUser().email;
-  // TODO
-  $scope.submitAccountSettingsChanges = function(){
-    var recruiterLoggedInElement = _.find($scope.companyProfile.recruiterList, { email: $scope.recruiterLoggedInItem.email});
-    _.merge(recruiterLoggedInElement, $scope.recruiterLoggedInItem);
-    $('#confirmAccountSettingsChangesModal').modal('hide');
-  };
-  // TODO
-  $scope.confirmAccountSettingsChanges  = function(form){
-    if(form.$valid){
-      $('#confirmAccountSettingsChangesModal').modal('show');
+  /**
+   * Account Settings Tab
+   */
+  Recruiters.getMyInformation();
+  $scope.recruiter = Recruiters.recruiter;
+
+  $scope.confirmPersonalInformationChanges  = function(form) {
+    if(form.$valid) {
+      $('#confirmPersonalInformationChangesModal').modal('show');
       //Jasmine Test
       return true;
     }
     //Jasmine Test
     return false;
   };
+
+  $scope.submitPersonalInformationChanges = function() {
+    Recruiters.updatePersonalInfo($scope.recruiter).then(function() {
+      $('#confirmPersonalInformationChangesModal').modal('hide');
+    });
+  };
+
+  $scope.confirmChangePassword = function(form) {
+    if (form.$valid) {
+      if ($scope.password !== $scope.newPassword) {
+        $scope.title = 'Warning';
+        $scope.message = 'Password does not match. Please verify you have entered the same password in both fields.';
+        $('#messageModal').modal('show');
+        return;
+      }
+      $('#confirmChangePassword').modal('show');
+    }
+  };
+
+  $scope.submitChangePassword = function() {
+    Recruiters.changePassword($scope.password).then(function() {
+      $('#confirmChangePassword').modal('hide');
+      $scope.password = null;
+      $scope.newPassword = null;
+      $scope.changePasswordForm.$setPristine();
+      $scope.title = 'Congratulations';
+      $scope.message = 'Password was successfully changed. Next time you log in make sure to use the new password!';
+      $('#messageModal').modal('show');
+    });
+  };
+
 
   // For File Uploads -------------------------------------------------------------------
   /* jshint ignore:start */
