@@ -94,7 +94,7 @@ describe('Pictures Controller: ', function() {
     it('should update a picture, given its id.', function(done) {
       this.session
         .put('/api/pictures/1')
-        .send({"fileLabel" : "updated picture"})
+        .send({"fileLabel" : "updated picture", "filePath": "updated path"})
         .expect('Content-Type', /json/)
         .expect(200)
         .end(help.isBodyEqual({
