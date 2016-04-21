@@ -513,9 +513,26 @@
                   </div>
                   <div class="row">
                     <!--//course-list-header-->
-                    <article class="contact-form col-md-12">
-                      <h4 class="title text-center">Pending Requests</h4>
+                    <div class="col-md-4" style="margin-bottom: 15px;">
+                      <form class="form-inline" role="form">
+                        <div class="input-group">
+                          <span><label class="control-label">Search:&nbsp</label></span>
+                          <div class="form-group">
+                            <input type="text" class="form-control" size="25" ng-model="searchPendingCompany" placeholder="Enter the company name">
+                              <span class="input-group-btn">
+                                <button class="btn btn-theme" type="button">
+                                  <i class="fa fa-search"></i>
+                                </button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-4 text-center" style="margin-top: 15px;">
+                      <h4 class="title">Pending Requests</h4>
+                    </div>
 
+                    <article class="contact-form col-md-12">
                       <div class="table-responsive">
                         <table class="table table-bordered">
                           <thead>
@@ -528,7 +545,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="company in pendingCompanies | filter:{companyStatus:'pending'}">
+                          <tr ng-repeat="company in pendingCompanies | filter:{companyStatus:'pending'} | filter:{name: searchPendingCompany}">
                             <td>
                               Information:
                               <ul>
@@ -604,9 +621,27 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-4" style="margin-bottom: 15px;">
+                      <form class="form-inline" role="form">
+                        <div class="input-group">
+                          <span><label class="control-label">Search:&nbsp</label></span>
+                          <div class="form-group">
+                            <input type="text" class="form-control" size="25" ng-model="searchCompanyOfPendingRecruiter" placeholder="Enter the company name">
+                              <span class="input-group-btn">
+                                <button class="btn btn-theme" type="button">
+                                  <i class="fa fa-search"></i>
+                                </button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-4 text-center" style="margin-top: 15px;">
+                      <h4 class="title">Pending Requests</h4>
+                    </div>
+
                     <!--//course-list-header-->
                     <article class="contact-form col-md-12">
-                      <h4 class="title text-center">Pending Requests</h4>
 
                       <div class="table-responsive">
                         <table class="table table-bordered">
@@ -620,7 +655,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="recruiter in pendingRecruiters">
+                          <tr ng-repeat="recruiter in pendingRecruiters | filter:{companyName: searchCompanyOfPendingRecruiter}">
                             <td>
                               Information:
                               <ul>
@@ -698,10 +733,25 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-9 text-center" style="margin-bottom: 15px;">
+                      <form class="form-inline" role="form">
+                        <div class="input-group">
+                          <span><label class="control-label">Search:&nbsp</label></span>
+                          <div class="form-group">
+                            <input type="text" class="form-control" size="25" ng-model="searchCompanyOfPendingJobOffer" placeholder="Enter the company name">
+                            <span class="input-group-btn">
+                              <button class="btn btn-theme" type="button">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                     <!--//course-list-header-->
                     <div class="course-item-header">
                       <div class="jobs-wrapper col-md-10 col-sm-9">
-                        <div class="panel panel-default page-row" ng-repeat="jobOffer in pendingJobOffers">
+                        <div class="panel panel-default page-row" ng-repeat="jobOffer in pendingJobOffers | filter:{companyName: searchCompanyOfPendingJobOffer}">
                           <div class="panel-heading">
                             <h3 class="panel-title">{{jobOffer.title}}&nbsp;(Company: {{jobOffer.companyName}})
                               <span class="label label-warning pull-right">{{jobOffer.jobOfferStatus | capitalize}}</span> <span class="label label-info pull-right" style="margin-right:10px">{{jobOffer.educationLevel}}</span> <span class="label label-success pull-right" style="margin-right:10px">{{jobOffer.jobPosition}}</span>
@@ -879,9 +929,26 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-md-4" style="margin-bottom: 15px;">
+                      <form class="form-inline" role="form">
+                        <div class="input-group">
+                          <span><label class="control-label">Search:&nbsp</label></span>
+                          <div class="form-group">
+                            <input type="text" class="form-control" size="25" ng-model="searchCompanyOfPendingPromotionalMaterial" placeholder="Enter the company name">
+                              <span class="input-group-btn">
+                                <button class="btn btn-theme" type="button">
+                                  <i class="fa fa-search"></i>
+                                </button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-4 text-center" style="margin-top: 15px;">
+                      <h4 class="title">Pending Requests</h4>
+                    </div>
                     <!--//course-list-header-->
                     <article class="contact-form col-md-12">
-                      <h4 class="title text-center">Pending Requests</h4>
 
                       <div class="table-responsive">
                         <table class="table table-bordered">
@@ -896,7 +963,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="promotionalDocument in pendingPromotionalMaterial">
+                          <tr ng-repeat="promotionalDocument in pendingPromotionalMaterial | filter:{companyName: searchCompanyOfPendingPromotionalMaterial}">
                             <td>
                               <a href="#">{{promotionalDocument.title}}</a>
                             </td>
