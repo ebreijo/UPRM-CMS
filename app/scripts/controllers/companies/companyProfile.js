@@ -373,7 +373,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     return false;
   };
 
-  // For File Upload -------------------------------------------------------------------
+  // For File Uploads -------------------------------------------------------------------
   /* jshint ignore:start */
   $scope.updateLogoConfig = {
     'options': { // passed into the Dropzone constructor
@@ -402,6 +402,13 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
   /* jshint ignore:end */
 
+  $scope.promoMaterialFilePath = '';
+  $scope.resetDocument = function(){
+    console.log('before being called: ' + $scope.promoMaterialFilePath);
+    $scope.promoMaterialFilePath = '';
+    console.log('after being called: ' + $scope.promoMaterialFilePath);
+  };
+
   /* jshint ignore:start */
   $scope.updatePromotionalMaterialConfig = {
     'options': { // passed into the Dropzone constructor
@@ -419,8 +426,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'success': function (file, response) {
         console.log('Success!!!!');
         this.removeAllFiles();
-        //Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
-        //$scope.companyProfile.generalInfo[0].logoPath = response.filePath;
+        $scope.promoMaterialFilePath = response.filePath;
       },
       'error': function(file, response) {
         this.removeAllFiles();
