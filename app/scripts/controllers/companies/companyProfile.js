@@ -492,5 +492,32 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
   /* jshint ignore:end */
 
+  /* jshint ignore:start */
+  $scope.updateJobOfferConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/companies/jobOffers/upload',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 5, // in MBs
+      'maxFiles': 1,
+      'acceptedFiles': 'application/pdf',
+      'createImageThumbnails': false
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        this.removeAllFiles();
+        $scope.promoMaterialFilePath = response.filePath;
+      },
+      'error': function(file, response) {
+        this.removeAllFiles();
+        alert('ERROR: File Too Large!');
+      }
+    }
+  };
+  /* jshint ignore:end */
+
 
 });

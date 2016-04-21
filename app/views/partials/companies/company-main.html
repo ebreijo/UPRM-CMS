@@ -877,13 +877,18 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <label for="jobOffer-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document (Optional)</b></label>
-                  <input uprm-file-uploader="jobOfferUploadConfig" style="display: none;" id="jobOffer-upload" type="file" accept="application/pdf"/>
+
+                  <!--<label for="jobOffer-upload" class="btn btn-info btn-sm" style="margin-bottom:15px"><b>Select Document (Optional)</b></label>-->
+                  <!--<input uprm-file-uploader="jobOfferUploadConfig" style="display: none;" id="jobOffer-upload" type="file" accept="application/pdf"/>-->
+
+                  <label type="button" uprm-file-uploader="updateJobOfferConfig" class="btn btn-info btn-sm" style="margin-bottom:15px"> Select Document (Optional) </label>
+
                   <!--
                   <button uprm-file-uploader="jobOfferUploadConfig" class="btn btn-theme btn-sm dz-default dz-message" style="text-align: center" >
                     Upload Company Logo (Optional)
                   </button>
                   -->
+
                 </div>
               </div>
               <div class="row">
