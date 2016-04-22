@@ -3,15 +3,20 @@
 var app = angular.module('uprmcmsApp');
 
 app.factory('PublicDocuments', function(Restangular) {
-  var obj = {};
 
-  obj.publicDocuments = {};
+  var obj = {
+    publicDocuments: []
+  };
 
-  obj.getAll = function() {
-    return Restangular.all('/api/documents').customGET().then(function(data) {
-      angular.copy(data, obj.publicDocuments);
+  obj.getAllPublicDocuments = function() {
+    return Restangular.all('/api/documents').getList().then(function(data) {
+      angular.copy(data.plain(), obj.publicDocuments);
     });
   };
+
+  return obj;
+
+});
 
   /*
   obj.updateAboutUs = function(aboutUs) {
@@ -157,6 +162,3 @@ app.factory('PublicDocuments', function(Restangular) {
     });
   };
   */
-
-  return obj;
-});
