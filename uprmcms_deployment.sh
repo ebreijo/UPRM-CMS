@@ -28,7 +28,7 @@ npm install pm2 -g
 # Kill pm2 process in case cluster mode doesn't work because of Error: ENOENT, no such file or directory for process.cwd()
 # pm2 kill
 
-# Start the application in cluster mode with maximum processes depending on available CPUs
+# Start the application uprm_cms in cluster mode with maximum processes depending on available CPUs
 pm2 start server.js -n uprm_cms -i 0
 
 # Show logs in console
@@ -36,6 +36,9 @@ pm2 logs uprm_cms
 
 # To stop the server and clusters
 # pm2 stop all
+
+# To kill and delete all apps
+# pm2 delete all
 
 # You can start the application using grunt as well
 # grunt serve:production
