@@ -39,7 +39,9 @@
              data-close-others="false" href="#">Documents <i class="fa fa-angle-down"></i></a>
           <ul class="dropdown-menu">
             <li>
-              <a data-toggle="modal" data-target="#manageDocumentsModal">Manage Documents&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-edit"></span></a>
+              <a data-toggle="modal" data-target="#manageDocumentsModal">
+                Manage Documents&nbsp;&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-edit"></span></a>
             </li>
             <li ng-repeat="item in documentList">
               <a href="/media/promotionalMaterial/ERV7.pdf" target="_blank">{{item.fileLabel}}</a>
@@ -47,11 +49,15 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a ui-sref="adminChangeCarousel">Manage Carousel</a>
+          <a ui-sref="adminChangeCarousel">
+            Manage Carousel
+          </a>
         </li>
         <!--//dropdown-->
         <li class="nav-item">
-          <a ui-sref="adminAboutUs">About Us</a>
+          <a ui-sref="adminAboutUs">
+            About Us
+          </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

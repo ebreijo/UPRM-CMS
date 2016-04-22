@@ -21,12 +21,6 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
   localStorageServiceProvider.setPrefix('uprmcmsApp');
 }]);
 
-/*
-app.config(['$cryptoProvider', function($cryptoProvider){
-  $cryptoProvider.setCryptographyKey('SPumKMp6VDSaOv1F3wKVcF9W+5XBNypn52IcHVNpLbs=');
-}]);
-*/
-
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);
 
