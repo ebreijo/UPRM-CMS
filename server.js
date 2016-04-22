@@ -7,6 +7,8 @@ var express = require('express'),
   path = require('path'),
   fs = require('fs');
 
+var https = require('https');
+
 /**
  * Main application file
  */
@@ -38,6 +40,8 @@ fs.readdirSync(routesPath).forEach(function (file) {
   }
 });
 
+
+
 // html5mode on in angular. Needs to be after bootstrapping the routes.
 require('./lib/angular')(router);
 
@@ -48,10 +52,19 @@ app.use(function(err, req, res, next) {
   res.status(err.status).json(err);
 });
 
+var options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('key-cert.pem')
+};
+
 db.sequelize.authenticate().then(function() {
   // Start server
   app.listen(config.port, function () {
     console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+  });
+
+  https.createServer(options,app).listen(3000, function () {
+    console.log('Express server listening on port %d', 3000, app.get('env'));
   });
 }, function(err) {
   console.log('Error authenticating the database', err);
