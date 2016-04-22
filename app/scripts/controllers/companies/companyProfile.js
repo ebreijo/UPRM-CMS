@@ -344,6 +344,11 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       //this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
       $scope.showJobOfferDateError = false;
       $('#addJobOfferModal').modal('hide');
+      $state.transitionTo($state.current, $stateParams, {
+        reload: true,
+        inherit: false,
+        notify: true
+      });
     }
     else if(($scope.addJobOfferExpirationDate.toISOString()) <= today){
       $scope.showJobOfferDateError = true;
