@@ -264,7 +264,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   var recruiters = [];
   $scope.recruiterLoggedInItem = {};
 
-
   Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
     recruiters = Recruiters.companyRecruiters;
 

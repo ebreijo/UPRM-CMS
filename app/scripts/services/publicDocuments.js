@@ -14,6 +14,8 @@ app.factory('PublicDocuments', function(Restangular) {
     });
   };
 
+
+
   return obj;
 
 });
