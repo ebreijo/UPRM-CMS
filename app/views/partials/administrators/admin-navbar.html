@@ -99,7 +99,9 @@
                 <div class="col-md-6">
                   <label><h5 class="title text-highlight"><b>Title:</b><br></h5></label>
                   <div class="form-group has-feedback" ng-class="{ 'has-error' : manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine}">
+
                     <input ng-model="addDocumentTitle" name="documentTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+
                     <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="manageDocumentsModalForm.documentTitle.$valid"></i>
                     <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine"></i>
                   </div>
@@ -108,18 +110,35 @@
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
-                  <label for="document-upload" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">Select Document</label>
-                  <input style="display: none;" id="document-upload" type="file" accept="application/pdf" required/>
+
+                  <!--<label for="document-upload" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">Select Document</label>-->
+                  <!--<input style="display: none;" id="document-upload" type="file" accept="application/pdf" required/>-->
+
+                  <label type="button" uprm-file-uploader="addPublicDocumentConfig" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">
+                    Select Document
+                  </label>
+
                 </div>
               </div>
+
               <div class="row" style="margin-top:5px; text-align:center">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-theme" ng-disabled="manageDocumentsModalForm.documentTitle.$invalid" style="margin-right:15px; margin-bottom:5px">Add</button>
+                  <button ng-click="addPublicDocument()" type="submit" class="btn btn-theme" ng-disabled="manageDocumentsModalForm.documentTitle.$invalid" style="margin-right:15px; margin-bottom:5px">
+                    Add
+                  </button>
                 </div>
               </div>
+
             </form>
             <div class="row text-center" style="margin-top:20px">
-              <label ><h4 class="title text-highlight"><b>List of Documents</b><br></h4></label>
+              <label>
+                <h4 class="title text-highlight">
+                  <b>
+                    List of Documents
+                  </b>
+                  <br>
+                </h4>
+              </label>
             </div>
 
             <table class="table table-bordered">
@@ -131,7 +150,7 @@
               </thead>
               <tbody ng-repeat="item in documentList">
               <tr>
-                <td><a href="documents/pdf-sample.pdf" target="_blank">{{item.fileLabel}}</a></td>
+                <td><a href="{{item.filePath}}" target="_blank">{{item.fileLabel}}</a></td>
                 <td><button ng-click="deleteDocumentItem(item)" class="btn btn-theme btn-sm">Delete</button></td>
               </tr>
               </tbody>

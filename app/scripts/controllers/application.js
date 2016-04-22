@@ -39,6 +39,9 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   });
 
   $scope.deleteDocumentItem = function(item){
+
+    PublicDocuments.deletePublicDocument(item.id);
+
     _.remove(this.documentList, function(element) {
       return element.id === item.id;
     });
@@ -47,9 +50,59 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   var index = 102;
   $scope.submitAddGeneralDocuments = function(form){
     if(form.$valid){
-      $scope.documentList.push({id: index,fileLabel: form.documentTitle.$viewValue,filePath: '/lib/documents'});
+
+      /*
+       {
+       id: index,
+       fileLabel: form.documentTitle.$viewValue,
+       filePath: '/lib/documents'
+       }
+       */
+
+      var publicDoc = {
+        fileLabel: form.documentTitle.$viewValue,
+        filePath: $scope.publicDocumentFilePath
+      };
+
+      PublicDocuments.addPublicDocuments(publicDoc);
+      $scope.documentList.push(publicDoc);
       index++;
     }
   };
+
+  $scope.publicDocumentFilePath = '';
+
+  $scope.addPublicDocument = function() {
+    //console.log(form.documentTitle.$viewValue);
+  };
+
+  // Public Documents Uploads:
+
+  /* jshint ignore:start */
+  $scope.addPublicDocumentConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/documents/upload',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 5, // in MBs
+      'maxFiles': 1,
+      'acceptedFiles': 'application/pdf',
+      'createImageThumbnails': false
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        this.removeAllFiles();
+        $scope.publicDocumentFilePath = response.filePath;
+      },
+      'error': function(file, response) {
+        this.removeAllFiles();
+        alert('ERROR: File Too Large!');
+      }
+    }
+  };
+  /* jshint ignore:end */
 
 });

@@ -103,7 +103,7 @@
                           <article class="course-item row-divider">
                             <div class="details row">
                               <div class="col-title col-md-4 col-sm-6">
-                                <a href={{item.filePath}}  target="_blank"> {{item.title}} </a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
+                                <a href="{{item.filePath}}"  target="_blank"> {{item.title}} </a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
                               </div>
                               <div class="col-meta col-md-8 col-sm-6">
                                 <div class="row">
@@ -207,7 +207,7 @@
 
                             <li class="list-group-item" ng-if="item.flyerPath">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="{{item.flyerPath}}"> Promotional Document</a>
+                              <a href={{item.flyerPath}}> Promotional Document</a>
                             </li>
 
                             <li class="list-group-item">

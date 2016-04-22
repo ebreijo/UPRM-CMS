@@ -153,7 +153,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     });
   };
 
-
   var clearList = function(list) {
     while(list.length > 0){
       list.pop();
