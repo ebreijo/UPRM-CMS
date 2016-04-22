@@ -254,79 +254,83 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     }
   };
 
-  //For Deleting Recruiters------------------------------------------------------------
+  $scope.executeTab2 = function() {
+    //For Deleting Recruiters------------------------------------------------------------
 
-  Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    $scope.companyProfile.recruiterList = Recruiters.companyRecruiters;
-  });
-
-  $scope.confirmRecruiter = function(item) {
-    $scope.tempRecruiter = angular.copy(item);
-  };
-
-  $scope.deleteRecruiter = function() {
-    Recruiters.removeRecruitersPerCompany($scope.getCurrentUser().companyName, {
-      'email': $scope.tempRecruiter.email,
-      'accountStatus': 'inactive'
-    }).then(function() {
-      _.remove($scope.companyProfile.recruiterList, function(element) {
-        return element.email === $scope.tempRecruiter.email;
-      });
-      $('#deleteRecruiterConfirmModal').modal('hide');
+    Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
+      $scope.companyProfile.recruiterList = Recruiters.companyRecruiters;
     });
 
-  };
+    $scope.confirmRecruiter = function(item) {
+      $scope.tempRecruiter = angular.copy(item);
+    };
 
-  //For Viewing and deleting Job Offers------------------------------------------------------------
-
-  JobOffers.getApprovedJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    $scope.companyProfile.jobOfferList = JobOffers.approvedCompanyJobOffers;
-  });
-
-  $scope.confirmJobOffer = function(item) {
-    $scope.tempJobOffer = angular.copy(item);
-  };
-
-  $scope.deleteJobOffer = function() {
-    JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, $scope.tempJobOffer.id, {'jobOfferStatus': 'rejected'});
-    _.remove(this.companyProfile.jobOfferList, function(element) {
-      return element.id === $scope.tempJobOffer.id;
-    });
-    $('#confirmDeleteJobOfferModal').modal('hide');
-  };
-  //For adding Job Offers------------------------------------------------------------
-
-  $scope.showJobOfferDateError = false;
-
-  $('#addjobOfferExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
-  });
-
-  $scope.submitAddCompanyJobOffer = function(form){
-    if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
-      var newJobOffer = {
-        'email': $scope.getCurrentUser().email,
-        'title': $scope.addJobOfferTitle,
-        'description': $scope.addJobOfferDescription,
-        'jobPosition': $scope.addJobOfferPosition,
-        'educationLevel': $scope.addJobOfferEducationalLevel,
-        'recentGraduate': $scope.addJobOfferRecentGraduateOption,
-        'creationDate': new Date(),
-        'expirationDate': $scope.addJobOfferExpirationDate,
-        'announcementNumber': $scope.addJobOfferAnnouncementNumber,
-        'flyerPath': $scope.jobofferFilePath,
-        'location': $scope.addJobOfferLocation
-      };
-
-      JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
-        $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
-        $scope.showJobOfferDateError = false;
-        $('#addJobOfferModal').modal('hide');
+    $scope.deleteRecruiter = function() {
+      Recruiters.removeRecruitersPerCompany($scope.getCurrentUser().companyName, {
+        'email': $scope.tempRecruiter.email,
+        'accountStatus': 'inactive'
+      }).then(function() {
+        _.remove($scope.companyProfile.recruiterList, function(element) {
+          return element.email === $scope.tempRecruiter.email;
+        });
+        $('#deleteRecruiterConfirmModal').modal('hide');
       });
-    }
-    else if(($scope.addJobOfferExpirationDate.toISOString()) <= (new Date()).toISOString()){
-      $scope.showJobOfferDateError = true;
-    }
+
+    };
+  };
+
+  $scope.executeTab3 = function() {
+    //For Viewing and deleting Job Offers------------------------------------------------------------
+
+    JobOffers.getApprovedJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
+      $scope.companyProfile.jobOfferList = JobOffers.approvedCompanyJobOffers;
+    });
+
+    $scope.confirmJobOffer = function(item) {
+      $scope.tempJobOffer = angular.copy(item);
+    };
+
+    $scope.deleteJobOffer = function() {
+      JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, $scope.tempJobOffer.id, {'jobOfferStatus': 'rejected'});
+      _.remove(this.companyProfile.jobOfferList, function(element) {
+        return element.id === $scope.tempJobOffer.id;
+      });
+      $('#confirmDeleteJobOfferModal').modal('hide');
+    };
+    //For adding Job Offers------------------------------------------------------------
+
+    $scope.showJobOfferDateError = false;
+
+    $('#addjobOfferExpirationDatePicker').datepicker({
+      format: 'yyyy-mm-dd'
+    });
+
+    $scope.submitAddCompanyJobOffer = function(form){
+      if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
+        var newJobOffer = {
+          'email': $scope.getCurrentUser().email,
+          'title': $scope.addJobOfferTitle,
+          'description': $scope.addJobOfferDescription,
+          'jobPosition': $scope.addJobOfferPosition,
+          'educationLevel': $scope.addJobOfferEducationalLevel,
+          'recentGraduate': $scope.addJobOfferRecentGraduateOption,
+          'creationDate': new Date(),
+          'expirationDate': $scope.addJobOfferExpirationDate,
+          'announcementNumber': $scope.addJobOfferAnnouncementNumber,
+          'flyerPath': $scope.jobofferFilePath,
+          'location': $scope.addJobOfferLocation
+        };
+
+        JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
+          $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
+          $scope.showJobOfferDateError = false;
+          $('#addJobOfferModal').modal('hide');
+        });
+      }
+      else if(($scope.addJobOfferExpirationDate.toISOString()) <= (new Date()).toISOString()){
+        $scope.showJobOfferDateError = true;
+      }
+    };
   };
 
   //Requesting an on Campus Service------------------------------------------------------------

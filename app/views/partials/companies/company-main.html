@@ -50,10 +50,12 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
                   <div class="page-content">
-                    <div class="row page-row">
+                    <div class="row">
                       <article class="welcome" style="padding-top:15px">
-                        <h3 class="title">Company Description<br></h3>
-                        <p>{{companyProfile.generalInfo[0].companyDescription}}</p>
+                        <div class="col-md-12" style="padding-bottom:5px">
+                          <h3 class="title">Company Description<br></h3>
+                          <p>{{companyProfile.generalInfo[0].companyDescription}}</p>
+                        </div>
                         <div class ="row text-center" style="margin-bottom:15px">
                           <span>Website: </span>
                           <a href="{{companyProfile.generalInfo[0].websiteUrl}}">{{companyProfile.generalInfo[0].websiteUrl}}</a>
@@ -61,67 +63,51 @@
                         <div class="col-md-12 text-center" style="padding-bottom:5px">
                           <button data-toggle="modal" data-target="#editCompanyDescriptionModal" ng-click="getCompanyDescriptionItem(companyProfile.generalInfo[0])" type="button" class="btn btn-theme btn-sm">Edit Description</button>
                         </div>
-                        <h3 class="title">Interested Majors:</h3>
                         <div class="col-md-12" style="padding-bottom:20px">
+                          <h3 class="title">Interested Majors:</h3>
                           <button class="btn btn-theme btn-xs" ng-repeat="item in companyProfile.interestedMajors" style="margin-right: 4px; margin-top: 5px; background-color: #069256"><b>{{item.name}}</b></button>
                         </div>
                         <div class="col-md-12" style="text-align: center">
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
-
-                        <h3 class="title">
-                          Promotional Material
-                        </h3>
-
+                        <div class="col-md-12" style="padding-bottom:5px">
+                        <h3 class="title">Promotional Material</h3>
+                        </div>
                         <div class="alert alert-danger alert-dismissable" ng-show="showPromotionalMaterialError">
                           <button type="button" class="close" ng-click="showPromotionalMaterialError=false" aria-hidden="true">&times;</button>
                           <strong class="alert-link">The maximum number of promotional material documents is 5. To add a new document either: delete or edit one of the existing materials listed below.</strong>
                         </div>
-                        <div class="course-item-header row-divider hidden-sm hidden-xs">
-                          <div class="row">
-                            <div class="col-title col-md-4 col-sm-6">
-                              <strong>Name</strong>
-                            </div>
-                            <div class="col-meta col-md-8 col-sm-6">
-                              <div class="row">
-                                <div class="col-duration col-md-4">
-                                  <strong>Expiration Date</strong>
-                                </div>
-                                <div class="col-level col-md-2">
-                                  <strong>Edit</strong>
-                                </div>
-                                <div class="col-location col-md-2">
-                                  <strong>Delete</strong>
-                                </div>
-                                <div class="col-start col-md-4">
-                                </div>
-                              </div>
+                        <article class="contact-form col-md-12">
+                          <div class="course-item-header">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Expiration Date</th>
+                                  <th>Edit</th>
+                                  <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in companyProfile.promotionalMaterial">
+                                  <td>
+                                    <a href="{{item.filePath}}"  target="_blank"> {{item.title}} </a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
+                                  </td>
+                                  <td>{{item.expirationDate | date: 'EEE, MMMM d, y'}}</td>
+                                  <td>
+                                    <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="getPromotionalMaterialItem(item)">Edit</button>
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#deletePromotionalMaterialConfirmModal" ng-click="getPromotionalMaterialItem(item)">Delete</button>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                              <!--//table-->
                             </div>
                           </div>
-                        </div>
-                        <div ng-repeat="item in companyProfile.promotionalMaterial">
-                          <article class="course-item row-divider">
-                            <div class="details row">
-                              <div class="col-title col-md-4 col-sm-6">
-                                <a href="{{item.filePath}}"  target="_blank"> {{item.title}} </a> <span class="label label-success" ng-show="item.status === 'approved'">Approved</span> <span class="label label-warning" ng-show="item.status === 'pending'">Pending</span>
-                              </div>
-                              <div class="col-meta col-md-8 col-sm-6">
-                                <div class="row">
-                                  <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
-                                  <div class="col-level col-md-2" style="=padding-top:2px">
-                                    <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="getPromotionalMaterialItem(item)" class="btn btn-theme btn-xs">Edit</button>
-                                  </div>
-                                  <div class="col-location col-md-2" style="padding-top:2px">
-                                    <button type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#deletePromotionalMaterialConfirmModal" ng-click="getPromotionalMaterialItem(item)">Delete</button>
-                                  </div>
-                                  <div class="col-duration col-md-4"></div>
-                                </div>
-                              </div>
-                              <!--//col-meta-->
-                            </div>
-                            <!--//details-->
-                          </article>
-                        </div>
+                        </article>
                         <div class="col-md-12 text-center" style="margin-bottom:5px; margin-top:10px">
                           <button type="button" ng-click="openAddCompanyPromotionalMaterialModal()" class="btn btn-theme btn-sm">Add Promotional Material</button>
                         </div>
@@ -132,53 +118,38 @@
                 </div>
                 <div class="tab-pane" id="tab2">
                   <div class="row">
-                    <!--//course-list-header-->
-                    <div class="course-item-header row-divider hidden-sm hidden-xs">
-                      <div class="row">
-                        <div class="col-title col-md-12 col-sm-12">
-                          <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
-                        </div>
-                        <div class="col-title col-md-4 col-sm-6">
-                          <strong>Name</strong>
-                        </div>
-                        <div class="col-meta col-md-8 col-sm-6">
-                          <div class="row">
-                            <div class="col-start col-md-4">
-                              <strong>Email</strong>
-                            </div>
-                            <div class="col-duration col-md-5">
-                              <strong>Company Location</strong>
-                            </div>
-                            <div class="col-location col-md-2">
-                              <strong>Delete</strong>
-                            </div>
-                          </div>
-                        </div>
-                        <!--//col-meta-->
-                      </div>
-                      <!---//row-->
+                    <div class="col-title col-md-12 col-sm-12">
+                      <h3 class="title" style="margin-bottom:25px">Recruiter List</h3>
                     </div>
-                    <!--//course-item-header-->
-                      <article class="course-item row-divider" ng-repeat="item in companyProfile.recruiterList">
-                        <div class="details row">
-                          <div class="col-title col-md-4 col-sm-6">{{item.firstName}} {{item.lastName}}
-                            <span class="label label-success" ng-show="item.accountStatus === 'active'">Approved</span>
-                            <!--<span class="label label-danger" ng-show="item.accountStatus === 'inactive'">Inactive</span>-->
-                            <!--<span class="label label-warning" ng-show="item.accountStatus === 'pending'">Pending</span>-->
-                          </div>
-                          <div class="col-meta col-md-8 col-sm-6">
-                            <div class="row">
-                              <div class="col-start col-md-4">{{item.email}}</div>
-                              <div class="col-duration col-md-5">{{item.companyLocation.city}}, {{item.companyLocation.state}}, {{item.companyLocation.country}}</div>
-                              <div class="col-location col-md-2" style="padding-top:2px">
+                    <article class="contact-form col-md-12">
+                      <div class="course-item-header">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Company Location</th>
+                              <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in companyProfile.recruiterList">
+                              <td>
+                                {{item.firstName}} {{item.lastName}} <span class="label" ng-class="{'label-success': item.accountStatus === 'active', 'label-danger': item.accountStatus === 'inactive'}">{{item.accountStatus | capitalize}}</span>
+                              </td>
+                              <td>{{item.email}}</td>
+                              <td>{{item.companyLocation.city}}, <span ng-if="item.companyLocation.state">{{item.companyLocation.state}},</span> {{item.companyLocation.country}}</td>
+                              <td>
                                 <button ng-show="item.email!==getCurrentUser().email" type="button" class="btn btn-theme btn-xs" data-toggle="modal" data-target="#deleteRecruiterConfirmModal" ng-click="confirmRecruiter(item)">Delete</button>
-                              </div>
-                            </div>
-                          </div>
-                          <!--//col-meta-->
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                          <!--//table-->
                         </div>
-                        <!--//details-->
-                      </article>
+                      </div>
+                    </article>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab3">
