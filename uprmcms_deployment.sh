@@ -25,6 +25,9 @@ export BLUEBIRD_DEBUG=0
 # Install pm2 - A production process manager with a built-in load balancer
 npm install pm2 -g
 
+# Kill pm2 process in case cluster mode doesn't work because of Error: ENOENT, no such file or directory for process.cwd()
+# pm2 kill
+
 # Start the application in cluster mode with maximum processes depending on available CPUs
 pm2 start server.js -n uprm_cms -i 0
 
