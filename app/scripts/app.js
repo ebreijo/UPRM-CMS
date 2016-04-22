@@ -392,11 +392,19 @@ app.run(function($rootScope, $state, Auth, AUTH_EVENTS, USER_ROLES) {
       if (Auth.isAuthenticated()) {
         // user is not allowed
         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+
+        if (Auth.getUserRole() === USER_ROLES.recruiter) {
+          $state.go('company');
+        } else if (Auth.getUserRole() === USER_ROLES.administrator) {
+          $state.go('adminProfile');
+        } else if (Auth.getUserRole() === USER_ROLES.student) {
+          $state.go('jobFair');
+        }
       } else {
         // user is not logged in
         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+        $state.go('landingPage'); // redirect to landing page
       }
-      $state.go('landingPage'); // redirect to landing page
     }
   });
 

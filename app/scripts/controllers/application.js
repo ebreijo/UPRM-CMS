@@ -9,7 +9,11 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   $scope.userRoles = USER_ROLES;
 
   // Logout function to use in child scopes
-  $scope.logout = Auth.logout;
+  $scope.logout = function() {
+    Auth.logout().then(function() {
+      $state.go('landingPage');
+    });
+  };
 
   $scope.$on(AUTH_EVENTS.loginSuccess, function(event, user) {
     $scope.currentUser = user;
