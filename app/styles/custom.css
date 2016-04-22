@@ -13,8 +13,25 @@
 {
 }
 
-/* Set slider max height */
-.flexslider .slides img {
-  height: 350px;
+/* Set slider max height depending on the size of the screen */
+@media only screen and (max-width: 350px) {
+  .flexslider .slides img {width:100%;height:120px;}
 }
-
+@media only screen and (min-width: 350px) and (max-width: 480px) {
+  .flexslider .slides img {width:100%;height:150px;}
+}
+@media only screen and (min-width: 480px) and (max-width: 620px) {
+  .flexslider .slides img {width:100%;height:170px;}
+}
+@media only screen and (min-width: 620px) and (max-width: 768px) {
+  .flexslider .slides img {width:100%;height:200px;}
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .flexslider .slides img {width:100%;height:250px;}
+}
+@media only screen and (min-width: 959px) and (max-width: 1200px){
+  .flexslider .slides img {width:100%;height:300px;}
+}
+@media only screen and (min-width: 1200px) {
+  .flexslider .slides img {width:1140px;height:350px;}
+}
