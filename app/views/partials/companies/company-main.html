@@ -41,7 +41,7 @@
                   <a href="#tab4" data-toggle="tab">Campus Services</a>
                 </li>
                 <li>
-                  <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">{{indexPendingRequests}}</span></a>
+                  <a href="#tab5" data-toggle="tab">Requests Status <span class="badge badge-theme">{{companyProfile.pendingRequests.length}}</span></a>
                 </li>
                 <li>
                   <a href="#tab6" data-toggle="tab">Account Settings</a>
@@ -108,7 +108,7 @@
                               <div class="col-meta col-md-8 col-sm-6">
                                 <div class="row">
                                   <div class="col-start col-md-4">{{item.expirationDate | date: 'MMMM d, y'}}</div>
-                                  <div class="col-level col-md-2" style="padding-top:2px">
+                                  <div class="col-level col-md-2" style="=padding-top:2px">
                                     <button type="button" data-toggle="modal" data-target="#editCompanyPromotionalMaterialModal" ng-click="getPromotionalMaterialItem(item)" class="btn btn-theme btn-xs">Edit</button>
                                   </div>
                                   <div class="col-location col-md-2" style="padding-top:2px">
@@ -171,7 +171,7 @@
                               <div class="col-start col-md-4">{{item.email}}</div>
                               <div class="col-duration col-md-5">{{item.companyLocation.city}}, {{item.companyLocation.state}}, {{item.companyLocation.country}}</div>
                               <div class="col-location col-md-2" style="padding-top:2px">
-                                <button ng-show="item.email!==recruiterLoggedIn" type="button" class="btn btn-theme btn-xs" ng-click="deleteRecruiter(item)">Delete</button>
+                                <button ng-show="item.email!==recruiterLoggedInItem.email" type="button" class="btn btn-theme btn-xs" ng-click="deleteRecruiter(item)">Delete</button>
                               </div>
                             </div>
                           </div>
@@ -639,9 +639,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <p>{{companyProfile.interestedMajors}}</p>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -748,7 +745,6 @@
 
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
 
@@ -847,7 +843,7 @@
               </div>
               <label style="margin-top:10px"><h5 class="title text-highlight"><b>Announcement Number (Optional):</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern}">
-                <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([0-9]{0,30})$/i"/>
+                <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([-a-z0-9]{0,30})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern && !addCompanyJobOfferForm.jobOfferAnnouncementNumber.$modelValue === false"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern"></i>
               </div>

@@ -197,18 +197,29 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.deleteCompanyPromotionalMaterial = function(item){
 
     PromotionalMaterial.removePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, item.id);
-
-    _.remove(this.companyProfile.promotionalMaterial, function(element) {
-      return element.id === item.id;
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
     });
   };
   // TODO
   $scope.submitCompanyPromotionalMaterial = function(form){
     if(form.$valid && $scope.PromotionalMaterialItem.expirationDate.toISOString() > today){
-      var promotionalMaterialElement = _.find(this.companyProfile.promotionalMaterial, { id: $scope.PromotionalMaterialItem.id});
-      _.merge(promotionalMaterialElement, $scope.PromotionalMaterialItem);
       $scope.showEditPromotionalMaterialDateError = false;
+      PromotionalMaterial.updatePromotionalMaterialPerCompany($scope.getCurrentUser().companyName,
+        {
+          title: $scope.PromotionalMaterialItem.title,
+          expirationDate: $scope.PromotionalMaterialItem.expirationDate
+        }, $scope.PromotionalMaterialItem.id);
       $('#editCompanyPromotionalMaterialModal').modal('hide');
+      $('#editCompanyPromotionalMaterialModal').on('hidden.bs.modal', function () {
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      });
     }
     else if(($scope.PromotionalMaterialItem.expirationDate.toISOString()) <= today){
       $scope.showEditPromotionalMaterialDateError = true;
@@ -233,22 +244,26 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     }
   };
 
-  var indexPromotionalMaterial = 6;
+  //var indexPromotionalMaterial = 6;
   $scope.submitAddCompanyPromotionalMaterial = function(form){
     if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
-      this.companyProfile.promotionalMaterial.push({id: indexPromotionalMaterial, title: $scope.addPromotionalMaterialItemTitle, expirationDate: $scope.addPromotionalMaterialItemExpirationDate, status: 'pending'});
       $scope.showAddPromotionalMaterialDateError = false;
 
-      PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName,
-        {
-          title: $scope.addPromotionalMaterialItemTitle,
-          expirationDate: $scope.addPromotionalMaterialItemExpirationDate,
-          companyName: $scope.getCurrentUser().companyName,
-          filePath : $scope.promoMaterialFilePath
+      PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName, {
+        title: $scope.addPromotionalMaterialItemTitle,
+        expirationDate: $scope.addPromotionalMaterialItemExpirationDate,
+        filePath : $scope.promoMaterialFilePath
+      }).then(function() {
+        $('#addPromotionalMaterialModal').modal('hide');
+        $('#addPromotionalMaterialModal').on('hidden.bs.modal', function () {
+          $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+          });
         });
 
-      $('#addPromotionalMaterialModal').modal('hide');
-      indexPromotionalMaterial++;
+      });
       //Jasmine Test
       return true;
     }
@@ -276,6 +291,10 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   });
 
   $scope.deleteRecruiter = function(item){
+    Recruiters.removeRecruitersPerCompany($scope.getCurrentUser().companyName, {
+      'email': item.email,
+      'accountStatus': 'inactive'
+    });
     _.remove(this.companyProfile.recruiterList, function(element) {
       return element.email === item.email;
     });
@@ -293,6 +312,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   });
 
   $scope.deleteJobOffer = function(item){
+    JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, item.id, {'jobOfferStatus': 'rejected'});
     _.remove(this.companyProfile.jobOfferList, function(element) {
       return element.id === item.id;
     });
@@ -305,28 +325,24 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     format: 'yyyy-mm-dd'
   });
 
+  // TODO
   $scope.submitAddCompanyJobOffer = function(form){
     if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > today){
-
-      JobOffers.addJobOfferPerCompany($scope.getCurrentUser().companyName, {
-        companyName: $scope.getCurrentUser().companyName,
-        email: $scope.getCurrentUser().email,
-        title: $scope.addJobOfferTitle,
-        description: $scope.addJobOfferDescription,
-        recentGraduate: $scope.addJobOfferRecentGraduateOption,
-        jobPosition: $scope.addJobOfferPosition,
-        educationLevel: $scope.addJobOfferEducationalLevel,
-        announcementNumber: $scope.addJobOfferAnnouncementNumber,
-        location: $scope.addJobOfferLocation,
-        expirationDate: $scope.addJobOfferExpirationDate.toISOString(),
-        creationDate: today,
-        jobOfferStatus: 'pending',
-        flyerPath: $scope.jobofferFilePath
+      JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, {
+        'email': $scope.getCurrentUser().email,
+        'title': $scope.addJobOfferTitle,
+        'description': $scope.addJobOfferDescription,
+        'jobPosition': $scope.addJobOfferPosition,
+        'educationLevel': $scope.addJobOfferEducationalLevel,
+        'recentGraduate': $scope.addJobOfferRecentGraduateOption,
+        'creationDate': new Date(),
+        'expirationDate': $scope.addJobOfferExpirationDate,
+        'announcementNumber': $scope.addJobOfferAnnouncementNumber,
+        'flyerPath': $scope.jobofferFilePath,
+        'location': $scope.addJobOfferLocation
       });
-
+      //this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
       $scope.showJobOfferDateError = false;
-
-
       $('#addJobOfferModal').modal('hide');
     }
     else if(($scope.addJobOfferExpirationDate.toISOString()) <= today){
@@ -377,13 +393,13 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
 
   //For Pending Requests Tab------------------------------------------------------------
-  $scope.indexPendingRequests = 1;
   var pendingPromotionalMaterial = [];
   var pendingJobOffers = [];
 
 
   PromotionalMaterial.getPendingPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
     pendingPromotionalMaterial = PromotionalMaterial.pendingCompanyPromotionalMaterial;
+
     for (var i = 0; i < pendingPromotionalMaterial.length; i++) {
       $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  pendingPromotionalMaterial[i].title, status: 'pending'});
     }
@@ -394,7 +410,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
     for (var i = 0; i < pendingJobOffers.length; i++) {
       $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + pendingJobOffers[i].title, status: 'pending'});
-      $scope.indexPendingRequests++;
     }
   });
 
@@ -463,7 +478,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'success': function (file, response) {
         console.log('Success!!!!');
         this.removeAllFiles();
-        Companies.updateCompanyGeneralInformation({"logoPath": response.filePath}, $scope.getCurrentUser().companyName);
+        Companies.updateCompanyGeneralInformation({'logoPath': response.filePath}, $scope.getCurrentUser().companyName);
         $scope.companyProfile.generalInfo[0].logoPath = response.filePath;
       },
       'error': function(file, response) {

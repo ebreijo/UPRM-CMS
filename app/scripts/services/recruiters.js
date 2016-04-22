@@ -32,6 +32,10 @@ app.factory('Recruiters', function(Restangular) {
     });
   };
 
+  obj.removeRecruitersPerCompany = function(companyName, recruiter) {
+    return Restangular.one('/api/companies', companyName).customPUT(recruiter, 'recruiters');
+  };
+
   obj.updateRecruiterStatusPerCompanyForAdmins = function(companyName, recruiter) {
     return Restangular.one('/api/admins/companies', companyName).customPUT(recruiter, 'recruiters');
   };
