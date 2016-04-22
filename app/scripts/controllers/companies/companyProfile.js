@@ -264,7 +264,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     $scope.tempRecruiter = angular.copy(item);
   };
 
-  $scope.deleteRecruiter = function(){
+  $scope.deleteRecruiter = function() {
     Recruiters.removeRecruitersPerCompany($scope.getCurrentUser().companyName, {
       'email': $scope.tempRecruiter.email,
       'accountStatus': 'inactive'
@@ -287,7 +287,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     $scope.tempJobOffer = angular.copy(item);
   };
 
-  $scope.deleteJobOffer = function(){
+  $scope.deleteJobOffer = function() {
     JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, $scope.tempJobOffer.id, {'jobOfferStatus': 'rejected'});
     _.remove(this.companyProfile.jobOfferList, function(element) {
       return element.id === $scope.tempJobOffer.id;
