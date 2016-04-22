@@ -10,7 +10,8 @@ app.factory('JobOffers', function(Restangular, _) {
     pendingCompanyJobOffers: [],
     companyJobOffers: [],
     companyJobOffersForAdmins: [],
-    companyJobOffersForStudents: []
+    companyJobOffersForStudents: [],
+    jobOffer: {}
   };
 
   obj.getAllJobOffersAdmins = function(status) {
@@ -43,6 +44,14 @@ app.factory('JobOffers', function(Restangular, _) {
     return Restangular.one('/api/companies', companyName).getList('jobOffers').then(function(compJobOffers){
       angular.copy(compJobOffers.plain(), obj.companyJobOffers);
     });
+  };
+
+  obj.removeJobOffersPerCompany = function(companyName, id, jobOffer) {
+    return Restangular.one('/api/companies', companyName).one('jobOffers', id).customPUT(jobOffer);
+  };
+
+  obj.addJobOffersPerCompany = function(companyName, jobOffer) {
+    return Restangular.one('/api/companies', companyName).customPOST(jobOffer, 'jobOffers');
   };
 
   obj.getJobOffersPerCompanyForAdmins = function(companyName, status) {

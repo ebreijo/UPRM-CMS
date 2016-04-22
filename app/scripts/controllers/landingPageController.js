@@ -15,7 +15,8 @@ app.controller('LandingPageCtrl', function($scope, Pictures) {
     $(document).ready(function() {
       setTimeout(function() {
         $('.flexslider').flexslider({
-          animation: 'slide'
+          animation: 'slide',
+          touch: true
         }).show();
       }, 100);
     });

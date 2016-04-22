@@ -59,15 +59,15 @@ app.factory('PromotionalMaterial', function(Restangular, _) {
   };
 
   obj.addPromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
-    return Restangular.one('/api/companies', companyName).one('promotionalMaterial').customPOST(promotionalMaterial);
+    return Restangular.one('/api/companies', companyName).customPOST(promotionalMaterial, 'promotionalMaterial');
   };
 
-  obj.updatePromotionalMaterialPerCompany = function(companyName, promotionalMaterial) {
-    return Restangular.one('/api/companies', companyName).one('promotionalMaterial', promotionalMaterial.id).customPUT(promotionalMaterial);
+  obj.updatePromotionalMaterialPerCompany = function(companyName, promotionalMaterial, id) {
+    return Restangular.one('/api/companies', companyName).one('promotionalMaterial', id).customPUT(promotionalMaterial);
   };
 
   obj.removePromotionalMaterialPerCompany = function(companyName, id) {
-    return Restangular.one('/api/companies', companyName).customDELETE('promotionalMaterial/' + id);
+    return Restangular.one('/api/companies', companyName).one('promotionalMaterial', id).remove();
   };
 
   obj.getPromotionalMaterialPerCompanyForStudents = function(companyName) {

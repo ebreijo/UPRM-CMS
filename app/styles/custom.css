@@ -13,3 +13,8 @@
 {
 }
 
+/* Set slider max height */
+.flexslider .slides img {
+  height: 350px;
+}
+
