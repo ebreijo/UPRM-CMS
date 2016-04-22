@@ -37,19 +37,25 @@ describe('Documents Controller: ', function() {
         .get('/api/documents')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end(help.isBodyEqual([{
-          id: 1,
-          fileLabel : 'document1',
-          filePath : '/lib/documents'
-        }, {
-          id: 2,
-          fileLabel : 'document2',
-          filePath : '/lib/documents'
-        }, {
-          id: 3,
-          fileLabel : 'document3',
-          filePath : '/lib/documents'
-        }], done));
+        .end(help.isBodyEqual([
+          { id: 1,
+            fileLabel: 'Job Fair Dress Code',
+            filePath: '/lib/documents'
+          },
+          {
+            id: 2,
+            fileLabel: 'Resume Template',
+            filePath: '/lib/documents'
+          },
+          {
+            id: 3, fileLabel: '8th Job Fair',
+            filePath: '/lib/documents'
+          },
+          {
+            id: 4,
+            fileLabel: 'Interview Tips',
+            filePath: '/lib/documents'
+          }], done));
     });
   });
 
@@ -63,9 +69,9 @@ describe('Documents Controller: ', function() {
         .expect('Content-Type', /json/)
         .expect(201)
         .end(help.isBodyEqual({
-          "id": 4,
-          "fileLabel": "new document name",
-          "filePath": "/documents/file1"
+          id: 5,
+          fileLabel: 'new document name',
+          filePath: '/documents/file1'
         }, done));
     });
   });
@@ -78,9 +84,9 @@ describe('Documents Controller: ', function() {
         .expect(200)
         .end(help.isBodyEqual({
           id: 1,
-          fileLabel : 'document1',
-          filePath : '/lib/documents'
-        }, done));
+          fileLabel: 'Job Fair Dress Code',
+          filePath: '/lib/documents' }
+          , done));
     });
 
     it('should throw a 404 error if document does not exist.', function(done) {

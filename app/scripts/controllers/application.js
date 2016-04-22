@@ -32,8 +32,6 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
     Auth.studentLogin();
   };
 
-  //var documents = PublicDocuments.getAllPublicDocuments();
-
   //For Document Items in Navbar
   /*
   var documents = [
@@ -63,33 +61,9 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
   //$scope.documentList = [];
   $scope.addDocumentTitle = null;
 
-
-  /*
-  for (var i =0; i < documents.length; i++) {
-    $scope.documentList.push(documents[i]);
-  }
-  */
-
   PublicDocuments.getAllPublicDocuments().then(function() {
     $scope.documentList = PublicDocuments.publicDocuments;
-
-    console.log();
   });
-
-  /*
-  Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    recruiters = Recruiters.companyRecruiters;
-
-    for (var i = 0; i < recruiters.length; i++) {
-      $scope.companyProfile.recruiterList.push(recruiters[i]);
-      if (recruiters[i].email === $scope.getCurrentUser().email){
-        $scope.recruiterLoggedInItem = angular.copy(recruiters[i]);
-      }
-    }
-  });
-  */
-
-  $scope.documentList = PublicDocuments.getAllPublicDocuments();
 
   $scope.deleteDocumentItem = function(item){
     _.remove(this.documentList, function(element) {

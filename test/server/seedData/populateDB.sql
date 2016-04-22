@@ -230,13 +230,16 @@ INSERT INTO promotional_material (company_name, title, file_path, expiration_dat
 VALUES ('Apple', 'Promotion4', '/lib/promotionalMaterial', '2030-07-22 12:12:12', 'approved');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('document1', '/lib/documents');
+VALUES ('Job Fair Dress Code', '/lib/documents');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('document2', '/lib/documents');
+VALUES ('Resume Template', '/lib/documents');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('document3', '/lib/documents');
+VALUES ('8th Job Fair', '/lib/documents');
+
+INSERT INTO public_documents (file_label, file_path)
+VALUES ('Interview Tips', '/lib/documents');
 
 INSERT INTO requirements (requirement)
 VALUES ('Five or more copies of your resume (preferably in English).');
