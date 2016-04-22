@@ -313,29 +313,21 @@ describe('Controller: Company Profile', function () {
   });
 
   describe('scope.deleteCompanyPromotionalMaterial', function () {
+    var form;
+    beforeEach(function() {
+      form = {};
+      spyOn(PromotionalMaterial, 'removePromotionalMaterialPerCompany').and.callFake(function() {
+        return q.when({});
+      });
+      scope.PromotionalMaterialItem = {
+        id: '1'
+      };
+    });
 
     it('The passed promotional material should be successfully removed if valid.', function () {
-
-      scope.companyProfile = {
-        'promotionalMaterial':[{
-          id: 1,
-          companyName: 'IBM',
-          title: 'PromotionalMaterial1',
-          expirationDate: '2016-07-22T16:12:12.000Z',
-          status: 'approved'
-        },
-          {
-            id: 2,
-            companyName: 'IBM',
-            title: 'PromotionalMaterial2',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            status: 'pending'
-          }]
-        };
-
-      scope.deleteCompanyPromotionalMaterial(scope.companyProfile.promotionalMaterial[0]);
-
-      expect(scope.companyProfile.promotionalMaterial.length).toBe(1);
+      form.$valid = true;
+      scope.deleteCompanyPromotionalMaterial(form);
+      expect(PromotionalMaterial.removePromotionalMaterialPerCompany).toHaveBeenCalledWith(scope.getCurrentUser().companyName, scope.PromotionalMaterialItem.id);
 
     });
 
@@ -386,51 +378,19 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.deleteRecruiter', function () {
 
+    beforeEach(function() {
+      spyOn(Recruiters, 'removeRecruitersPerCompany').and.callFake(function() {
+        return q.when({});
+      });
+
+      scope.tempRecruiter = {
+        email: 'sergio@ibm.com'
+      };
+    });
+
     it('The passed recruiter should be successfully removed if valid.', function () {
-
-      scope.companyProfile = {
-        'recruiterList':[{
-          email: 'juanito@gmail.com',
-          companyName: 'IBM',
-          firstName: 'Juanito',
-          lastName: 'Perez',
-          phoneNumber: '787-555-5555',
-          accountStatus: 'pending',
-          registrationDate: '2016-03-29T01:31:59.000Z',
-          companyLocation: {
-            id: 4,
-            companyName: 'Google',
-            streetAddress: '1600 Amphitheatre Parkway',
-            city: 'Mountain View',
-            state: 'CA',
-            country: 'United States',
-            zipCode: '94043',
-            phoneNumber: null
-          }
-        },
-          {
-            email: 'leonardo@ibm.com',
-            companyName: 'IBM',
-            firstName: 'Leonardo',
-            lastName: 'Dicaprio',
-            phoneNumber: '787-555-5555',
-            accountStatus: 'inactive',
-            registrationDate: '2016-03-29T14:51:52.000Z',
-            companyLocation: {
-              id: 2,
-              streetAddress: '1 New Orchard Road',
-              city: 'Armonk',
-              state: 'NY',
-              country: 'United States',
-              zipCode: '10504',
-              phoneNumber: null
-            }
-          }]
-        };
-
-      scope.deleteRecruiter(scope.companyProfile.recruiterList[0]);
-
-      expect(scope.companyProfile.recruiterList.length).toBe(1);
+      scope.deleteRecruiter();
+      expect(Recruiters.removeRecruitersPerCompany).toHaveBeenCalled();
 
     });
 
@@ -505,46 +465,18 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.deleteJobOffer', function () {
 
-    it('The passed recruiter should be successfully removed if valid.', function () {
+    beforeEach(function() {
+      spyOn(JobOffers, 'removeJobOffersPerCompany').and.callFake(function() {
+        return q.when({});
+      });
+      scope.tempJobOffer = {
+        id: '1'
+      };
+    });
 
-      scope.companyProfile = {
-        'jobOfferList':[{
-          id: 1,
-          companyName: 'IBM',
-          email: 'sergio@ibm.com',
-          title: 'Engineering Support Assistant',
-          description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-          jobPosition: 'Full-Time',
-          educationLevel: 'Bachelors',
-          recentGraduate: true,
-          creationDate: '2016-02-22T16:12:12.000Z',
-          expirationDate: '2016-07-22T16:12:12.000Z',
-          announcementNumber: 17177328217,
-          flyerPath: 'documents/pdf-sample.pdf',
-          jobOfferStatus: 'approved',
-          location: 'Durham, NC'
-        },
-          {
-            id: 2,
-            companyName: 'IBM',
-            email: 'juanito@gmail.com',
-            title: 'Chief Electronics Engineer',
-            description: 'Job summary, consectetur adipiscing elit. Sed facilisis magna fermentum mauris posuere convallis. Sed fermentum cursus lacinia. Phasellus ac tortor massa. Mauris eget nisi blandit.',
-            jobPosition: 'Part-Time',
-            educationLevel: 'Bachelors',
-            recentGraduate: false,
-            creationDate: '2016-02-22T16:12:12.000Z',
-            expirationDate: '2016-07-22T16:12:12.000Z',
-            announcementNumber: 33243554354,
-            flyerPath: 'documents/pdf-sample.pdf',
-            jobOfferStatus: 'pending',
-            location: 'Durham, NC'
-          }]
-        };
-
-      scope.deleteJobOffer(scope.companyProfile.jobOfferList[0]);
-
-      expect(scope.companyProfile.jobOfferList.length).toBe(1);
+    it('The passed job offer should be successfully removed if valid.', function () {
+      scope.deleteJobOffer();
+      expect(JobOffers.removeJobOffersPerCompany).toHaveBeenCalledWith(scope.getCurrentUser().companyName, scope.tempJobOffer.id, {jobOfferStatus : 'rejected'});
 
     });
 
