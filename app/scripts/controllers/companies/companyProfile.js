@@ -28,8 +28,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     ]
   };
 
-  var today = (new Date()).toISOString();
-
 
   //---------------------------------------Execute Tab 1---------------------------------------------
   $scope.executeTab1 = function() {
@@ -41,43 +39,38 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       $scope.companyProfile.generalInfo.push({name: companyInfo.name, websiteUrl: companyInfo.websiteUrl, logoPath: companyInfo.logoPath, companyDescription: companyInfo.companyDescription, companyStatus: companyInfo.companyStatus});
     });
 
+    //For Edit Company Description Modal------------------------------------------------------
+
+    $scope.CompanyDescriptionItem = {};
+
+    $scope.getCompanyDescriptionItem = function(item) {
+      $scope.CompanyDescriptionItem = angular.copy(item);
+    };
+
+    $scope.submitCompanyDescription = function(form){
+      if(form.$valid){
+        Companies.updateCompanyGeneralInformation($scope.CompanyDescriptionItem, $scope.getCurrentUser().companyName).then(function() {
+          $scope.getCurrentUser().companyName = $scope.CompanyDescriptionItem.name;
+          _.merge($scope.companyProfile.generalInfo[0], $scope.CompanyDescriptionItem);
+          $('#editCompanyDescriptionModal').modal('hide');
+        });
+        //Jasmine Test
+        return true;
+      }
+      //Jasmine Test
+      return false;
+    };
+
   };
-  //---------------------------------------End Tab 1---------------------------------------------
 
   $scope.executeTab1();
-  //For Edit Company Description Modal------------------------------------------------------
+  //---------------------------------------End Tab 1---------------------------------------------
 
-  $scope.CompanyDescriptionItem = {};
-
-  $scope.getCompanyDescriptionItem = function(item) {
-    $scope.CompanyDescriptionItem = angular.copy(item);
-  };
-
-  $scope.submitCompanyDescription = function(form){
-    if(form.$valid){
-      Companies.updateCompanyGeneralInformation($scope.CompanyDescriptionItem, $scope.getCurrentUser().companyName);
-      $scope.getCurrentUser().companyName = $scope.CompanyDescriptionItem.name;
-      $('#editCompanyDescriptionModal').modal('hide');
-      $('#editCompanyDescriptionModal').on('hidden.bs.modal', function () {
-        $state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
-      });
-      //Jasmine Test
-      return true;
-    }
-    //Jasmine Test
-    return false;
-  };
-
-//For Edit Interested Majors Modal------------------------------------------------------------
+  //For Edit Interested Majors Modal------------------------------------------------------------
 
   var majors = Majors.majors;
 
   Majors.getInterestedMajorsPerCompany($scope.getCurrentUser().companyName).then(function(interestedMajors) {
-    console.log('current company name is: ' + $scope.getCurrentUser().companyName);
     angular.forEach(interestedMajors.plain(), function (item) {
       $scope.companyProfile.interestedMajors.push({id: item.id, companyName: item.companyName, name: item.majorCode, value: false});
     });
@@ -193,34 +186,28 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     $scope.PromotionalMaterialItem = angular.copy(item);
   };
 
-  $scope.deleteCompanyPromotionalMaterial = function(item){
-
-    PromotionalMaterial.removePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, item.id);
-    $state.transitionTo($state.current, $stateParams, {
-      reload: true,
-      inherit: false,
-      notify: true
-    });
-  };
-  // TODO
-  $scope.submitCompanyPromotionalMaterial = function(form){
-    if(form.$valid && $scope.PromotionalMaterialItem.expirationDate.toISOString() > today){
-      $scope.showEditPromotionalMaterialDateError = false;
-      PromotionalMaterial.updatePromotionalMaterialPerCompany($scope.getCurrentUser().companyName,
-        {
-          title: $scope.PromotionalMaterialItem.title,
-          expirationDate: $scope.PromotionalMaterialItem.expirationDate
-        }, $scope.PromotionalMaterialItem.id);
-      $('#editCompanyPromotionalMaterialModal').modal('hide');
-      $('#editCompanyPromotionalMaterialModal').on('hidden.bs.modal', function () {
-        $state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true
-        });
+  $scope.deleteCompanyPromotionalMaterial = function(form){
+    if (form.$valid) {
+      PromotionalMaterial.removePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, $scope.PromotionalMaterialItem.id).then(function() {
+        _.remove($scope.companyProfile.promotionalMaterial, {id: $scope.PromotionalMaterialItem.id});
+        $('#deletePromotionalMaterialConfirmModal').modal('hide');
       });
     }
-    else if(($scope.PromotionalMaterialItem.expirationDate.toISOString()) <= today){
+  };
+
+  $scope.submitCompanyPromotionalMaterial = function(form){
+    if(form.$valid && $scope.PromotionalMaterialItem.expirationDate.toISOString() > (new Date()).toISOString()){
+      $scope.showEditPromotionalMaterialDateError = false;
+      PromotionalMaterial.updatePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, {
+        title: $scope.PromotionalMaterialItem.title,
+        expirationDate: $scope.PromotionalMaterialItem.expirationDate
+      }, $scope.PromotionalMaterialItem.id).then(function() {
+        var element = _.find($scope.companyProfile.promotionalMaterial, {id: $scope.PromotionalMaterialItem.id});
+        _.merge(element, $scope.PromotionalMaterialItem);
+        $('#editCompanyPromotionalMaterialModal').modal('hide');
+      });
+    }
+    else if(($scope.PromotionalMaterialItem.expirationDate.toISOString()) <= (new Date()).toISOString()){
       $scope.showEditPromotionalMaterialDateError = true;
     }
   };
@@ -243,30 +230,24 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     }
   };
 
-  //var indexPromotionalMaterial = 6;
   $scope.submitAddCompanyPromotionalMaterial = function(form){
-    if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > today){
+    if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > (new Date()).toISOString()){
       $scope.showAddPromotionalMaterialDateError = false;
 
-      PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName, {
+      var newPromotionalMaterial = {
         title: $scope.addPromotionalMaterialItemTitle,
         expirationDate: $scope.addPromotionalMaterialItemExpirationDate,
         filePath : $scope.promoMaterialFilePath
-      }).then(function() {
-        $('#addPromotionalMaterialModal').modal('hide');
-        $('#addPromotionalMaterialModal').on('hidden.bs.modal', function () {
-          $state.transitionTo($state.current, $stateParams, {
-            reload: true,
-            inherit: false,
-            notify: true
-          });
-        });
+      };
 
+      PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName, newPromotionalMaterial).then(function() {
+        $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  newPromotionalMaterial.title, status: 'pending'});
+        $('#addPromotionalMaterialModal').modal('hide');
       });
       //Jasmine Test
       return true;
     }
-    else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= today){
+    else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= (new Date()).toISOString()){
       $scope.showAddPromotionalMaterialDateError = true;
       //Jasmine Test
       return false;
@@ -275,46 +256,43 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
   //For Deleting Recruiters------------------------------------------------------------
 
-  var recruiters = [];
-  $scope.recruiterLoggedInItem = {};
-
   Recruiters.getRecruitersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    recruiters = Recruiters.companyRecruiters;
-
-    for (var i = 0; i < recruiters.length; i++) {
-      $scope.companyProfile.recruiterList.push(recruiters[i]);
-      if (recruiters[i].email === $scope.getCurrentUser().email){
-        $scope.recruiterLoggedInItem = angular.copy(recruiters[i]);
-      }
-    }
+    $scope.companyProfile.recruiterList = Recruiters.companyRecruiters;
   });
 
-  $scope.deleteRecruiter = function(item){
+  $scope.confirmRecruiter = function(item) {
+    $scope.tempRecruiter = angular.copy(item);
+  };
+
+  $scope.deleteRecruiter = function(){
     Recruiters.removeRecruitersPerCompany($scope.getCurrentUser().companyName, {
-      'email': item.email,
+      'email': $scope.tempRecruiter.email,
       'accountStatus': 'inactive'
+    }).then(function() {
+      _.remove($scope.companyProfile.recruiterList, function(element) {
+        return element.email === $scope.tempRecruiter.email;
+      });
+      $('#deleteRecruiterConfirmModal').modal('hide');
     });
-    _.remove(this.companyProfile.recruiterList, function(element) {
-      return element.email === item.email;
-    });
+
   };
 
   //For Viewing and deleting Job Offers------------------------------------------------------------
-  var jobOffers = [];
 
   JobOffers.getApprovedJobOffersPerCompany($scope.getCurrentUser().companyName).then(function() {
-    jobOffers = JobOffers.approvedCompanyJobOffers;
-
-    for (var i = 0; i < jobOffers.length; i++) {
-      $scope.companyProfile.jobOfferList.push(jobOffers[i]);
-    }
+    $scope.companyProfile.jobOfferList = JobOffers.approvedCompanyJobOffers;
   });
 
-  $scope.deleteJobOffer = function(item){
-    JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, item.id, {'jobOfferStatus': 'rejected'});
+  $scope.confirmJobOffer = function(item) {
+    $scope.tempJobOffer = angular.copy(item);
+  };
+
+  $scope.deleteJobOffer = function(){
+    JobOffers.removeJobOffersPerCompany($scope.getCurrentUser().companyName, $scope.tempJobOffer.id, {'jobOfferStatus': 'rejected'});
     _.remove(this.companyProfile.jobOfferList, function(element) {
-      return element.id === item.id;
+      return element.id === $scope.tempJobOffer.id;
     });
+    $('#confirmDeleteJobOfferModal').modal('hide');
   };
   //For adding Job Offers------------------------------------------------------------
 
@@ -324,10 +302,9 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     format: 'yyyy-mm-dd'
   });
 
-  // TODO
   $scope.submitAddCompanyJobOffer = function(form){
-    if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > today){
-      JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, {
+    if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
+      var newJobOffer = {
         'email': $scope.getCurrentUser().email,
         'title': $scope.addJobOfferTitle,
         'description': $scope.addJobOfferDescription,
@@ -339,17 +316,15 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
         'announcementNumber': $scope.addJobOfferAnnouncementNumber,
         'flyerPath': $scope.jobofferFilePath,
         'location': $scope.addJobOfferLocation
-      });
-      //this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
-      $scope.showJobOfferDateError = false;
-      $('#addJobOfferModal').modal('hide');
-      $state.transitionTo($state.current, $stateParams, {
-        reload: true,
-        inherit: false,
-        notify: true
+      };
+
+      JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
+        $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
+        $scope.showJobOfferDateError = false;
+        $('#addJobOfferModal').modal('hide');
       });
     }
-    else if(($scope.addJobOfferExpirationDate.toISOString()) <= today){
+    else if(($scope.addJobOfferExpirationDate.toISOString()) <= (new Date()).toISOString()){
       $scope.showJobOfferDateError = true;
     }
   };
@@ -397,6 +372,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
 
   //For Pending Requests Tab------------------------------------------------------------
+
+
   var pendingPromotionalMaterial = [];
   var pendingJobOffers = [];
 
