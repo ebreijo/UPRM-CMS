@@ -852,7 +852,13 @@
               <div>
                 <p ng-show="addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern" style="color:#843534" class="help-block"><b>Enter a valid Announcement Number</b></p>
               </div>
-              <label><h5 class="title text-highlight"><b>Job Location:</b><br></h5>
+              <label>
+                <h5 class="title text-highlight">
+                  <b>
+                    Job Location:
+                  </b>
+                  <br>
+                </h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine}">
                 <input ng-model="addJobOfferLocation" name="jobOfferLocation" type="text" class="form-control" placeholder="Enter the location for the new job offer (city, country)" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
@@ -862,7 +868,14 @@
               <div>
                 <p ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Location</b></p>
               </div>
-              <label><h5 class="title text-highlight"><b>Expiration Date:</b><br></h5></label>
+              <label>
+                <h5 class="title text-highlight">
+                  <b>
+                    Expiration Date:
+                  </b>
+                  <br>
+                </h5>
+              </label>
               <div class="alert alert-danger alert-dismissable" ng-show="showJobOfferDateError">
                 <button type="button" class="close" ng-click="showJobOfferDateError=false" aria-hidden="true">&times;</button>
                 <strong class="alert-link">The expiration date must be at least one day after today. Please select a new date.</strong>

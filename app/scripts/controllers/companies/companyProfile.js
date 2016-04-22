@@ -306,14 +306,29 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     format: 'yyyy-mm-dd'
   });
 
-  var indexJobOffers = 20;
-  // TODO
   $scope.submitAddCompanyJobOffer = function(form){
     if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > today){
-      this.companyProfile.jobOfferList.push({id:indexJobOffers, title: $scope.addJobOfferTitle, description: $scope.addJobOfferDescription, recentGraduate: $scope.addJobOfferRecentGraduateOption, jobPosition: $scope.addJobOfferPosition, educationLevel: $scope.addJobOfferEducationalLevel, announcementNumber: $scope.addJobOfferAnnouncementNumber, location: $scope.addJobOfferLocation, expirationDate: $scope.addJobOfferExpirationDate.toISOString(), creationDate: today, jobOfferStatus: 'pending', flyerPath: null});
+
+      JobOffers.addJobOfferPerCompany($scope.getCurrentUser().companyName, {
+        companyName: $scope.getCurrentUser().companyName,
+        email: $scope.getCurrentUser().email,
+        title: $scope.addJobOfferTitle,
+        description: $scope.addJobOfferDescription,
+        recentGraduate: $scope.addJobOfferRecentGraduateOption,
+        jobPosition: $scope.addJobOfferPosition,
+        educationLevel: $scope.addJobOfferEducationalLevel,
+        announcementNumber: $scope.addJobOfferAnnouncementNumber,
+        location: $scope.addJobOfferLocation,
+        expirationDate: $scope.addJobOfferExpirationDate.toISOString(),
+        creationDate: today,
+        jobOfferStatus: 'pending',
+        flyerPath: $scope.jobofferFilePath
+      });
+
       $scope.showJobOfferDateError = false;
+
+
       $('#addJobOfferModal').modal('hide');
-      indexJobOffers++;
     }
     else if(($scope.addJobOfferExpirationDate.toISOString()) <= today){
       $scope.showJobOfferDateError = true;
@@ -461,8 +476,10 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   /* jshint ignore:end */
 
   $scope.promoMaterialFilePath = '';
+  $scope.jobofferFilePath = '';
   $scope.resetDocument = function(){
     $scope.promoMaterialFilePath = '';
+    $scope.jobofferFilePath = '';
   };
 
   /* jshint ignore:start */
@@ -481,11 +498,11 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       },
       'success': function (file, response) {
         console.log('Success!!!!');
-        this.removeAllFiles();
+        //this.removeAllFiles();
         $scope.promoMaterialFilePath = response.filePath;
       },
       'error': function(file, response) {
-        this.removeAllFiles();
+        //this.removeAllFiles();
         alert('ERROR: File Too Large!');
       }
     }
@@ -509,7 +526,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'success': function (file, response) {
         console.log('Success!!!!');
         this.removeAllFiles();
-        $scope.promoMaterialFilePath = response.filePath;
+        $scope.jobofferFilePath = response.filePath;
       },
       'error': function(file, response) {
         this.removeAllFiles();

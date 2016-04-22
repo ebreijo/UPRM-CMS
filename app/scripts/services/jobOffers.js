@@ -67,5 +67,9 @@ app.factory('JobOffers', function(Restangular, _) {
     });
   };
 
+  obj.addJobOfferPerCompany = function(companyName, jobOffer) {
+    return Restangular.one('/api/companies', companyName).one('jobOffers').customPOST(jobOffer);
+  };
+
   return obj;
 });
