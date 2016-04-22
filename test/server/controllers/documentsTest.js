@@ -64,7 +64,8 @@ describe('Documents Controller: ', function() {
       this.session
         .post('/api/documents')
         .send({
-          fileLabel : "new document name"
+          fileLabel: "new document name",
+          filePath: "/documents/file1"
         })
         .expect('Content-Type', /json/)
         .expect(201)
