@@ -32,33 +32,6 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
     Auth.studentLogin();
   };
 
-  //For Document Items in Navbar
-  /*
-  var documents = [
-    {
-      'id': 1,
-      'fileLabel': 'Job Fair Dress Code',
-      'filePath': '/lib/documents'
-    },
-    {
-      'id': 2,
-      'fileLabel': 'Resume Template',
-      'filePath': '/lib/documents'
-    },
-    {
-      'id': 3,
-      'fileLabel': '8th Job Fair',
-      'filePath': '/lib/documents'
-    },
-    {
-      'id': 4,
-      'fileLabel': 'Interview Tips',
-      'filePath': '/lib/documents'
-    }
-  ];
-  */
-
-  //$scope.documentList = [];
   $scope.addDocumentTitle = null;
 
   PublicDocuments.getAllPublicDocuments().then(function() {
