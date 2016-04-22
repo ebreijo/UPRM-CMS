@@ -204,10 +204,12 @@
                             <li class="list-group-item">
                               <strong>Location:</strong> {{item.location}}
                             </li>
-                            <li class="list-group-item">
+
+                            <li class="list-group-item" ng-if="item.flyerPath">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="/documents/pdf-sample.pdf">document.pdf</a>
+                              <a href="{{item.flyerPath}}"> Promotional Document</a>
                             </li>
+
                             <li class="list-group-item">
                               <strong>Open Since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
                             </li>
