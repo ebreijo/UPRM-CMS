@@ -773,9 +773,9 @@
                             <li class="list-group-item">
                               <strong>Location:</strong> {{jobOffer.location}}
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" ng-if="jobOffer.flyerPath">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href="#">{{jobOffer.flyerPath}}</a>
+                              <a href="{{jobOffer.flyerPath}}" target="_blank">Click to see document</a>
                             </li>
                           </ul>
                           <div class="panel-footer">
@@ -873,11 +873,7 @@
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-map-marker"></i></span>
                             <input ng-model="tempJobOffer.location" type="text" class="form-control" style="border-radius:0;"/>
                           </div>
-                          <p>Promotional Document</p>
-                          <div class="input-group text-center" style="margin-bottom:10px;">
-                            <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-file"></i></span>
-                            <input ng-model="tempJobOffer.flyerPath" type="text" class="form-control" style="border-radius:0;"/>
-                          </div>
+                          <p ng-if="tempJobOffer.flyerPath">Promotional Document: <span><a href="{{tempJobOffer.flyerPath}}" target="_blank">Click to see document</a></span></p>
                           <p>Expiration Date: {{tempJobOffer.expirationDate | date: 'EEE, MMMM d, y'}}</p>
                           <div class="input-group text-center date">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -965,7 +961,7 @@
                           <tbody>
                           <tr ng-repeat="promotionalDocument in pendingPromotionalMaterial | filter:{companyName: searchCompanyOfPendingPromotionalMaterial}">
                             <td>
-                              <a href="#">{{promotionalDocument.title}}</a>
+                              <a href="{{promotionalDocument.filePath}}" target="_blank">{{promotionalDocument.title}}</a>
                             </td>
                             <td>{{promotionalDocument.companyName}}</td>
                             <td>{{promotionalDocument.expirationDate | date: 'EEE, MMMM d, y'}}</td>

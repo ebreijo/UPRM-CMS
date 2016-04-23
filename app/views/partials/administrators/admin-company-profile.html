@@ -92,7 +92,7 @@
                                 <tbody>
                                   <tr ng-repeat="item in promotionalMaterial | filter:{status:promMaterialStatusSelection}:true">
                                     <td>
-                                      <a href="">{{item.title}}</a> <span class="label" ng-class="{'label-success': item.status === 'approved', 'label-danger': item.status === 'rejected'}">{{item.status | capitalize}}</span>
+                                      <a href="{{item.filePath}}" target="_blank">{{item.title}}</a> <span class="label" ng-class="{'label-success': item.status === 'approved', 'label-danger': item.status === 'rejected'}">{{item.status | capitalize}}</span>
                                     </td>
                                     <td>{{item.expirationDate | date: 'EEE, MMMM d, y'}}</td>
                                     <td>
@@ -209,9 +209,9 @@
                           <li class="list-group-item">
                             <strong>Location:</strong> {{item.location}}
                           </li>
-                          <li class="list-group-item">
+                          <li class="list-group-item" ng-if="item.flyerPath">
                             <strong>Promotional Document:</strong>&nbsp;
-                            <a href="/documents/pdf-sample.pdf">document.pdf</a>
+                            <a href="{{item.flyerPath}}" target="_blank">Click to see document</a>
                           </li>
                           <li class="list-group-item">
                             <strong>Open Since:</strong> {{item.creationDate | date: 'MMMM d, y'}}
