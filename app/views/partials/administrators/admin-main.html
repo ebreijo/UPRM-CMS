@@ -753,7 +753,7 @@
                       <div class="jobs-wrapper col-md-10 col-sm-9">
                         <div class="panel panel-default page-row" ng-repeat="jobOffer in pendingJobOffers | filter:{companyName: searchCompanyOfPendingJobOffer}">
                           <div class="panel-heading">
-                            <h3 class="panel-title">{{jobOffer.title}}&nbsp;(Company: {{jobOffer.companyName}})
+                            <h3 class="panel-title"><strong>{{jobOffer.title}}</strong>&nbsp;(Company: {{jobOffer.companyName}})
                               <span class="label label-warning pull-right">{{jobOffer.jobOfferStatus | capitalize}}</span> <span class="label label-info pull-right" style="margin-right:10px">{{jobOffer.educationLevel}}</span> <span class="label label-success pull-right" style="margin-right:10px">{{jobOffer.jobPosition}}</span>
                             </h3>
                           </div>

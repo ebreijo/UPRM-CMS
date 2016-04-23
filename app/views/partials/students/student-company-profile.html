@@ -58,7 +58,7 @@
                                 <tbody>
                                 <tr ng-repeat="item in promotionalMaterial" >
                                   <td>
-                                    <a href="">{{item.title}}</a>
+                                    <a href="{{item.filePath}}" target="_blank">{{item.title}}</a>
                                   </td>
                                   <td>{{item.expirationDate | date: 'EEE, MMMM d, y'}}</td>
                                 </tr>
@@ -88,15 +88,15 @@
                           {{item.description}} <span ng-show="item.recentGraduate"><b>**For Recent Graduates**</b></span>
                         </div>
                         <ul class="list-group">
-                          <li class="list-group-item">
+                          <li class="list-group-item" ng-if="item.announcementNumber">
                             <strong>Announcement Number:</strong>&nbsp;{{item.announcementNumber}}
                           </li>
                           <li class="list-group-item">
                             <strong>Location:</strong> {{item.location}}
                           </li>
-                          <li class="list-group-item">
+                          <li class="list-group-item" ng-if="item.flyerPath">
                             <strong>Promotional Document:</strong>&nbsp;
-                            <a href="/documents/pdf-sample.pdf">document.pdf</a>
+                            <a href="{{item.flyerPath}}" target="_blank">Click to see document</a>
                           </li>
                           <li class="list-group-item">
                             <strong>Open Since:</strong> {{item.creationDate | date: 'MMMM d, y'}}

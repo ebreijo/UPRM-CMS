@@ -90,15 +90,15 @@
 
             <div class="panel panel-default page-row">
               <div class="panel-heading">
-                <h3 class="panel-title"><a href="job-single.html"> </a>&nbsp;
-                  <strong> {{ jobOffer.title }} </strong> </a>&nbsp; (Company: {{ jobOffer.companyName }})
+                <h3 class="panel-title"><a href="job-single.html"> </a>
+                  <strong>{{jobOffer.title}}</strong> </a>&nbsp;(Company: {{ jobOffer.companyName }})
                   <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'Bachelors'"> Bachelors </span>
                   <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'Masters'"> Masters  </span>
                   <span class="label label-info pull-right" ng-if="jobOffer.educationLevel === 'PhD'"> PhD </span>
 
                   <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Full-Time'"> Full Time </span>
                   <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Part-Time'"> Part Time </span>
-                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'CO-OP'"> Co-Op </span>
+                  <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'CO-OP'"> CO-OP </span>
                   <span class="label label-success pull-right" style="margin-right:10px" ng-if="jobOffer.jobPosition === 'Internship'"> Internship </span>
                 </h3>
               </div>
@@ -106,15 +106,15 @@
                 {{ jobOffer.description }}
               </div>
               <ul class="list-group">
-                <li class="list-group-item" ng-if="jobOffer.announcementNumber != null">
-                  <strong>Announcement Number:</strong>&nbsp; {{ jobOffer.announcementNumber }}
+                <li class="list-group-item" ng-if="jobOffer.announcementNumber">
+                  <strong>Announcement Number:</strong>&nbsp;{{ jobOffer.announcementNumber }}
                 </li>
                 <li class="list-group-item">
                   <strong>Location:</strong> {{ jobOffer.location }}
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item" ng-if="jobOffer.flyerPath">
                   <strong>Promotional Document:</strong>&nbsp;
-                  <a href="#{{jobOffer.flyerPath}}"> engineering_support_assitant.pdf </a>
+                  <a href="{{jobOffer.flyerPath}}" target="_blank">Click to see document </a>
                 </li>
                 <li class="list-group-item">
                   <strong>Open since:</strong> {{ jobOffer.creationDate | date: 'MMMM d, y'}}
