@@ -100,13 +100,13 @@
                   <label><h5 class="title text-highlight"><b>Title:</b><br></h5></label>
                   <div class="form-group has-feedback" ng-class="{ 'has-error' : manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine}">
 
-                    <input ng-model="addDocumentTitle" name="documentTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                    <input ng-model="addDocumentTitle" name="documentTitle" type="text" class="form-control" placeholder="Enter the name of public file" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
 
                     <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="manageDocumentsModalForm.documentTitle.$valid"></i>
                     <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine"></i>
                   </div>
                   <div>
-                    <p ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Title</b></p>
+                    <p ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid name</b></p>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -159,8 +159,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" style="margin-top: 5px; margin-left: 5px">Cancel</button>
-        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" style="margin-top: 5px; margin-right: 5px">Ok</button>
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-top: 5px; margin-right: 5px">Close</button>
       </div>
     </div>
   </div>
