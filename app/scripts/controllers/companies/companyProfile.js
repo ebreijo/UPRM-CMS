@@ -279,6 +279,10 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     };
   };
 
+  $('#addjobOfferExpirationDatePicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
+
   $scope.executeTab3 = function() {
     //For Viewing and deleting Job Offers------------------------------------------------------------
 
@@ -300,10 +304,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     //For adding Job Offers------------------------------------------------------------
 
     $scope.showJobOfferDateError = false;
-
-    $('#addjobOfferExpirationDatePicker').datepicker({
-      format: 'yyyy-mm-dd'
-    });
 
     $scope.submitAddCompanyJobOffer = function(form){
       if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
