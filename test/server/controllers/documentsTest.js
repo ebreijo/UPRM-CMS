@@ -40,21 +40,21 @@ describe('Documents Controller: ', function() {
         .end(help.isBodyEqual([
           { id: 1,
             fileLabel: 'Job Fair Dress Code',
-            filePath: '/lib/documents'
+            filePath: 'media/promotionalMaterial/ERV7.pdf'
           },
           {
             id: 2,
             fileLabel: 'Resume Template',
-            filePath: '/lib/documents'
+            filePath: 'media/promotionalMaterial/ERV7.pdf'
           },
           {
             id: 3, fileLabel: '8th Job Fair',
-            filePath: '/lib/documents'
+            filePath: 'media/promotionalMaterial/ERV7.pdf'
           },
           {
             id: 4,
             fileLabel: 'Interview Tips',
-            filePath: '/lib/documents'
+            filePath: 'media/promotionalMaterial/ERV7.pdf'
           }], done));
     });
   });
@@ -65,14 +65,14 @@ describe('Documents Controller: ', function() {
         .post('/api/documents')
         .send({
           fileLabel: "new document name",
-          filePath: "/documents/file1"
+          filePath: "media/promotionalMaterial/ERV7.pdf"
         })
         .expect('Content-Type', /json/)
         .expect(201)
         .end(help.isBodyEqual({
           id: 5,
           fileLabel: 'new document name',
-          filePath: '/documents/file1'
+          filePath: 'media/promotionalMaterial/ERV7.pdf'
         }, done));
     });
   });
@@ -86,7 +86,7 @@ describe('Documents Controller: ', function() {
         .end(help.isBodyEqual({
           id: 1,
           fileLabel: 'Job Fair Dress Code',
-          filePath: '/lib/documents' }
+          filePath: 'media/promotionalMaterial/ERV7.pdf' }
           , done));
     });
 

@@ -218,28 +218,28 @@ INSERT INTO policies (policy)
 VALUES ('Students that accept a job offer should notify the Placement Office.');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
-VALUES ('IBM', 'Promotion1', '/lib/promotionalMaterial', '2030-07-22 12:12:12', 'approved');
+VALUES ('IBM', 'Promotion1', 'media/promotionalMaterial/ERV7.pdf', '2030-07-22 12:12:12', 'approved');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date)
-VALUES ('IBM', 'Promotion2', '/lib/promotionalMaterial', '2030-08-01 12:12:12');
+VALUES ('IBM', 'Promotion2', 'media/promotionalMaterial/ERV7.pdf', '2030-08-01 12:12:12');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
-VALUES ('IBM', 'Promotion3', '/lib/promotionalMaterial', '2016-11-30 12:12:12', 'rejected');
+VALUES ('IBM', 'Promotion3', 'media/promotionalMaterial/ERV7.pdf', '2016-11-30 12:12:12', 'rejected');
 
 INSERT INTO promotional_material (company_name, title, file_path, expiration_date, status)
-VALUES ('Apple', 'Promotion4', '/lib/promotionalMaterial', '2030-07-22 12:12:12', 'approved');
+VALUES ('Apple', 'Promotion4', 'media/promotionalMaterial/ERV7.pdf', '2030-07-22 12:12:12', 'approved');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('Job Fair Dress Code', '/lib/documents');
+VALUES ('Job Fair Dress Code', 'media/promotionalMaterial/ERV7.pdf');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('Resume Template', '/lib/documents');
+VALUES ('Resume Template', 'media/promotionalMaterial/ERV7.pdf');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('8th Job Fair', '/lib/documents');
+VALUES ('8th Job Fair', 'media/promotionalMaterial/ERV7.pdf');
 
 INSERT INTO public_documents (file_label, file_path)
-VALUES ('Interview Tips', '/lib/documents');
+VALUES ('Interview Tips', 'media/promotionalMaterial/ERV7.pdf');
 
 INSERT INTO requirements (requirement)
 VALUES ('Five or more copies of your resume (preferably in English).');
