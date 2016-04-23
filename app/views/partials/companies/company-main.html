@@ -169,16 +169,16 @@
                             {{item.description}} <span ng-show="item.recentGraduate"><b>**For Recent Graduates**</b></span>
                           </div>
                           <ul class="list-group">
-                            <li class="list-group-item">
+                            <li class="list-group-item" ng-if="item.announcementNumber">
                               <strong>Announcement Number:</strong>&nbsp;{{item.announcementNumber}}
                             </li>
                             <li class="list-group-item">
-                              <strong>Location:</strong>{{item.location}}
+                              <strong>Location: </strong>{{item.location}}
                             </li>
 
                             <li class="list-group-item" ng-if="item.flyerPath">
                               <strong>Promotional Document:</strong>&nbsp;
-                              <a href={{item.flyerPath}}> Promotional Document</a>
+                              <a href={{item.flyerPath}} target="_blank">Click to see document</a>
                             </li>
 
                             <li class="list-group-item">

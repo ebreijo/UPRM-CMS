@@ -758,7 +758,7 @@
                             </h3>
                           </div>
                           <div class="panel-body">
-                            {{jobOffer.description}} <span ng-if="jobOffer.recentGraduate"><b>**For Recent Graduates**</b></span><span ng-if="!jobOffer.recentGraduate"><b>**Not For Recent Graduates**</b></span>
+                            {{jobOffer.description}} <span ng-if="jobOffer.recentGraduate"><b>**For Recent Graduates**</b></span>
                           </div>
                           <ul class="list-group">
                             <li class="list-group-item">
@@ -767,7 +767,7 @@
                             <li class="list-group-item">
                               <strong>Creation Date:</strong> {{jobOffer.creationDate | date: 'EEE, MMMM d, y'}}
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" ng-if="jobOffer.announcementNumber">
                               <strong>Announcement Number:</strong>&nbsp;{{jobOffer.announcementNumber}}
                             </li>
                             <li class="list-group-item">
