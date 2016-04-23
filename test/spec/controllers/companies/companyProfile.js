@@ -379,6 +379,7 @@ describe('Controller: Company Profile', function () {
   describe('scope.deleteRecruiter', function () {
 
     beforeEach(function() {
+      scope.executeTab2();
       spyOn(Recruiters, 'removeRecruitersPerCompany').and.callFake(function() {
         return q.when({});
       });
@@ -466,6 +467,7 @@ describe('Controller: Company Profile', function () {
   describe('scope.deleteJobOffer', function () {
 
     beforeEach(function() {
+      scope.executeTab3();
       spyOn(JobOffers, 'removeJobOffersPerCompany').and.callFake(function() {
         return q.when({});
       });

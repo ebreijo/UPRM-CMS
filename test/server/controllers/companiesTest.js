@@ -1269,7 +1269,8 @@ describe('Companies Controller: ', function() {
           companyName: 'IBM',
           title: 'new title',
           expirationDate: '2016-07-22T16:12:12.000Z',
-          status: 'rejected'
+          status: 'rejected',
+          filePath: '/lib/promotionalMaterial'
         } ,done));
     });
   });
