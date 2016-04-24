@@ -28,7 +28,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
       },
       'error': function(file, response) {
         this.removeAllFiles();
-        alert('ERROR: File Too Large!');
+        alert('Error:' + response.error.message);
       }
     }
   };
