@@ -22,7 +22,7 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/angular-ui-utils/jq.js',
       'app/bower_components/ngstorage/ngStorage.js',
-      'app/bower_components/angular-cryptography/mdo-angular-cryptography.js',
+      'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-loading-bar/src/loading-bar.js',
       'app/bower_components/restangular/dist/restangular.js',
       'app/bower_components/flexslider/jquery.flexslider.js',
