@@ -4,13 +4,14 @@
 var app = angular.module('uprmcmsApp');
 
 app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registration, Companies, cfpLoadingBar) {
-
+  /*
   // Cleanup after leaving
   $scope.$on('$destroy', function() {
     if($scope.logoPath !== undefined){
       Companies.logoCleanup({logoPath: $scope.logoPath});
     }
   });
+  */
 
   $scope.fileUploadConfig = {
     'options': { // passed into the Dropzone constructor
@@ -75,6 +76,11 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
           $state.go('landingPage');
         });
       }, function() {
+        if($scope.logoPath !== undefined){
+          console.log($scope.logoPath);
+          Companies.logoCleanup({logoPath: $scope.logoPath});
+        }
+        cfpLoadingBar.complete();
         $scope.title = 'Warning';
         $scope.message = 'Company or Email address already exist.';
         messageModal.modal('show');
