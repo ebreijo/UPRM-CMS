@@ -83,8 +83,8 @@ app.factory('Companies', function(Restangular) {
     return Restangular.all('/api/onCampusServices').post(serviceInfo);
   };
 
-  obj.logoCleanup = function() {
-    return Restangular.all('/api/logoCleanup').get();
+  obj.logoCleanup = function(logoPath) {
+    return Restangular.all('/api/logoCleanup').post(logoPath);
   };
 
   return obj;

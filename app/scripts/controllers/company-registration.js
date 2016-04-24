@@ -1,11 +1,11 @@
+/* jshint ignore:start */
 'use strict';
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration) {
+app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, Companies) {
 
   //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
-  /* jshint ignore:start */
   $scope.fileUploadConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/logos',
@@ -24,6 +24,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration)
           this.removeFile(this.files[0]);
         }
         $scope.logoPath = response.filePath;
+        Companies.logoCleanup({logoPath: $scope.logoPath});
       },
       'error': function(file, response) {
         this.removeAllFiles();
@@ -31,7 +32,6 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration)
       }
     }
   };
-  /* jshint ignore:end */
 
 
   var messageModal = $('#messageModal');
@@ -67,3 +67,6 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration)
   };
 
 });
+
+/* jshint ignore:end */
+
