@@ -48,8 +48,8 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  obj.updateCompanyFromAdmins = function(company) {
-    return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
+  obj.updateCompanyFromAdmins = function(companyName, company) {
+    return Restangular.one('/api/admins/companies', companyName).customPUT(company);
   };
 
   obj.getCompanyTemporaryContact = function(companyName) {
@@ -60,7 +60,7 @@ app.factory('Companies', function(Restangular) {
 
   obj.createOrUpdateCompanyTemporaryContact = function(temporaryContact) {
     var self = this;
-    Restangular.one('/api/admins/companies/', temporaryContact.companyName).post('tempContact', temporaryContact).then(function() {
+    Restangular.one('/api/admins/companies', temporaryContact.companyName).post('tempContact', temporaryContact).then(function() {
       self.temporaryContact.push(temporaryContact);
     });
   };
