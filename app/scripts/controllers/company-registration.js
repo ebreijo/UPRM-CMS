@@ -3,7 +3,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registration, Companies) {
+app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registration, Companies, cfpLoadingBar) {
 
   // Cleanup after leaving
   /*
@@ -51,6 +51,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
     $scope.isValid = isValid;
     // If Logo was selected, upload logo here.
     if($('#fileUpload').get(0).dropzone.files.length > 0){
+      cfpLoadingBar.start();
       $('#fileUpload').get(0).dropzone.processQueue();
       //$scope.submitData(isValid);
     } else {
@@ -70,6 +71,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
         recruiterInfo: $scope.recruiter
       };
       Registration.registerRecruiter(userInfo).then(function() {
+        cfpLoadingBar.complete();
         $scope.title = 'Congratulations';
         $scope.message = 'Registration was successful. You will receive an email once we have reviewed your information.';
         messageModal.modal('show');
