@@ -11,8 +11,10 @@
       <header class="page-heading clearfix">
         <h1 class="heading-title"> <img ng-if="company.logoPath" ng-src="{{company.logoPath}}" alt="companyLogo" width="150" height="150" pull-left style="vertical-align: text-bottom" /><b style="padding-left:15px"><big>{{company.name}}</big></b></h1>
         <span class="label" ng-class="{'label-success': company.companyStatus === 'active', 'label-warning': company.companyStatus === 'pending', 'label-danger': company.companyStatus === 'inactive'}" style="padding:5px; margin-left:5px"><big>{{company.companyStatus | capitalize}}</big></span>
-        <label for="file-upload" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
+
+        <label type="button" uprm-file-uploader="updateLogoConfig" class="btn btn-theme btn-sm pull-right" style="vertical-align: text-bottom; margin-left:5px; margin-top:5px">Change Logo</label>
         <input style="display: none;" id="file-upload" type="file" accept="image/jpeg,image/png"/>
+
       </header>
       <div class="page-content">
         <div class="row page-row">

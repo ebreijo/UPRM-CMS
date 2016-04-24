@@ -178,4 +178,34 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
   $scope.tempContact = temporaryContactPromise[0];
 
 
+  // For File Uploads -------------------------------------------------------------------
+  /* jshint ignore:start */
+  $scope.updateLogoConfig = {
+    'options': { // passed into the Dropzone constructor
+      'url': '/api/companies/logos',
+      'paramName': 'image',     // The name that will be used to transfer the file
+      'maxFilesize': 2, // in MBs
+      'maxFiles': 1,
+      'acceptedFiles': 'image/jpeg,image/png',
+      'createImageThumbnails': false
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        console.log('Sending!!!!');
+      },
+      'success': function (file, response) {
+        console.log('Success!!!!');
+        this.removeAllFiles();
+        $scope.company.logoPath = response.filePath;
+        Companies.updateCompanyFromAdmins($scope.company.name, {'logoPath': response.filePath});
+      },
+      'error': function(file, response) {
+        this.removeAllFiles();
+        alert('ERROR: File Too Large!');
+      }
+    }
+  };
+  /* jshint ignore:end */
+
+
 });
