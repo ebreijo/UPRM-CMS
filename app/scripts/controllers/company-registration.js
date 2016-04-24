@@ -5,6 +5,13 @@ var app = angular.module('uprmcmsApp');
 
 app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, Companies) {
 
+  // Cleanup after leaving
+  $scope.$on('$destroy', function() {
+    if($scope.logoPath !== undefined){
+      Companies.logoCleanup({logoPath: $scope.logoPath});
+    }
+  });
+
   //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
   $scope.fileUploadConfig = {
     'options': { // passed into the Dropzone constructor
@@ -12,7 +19,8 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
       'paramName': 'image',     // The name that will be used to transfer the file
       'maxFilesize': 2, // in MBs
       'maxFiles': 2,
-      'acceptedFiles': 'image/jpeg,image/png'
+      'acceptedFiles': 'image/jpeg,image/png',
+      'autoProcessQueue': false
     },
     'eventHandlers': {
       'sending': function (file, xhr, formData) {
@@ -24,7 +32,6 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
           this.removeFile(this.files[0]);
         }
         $scope.logoPath = response.filePath;
-        Companies.logoCleanup({logoPath: $scope.logoPath});
       },
       'error': function(file, response) {
         this.removeAllFiles();
@@ -37,6 +44,17 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
   var messageModal = $('#messageModal');
 
   $scope.registerCompany = function(isValid) {
+    // If Logo was selected, upload logo here.
+    if($scope.logoPath !== undefined){
+      $('#fileUpload').get(0).dropzone.getAcceptedFiles().then(function(){
+        submitData(isValid)
+      });
+    } else {
+      submitData(isValid)
+    }
+  };
+
+  function submitData(isValid){
     // check to make sure the form is completely valid
     if (isValid) {
       if($scope.logoPath){
@@ -67,6 +85,5 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
   };
 
 });
-
 /* jshint ignore:end */
 
