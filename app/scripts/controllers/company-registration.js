@@ -6,11 +6,13 @@ var app = angular.module('uprmcmsApp');
 app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, Companies) {
 
   // Cleanup after leaving
+  /*
   $scope.$on('$destroy', function() {
     if($scope.logoPath !== undefined){
       Companies.logoCleanup({logoPath: $scope.logoPath});
     }
   });
+  */
 
   //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
   $scope.fileUploadConfig = {
@@ -45,13 +47,10 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
 
   $scope.registerCompany = function(isValid) {
     // If Logo was selected, upload logo here.
-    if($scope.logoPath !== undefined){
-      $('#fileUpload').get(0).dropzone.getAcceptedFiles().then(function(){
-        submitData(isValid)
-      });
-    } else {
-      submitData(isValid)
+    if($('#fileUpload').get(0).dropzone.files.length > 0){
+      $('#fileUpload').get(0).dropzone.processQueue();
     }
+    submitData(isValid);
   };
 
   function submitData(isValid){
