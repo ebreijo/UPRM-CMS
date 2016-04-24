@@ -12,7 +12,7 @@ var app = angular.module('uprmcmsApp', [
   'chieffancypants.loadingBar',
   'LocalStorageModule',
   'xeditable',
-  'angular-loading-bar',
+  'cfp.loadingBar',
   'ngAnimate'
 ]);
 
