@@ -48,11 +48,7 @@ app.factory('Companies', function(Restangular) {
     });
   };
 
-  obj.updateCompanyFromAdmins = function(companyName, company) {
-    return Restangular.one('/api/admins/companies/', companyName).customPUT(company);
-  };
-
-  obj.acceptOrRejectCompany = function(company) {
+  obj.updateCompanyFromAdmins = function(company) {
     return Restangular.one('/api/admins/companies/', company.name).customPUT(company);
   };
 
