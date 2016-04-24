@@ -6,15 +6,11 @@ var app = angular.module('uprmcmsApp');
 app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registration, Companies, cfpLoadingBar) {
 
   // Cleanup after leaving
-  /*
   $scope.$on('$destroy', function() {
     if($scope.logoPath !== undefined){
       Companies.logoCleanup({logoPath: $scope.logoPath});
     }
   });
-  */
-
-  //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
 
   $scope.fileUploadConfig = {
     'options': { // passed into the Dropzone constructor
