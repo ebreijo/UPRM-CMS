@@ -38,43 +38,28 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
     $scope.documentList = PublicDocuments.publicDocuments;
   });
 
-  $scope.deleteDocumentItem = function(item){
-
-    PublicDocuments.deletePublicDocument(item.id);
-
-    _.remove(this.documentList, function(element) {
-      return element.id === item.id;
+  $scope.deleteDocumentItem = function(item) {
+    PublicDocuments.deletePublicDocument(item.id).then(function() {
+      _.remove($scope.documentList, function(element) {
+        return element.id === item.id;
+      });
     });
   };
 
-  var index = 102;
-  $scope.submitAddGeneralDocuments = function(form){
-    if(form.$valid){
-
-      /*
-       {
-       id: index,
-       fileLabel: form.documentTitle.$viewValue,
-       filePath: '/lib/documents'
-       }
-       */
-
+  $scope.submitAddGeneralDocuments = function(form) {
+    if(form.$valid) {
       var publicDoc = {
         fileLabel: form.documentTitle.$viewValue,
         filePath: $scope.publicDocumentFilePath
       };
 
-      PublicDocuments.addPublicDocuments(publicDoc);
-      $scope.documentList.push(publicDoc);
-      index++;
+      PublicDocuments.addPublicDocuments(publicDoc).then(function() {
+        $scope.publicDocumentFilePath = '';
+        $scope.documentList.push(publicDoc);
+      });
     }
   };
 
-  $scope.publicDocumentFilePath = '';
-
-  $scope.addPublicDocument = function() {
-    //console.log(form.documentTitle.$viewValue);
-  };
 
   // Public Documents Uploads:
 
