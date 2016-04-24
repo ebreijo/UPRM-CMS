@@ -95,11 +95,10 @@
           <h1 class="section-heading text-highlight"><span class="line">Quick Links</span></h1>
 
           <div class="section-content">
-            <p><a href="#"><i class="fa fa-caret-right"></i>Dress Code</a></p>
-
-            <p><a href="#"><i class="fa fa-caret-right"></i>Resume Template</a></p>
-
             <p><a ui-sref="calendar"><i class="fa fa-caret-right"></i>Calendar</a></p>
+          </div>
+          <div class="section-content" ng-repeat="item in documentList">
+            <p><a href="{{item.filePath}}" target="_blank"><i class="fa fa-caret-right"></i>{{item.fileLabel}}</a></p>
           </div>
           <!--//section-content-->
         </section>
