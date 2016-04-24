@@ -11,7 +11,8 @@ var app = angular.module('uprmcmsApp', [
   'restangular',
   'chieffancypants.loadingBar',
   'LocalStorageModule',
-  'xeditable'
+  'xeditable',
+  'angular-loading-bar'
 ]);
 
 // Add lodash to the angular app
