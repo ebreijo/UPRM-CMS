@@ -3,7 +3,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration, Companies) {
+app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registration, Companies) {
 
   // Cleanup after leaving
   /*
@@ -15,6 +15,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
   */
 
   //$scope.fileUploadConfig = FileUpload.fileUploadConfig('/api/companies/logos', 'image', 10);
+
   $scope.fileUploadConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/logos',
@@ -34,6 +35,7 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
           this.removeFile(this.files[0]);
         }
         $scope.logoPath = response.filePath;
+        $scope.submitData($scope.isValid);
       },
       'error': function(file, response) {
         this.removeAllFiles();
@@ -46,14 +48,17 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
   var messageModal = $('#messageModal');
 
   $scope.registerCompany = function(isValid) {
+    $scope.isValid = isValid;
     // If Logo was selected, upload logo here.
     if($('#fileUpload').get(0).dropzone.files.length > 0){
       $('#fileUpload').get(0).dropzone.processQueue();
+      //$scope.submitData(isValid);
+    } else {
+      $scope.submitData(isValid);
     }
-    submitData(isValid);
   };
 
-  function submitData(isValid){
+  $scope.submitData = function(isValid){
     // check to make sure the form is completely valid
     if (isValid) {
       if($scope.logoPath){
@@ -81,6 +86,12 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, Registration,
     }
     //Jasmine Test
     return false;
+  };
+
+  $scope.allFormsArreSuccessful = false;
+
+  $scope.temporaryRegisterCompany = function(isValid){
+    $scope.allFormsArreSuccessful = isValid;
   };
 
 });
