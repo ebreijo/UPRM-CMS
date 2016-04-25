@@ -46,12 +46,12 @@ describe('Controller: Company Registration', function () {
     });
 
     it('It should register the recruiter, location and company with a valid form and go to the landing page', function () {
-      expect(scope.registerCompany(true)).toEqual(true);
+      expect(scope.submitData(true)).toEqual(true);
       expect(Registration.registerRecruiter).toHaveBeenCalled();
     });
 
     it('It should stay on the companyRegistration web page if inputs in form are not valid', function () {
-      expect(scope.registerCompany(false)).toEqual(false);
+      expect(scope.submitData(false)).toEqual(false);
       expect(Registration.registerRecruiter).not.toHaveBeenCalled();
       expect($state.go).not.toHaveBeenCalled();
     });
