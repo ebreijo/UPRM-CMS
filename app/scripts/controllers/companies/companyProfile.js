@@ -155,7 +155,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   //For Edit Promotional Material Modal------------------------------------------------------------
 
   $('#editPromotionalDocumentExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   var promotionalMaterial = [];
@@ -216,7 +217,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.showAddPromotionalMaterialDateError = false;
 
   $('#addPromotionalDocumentExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.openAddCompanyPromotionalMaterialModal = function(){
@@ -294,7 +296,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
 
   $('#addjobOfferExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.executeTab3 = function() {
@@ -374,7 +377,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.showCampusServiceDateError=false;
 
   $('#requestCampusServiceDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.submitCampusService = function(form) {

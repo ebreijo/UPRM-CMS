@@ -145,12 +145,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
           AboutUs.getAll();
         }]
       }
-    }).state('studentCatalogue', {
-      url: '/studentCatalogue',
-      templateUrl: 'partials/companies/company-codia+1.html',
-      data: {
-        authorizedRoles: USER_ROLES.recruiter
-      }
     }).state('companyCalendar', {
       url: '/companyCalendar',
       templateUrl: 'partials/companies/calendar.html',
