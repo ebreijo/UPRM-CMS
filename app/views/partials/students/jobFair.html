@@ -73,7 +73,7 @@
                        ng-checked="printCheckbox()"
                        class="control-label"
                        type="checkbox"
-                       value="">&nbsp;&nbsp;COOP
+                       value="">&nbsp;&nbsp;CO-OP
               </label>
               <label style="margin-right:10px">
                 <input ng-model="checkBox.partTime"
@@ -101,7 +101,7 @@
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-12" style="margin-top:10px">
-                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair<span ng-if="generalInformation.showResumeDeadlineDate"> (Deadline: {{ generalInformation.resumeDeadlineDate | date: 'MMMM d, y' }})</span>.
+                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair<span ng-if="generalInformation.showResumeDeadlineDate"> <strong>(Deadline: {{ generalInformation.resumeDeadlineDate | date: 'MMMM d, y' }})</strong></span>.
               </div>
             </div>
             <div class="row">

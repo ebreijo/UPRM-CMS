@@ -66,7 +66,7 @@ app.controller('jobFairCtrl', function($scope, Majors, JobFairGeneralInfo, JobFa
       if($scope.checkBox.internship === true && contains(lookingForList, 'Internship')) {
         count++;
       }
-      if($scope.checkBox.coop === true && contains(lookingForList, 'COOP')){
+      if($scope.checkBox.coop === true && contains(lookingForList, 'CO-OP')){
         count++;
       }
       if($scope.checkBox.partTime === true && contains(lookingForList, 'Part-Time')){
