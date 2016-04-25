@@ -56,7 +56,9 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
     if($('#fileUpload').get(0).dropzone.files.length > 0){
       cfpLoadingBar.start();
       $('#fileUpload').get(0).dropzone.processQueue();
-      $scope.submitData(isValid);
+      if ($scope.logoPath) {
+        $scope.submitData(isValid);
+      }
     } else {
       $scope.submitData(isValid);
     }
