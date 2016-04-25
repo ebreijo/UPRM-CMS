@@ -1085,9 +1085,34 @@ describe('Administrators Controller: ', function() {
   });
 
 
-  describe('Delete a Company Promotional Material', function() {
+  describe('Add a Company Promotional Material', function() {
+
+    // Run before all tests
+    before(function (done) {
+      this.sessionRecruiter = new Session();
+      this.sessionRecruiter.post('/api/login')
+        .send({
+          email: 'sergio@ibm.com',
+          password: '1q@W#e'
+        }).expect(200)
+        .end(help.isBodyEqual({
+          "email": "sergio@ibm.com",
+          "companyName": "IBM",
+          "companyLocationId": 1,
+          "firstName": "Sergio",
+          "lastName": "Rivera",
+          "phoneNumber": "787-555-5555",
+          "authType": "recruiter"
+        }, done));
+    });
+
+    // Run after all tests
+    after(function () {
+      this.sessionRecruiter.destroy();
+    });
+
     it('should add a promotional material for IBM and return a 201 status code', function(done) {
-      this.session
+      this.sessionRecruiter
         .post('/api/companies/IBM/promotionalMaterial')
         .send(
           {
@@ -1111,7 +1136,9 @@ describe('Administrators Controller: ', function() {
           }
         });
     });
+  });
 
+  describe('Delete a Company Promotional Material', function() {
     it('should delete an existing promotional material ' +
       'for IBM (given its ID) and return a 200 status code', function(done) {
       this.session

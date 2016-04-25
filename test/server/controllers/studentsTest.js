@@ -5,12 +5,36 @@ var request = require('supertest'),
   help = require('../help.js'),
   app = require('../../../server');
 
+var Session = require('supertest-session')({
+  app: app
+});
 
 describe('Students Controller: ', function() {
 
+  // Run before all tests
+  before(function (done) {
+    this.session = new Session();
+    this.session.post('/api/login')
+      .send({
+        email: 'placement@uprm.edu',
+        password: '1q@W#e'
+      }).expect(200)
+      .end(help.isBodyEqual({
+        "email": "placement@uprm.edu",
+        "firstName": "Placement",
+        "lastName": "Office",
+        "authType": "admin"
+      }, done));
+  });
+
+  // Run after all tests
+  after(function () {
+    this.session.destroy();
+  });
+
   describe('Get all job offers for students', function () {
     it('should find all active job offers and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/jobOffers')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -38,7 +62,7 @@ describe('Students Controller: ', function() {
 
   describe('Get a job offer given its ID', function () {
     it('should find a job offer with a job offer Id of 1', function (done) {
-      request(app)
+      this.session
         .get('/api/students/jobOffers/1')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -56,7 +80,7 @@ describe('Students Controller: ', function() {
     });
 
     it('should return 404 for a job offer not found', function (done) {
-      request(app)
+      this.session
         .get('/api/students/jobOffers/1234')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -65,7 +89,7 @@ describe('Students Controller: ', function() {
 
   describe('Get job fair information for students', function () {
     it('should find the companies attending job fair and additional information, and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/jobFair')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -134,7 +158,7 @@ describe('Students Controller: ', function() {
 
   describe('Get all active companies for students', function () {
     it('should find all active companies and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -159,7 +183,7 @@ describe('Students Controller: ', function() {
 
   describe('Get a company given its name', function () {
     it('should find a company with a company name of Apple', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/Apple')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -173,7 +197,7 @@ describe('Students Controller: ', function() {
     });
 
     it('should return 404 for a company not found', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/Zzzzz')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -182,7 +206,7 @@ describe('Students Controller: ', function() {
 
   describe('Get all job offers from a specific company for students', function () {
     it('should find all active job offers from a company and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/Apple/jobOffers')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -206,7 +230,7 @@ describe('Students Controller: ', function() {
 
   describe('Get a job offer from a company given its job offer ID', function () {
     it('should find a job offer from a company with a job offer Id of 4', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/Apple/jobOffers/4')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -224,7 +248,7 @@ describe('Students Controller: ', function() {
     });
 
     it('should return 404 for a job offer not found', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/Apple/jobOffers/1234')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -233,7 +257,7 @@ describe('Students Controller: ', function() {
 
   describe('Get all promo materials from a company for students', function () {
     it('should find all active promo materials from a company and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/IBM/promotionalMaterial')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -252,7 +276,7 @@ describe('Students Controller: ', function() {
 
   describe('Get a specific promo material given its ID', function () {
     it('should find a specific promo material with a promo Id of 1', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/IBM/promotionalMaterial/1')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -269,7 +293,7 @@ describe('Students Controller: ', function() {
     });
 
     it('should return 404 for a job offer not found', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/IBM/promotionalMaterial/1234')
         .expect('Content-Type', /json/)
         .expect(404, done);
@@ -278,7 +302,7 @@ describe('Students Controller: ', function() {
 
   describe('Get all company interested majors for students to see', function () {
     it('should find all company interested majors and return a 200 status code', function (done) {
-      request(app)
+      this.session
         .get('/api/students/companies/IBM/interestedMajors')
         .expect('Content-Type', /json/)
         .expect(200)
