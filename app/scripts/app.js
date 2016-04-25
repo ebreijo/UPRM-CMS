@@ -33,7 +33,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     templateUrl: 'partials/landing.html',
     controller: 'LandingPageCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     },
     resolve: {
       picturesPromise: ['Pictures', function(Pictures) {
@@ -45,21 +45,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     templateUrl: 'partials/company-registration.html',
     controller: 'CompanyRegistrationCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('locationRegistration', {
     url: '/locationRegistration',
     templateUrl: 'partials/location-registration.html',
     controller: 'LocationRegistrationCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('recruiterRegistration', {
     url: '/recruiterRegistration',
     templateUrl: 'partials/recruiter-registration.html',
     controller: 'RecruiterRegistrationCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('locationSearch', {
     url: '/locationSearch',
@@ -71,7 +71,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }]
     },
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('companySearch', {
     url: '/companySearch',
@@ -83,7 +83,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }]
     },
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('media', {
     url: '/media/:mediaFile'
@@ -92,7 +92,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
     templateUrl: 'partials/company-login.html',
     controller: 'LoginCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('aboutUs', {
     url: '/aboutUs',
@@ -104,20 +104,20 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       }]
     },
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('calendar', {
     url: '/calendar',
     templateUrl: 'partials/calendar.html',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   }).state('reset', {
     url: '/reset/:token',
     templateUrl: 'partials/reset-password.html',
     controller: 'ResetPasswordCtrl',
     data: {
-      authorizedRoles: all
+      authorizedRoles: USER_ROLES.guest
     }
   })
   //Company Views
@@ -126,7 +126,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/companies/company-main.html',
       controller: 'CompanyCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.recruiter
       },
       resolve: {
         majorsPromise: ['Majors', function(Majors) {
@@ -138,7 +138,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/companies/company-about.html',
       controller: 'AboutUsCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.recruiter
       },
       resolve: {
         aboutUsPromise: ['AboutUs', function (AboutUs) {
@@ -149,13 +149,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/studentCatalogue',
       templateUrl: 'partials/companies/company-codia+1.html',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.recruiter
       }
     }).state('companyCalendar', {
       url: '/companyCalendar',
       templateUrl: 'partials/companies/calendar.html',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.recruiter
       }
     })
   // Administrator views
@@ -164,21 +164,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/administrators/admin-main.html',
       controller: 'AdminProfileCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminRegistration', {
       url: '/adminRegistration',
       templateUrl: 'partials/administrators/admin-registration.html',
       controller: 'AdminRegistrationCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminChangeCarousel', {
       url: '/adminChangeCarousel',
       controller: 'AdminChangeCarousel',
       templateUrl: 'partials/administrators/change-carousel.html',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       },
       resolve: {
         picturesPromise: ['Pictures', function(Pictures) {
@@ -189,7 +189,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/adminCalendar',
       templateUrl: 'partials/administrators/calendar.html',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminJobFairManagement', {
       url: '/adminJobFairManagement',
@@ -210,7 +210,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminAboutUs', {
       url: '/adminAboutUs',
@@ -222,7 +222,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminJobFair', {
       url: '/adminJobFair',
@@ -240,7 +240,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     }).state('adminCompanyProfile', {
       url: '/adminCompanyProfile/:companyName',
@@ -258,7 +258,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.administrator
       }
     })
     // Student Views
@@ -267,7 +267,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/students/jobFair.html',
       controller: 'jobFairCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       },
       resolve: {
         jobFairPromise: ['JobFairCompaniesInfo', function (JobFairCompaniesInfo) {
@@ -284,7 +284,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       url: '/studentCalendar',
       templateUrl: 'partials/students/calendar.html',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       }
     }).state('studentAboutUs', {
       url: '/studentAboutUs',
@@ -296,14 +296,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       }
     }).state('studentJobOffers', {
       url: '/studentJobOffers',
       templateUrl: 'partials/students/student-job-offers.html',
       controller: 'jobOffersCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       },
       resolve: {
         jobOffersPromise: ['JobOffers', function (JobOffers) {
@@ -315,7 +315,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/students/student-company-list.html',
       controller: 'companyListCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       },
       resolve: {
         studentCompaniesPromise: ['Companies', function (Companies) {
@@ -341,14 +341,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
         }]
       },
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.student
       }
     }).state('continueStudent', {
       url: '/student?ticket',
       templateUrl: 'partials/students/continue.html',
       controller: 'ContinueStudentCtrl',
       data: {
-        authorizedRoles: all
+        authorizedRoles: USER_ROLES.guest
       }
     }).state('404Error', {
       url: '/NotFound',

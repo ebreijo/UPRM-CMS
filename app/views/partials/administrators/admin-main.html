@@ -662,7 +662,7 @@
                                 <li>Recruiter Name: {{recruiter.firstName}} {{recruiter.lastName}} </li>
                                 <li>Email: {{recruiter.email}}</li>
                                 <li>Phone: {{recruiter.phoneNumber}}</li>
-                                <li>Company: {{recruiter.companyName}}</li>
+                                <li>Company: <a href="/adminCompanyProfile/{{recruiter.companyName}}">{{recruiter.companyName}}</a></li>
                                 <li>Location: {{recruiter.companyLocation.city}}, <span ng-if="recruiter.companyLocation.state">{{recruiter.companyLocation.state}},</span> {{recruiter.companyLocation.country}}</li>
                               </ul>
                             </td>
