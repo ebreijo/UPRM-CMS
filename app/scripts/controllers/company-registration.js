@@ -7,14 +7,12 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
 
   $scope.$on('$destroy', function() {
     if ($scope.logoPath !== undefined) {
-      console.log($scope.logoPath);
       Companies.logoCleanup({logoPath: $scope.logoPath});
     }
   });
 
   window.onbeforeunload = function() {
     if ($scope.logoPath !== undefined) {
-      console.log($scope.logoPath);
       Companies.logoCleanup({logoPath: $scope.logoPath});
     }
   };

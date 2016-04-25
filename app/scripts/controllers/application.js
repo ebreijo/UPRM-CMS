@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS, Session, _, PublicDocuments) {
+app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AUTH_EVENTS, Session, _, PublicDocuments, cfpLoadingBar) {
 
   // variables for use in child scopes.
   $scope.currentUser = null;
@@ -63,7 +63,6 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
 
   // Public Documents Uploads:
 
-  /* jshint ignore:start */
   $scope.addPublicDocumentConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/documents/upload',
@@ -74,20 +73,23 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
       'createImageThumbnails': false
     },
     'eventHandlers': {
-      'sending': function (file, xhr, formData) {
+      'sending': function () {
         console.log('Sending!!!!');
+        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
+        cfpLoadingBar.complete();
         this.removeAllFiles();
         $scope.publicDocumentFilePath = response.filePath;
       },
-      'error': function(file, response) {
+      'error': function() {
         this.removeAllFiles();
+        /* jshint ignore:start */
         alert('ERROR: File Too Large!');
+        /* jshint ignore:end */
       }
     }
   };
-  /* jshint ignore:end */
 
 });

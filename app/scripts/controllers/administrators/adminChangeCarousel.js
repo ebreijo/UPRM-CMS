@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('AdminChangeCarousel', function($scope, Pictures) {
+app.controller('AdminChangeCarousel', function($scope, Pictures, cfpLoadingBar) {
 
   $scope.pictures = Pictures.pictures;
   $scope.selectedPicture = 0;
@@ -17,7 +17,6 @@ app.controller('AdminChangeCarousel', function($scope, Pictures) {
   }
   */
 
-  /* jshint ignore:start */
   $scope.uploadPictureConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/pictures',
@@ -28,21 +27,24 @@ app.controller('AdminChangeCarousel', function($scope, Pictures) {
       'createImageThumbnails': false
     },
     'eventHandlers': {
-      'sending': function (file, xhr, formData) {
+      'sending': function () {
         console.log('Sending!!!!');
+        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
+        cfpLoadingBar.complete();
         this.removeAllFiles();
         Pictures.updateLandingPagePicture({'filePath': response.filePath, 'fileLabel':response.fileLabel}, $scope.selectedPicture+1);
         $scope.pictures[$scope.selectedPicture].filePath = response.filePath;
       },
-      'error': function(file, response) {
+      'error': function() {
         this.removeAllFiles();
+        /* jshint ignore:start */
         alert('ERROR: File Too Large!');
+        /* jshint ignore:end */
       }
     }
   };
-  /* jshint ignore:end */
 
 });

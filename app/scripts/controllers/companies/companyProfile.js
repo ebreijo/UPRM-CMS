@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers) {
+app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers, cfpLoadingBar) {
 
   $scope.companyProfile = {
     'generalInfo':[
@@ -446,7 +446,6 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
 
   // For File Uploads -------------------------------------------------------------------
-  /* jshint ignore:start */
   $scope.updateLogoConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/logos',
@@ -457,22 +456,25 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'createImageThumbnails': false
     },
     'eventHandlers': {
-      'sending': function (file, xhr, formData) {
+      'sending': function () {
         console.log('Sending!!!!');
+        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
         this.removeAllFiles();
+        cfpLoadingBar.complete();
         Companies.updateCompanyGeneralInformation({'logoPath': response.filePath}, $scope.getCurrentUser().companyName);
         $scope.companyProfile.generalInfo[0].logoPath = response.filePath;
       },
-      'error': function(file, response) {
+      'error': function() {
         this.removeAllFiles();
+        /* jshint ignore:start */
         alert('ERROR: File Too Large!');
+        /* jshint ignore:end */
       }
     }
   };
-  /* jshint ignore:end */
 
   $scope.promoMaterialFilePath = '';
   $scope.jobofferFilePath = '';
@@ -481,7 +483,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     $scope.jobofferFilePath = '';
   };
 
-  /* jshint ignore:start */
+
   $scope.updatePromotionalMaterialConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/promotionalMaterial/upload',
@@ -492,23 +494,26 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'createImageThumbnails': false
     },
     'eventHandlers': {
-      'sending': function (file, xhr, formData) {
+      'sending': function () {
         console.log('Sending!!!!');
+        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
+        cfpLoadingBar.complete();
         //this.removeAllFiles();
         $scope.promoMaterialFilePath = response.filePath;
       },
-      'error': function(file, response) {
+      'error': function() {
         //this.removeAllFiles();
+        /* jshint ignore:start */
         alert('ERROR: File Too Large!');
+        /* jshint ignore:end */
       }
     }
   };
-  /* jshint ignore:end */
 
-  /* jshint ignore:start */
+
   $scope.updateJobOfferConfig = {
     'options': { // passed into the Dropzone constructor
       'url': '/api/companies/jobOffers/upload',
@@ -519,21 +524,24 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'createImageThumbnails': false
     },
     'eventHandlers': {
-      'sending': function (file, xhr, formData) {
+      'sending': function () {
         console.log('Sending!!!!');
+        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
+        cfpLoadingBar.complete();
         this.removeAllFiles();
         $scope.jobofferFilePath = response.filePath;
       },
-      'error': function(file, response) {
+      'error': function() {
         this.removeAllFiles();
+        /* jshint ignore:start */
         alert('ERROR: File Too Large!');
+        /* jshint ignore:end */
       }
     }
   };
-  /* jshint ignore:end */
 
 
 });
