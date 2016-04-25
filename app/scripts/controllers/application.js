@@ -46,18 +46,32 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
     });
   };
 
+  $scope.publicDocumentsForm = {};
+
   $scope.submitAddGeneralDocuments = function(form) {
     if(form.$valid) {
-      var publicDoc = {
-        fileLabel: form.documentTitle.$viewValue,
-        filePath: $scope.publicDocumentFilePath
-      };
-
-      PublicDocuments.addPublicDocuments(publicDoc).then(function() {
-        $scope.publicDocumentFilePath = '';
-        $scope.documentList.push(publicDoc);
-      });
+      $scope.publicDocumentsForm = form;
+      // if promotional material was selected, upload here.
+      if($('#publicDocumentUpload').get(0).dropzone.files.length > 0){
+        cfpLoadingBar.start();
+        $('#publicDocumentUpload').get(0).dropzone.processQueue();
+      }
     }
+  };
+
+  $scope.document = {};
+
+  $scope.submitAddPublicDocumentsData = function(form) {
+    var publicDoc = {
+      fileLabel: $scope.document.title,
+      filePath: $scope.document.filePath
+    };
+
+    PublicDocuments.addPublicDocuments(publicDoc).then(function(addedDocument) {
+      $scope.document = {};
+      form.$setPristine();
+      $scope.documentList.push(addedDocument);
+    });
   };
 
 
@@ -70,18 +84,19 @@ app.controller('ApplicationCtrl', function ($scope, $state, USER_ROLES, Auth, AU
       'maxFilesize': 5, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'application/pdf',
-      'createImageThumbnails': false
+      'createImageThumbnails': false,
+      'autoProcessQueue': false
     },
     'eventHandlers': {
       'sending': function () {
         console.log('Sending!!!!');
-        cfpLoadingBar.start();
       },
       'success': function (file, response) {
         console.log('Success!!!!');
         cfpLoadingBar.complete();
         this.removeAllFiles();
-        $scope.publicDocumentFilePath = response.filePath;
+        $scope.document.filePath = response.filePath;
+        $scope.submitAddPublicDocumentsData($scope.publicDocumentsForm);
       },
       'error': function() {
         this.removeAllFiles();
