@@ -218,7 +218,7 @@ describe('Controller: AdminProfile', function () {
         it('should make the updateCompanyStatus request', function () {
           scope.submitCompanyStatusEdit(form);
           scope.$digest();
-          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany.name, scope.tempCompany);
         });
 
       });
@@ -624,7 +624,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitAcceptCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('active');
-          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany.name, scope.tempCompany);
         });
       });
     });
@@ -646,7 +646,7 @@ describe('Controller: AdminProfile', function () {
           scope.submitRejectCompany(form);
           scope.$digest();
           expect(scope.tempCompany.companyStatus).toEqual('inactive');
-          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany);
+          expect(Companies.updateCompanyFromAdmins).toHaveBeenCalledWith(scope.tempCompany.name, scope.tempCompany);
         });
       });
     });
