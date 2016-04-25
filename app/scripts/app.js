@@ -171,7 +171,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/administrators/admin-registration.html',
       controller: 'AdminRegistrationCtrl',
       data: {
-        authorizedRoles: USER_ROLES.administrator
+        authorizedRoles: USER_ROLES.guest
       }
     }).state('adminChangeCarousel', {
       url: '/adminChangeCarousel',
