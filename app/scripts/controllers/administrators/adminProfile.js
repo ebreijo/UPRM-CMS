@@ -301,6 +301,7 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         $scope.tempJobOffer.jobOfferStatus = 'approved';
         JobOffers.updateJobOfferFromAdmins($scope.tempJobOffer).then(function() {
           removeJobOfferFromPendingList();
+          $scope.tempJobOffer = null;
           $('#reviewAcceptJobOfferModal').modal('hide');
         });
       } else {
