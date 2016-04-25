@@ -347,6 +347,7 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
   `student_ticket` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
