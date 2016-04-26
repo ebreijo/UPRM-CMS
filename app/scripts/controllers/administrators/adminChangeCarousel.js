@@ -21,7 +21,7 @@ app.controller('AdminChangeCarousel', function($scope, Pictures, cfpLoadingBar) 
     'options': { // passed into the Dropzone constructor
       'url': '/api/pictures',
       'paramName': 'image',     // The name that will be used to transfer the file
-      'maxFilesize': 5, // in MBs
+      'maxFilesize': 1, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'image/jpeg,image/png',
       'createImageThumbnails': false
