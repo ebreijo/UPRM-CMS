@@ -12,8 +12,7 @@ var app = angular.module('uprmcmsApp', [
   'chieffancypants.loadingBar',
   'LocalStorageModule',
   'xeditable',
-  'cfp.loadingBar',
-  'ngAnimate'
+  'cfp.loadingBar'
 ]);
 
 // Add lodash to the angular app

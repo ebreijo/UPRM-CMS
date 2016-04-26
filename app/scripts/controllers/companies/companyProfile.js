@@ -2,7 +2,7 @@
 
 var app = angular.module('uprmcmsApp');
 
-app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers, cfpLoadingBar) {
+app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _, Majors, Companies, PromotionalMaterial, Recruiters, JobOffers, cfpLoadingBar, $sessionStorage) {
 
   $scope.companyProfile = {
     'generalInfo':[
@@ -160,9 +160,11 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   });
 
   var promotionalMaterial = [];
+  $sessionStorage.promotionalMaterialCounter = 0;
 
   PromotionalMaterial.getApprovedPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
     promotionalMaterial = PromotionalMaterial.approvedCompanyPromotionalMaterial;
+    $sessionStorage.promotionalMaterialCounter = promotionalMaterial.length;
 
     for (var i = 0; i < promotionalMaterial.length; i++) {
       $scope.companyProfile.promotionalMaterial.push(
@@ -191,6 +193,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
     if (form.$valid) {
       PromotionalMaterial.removePromotionalMaterialPerCompany($scope.getCurrentUser().companyName, $scope.PromotionalMaterialItem.id).then(function() {
         _.remove($scope.companyProfile.promotionalMaterial, {id: $scope.PromotionalMaterialItem.id});
+        $sessionStorage.promotionalMaterialCounter -= 1;
         $('#deletePromotionalMaterialConfirmModal').modal('hide');
       });
     }
@@ -222,13 +225,16 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   });
 
   $scope.openAddCompanyPromotionalMaterialModal = function(){
-    if($scope.companyProfile.promotionalMaterial.length < 5){
+    if($sessionStorage.promotionalMaterialCounter < 5){
       $('#addPromotionalMaterialModal').modal('show');
-      $scope.showPromotionalMaterialError = false;
+      //$scope.showPromotionalMaterialError = false;
 
     }
-    else if ($scope.companyProfile.promotionalMaterial.length >= 5){
-      $scope.showPromotionalMaterialError = true;
+    else if ($sessionStorage.promotionalMaterialCounter >= 5){
+      //$scope.showPromotionalMaterialError = true;
+      $scope.title = 'Warning';
+      $scope.message = 'The maximum number of promotional material documents is 5. To add a new document, delete one of the existing materials listed below.';
+      $('#messageModal').modal('show');
     }
   };
 
@@ -261,11 +267,21 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
       PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName, newPromotionalMaterial).then(function() {
         $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  newPromotionalMaterial.title, status: 'pending'});
+        $sessionStorage.promotionalMaterialCounter += 1;
         $scope.addPromotionalMaterialItemTitle = null;
         $scope.addPromotionalMaterialItemExpirationDate = null;
         $scope.promoMaterialFilePath = null;
         form.$setPristine();
         $('#addPromotionalMaterialModal').modal('hide');
+      }, function() {
+        $scope.addPromotionalMaterialItemTitle = null;
+        $scope.addPromotionalMaterialItemExpirationDate = null;
+        $scope.promoMaterialFilePath = null;
+        form.$setPristine();
+        $('#addPromotionalMaterialModal').modal('hide');
+        $scope.title = 'Warning';
+        $scope.message = 'The maximum number of promotional material documents is 5. To add a new document, delete one of the existing materials listed below.';
+        $('#messageModal').modal('show');
       });
     }
   };
@@ -425,6 +441,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
   PromotionalMaterial.getPendingPromotionalMaterialPerCompany($scope.getCurrentUser().companyName).then(function() {
     pendingPromotionalMaterial = PromotionalMaterial.pendingCompanyPromotionalMaterial;
+    $sessionStorage.promotionalMaterialCounter += pendingPromotionalMaterial.length;
 
     for (var i = 0; i < pendingPromotionalMaterial.length; i++) {
       $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  pendingPromotionalMaterial[i].title, status: 'pending'});
