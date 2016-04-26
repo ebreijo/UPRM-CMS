@@ -227,11 +227,14 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.openAddCompanyPromotionalMaterialModal = function(){
     if($sessionStorage.promotionalMaterialCounter < 5){
       $('#addPromotionalMaterialModal').modal('show');
-      $scope.showPromotionalMaterialError = false;
+      //$scope.showPromotionalMaterialError = false;
 
     }
     else if ($sessionStorage.promotionalMaterialCounter >= 5){
-      $scope.showPromotionalMaterialError = true;
+      //$scope.showPromotionalMaterialError = true;
+      $scope.title = 'Warning';
+      $scope.message = 'The maximum number of promotional material documents is 5. To add a new document, delete one of the existing materials listed below.';
+      $('#messageModal').modal('show');
     }
   };
 
