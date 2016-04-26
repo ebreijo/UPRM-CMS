@@ -8,7 +8,9 @@ app.controller('LandingPageCtrl', function($scope, Pictures) {
   // Once the view is loaded, parse the Facebook plugin and load the slider
   $scope.$on('$viewContentLoaded', function() {
     /* jshint ignore:start */
-    FB.XFBML.parse(document.getElementById('promo-facebook-plugin'));
+    setTimeout(function() {
+      FB.XFBML.parse(document.getElementById('promo-facebook-plugin'));
+    }, 100);
     /* jshint ignore:end */
 
     // Slider
