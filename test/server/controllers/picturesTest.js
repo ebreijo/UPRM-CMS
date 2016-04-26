@@ -70,7 +70,7 @@ describe('Pictures Controller: ', function() {
         .end(help.isBodyEqual({
           id: 1,
           fileLabel : 'photo1',
-          filePath : 'media/landing/3f1130b2a13a1a4b5b5ded2c5c5459e7.jpeg'
+          filePath : 'media/landing/222402f605892859df986fe7f0925a7a.jpeg'
         }, done));
     });
 
