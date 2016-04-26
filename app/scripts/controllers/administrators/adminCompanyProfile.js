@@ -79,7 +79,8 @@ app.controller('AdminCompanyProfileCtrl', function($scope, adminCompanyPromise, 
     });
 
     $('#editPromotionalDocumentExpirationDatePicker').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
 
     $scope.setPromotionalMaterialItem = function(promMaterial) {

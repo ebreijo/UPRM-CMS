@@ -155,7 +155,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   //For Edit Promotional Material Modal------------------------------------------------------------
 
   $('#editPromotionalDocumentExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   var promotionalMaterial = [];
@@ -216,7 +217,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.showAddPromotionalMaterialDateError = false;
 
   $('#addPromotionalDocumentExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.openAddCompanyPromotionalMaterialModal = function(){
@@ -233,7 +235,24 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   $scope.submitAddCompanyPromotionalMaterial = function(form){
     if(form.$valid && $scope.addPromotionalMaterialItemExpirationDate.toISOString() > (new Date()).toISOString()){
       $scope.showAddPromotionalMaterialDateError = false;
+      // if promotional material was selected, upload here.
+      if($('#promotionalMaterialUpload').get(0).dropzone.files.length > 0){
+        cfpLoadingBar.start();
+        $('#promotionalMaterialUpload').get(0).dropzone.processQueue();
+      }
 
+      //Jasmine Test
+      return true;
+    }
+    else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= (new Date()).toISOString()){
+      $scope.showAddPromotionalMaterialDateError = true;
+      //Jasmine Test
+      return false;
+    }
+  };
+
+  $scope.submitPromotionalMaterialData = function(form) {
+    if (form.$valid) {
       var newPromotionalMaterial = {
         title: $scope.addPromotionalMaterialItemTitle,
         expirationDate: $scope.addPromotionalMaterialItemExpirationDate,
@@ -242,15 +261,12 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
       PromotionalMaterial.addPromotionalMaterialPerCompany($scope.getCurrentUser().companyName, newPromotionalMaterial).then(function() {
         $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Promotional Material: ' +  newPromotionalMaterial.title, status: 'pending'});
+        $scope.addPromotionalMaterialItemTitle = null;
+        $scope.addPromotionalMaterialItemExpirationDate = null;
+        $scope.promoMaterialFilePath = null;
+        form.$setPristine();
         $('#addPromotionalMaterialModal').modal('hide');
       });
-      //Jasmine Test
-      return true;
-    }
-    else if(($scope.addPromotionalMaterialItemExpirationDate.toISOString()) <= (new Date()).toISOString()){
-      $scope.showAddPromotionalMaterialDateError = true;
-      //Jasmine Test
-      return false;
     }
   };
 
@@ -280,7 +296,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   };
 
   $('#addjobOfferExpirationDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.executeTab3 = function() {
@@ -307,6 +324,21 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
     $scope.submitAddCompanyJobOffer = function(form){
       if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
+        // if job offer was selected, upload here.
+        if($('#jobOfferUpload').get(0).dropzone.files.length > 0){
+          cfpLoadingBar.start();
+          $('#jobOfferUpload').get(0).dropzone.processQueue();
+        } else {
+          $scope.submitCompanyJobOfferData(form);
+        }
+      }
+      else if(($scope.addJobOfferExpirationDate.toISOString()) <= (new Date()).toISOString()){
+        $scope.showJobOfferDateError = true;
+      }
+    };
+
+    $scope.submitCompanyJobOfferData = function(form) {
+      if (form.$valid) {
         var newJobOffer = {
           'email': $scope.getCurrentUser().email,
           'title': $scope.addJobOfferTitle,
@@ -323,21 +355,30 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
         JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
           $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
+          $scope.addJobOfferTitle = null;
+          $scope.addJobOfferDescription = null;
+          $scope.addJobOfferPosition = null;
+          $scope.addJobOfferEducationalLevel = null;
+          $scope.addJobOfferRecentGraduateOption = false;
+          $scope.addJobOfferExpirationDate = null;
+          $scope.addJobOfferAnnouncementNumber = null;
+          $scope.addJobOfferLocation = null;
+          $scope.jobofferFilePath = null;
+          form.$setPristine();
           $scope.showJobOfferDateError = false;
           $('#addJobOfferModal').modal('hide');
         });
       }
-      else if(($scope.addJobOfferExpirationDate.toISOString()) <= (new Date()).toISOString()){
-        $scope.showJobOfferDateError = true;
-      }
     };
+
   };
 
   //Requesting an on Campus Service------------------------------------------------------------
   $scope.showCampusServiceDateError=false;
 
   $('#requestCampusServiceDatePicker').datepicker({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    autoclose: true
   });
 
   $scope.submitCampusService = function(form) {
@@ -491,7 +532,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'maxFilesize': 5, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'application/pdf',
-      'createImageThumbnails': false
+      'createImageThumbnails': false,
+      'autoProcessQueue': false
     },
     'eventHandlers': {
       'sending': function () {
@@ -501,11 +543,15 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'success': function (file, response) {
         console.log('Success!!!!');
         cfpLoadingBar.complete();
-        //this.removeAllFiles();
+        this.removeAllFiles();
+        //if(this.files.length === 2){
+        //  this.removeFile(this.files[0]);
+        //}
         $scope.promoMaterialFilePath = response.filePath;
+        $scope.submitPromotionalMaterialData($scope.addCompanyPromotionalMaterialForm);
       },
       'error': function() {
-        //this.removeAllFiles();
+        this.removeAllFiles();
         /* jshint ignore:start */
         alert('ERROR: File Too Large!');
         /* jshint ignore:end */
@@ -521,7 +567,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       'maxFilesize': 5, // in MBs
       'maxFiles': 1,
       'acceptedFiles': 'application/pdf',
-      'createImageThumbnails': false
+      'createImageThumbnails': false,
+      'autoProcessQueue': false
     },
     'eventHandlers': {
       'sending': function () {
@@ -533,6 +580,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
         cfpLoadingBar.complete();
         this.removeAllFiles();
         $scope.jobofferFilePath = response.filePath;
+        $scope.submitCompanyJobOfferData($scope.addCompanyJobOfferForm);
       },
       'error': function() {
         this.removeAllFiles();

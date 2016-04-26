@@ -40,23 +40,23 @@ describe('Pictures Controller: ', function() {
         .end(help.isBodyEqual([{
           id: 1,
           fileLabel : 'photo1',
-          filePath : 'media/landing/slide-1.jpg'
+          filePath : 'media/landing/222402f605892859df986fe7f0925a7a.jpeg'
         }, {
           id: 2,
           fileLabel : 'photo2',
-          filePath : 'media/landing/slide-2.jpg'
+          filePath : 'media/landing/08256d2e4d626c571dcbeb7eea0ce9d5.jpeg'
         }, {
           id: 3,
           fileLabel : 'photo3',
-          filePath : 'media/landing/slide-3.jpg'
+          filePath : 'media/landing/1e0c41dbfd2cedd61f3da7d34498356d.jpeg'
         }, {
           id: 4,
           fileLabel : 'photo4',
-          filePath : 'media/landing/slide-3.jpg'
+          filePath : 'media/landing/c6ee9c7978a335b2bafcaaf630785fe5.jpeg'
         }, {
           id: 5,
           fileLabel : 'photo5',
-          filePath : 'media/landing/slide-3.jpg'
+          filePath : 'media/landing/1836f55e9dc707d5102552f97d1650f2.jpeg'
         }], done));
     });
   });
@@ -70,7 +70,7 @@ describe('Pictures Controller: ', function() {
         .end(help.isBodyEqual({
           id: 1,
           fileLabel : 'photo1',
-          filePath : 'media/landing/slide-1.jpg'
+          filePath : 'media/landing/222402f605892859df986fe7f0925a7a.jpeg'
         }, done));
     });
 

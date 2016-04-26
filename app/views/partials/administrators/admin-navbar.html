@@ -100,7 +100,7 @@
                   <label><h5 class="title text-highlight"><b>Title:</b><br></h5></label>
                   <div class="form-group has-feedback" ng-class="{ 'has-error' : manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine}">
 
-                    <input ng-model="addDocumentTitle" name="documentTitle" type="text" class="form-control" placeholder="Enter the name of public file" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                    <input ng-model="document.title" name="documentTitle" type="text" class="form-control" placeholder="Enter the name of public file" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
 
                     <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="manageDocumentsModalForm.documentTitle.$valid"></i>
                     <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="manageDocumentsModalForm.documentTitle.$invalid && !manageDocumentsModalForm.documentTitle.$pristine"></i>
@@ -114,7 +114,7 @@
                   <!--<label for="document-upload" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">Select Document</label>-->
                   <!--<input style="display: none;" id="document-upload" type="file" accept="application/pdf" required/>-->
 
-                  <label type="button" uprm-file-uploader="addPublicDocumentConfig" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">
+                  <label id="publicDocumentUpload" type="button" uprm-file-uploader="addPublicDocumentConfig" class="btn btn-info btn-sm" style="margin-top: 20px; text-align: center;">
                     Select Document
                   </label>
 
@@ -128,8 +128,8 @@
                   </button>
                 </div>
               </div>
-
             </form>
+
             <div class="row text-center" style="margin-top:20px">
               <label>
                 <h4 class="title text-highlight">

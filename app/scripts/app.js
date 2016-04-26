@@ -145,12 +145,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
           AboutUs.getAll();
         }]
       }
-    }).state('studentCatalogue', {
-      url: '/studentCatalogue',
-      templateUrl: 'partials/companies/company-codia+1.html',
-      data: {
-        authorizedRoles: USER_ROLES.recruiter
-      }
     }).state('companyCalendar', {
       url: '/companyCalendar',
       templateUrl: 'partials/companies/calendar.html',
@@ -171,7 +165,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
       templateUrl: 'partials/administrators/admin-registration.html',
       controller: 'AdminRegistrationCtrl',
       data: {
-        authorizedRoles: USER_ROLES.administrator
+        authorizedRoles: USER_ROLES.guest
       }
     }).state('adminChangeCarousel', {
       url: '/adminChangeCarousel',

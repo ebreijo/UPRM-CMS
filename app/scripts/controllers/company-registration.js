@@ -94,12 +94,6 @@ app.controller('CompanyRegistrationCtrl', function($scope, $state, $q, Registrat
     return false;
   };
 
-  $scope.allFormsArreSuccessful = false;
-
-  $scope.temporaryRegisterCompany = function(isValid){
-    $scope.allFormsArreSuccessful = isValid;
-  };
-
 });
 /* jshint ignore:end */
 

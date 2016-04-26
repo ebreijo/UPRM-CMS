@@ -74,19 +74,19 @@ INSERT INTO company_services (service)
 VALUES ('We refer resumes of recent graduates with minimum experience.');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo1', 'media/landing/slide-1.jpg');
+VALUES ('photo1', 'media/landing/222402f605892859df986fe7f0925a7a.jpeg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo2', 'media/landing/slide-2.jpg');
+VALUES ('photo2', 'media/landing/08256d2e4d626c571dcbeb7eea0ce9d5.jpeg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo3', 'media/landing/slide-3.jpg');
+VALUES ('photo3', 'media/landing/1e0c41dbfd2cedd61f3da7d34498356d.jpeg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo4', 'media/landing/slide-3.jpg');
+VALUES ('photo4', 'media/landing/c6ee9c7978a335b2bafcaaf630785fe5.jpeg');
 
 INSERT INTO home_page_photos (file_label, file_path)
-VALUES ('photo5', 'media/landing/slide-3.jpg');
+VALUES ('photo5', 'media/landing/1836f55e9dc707d5102552f97d1650f2.jpeg');
 
 INSERT INTO job_fair_company_information (company_name, min_gpa, extra_information, collecting_resumes_before_job_fair, must_fill_online, interviews_during_weekend, attending, website_application)
 VALUES ('IBM', '3.30', 'This is a company attending the Job Fair', '1', '0', '1', '1', 'http://www-03.ibm.com/employment/us/');

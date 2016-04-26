@@ -206,6 +206,12 @@ describe('Controller: Company Profile', function () {
 
   describe('scope.submitAddCompanyPromotionalMaterial', function () {
 
+    beforeEach(function () {
+      spyOn(PromotionalMaterial, 'addPromotionalMaterialPerCompany').and.callFake(function () {
+        return q.when({});
+      });
+    });
+
     it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
        'Case 1: Inputs are valid and expiration date is after today.', function () {
 
@@ -224,10 +230,10 @@ describe('Controller: Company Profile', function () {
       var today = date.toISOString();
       scope.showAddPromotionalMaterialDateError = null;
       scope.addPromotionalMaterialItemTitle = 'PromotionalMaterial5';
-      scope.addPromotionalMaterialItemExpirationDate = new Date('2016-05-07T13:52:52.933Z');
+      scope.addPromotionalMaterialItemExpirationDate = new Date('2030-05-07T13:52:52.933Z');
       console.info('Selected Date: ' + scope.addPromotionalMaterialItemExpirationDate.toISOString() + ' Today Date: ' + today + ' Comparison (selected > today): ' + (scope.addPromotionalMaterialItemExpirationDate.toISOString()>today));
-      scope.submitAddCompanyPromotionalMaterial(myForm);
-      expect(scope.submitAddCompanyPromotionalMaterial(myForm)).toEqual(true);
+      scope.submitPromotionalMaterialData(myForm);
+      expect(PromotionalMaterial.addPromotionalMaterialPerCompany).toHaveBeenCalled();
     });
 
     it('Company Promotional Material Information should be updated if inputs in form are valid and selected Expiration Date is after today. ' +
