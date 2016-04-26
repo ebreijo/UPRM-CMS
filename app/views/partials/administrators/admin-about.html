@@ -133,10 +133,6 @@
                   <span editable-text="item.service" e-size="100" e-form="editableCompanyServicesForm" onbeforesave="checkCompanyService($data)" e-required><i class="fa fa-check"></i>{{item.service}}</span>
                   <button type="button" ng-show="editableCompanyServicesForm.$visible" ng-click="deleteItems(aboutUsInfo.companyServices, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
                 </li>
-                <li>
-                  <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                  We refer resumes of recent graduates with minimum experience.
-                </li>
               </ul>
             </form>
 
@@ -252,11 +248,6 @@
                   <!-- editable requirements (text with validation) -->
                   <span editable-text="item.requirement" e-size="100" onbeforesave="checkRequirement($data)" e-required><i class="fa fa-check"></i>{{item.requirement}}</span>
                   <button type="button" ng-show="requirementEditableForm.$visible" ng-click="deleteItems(aboutUsInfo.requirements, item)" class="btn btn-danger btn-sm pull-right">Delete</button>
-                </li>
-                <li>
-                  <span style="font-family: arial; color: #004D13;"><strong><i>NOTE:</i> </strong></span>
-                  Every student is responsible for maintaining his/her file updated and with enough copies at the
-                  Placement Office.
                 </li>
               </ul>
             </form>
