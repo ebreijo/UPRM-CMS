@@ -58,13 +58,10 @@ var options = {
 };
 
 db.sequelize.authenticate().then(function() {
-  // Start server
-  app.listen(config.port, function () {
-    console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
-  });
 
-  https.createServer(options, app).listen(3000, function () {
-    console.log('Express server listening on port %d in %s mode', 3000, app.get('env'));
+  // Start server
+  https.createServer(options, app).listen(config.port, function () {
+    console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
   });
 }, function(err) {
   console.log('Error authenticating the database', err);
