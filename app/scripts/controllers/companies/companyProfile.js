@@ -274,6 +274,11 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
         form.$setPristine();
         $('#addPromotionalMaterialModal').modal('hide');
       }, function() {
+        $scope.addPromotionalMaterialItemTitle = null;
+        $scope.addPromotionalMaterialItemExpirationDate = null;
+        $scope.promoMaterialFilePath = null;
+        form.$setPristine();
+        $('#addPromotionalMaterialModal').modal('hide');
         $scope.title = 'Warning';
         $scope.message = 'The maximum number of promotional material documents is 5. To add a new document, delete one of the existing materials listed below.';
         $('#messageModal').modal('show');
