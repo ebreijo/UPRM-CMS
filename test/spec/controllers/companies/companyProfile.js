@@ -15,6 +15,7 @@ describe('Controller: Company Profile', function () {
   var Recruiters;
   var JobOffers;
   var q;
+  var sessionStorage;
 
   // Inject Custom Services:
 
@@ -27,6 +28,7 @@ describe('Controller: Company Profile', function () {
     Recruiters = $injector.get('Recruiters');
     JobOffers = $injector.get('JobOffers');
     q = $injector.get('$q');
+    sessionStorage = $injector.get('$sessionStorage');
   }));
 
   // Inject AngularJS Services:
@@ -54,7 +56,8 @@ describe('Controller: Company Profile', function () {
       Companies: Companies,
       PromotionalMaterial: PromotionalMaterial,
       Recruiters: Recruiters,
-      JobOffers: JobOffers
+      JobOffers: JobOffers,
+      $sessionStorage: sessionStorage
     });
 
   }));
@@ -165,40 +168,17 @@ describe('Controller: Company Profile', function () {
 
     it('Open the Modal for Adding a Promotional document if max capacity(5) has not been reached.', function () {
 
-      scope.companyProfile = {
-        'promotionalMaterial':[
-          {},
-          {},
-          {},
-          {}
-        ]
-      };
-
-      scope.showPromotionalMaterialError = null;
-
+      sessionStorage.promotionalMaterialCounter = 2;
       scope.openAddCompanyPromotionalMaterialModal();
-
-      expect(!scope.showPromotionalMaterialError).toBeTruthy();
+      expect(scope.title).not.toBeDefined();
 
     });
 
     it('Open the Modal for Adding a Promotional document if max capacity(5) has been reached.', function () {
 
-      scope.companyProfile = {
-        'promotionalMaterial':[
-          {},
-          {},
-          {},
-          {},
-          {}
-        ]
-      };
-
-      scope.showPromotionalMaterialError = null;
-
+      sessionStorage.promotionalMaterialCounter = 5;
       scope.openAddCompanyPromotionalMaterialModal();
-
-      expect(scope.showPromotionalMaterialError).toBeTruthy();
+      expect(scope.title).toEqual('Warning');
 
     });
 
