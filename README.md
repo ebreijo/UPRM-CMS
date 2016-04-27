@@ -68,7 +68,7 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     
    Note that if you are using Grunt, the default port is 9000.
     
-   If you are using [PM2](http://pm2.keymetrics.io/) for production, then you can run the following command after setting all the environment variables:
+   We recommend using [PM2](http://pm2.keymetrics.io/) for production. After installing it anf after setting all the above environment variables you can run the following command:
    
     $ pm2 start server.js -n uprm_cms -i 0
     
