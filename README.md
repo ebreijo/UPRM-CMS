@@ -31,7 +31,7 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
 
   Then open a browser and go to:
 
-    http://localhost:9000
+    https://localhost:9000
 
 ## Configuration
 
@@ -43,7 +43,42 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
 
     $ NODE_ENV=test grunt
 
-   The environment can be test, development or production and can be configured as above. 
+   The environment can be test, development (default) or production and can be configured as above or by setting NODE_ENV as environment variable.
+   
+   Before running the project in production environment, in addition to specify NODE_ENV=production you need to specify the following environment variables:
+    
+    UPRM_CMS_DB_USER
+    UPRM_CMS_DB_PASSWORD
+    UPRM_CMS_DB
+    UPRM_CMS_DB_PORT
+    UPRM_CMS_DB_HOST
+    
+   The project has email notifications. To set the email account you need to specify the following environment variables:
+    
+    MAILER_EMAIL
+    MAILER_PASS
+    
+   To run the project in production environment, you need to run:
+      
+    $ grunt serve:production
+    
+   Then open a browser and go to:
+    
+    https://localhost:9000
+    
+   Note that if you are using Grunt, the default port is 9000.
+    
+   If you are using [PM2](http://pm2.keymetrics.io/) for production, then you can run the following command after setting all the environment variables:
+   
+    $ pm2 start server.js -n uprm_cms -i 0
+    
+   Then open a browser and go to:
+       
+    https://localhost:3000
+    
+   Note that the default port of the application is 3000. You can change it by specifying the following environment variable:
+   
+    PORT
 
 ## Code Style
 
