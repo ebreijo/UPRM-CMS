@@ -33,15 +33,20 @@ app.controller('AdminProfileCtrl', function($scope, Companies, AdminAccess, Majo
         else {
           $scope.company.companyStatus = 'active';
           $scope.company.registrationDate = new Date().toISOString();
-          Companies.createNewCompany($scope.company);
-          $scope.tempContact.companyName = $scope.company.name;
-          Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
-          $scope.company = null;
-          $scope.tempContact = null;
-          form.$setPristine();
-          Companies.getAllCompaniesForAdmins($scope.compStatusSelection);
-          $scope.companies = Companies.companies;
-          $('#createCompanyModal').modal('hide');
+          Companies.createNewCompany($scope.company).then(function(newCompany) {
+            $scope.tempContact.companyName = newCompany.plain().name;
+            Companies.createOrUpdateCompanyTemporaryContact($scope.tempContact);
+            $scope.company = null;
+            $scope.tempContact = null;
+            form.$setPristine();
+            Companies.getAllCompaniesForAdmins($scope.compStatusSelection);
+            $scope.companies = Companies.companies;
+            $('#createCompanyModal').modal('hide');
+          }, function() {
+            $scope.title = 'Warning';
+            $scope.message = 'Company already exists';
+            $('#messageModal').modal('toggle');
+          });
         }
       }
     };

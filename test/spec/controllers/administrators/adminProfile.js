@@ -105,7 +105,19 @@ describe('Controller: AdminProfile', function () {
       var form;
       beforeEach(function () {
         form = {};
-        spyOn(Companies, 'createNewCompany');
+        var expectedObject = {};
+        // mock plain function
+        expectedObject.plain = function() {
+          return {
+            name: 'PepesCompany',
+            websiteUrl: 'http://www.pepe.com/',
+            companyDescription: 'This is Pepe',
+            companyStatus: 'active'
+          };
+        };
+        spyOn(Companies, 'createNewCompany').and.callFake(function() {
+          return q.when(expectedObject);
+        });
         spyOn(Companies, 'createOrUpdateCompanyTemporaryContact');
         spyOn(Companies, 'getAllCompaniesForAdmins');
       });
@@ -153,7 +165,6 @@ describe('Controller: AdminProfile', function () {
           scope.company = {
             name: 'PepesCompany',
             websiteUrl: 'http://www.pepe.com/',
-            logoPath: null,
             companyDescription: 'This is Pepe',
             companyStatus: 'active'
           };

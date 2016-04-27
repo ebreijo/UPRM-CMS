@@ -42,10 +42,7 @@ app.factory('Companies', function(Restangular) {
   };
 
   obj.createNewCompany = function(company) {
-    var self = this;
-    Restangular.all('/api/admins/companies').post(company).then(function() {
-      self.companies.push(company);
-    });
+    return Restangular.all('/api/admins/companies').post(company);
   };
 
   obj.updateCompanyFromAdmins = function(companyName, company) {

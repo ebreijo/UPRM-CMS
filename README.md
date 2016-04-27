@@ -81,6 +81,8 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
    
     PORT
 
+   Some other useful commands about PM2 can be found on [Commands-Overview](https://github.com/Unitech/pm2#commands-overview).
+   
 ## Code Style
 
   We enforce the following general settings:
