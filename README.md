@@ -7,6 +7,7 @@ UPRM Career Management System (UPRM-CMS) is a web application designed to provid
 
 ## Prerequisites
 
+* Git - Download and Install [Git](https://git-scm.com/downloads).
 * Node.js - Download and Install [Node.js](https://nodejs.org/en/download/).
 * Grunt - [grunt-cli](http://gruntjs.com/getting-started)
 * Bower - [bower](http://bower.io/) 
