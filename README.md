@@ -55,10 +55,10 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     ├── database                  # Database of the project.
     ├── lib                       # Server-side (Back-end) of the application.
     │    ├── config               # Configuaration of the project.
-    │    │       ├── env          # Environment configuration of the project. Database configuration.
-    │    │       ├── config.js    # Load environment configuration.
-    │    │       ├── express.js   # Express configuration.
-    │    │       └── passport.js  # Passport configuration. Two types of strategies: local-user for admins and recrutiers, local-student for students.
+    │    │      ├── env           # Environment configuration of the project. Database configuration.
+    │    │      ├── config.js     # Load environment configuration.
+    │    │      ├── express.js    # Express configuration.
+    │    │      └── passport.js   # Passport configuration. Two types of strategies: local-user for admins and recrutiers, local-student for students.
     │    ├── controllers          # Controllers/handlers of the server.
     │    ├── models               # Mapping of the database tables.
     │    ├── routes               # End points of the server.
