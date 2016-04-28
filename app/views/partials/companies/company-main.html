@@ -810,7 +810,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <form name="addCompanyJobOfferForm" ng-submit="submitAddCompanyJobOffer(addCompanyJobOfferForm)" novalidate>
+            <form name="addCompanyJobOfferForm" ng-submit="submitAddCompanyJobOffer(addCompanyJobOfferForm, !(addJobOfferPosition[0]==false && addJobOfferPosition[1]==false && addJobOfferPosition[2]==false && addJobOfferPosition[3]==false || addJobOfferEducationalLevel[0]==false && addJobOfferEducationalLevel[1]==false && addJobOfferEducationalLevel[2]==false))" novalidate>
               <label><h5 class="title text-highlight"><b>Job Title:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine}">
@@ -954,7 +954,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
-                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyJobOfferForm.$invalid" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
+                  <button type="submit" class="btn btn-theme btn-sm" ng-disabled="addCompanyJobOfferForm.$invalid || addJobOfferPosition[0]==false && addJobOfferPosition[1]==false && addJobOfferPosition[2]==false && addJobOfferPosition[3]==false || addJobOfferEducationalLevel[0]==false && addJobOfferEducationalLevel[1]==false && addJobOfferEducationalLevel[2]==false" style="margin-right:15px; margin-bottom:5px"><b>Create</b></button>
                   <button class="btn btn-theme btn-sm" data-dismiss="modal" style="margin-left:15px; margin-bottom:5px"><b>Cancel</b></button>
                 </div>
               </div>

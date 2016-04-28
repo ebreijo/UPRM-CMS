@@ -338,8 +338,8 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
     $scope.showJobOfferDateError = false;
 
-    $scope.submitAddCompanyJobOffer = function(form){
-      if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString()) {
+    $scope.submitAddCompanyJobOffer = function(form, positionOrEducationalSelected){
+      if(form.$valid && $scope.addJobOfferExpirationDate.toISOString() > (new Date()).toISOString() && positionOrEducationalSelected) {
         // if job offer was selected, upload here.
         if($('#jobOfferUpload').get(0).dropzone.files.length > 0){
           cfpLoadingBar.start();
