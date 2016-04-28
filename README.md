@@ -83,7 +83,25 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     ├── package.json              # Server-side dependencies of the project defined as npm modules
     ├── README.md                 # Instructions and information about the project
     └── server.js                 # Main application file of the server.
+    
+## Stack of Technologies
+
+  The technologies used in the project are as follows:
   
+    Database
+        RDBMS: MariaDB
+        ORM: Sequelize
+    Back-end 
+        Server: Node.js + Express
+        Authentication: Passport.js
+        Test: Mocha.js + Chai.js
+    Front-end:
+        Client: AngularJS + Bootstrap
+        File Upload: DropzoneJS
+        Test: Jasmine
+    Dev task runner: Grunt
+    Production/Deployment: PM2
+    
 ## Configuration
 
   All configuration is specified in the [config](/lib/config) folder, particularly the [config.js](/lib/config/config.js) file.
