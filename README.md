@@ -52,36 +52,36 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     │    └── views                # HTML files.
     │           ├── partials      # Contains all the HTML files of the application. They are divided by students, companies and admins.
     │           └── index.html    # All script and style files are added here.
-    ├── database                  # Database of the project
-    ├── lib                       # Server-side (Back-end) of the application
-    │    ├── config               # Configuaration of the project
+    ├── database                  # Database of the project.
+    ├── lib                       # Server-side (Back-end) of the application.
+    │    ├── config               # Configuaration of the project.
     │    │       ├── env          # Environment configuration of the project. Database configuration.
-    │    │       ├── config.js    # Load environment configuration
-    │    │       ├── express.js   # Express configuration
+    │    │       ├── config.js    # Load environment configuration.
+    │    │       ├── express.js   # Express configuration.
     │    │       └── passport.js  # Passport configuration. Two types of strategies: local-user for admins and recrutiers, local-student for students.
-    │    ├── controllers          # Controllers/handlers of the server
+    │    ├── controllers          # Controllers/handlers of the server.
     │    ├── models               # Mapping of the database tables.
     │    ├── routes               # End points of the server.
-    │    ├── angular.js           # Serve all the angular HTMLs
-    │    ├── authType.js          # Assign and determine the type of user of the application
-    │    ├── fileUpload.js        # File upload configuration
+    │    ├── angular.js           # Serve all the angular HTMLs.
+    │    ├── authType.js          # Assign and determine the type of user of the application.
+    │    ├── fileUpload.js        # File upload configuration.
     │    ├── mailer.js            # Email configuration for notifications. Email templates.
     │    └── middleware.js        # Contains helper functions such as authentication verification, and file cleaner.
-    ├── test                      # Back-end and Front-end tests
-    │    ├── mock                 # Mock state transitions
-    │    ├── server               # Server tests
+    ├── test                      # Back-end and Front-end tests.
+    │    ├── mock                 # Mock state transitions.
+    │    ├── server               # Server tests.
     │    │     ├── controllers    # Test logic of each controller of the server by sending requests and checking response.
     │    │     └── seedData       # Scripts to populate the database. Note the productionPopulateDB.sql file.
-    │    └── spec                 # Front-end unit tests
+    │    └── spec                 # Front-end unit tests.
     │          ├── controllers    # Unit test each controller of the client. They are divided by students, companies and admins.
     │          └── services       # Unit test most important services of the application.
     ├── bower.json                # Front-end dependencies of the project.
     ├── Gruntfile.js              # Configuration file for automated tasks, such as build, serve, test. Server tests are configured here as well.
     ├── karma.conf.js             # Configuration file for fron-end tests.
-    ├── key.pem                   # RSA Private Key used to generate our certificate
-    ├── key-cert.pem              # Certificate
-    ├── package.json              # Server-side dependencies of the project defined as npm modules
-    ├── README.md                 # Instructions and information about the project
+    ├── key.pem                   # RSA Private Key used to generate our certificate.
+    ├── key-cert.pem              # Certificate.
+    ├── package.json              # Server-side dependencies of the project defined as npm modules.
+    ├── README.md                 # Instructions and information about the project.
     └── server.js                 # Main application file of the server.
     
 ## Stack of Technologies
