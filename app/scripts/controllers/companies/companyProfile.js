@@ -353,37 +353,81 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
       }
     };
 
+    /* jshint ignore:start */
+    var jobPositionMap = [
+      {
+        jobPosition : 'Full-Time'
+      },
+      {
+        jobPosition : 'Part-Time'
+      },
+      {
+        jobPosition: 'Internship'
+      },
+      {
+        jobPosition : 'CO-OP'
+      }
+    ];
+
+    var educationalLevelMap = [
+      {
+        educationalLevel : 'Bachelors'
+      },
+      {
+        educationalLevel : 'Masters'
+      },
+      {
+        educationalLevel : 'PhD'
+      }
+    ];
+    /* jshint ignore:end */
+
     $scope.submitCompanyJobOfferData = function(form) {
       if (form.$valid) {
-        var newJobOffer = {
-          'email': $scope.getCurrentUser().email,
-          'title': $scope.addJobOfferTitle,
-          'description': $scope.addJobOfferDescription,
-          'jobPosition': $scope.addJobOfferPosition,
-          'educationLevel': $scope.addJobOfferEducationalLevel,
-          'recentGraduate': $scope.addJobOfferRecentGraduateOption,
-          'creationDate': new Date(),
-          'expirationDate': $scope.addJobOfferExpirationDate,
-          'announcementNumber': $scope.addJobOfferAnnouncementNumber,
-          'flyerPath': $scope.jobofferFilePath,
-          'location': $scope.addJobOfferLocation
-        };
 
-        JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
-          $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
-          $scope.addJobOfferTitle = null;
-          $scope.addJobOfferDescription = null;
-          $scope.addJobOfferPosition = null;
-          $scope.addJobOfferEducationalLevel = null;
-          $scope.addJobOfferRecentGraduateOption = false;
-          $scope.addJobOfferExpirationDate = null;
-          $scope.addJobOfferAnnouncementNumber = null;
-          $scope.addJobOfferLocation = null;
-          $scope.jobofferFilePath = null;
-          form.$setPristine();
-          $scope.showJobOfferDateError = false;
-          $('#addJobOfferModal').modal('hide');
-        });
+        for(var i = 0; i < 4; i++){
+          for(var j = 0; j < 3; j++){
+
+            if($scope.addJobOfferPosition[i] === true){
+              if($scope.addJobOfferEducationalLevel[j] === true) {
+
+                /* jshint ignore:start */
+                var newJobOffer = {
+                  'email': $scope.getCurrentUser().email,
+                  'title': $scope.addJobOfferTitle,
+                  'description': $scope.addJobOfferDescription,
+                  'jobPosition': jobPositionMap[i].jobPosition,
+                  'educationLevel': educationalLevelMap[j].educationalLevel,
+                  'recentGraduate': $scope.addJobOfferRecentGraduateOption,
+                  'creationDate': new Date(),
+                  'expirationDate': $scope.addJobOfferExpirationDate,
+                  'announcementNumber': $scope.addJobOfferAnnouncementNumber,
+                  'flyerPath': $scope.jobofferFilePath,
+                  'location': $scope.addJobOfferLocation
+                };
+
+                JobOffers.addJobOffersPerCompany($scope.getCurrentUser().companyName, newJobOffer).then(function() {
+                  $scope.companyProfile.pendingRequests.push({id: $scope.companyProfile.pendingRequests.length+1, name: 'Job Offer: ' + newJobOffer.title, status: 'pending'});
+                  $scope.addJobOfferTitle = null;
+                  $scope.addJobOfferDescription = null;
+                  //$scope.addJobOfferPosition = null;
+                  $scope.addJobOfferPosition[i] = false;
+                  //$scope.addJobOfferEducationalLevel = null;
+                  $scope.addJobOfferEducationalLevel[i] = false;
+                  $scope.addJobOfferRecentGraduateOption = false;
+                  $scope.addJobOfferExpirationDate = null;
+                  $scope.addJobOfferAnnouncementNumber = null;
+                  $scope.addJobOfferLocation = null;
+                  $scope.jobofferFilePath = null;
+                  form.$setPristine();
+                  $scope.showJobOfferDateError = false;
+                  $('#addJobOfferModal').modal('hide');
+                });
+                /* jshint ignore:end */
+              }
+            }
+          }
+        }
       }
     };
 

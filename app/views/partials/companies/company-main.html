@@ -833,32 +833,64 @@
               <div class="row text-center">
                 <input type="checkbox" ng-model="addJobOfferRecentGraduateOption" ng-init="addJobOfferRecentGraduateOption=false">&nbsp;<label><h5 class="title text-highlight"><b>Check if interested in Recent Graduates</b><br></h5></label>
               </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="input-group">
                     <label><h5 class="title text-highlight"><b>Select type of Position:</b><br></h5></label>
-                    <div class="form-group has-feedback" style="text-align:center">
+                    <div class="form-group has-feedback" style="text-align:left">
                       <div class="sort">
-                        <select class="sort-options form-control" ng-model="addJobOfferPosition" name="jobOfferPosition" required>
-                          <option>Full-Time</option>
-                          <option>Part-Time</option>
-                          <option>Internship</option>
-                          <option>Co-op</option>
-                        </select>
+
+                        <!---->
+                        <!--<select class="sort-options form-control" ng-model="addJobOfferPosition" name="jobOfferPosition" required>-->
+                          <!--<option>Full-Time</option>-->
+                          <!--<option>Part-Time</option>-->
+                          <!--<option>Internship</option>-->
+                          <!--<option>Co-op</option>-->
+                        <!--</select>-->
+                        <!---->
+
+                        <input type="checkbox" ng-model="addJobOfferPosition[0]" ng-init="addJobOfferPosition[0]=false">&nbsp;<label><h5 class="title text-highlight"><b>
+                          Full-Time
+                        </b><br></h5></label>
+                        <br>
+                        <input type="checkbox" ng-model="addJobOfferPosition[1]" ng-init="addJobOfferPosition[1]=false">&nbsp;<label><h5 class="title text-highlight"><b>
+                          Part-Time
+                        </b><br></h5></label>
+                        <br>
+                        <input type="checkbox" ng-model="addJobOfferPosition[2]" ng-init="addJobOfferPosition[2]=false">&nbsp;<label><h5 class="title text-highlight"><b>
+                          Internship
+                        </b><br></h5></label>
+                        <br>
+                        <input type="checkbox" ng-model="addJobOfferPosition[3]" ng-init="addJobOfferPosition[3]=false">&nbsp;<label><h5 class="title text-highlight"><b>
+                          Co-op
+                        </b><br></h5></label>
+
                       </div>
                     </div>
                   </div>
                 </div>
+
+
                 <div class="col-md-6">
                   <div class="input-group">
                     <label><h5 class="title text-highlight"><b>Select Educational Level:</b><br></h5></label>
-                    <div class="form-group" style="text-align:center">
+                    <div class="form-group" style="text-align:left">
                       <div class="sort">
-                        <select class="sort-options form-control" ng-model="addJobOfferEducationalLevel" name="jobOfferEducationalLevel" required>
-                          <option>Bachelors</option>
-                          <option>Masters</option>
-                          <option>PhD</option>
-                        </select>
+
+                        <!--<select class="sort-options form-control" ng-model="addJobOfferEducationalLevel" name="jobOfferEducationalLevel" required>-->
+                          <!--<option>Bachelors</option>-->
+                          <!--<option>Masters</option>-->
+                          <!--<option>PhD</option>-->
+                        <!--</select>-->
+
+                        <input type="checkbox" ng-model="addJobOfferEducationalLevel[0]" ng-init="addJobOfferEducationalLevel[0]=false">&nbsp;<label><h5 class="title text-highlight"><b>Bachelors</b><br></h5></label>
+                        <br>
+                        <input type="checkbox" ng-model="addJobOfferEducationalLevel[1]" ng-init="addJobOfferEducationalLevel[1]=false">&nbsp;<label><h5 class="title text-highlight"><b>Masters</b><br></h5></label>
+                        <br>
+                        <input type="checkbox" ng-model="addJobOfferEducationalLevel[2]" ng-init="addJobOfferEducationalLevel[2]=false">&nbsp;<label><h5 class="title text-highlight"><b>PhD</b><br></h5></label>
+                        <br>
+
                       </div>
                     </div>
                   </div>
