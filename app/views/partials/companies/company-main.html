@@ -71,7 +71,7 @@
                           <button data-toggle="modal" data-target="#editInterestedMajorsModal" type="button" class="btn btn-theme btn-sm" style="margin-bottom:5px">Edit Majors</button>
                         </div>
                         <div class="col-md-12" style="padding-bottom:5px">
-                        <h3 class="title">Promotional Material</h3>
+                          <h3 class="title">Promotional Material</h3>
                         </div>
                         <div class="alert alert-danger alert-dismissable" ng-show="showPromotionalMaterialError">
                           <button type="button" class="close" ng-click="showPromotionalMaterialError=false" aria-hidden="true">&times;</button>
@@ -173,8 +173,9 @@
                               <strong>Announcement Number:</strong>&nbsp;{{item.announcementNumber}}
                             </li>
                             <li class="list-group-item">
-                              <strong>Location: </strong>{{item.location}}
+                              <strong>Location:</strong>&nbsp;{{item.location}}
                             </li>
+
 
                             <li class="list-group-item" ng-if="item.flyerPath">
                               <strong>Promotional Document:</strong>&nbsp;
