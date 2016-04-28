@@ -69,20 +69,28 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
   //For Edit Interested Majors Modal------------------------------------------------------------
 
   var majors = Majors.majors;
+  $scope.majorList = [];
+
 
   Majors.getInterestedMajorsPerCompany($scope.getCurrentUser().companyName).then(function(interestedMajors) {
     angular.forEach(interestedMajors.plain(), function (item) {
       $scope.companyProfile.interestedMajors.push({id: item.id, companyName: item.companyName, name: item.majorCode, value: false});
     });
 
+    angular.forEach($scope.companyProfile.interestedMajors, function (item) {
+      angular.forEach(majors, function (element) {
+        if (item.name === element.majorCode){
+          item.nameEnglish = element.nameEnglish;
+        }
+      });
+    });
+
     angular.forEach(majors, function(item) {
       if(!contains(item.majorCode, $scope.companyProfile.interestedMajors)){
-        $scope.majorList.push({name: item.majorCode, value: false});
+        $scope.majorList.push({name: item.majorCode,nameEnglish: item.nameEnglish,  value: false});
       }
     });
   });
-
-  $scope.majorList = [];
 
   var contains = function(element, list){
     for (var i = 0; i < list.length; i++) {
@@ -107,7 +115,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
     angular.forEach($scope.majorList, function (item) {
       if (item.value === true && (contains(item.name, $scope.companyProfile.interestedMajors) === false)){
-        $scope.companyProfile.interestedMajors.push({name: item.name, value: false});
+        $scope.companyProfile.interestedMajors.push({name: item.name, nameEnglish: item.nameEnglish,  value: false});
       }
     });
     updateLists($scope.majorList, $scope.companyProfile.interestedMajors);
@@ -127,7 +135,7 @@ app.controller('CompanyCtrl', function($scope, $state, $stateParams, $timeout, _
 
     angular.forEach($scope.companyProfile.interestedMajors, function (item) {
       if (item.value === true && (contains(item.name, $scope.majorList) === false)){
-        $scope.majorList.push({name: item.name, value: false});
+        $scope.majorList.push({name: item.name , nameEnglish: item.nameEnglish, value: false});
       }
     });
     updateLists($scope.companyProfile.interestedMajors, $scope.majorList);
