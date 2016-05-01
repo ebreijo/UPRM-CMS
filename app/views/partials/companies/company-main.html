@@ -299,7 +299,7 @@
                         <div class="form-group message">
                           <label>Additional Information (Optional) :</label>
                           <div class="form-group has-feedback" ng-class="{ 'has-error' : requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern}">
-                            <textarea ng-model="onCampusService.additionalInfo" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                            <textarea ng-model="onCampusService.additionalInfo" name="campusServiceAdditionalInformation" type="text" placeholder="Enter additional information here..." class="form-control" rows="4" ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                             <i style="color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="!requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern && requestOnCampusServiceForm.campusServiceAdditionalInformation.$modelValue === false"></i>
                             <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="requestOnCampusServiceForm.campusServiceAdditionalInformation.$error.pattern"></i>
                           </div>
@@ -527,22 +527,22 @@
               </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
                 <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
-                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" ng-minlength="2" ng-maxlength="511" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:15px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$valid"></i>
                 <i style="margin-top:15px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine"></i>
               </div>
               <div>
-                <p ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                <p ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description. Description must be between 2 and 511 characters long.</b></p>
               </div>
               <label><h5 class="title text-highlight"><b>Company Website:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
-                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" ng-minlength="2" ng-maxlength="255" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
               </div>
               <div>
-                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL. The URL must be between 2 and 255 characters long.</b></p>
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">
@@ -814,21 +814,21 @@
               <label><h5 class="title text-highlight"><b>Job Title:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine}">
-                <input ng-model="addJobOfferTitle" name="jobOfferTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="addJobOfferTitle" name="jobOfferTitle" type="text" class="form-control" placeholder="Enter the title for the new job offer" style="border-radius:0;" ng-minlength="2" ng-maxlength="127" required ng-pattern="/^[A-Za-z0-9 ¿?¡!,.()ñÑáéíóúÁÉÍÓÚ'`-]+$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyJobOfferForm.jobOfferTitle.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine"></i>
               </div>
               <div>
-                <p ng-show="addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Title</b></p>
+                <p ng-show="addCompanyJobOfferForm.jobOfferTitle.$invalid && !addCompanyJobOfferForm.jobOfferTitle.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Title. Job Title must be between 2 and 127 characters long.</b></p>
               </div>
               <label><h5 class="title text-highlight"><b>Job Description:</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine}">
-                <textarea ng-model="addJobOfferDescription" name="jobOfferDescription" type="text" placeholder="Enter the description for the new job offer" class="form-control" rows="4" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="addJobOfferDescription" name="jobOfferDescription" type="text" placeholder="Enter the description for the new job offer" class="form-control" rows="4" ng-minlength="2" ng-maxlength="511" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferDescription.$valid"></i>
                 <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine"></i>
               </div>
               <div>
-                <p ng-show="addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                <p ng-show="addCompanyJobOfferForm.jobOfferDescription.$invalid && !addCompanyJobOfferForm.jobOfferDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description. Description must be between 2 and 511 characters long.</b></p>
               </div>
               <div class="row text-center">
                 <input type="checkbox" ng-model="addJobOfferRecentGraduateOption" ng-init="addJobOfferRecentGraduateOption=false">&nbsp;<label><h5 class="title text-highlight"><b>Check if interested in Recent Graduates</b><br></h5></label>
@@ -898,7 +898,7 @@
               </div>
               <label style="margin-top:10px"><h5 class="title text-highlight"><b>Announcement Number (Optional):</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern}">
-                <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([-a-z0-9]{0,30})$/i"/>
+                <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([-a-z0-9]{0,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern && !addCompanyJobOfferForm.jobOfferAnnouncementNumber.$modelValue === false"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern"></i>
               </div>
@@ -914,12 +914,12 @@
                 </h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine}">
-                <input ng-model="addJobOfferLocation" name="jobOfferLocation" type="text" class="form-control" placeholder="Enter the location for the new job offer (city, country)" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()ñÑáéíóúÁÉÍÓÚ'`-]{0,30})$/i"/>
+                <input ng-model="addJobOfferLocation" name="jobOfferLocation" type="text" class="form-control" placeholder="Enter the location for the new job offer (city, country)" style="border-radius:0;" required ng-pattern="/^([A-Za-z0-9 ,.:()ñÑáéíóúÁÉÍÓÚ'`-]{0,127})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="addCompanyJobOfferForm.jobOfferLocation.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine"></i>
               </div>
               <div>
-                <p ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Location</b></p>
+                <p ng-show="addCompanyJobOfferForm.jobOfferLocation.$invalid && !addCompanyJobOfferForm.jobOfferLocation.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Job Location. Location must have a maximum of 127 characters long.</b></p>
               </div>
               <label>
                 <h5 class="title text-highlight">
