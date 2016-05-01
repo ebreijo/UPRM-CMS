@@ -132,6 +132,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER
           Majors.getAllMajors();
         }]
       }
+    }).state('companyJobFair', {
+      url: '/companyJobFair',
+      templateUrl: 'partials/companies/company-job-fair.html',
+      controller: 'CompanyJobFairCtrl',
+      data: {
+        authorizedRoles: USER_ROLES.recruiter
+      },
+      resolve: {
+        jobFairPromise: ['JobFairCompaniesInfo', function (JobFairCompaniesInfo) {
+          JobFairCompaniesInfo.getAllCompaniesForStudentJobFair();
+        }],
+        jobFairGeneralInfoPromise: ['JobFairGeneralInfo', function (JobFairGeneralInfo) {
+          JobFairGeneralInfo.getJobFairDate();
+        }]
+      }
     }).state('companyAboutUs', {
       url: '/companyAboutUs',
       templateUrl: 'partials/companies/company-about.html',

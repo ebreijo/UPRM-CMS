@@ -1,0 +1,120 @@
+<div class="">
+  <!-- ******HEADER****** -->
+  <div ng-include src="'views/partials/companies/company-header.html'"></div>
+  <!--//header-->
+  <!-- ******NAV****** -->
+  <div ng-include src="'views/partials/companies/company-navbar.html'"></div>
+  <!--//main-nav-->
+  <!-- ******CONTENT****** -->
+  <div class="content container">
+    <div class="page-wrapper">
+      <header class="page-heading clearfix">
+        <h1 class="heading-title pull-left">Job Fair</h1>
+        <div class="breadcrumbs pull-right">
+          <ul class="breadcrumbs-list">
+            <li class="breadcrumbs-label">You are here:</li>
+            <li>
+              <a ui-sref="company">Profile</a>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="current">Job Fair</li>
+          </ul>
+        </div>
+        <!--//breadcrumbs-->
+      </header>
+      <div class="page-content">
+        <div class="row" style="color: #004D13;">
+          <h3 class="title text-center" style="margin: 2px"><b>{{generalInformation.headerEnglish}}</b></h3>
+          <div class="col-md-4" style="float: none; margin: 0 auto; padding:0">
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.locationEnglish}}</h4>
+            </div>
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.dateEnglish}}</h4>
+            </div>
+            <div class="row text-center title" style="margin: 0">
+              <h4 style="margin:2px">{{generalInformation.time}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-12" style="margin-top:10px">
+                <p><span class="label label-danger">Collecting Resumes</span> = Collecting Resumes before the Job Fair<span ng-if="generalInformation.showResumeDeadlineDate"> <strong>(Deadline: {{ generalInformation.resumeDeadlineDate | date: 'MMMM d, y' }})</strong></span>.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><span class="label label-success">Apply Online</span> = Require the Students to Apply Online on their Website.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><span class="label label-info">Interviewing</span> = Will be Interviewing during the Weekend following the Job Fair.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        <div class="row text-center" style="margin-top:20px">
+          <div class="col-md-12">
+            <h3 class="title">Companies Attending:</h3>
+          </div>
+        </div>
+
+        <div class="row page-row" style="margin-bottom:0px" ng-repeat="company in jobFairCompanies">
+          <!--<div class="jobs-wrapper col-md-9" ng-show="majorFilter(company.interestedMajors)" style="float: none; margin: 0 auto; padding:0; padding-top:20px"> -->
+          <!-- <div class="jobs-wrapper col-md-9" ng-show="lookingForFilter(company.lookingFor)" style="float: none; margin: 0 auto; padding:0; padding-top:20px"> -->
+          <div class="jobs-wrapper col-md-9" style="float: none; margin: 0 auto; padding:0; padding-top:20px">
+            <!--//panel-->
+            <div class="panel panel-theme page-row">
+              <div class="panel-heading">
+                <h3 class="panel-title"><b>{{company.companyName}}</b>
+                  <span class="label label-info pull-right" style="margin:3px" ng-show="company.interviewsDuringWeekend">Interviewing</span>
+                  <span class="label label-success pull-right" style="margin:3px" ng-show="company.mustFillOnline">Apply Online</span>
+                  <span class="label label-danger pull-right" style="margin:3px" ng-show="company.collectingResumesBeforeJobFair">Collecting Resumes</span>
+                </h3>
+              </div>
+              <div class="panel-body" style="margin:0;padding:0">
+                <ul class="list-group" style="margin-bottom:1px">
+                  <li class="list-group-item">
+                    <strong>Link:</strong>
+                    <a href={{company.websiteApplication}}>{{company.websiteApplication}}</a>
+                  </li>
+                  <li class="list-group-item" ng-if="company.minGpa">
+                    <strong>Minimum GPA:</strong>&nbsp;{{company.minGpa}}
+                  </li>
+                  <li class="list-group-item" ng-if="company.lookingFor">
+                    <strong>Job Positions:</strong>
+                    <span ng-repeat="lookingFor in company.lookingFor">{{lookingFor.jobPosition}}{{$last ? '' : ', '}}</span>
+                  </li>
+                  <li class="list-group-item" ng-if="company.interestedMajors">
+                    <strong>Majors:</strong>
+                    <span ng-repeat="majors in company.interestedMajors">{{majors.majorCode}}{{$last ? '' : ', '}}</span>
+                  </li>
+                  <li class="list-group-item" ng-if="company.extraInformation">
+                    <strong> Extra Information: </strong>
+                    {{company.extraInformation}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!--//pagination-->
+          <!--//page-content-->
+        </div>
+
+        <!--//page-row-->
+      </div>
+      <!--//page-content-->
+    </div>
+    <!--//page-->
+  </div>
+  <!--//content-->
+</div>
+<!--//wrapper-->
+<!-- ******FOOTER****** -->
+<div ng-include src="'views/partials/footer.html'"></div>
