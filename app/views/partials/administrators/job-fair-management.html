@@ -70,12 +70,12 @@
                   <span><label class="control-label">Company Additional Information (Optional):</label></span>
                 </div>
                 <div class="form-group has-feedback" ng-class="{ 'has-error' : JobFairManagementForm.companyAdditionalInformation.$error.pattern}">
-                  <textarea ng-model="jobFairCompanyAdditionalInfo.extraInformation" name="companyAdditionalInformation" type="text" ng-maxlength="255" placeholder="Enter the description for the new job offer" class="form-control" rows="4"  ng-disabled="isDisable" style="resize: none" ng-pattern="patterns.companyAdditionalInformation"></textarea>
+                  <textarea ng-model="jobFairCompanyAdditionalInfo.extraInformation" name="companyAdditionalInformation" type="text" ng-maxlength="255" placeholder="Enter additional information" class="form-control" rows="4"  ng-disabled="isDisable" style="resize: none" ng-pattern="patterns.companyAdditionalInformation"></textarea>
                   <i style="margin-top:5px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$valid && !JobFairManagementForm.companyAdditionalInformation.$modelValue === false"></i>
                   <i style="margin-top:5px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="JobFairManagementForm.companyAdditionalInformation.$error.pattern"></i>
                 </div>
                 <div>
-                  <p ng-show="JobFairManagementForm.companyAdditionalInformation.$invalid" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                  <p ng-show="JobFairManagementForm.companyAdditionalInformation.$invalid" style="color:#843534" class="help-block"><b>Enter a valid information. Additional information must have a maximum of 255 characters long.</b></p>
                 </div>
 
                 <div class="input-group">

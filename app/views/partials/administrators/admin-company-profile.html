@@ -255,7 +255,7 @@
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="temporaryContactForm.tempContactFirstName.$invalid && !temporaryContactForm.tempContactFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid first name. First name must be between 2 and 45 characters long.</b></p>
                         </div>
                       </article>
                       <article class="contact-form col-md-4">
@@ -268,7 +268,7 @@
                           <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine"></i>
                         </div>
                         <div>
-                          <p ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Name</b></p>
+                          <p ng-show="temporaryContactForm.tempContactLastName.$invalid && !temporaryContactForm.tempContactLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid last name. Last name must be between 2 and 45 characters long.</b></p>
                         </div>
                     </article>
                     </div>
@@ -346,22 +346,22 @@
               </div>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine}">
                 <label><h5 class="title text-highlight"><b>Company Description:</b><br></h5></label>
-                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" ng-minlength="2" ng-maxlength="511" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
+                <textarea ng-model="CompanyDescriptionItem.companyDescription" name="companyDescription" type="text" class="form-control" rows="6" ng-minlength="2" ng-maxlength="511" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                 <i style="margin-top:15px; color:#57A89A" class="glyphicon glyphicon-ok form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$valid"></i>
                 <i style="margin-top:15px; color:#843534" class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine"></i>
               </div>
               <div>
-                <p ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description</b></p>
+                <p ng-show="editCompanyDescriptionForm.companyDescription.$invalid && !editCompanyDescriptionForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid Description. Description must be between 2 and 511 characters long.</b></p>
               </div>
               <label><h5 class="title text-highlight"><b>Company Website:</b><br></h5>
               </label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine}">
-                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" ng-minlength="2" ng-maxlength="255" required ng-pattern="/^[-a-z0-9 =?/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
+                <input ng-model="CompanyDescriptionItem.websiteUrl" name="url" type="text" class="form-control" style="border-radius:0;" ng-minlength="2" ng-maxlength="255" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="editCompanyDescriptionForm.url.$valid"></i>
                 <i class="glyphicon glyphicon-remove form-control-feedback" ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine"></i>
               </div>
               <div>
-                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL</b></p>
+                <p ng-show="editCompanyDescriptionForm.url.$invalid && !editCompanyDescriptionForm.url.$pristine" style="color:#843534" class="help-block"><b>Enter a valid URL. The URL must be between 2 and 255 characters long.</b></p>
               </div>
               <div class="row">
                 <div class="col-md-12" style="text-align: center">

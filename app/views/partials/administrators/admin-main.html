@@ -189,10 +189,10 @@
                           <p>Description<span class="required" style="color: #e14b39;">*</span></p>
                           <fieldset class="input-group text-center" style="margin-bottom:10px;">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" ng-minlength="2" ng-maxlength="511" rows="4" style="resize: none;" required></textarea>
+                            <textarea class="form-control" ng-model="company.companyDescription" name="companyDescription" ng-minlength="2" ng-maxlength="511" rows="4" style="resize: none;" required ng-pattern="/^[-a-z0-9 =¿?¡!/:._$,;*&@#%+'-()ñÑáéíóúÁÉÍÓÚ]+(\.)?$/i"></textarea>
                           </fieldset>
                           <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Company description must be between 2 and 511 characters long</b></p>
+                            <p ng-show="modalCreateCompanyForm.companyDescription.$invalid && !modalCreateCompanyForm.companyDescription.$pristine" style="color:#843534" class="help-block"><b>Enter a valid description. Description must be between 2 and 511 characters long.</b></p>
                           </div>
                           <p>Temporary Contact Email<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalEmail.$invalid && !modalCreateCompanyForm.modalEmail.$pristine }">
@@ -205,23 +205,23 @@
                           <p>Temporary Contact First Name<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalFirstName.$invalid && !modalCreateCompanyForm.modalFirstName.$pristine }">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="tempContact.firstName" name="modalFirstName" type="text" class="form-control" ng-maxlength="255" placeholder="First Name" style="border-radius:0;" required ng-pattern="patterns.firstName"/>
+                            <input ng-model="tempContact.firstName" name="modalFirstName" type="text" class="form-control" placeholder="First Name" style="border-radius:0;" required ng-pattern="patterns.firstName"/>
                           </div>
                           <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.modalFirstName.$invalid && !modalCreateCompanyForm.modalFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid first name</b></p>
+                            <p ng-show="modalCreateCompanyForm.modalFirstName.$invalid && !modalCreateCompanyForm.modalFirstName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid first name. First name must be between 2 and 45 characters long.</b></p>
                           </div>
                           <p>Temporary Contact Last Name<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalLastName.$invalid && !modalCreateCompanyForm.modalLastName.$pristine }">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-user"></i></span>
-                            <input ng-model="tempContact.lastName" name="modalLastName" type="text" class="form-control" ng-maxlength="255" placeholder="Last Name" style="border-radius:0;" required ng-pattern="patterns.lastName"/>
+                            <input ng-model="tempContact.lastName" name="modalLastName" type="text" class="form-control" placeholder="Last Name" style="border-radius:0;" required ng-pattern="patterns.lastName"/>
                           </div>
                           <div style="margin-bottom: 10px">
-                            <p ng-show="modalCreateCompanyForm.modalLastName.$invalid && !modalCreateCompanyForm.modalLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid last name</b></p>
+                            <p ng-show="modalCreateCompanyForm.modalLastName.$invalid && !modalCreateCompanyForm.modalLastName.$pristine" style="color:#843534" class="help-block"><b>Enter a valid last name. Last name must be between 2 and 45 characters long.</b></p>
                           </div>
                           <p>Temporary Contact Phone Number<span class="required" style="color: #e14b39;">*</span></p>
                           <div class="input-group text-center" ng-class="{ 'has-error' : modalCreateCompanyForm.modalPhoneNumber.$invalid && !modalCreateCompanyForm.modalPhoneNumber.$pristine }">
                             <span class="input-group-addon" style="border-radius: 0;"><i class="glyphicon glyphicon-phone"></i></span>
-                            <input ng-model="tempContact.phoneNumber" name="modalPhoneNumber" type="text" class="form-control" ng-maxlength="255" placeholder="Phone Number" style="border-radius:0;" required ng-pattern="patterns.phoneNumber"/>
+                            <input ng-model="tempContact.phoneNumber" name="modalPhoneNumber" type="text" class="form-control" placeholder="Phone Number" style="border-radius:0;" required ng-pattern="patterns.phoneNumber"/>
                           </div>
                           <div style="margin-bottom: 10px">
                             <p ng-show="modalCreateCompanyForm.modalPhoneNumber.$invalid && !modalCreateCompanyForm.modalPhoneNumber.$pristine" style="color:#843534" class="help-block"><b>Enter a valid phone number. Formats: +x-xxx-xxx-xxxx, x-xxx-xxx-xxxx, xxx-xxx-xxxx</b></p>
