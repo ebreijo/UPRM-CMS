@@ -41,8 +41,8 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <article class="contact-form col-md-7" style="padding-top:13px; float: none; margin-right: auto; margin-left: auto;">
+      <div class="row" style="float: none; margin-right: auto; margin-left: auto">
+        <article class="contact-form col-md-6" style="padding-top:13px; float: none; margin-right: auto; margin-left: auto;">
           <form class="form-inline" role="form">
             <div class="input-group">
               <span><label><span style="font-family: arial; color: #004D13;"><h5><strong>Select Your Company Location : &nbsp</strong></h5></span></label></span>
@@ -62,16 +62,16 @@
             <div class="row" style="padding-bottom:15px">
               <div class="col-md-6" style="padding-top:2px">
                 <div style="text-align: center">
-                  <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme" ng-disabled="!companyLocation">Continue</a>
-                </div>
-              </div>
-              <div class="col-md-6" style="padding-top:2px">
-                <div style="text-align: center">
                   <a ui-sref="locationRegistration" style="color: #FFFFFF;">
                     <button type="button" class="btn btn-theme" style="text-align: center;">
                       Can't find my Company Location
                     </button>
                   </a>
+                </div>
+              </div>
+              <div class="col-md-6" style="padding-top:2px">
+                <div style="text-align: center">
+                  <a type="submit" ng-click="selectLocation(companyLocation)" class="btn btn-theme pull-right" ng-disabled="!companyLocation">Continue</a>
                 </div>
               </div>
             </div>

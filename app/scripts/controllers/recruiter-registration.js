@@ -22,6 +22,8 @@ app.controller('RecruiterRegistrationCtrl', function($scope, $state, Registratio
         messageModal.modal('show');
         messageModal.on('hidden.bs.modal', function () {
           $state.go('landingPage');
+          Registration.sessionStorage.companyName = null;
+          Registration.sessionStorage.companyLocation = null;
         });
       }, function() {
         $scope.title = 'Warning';

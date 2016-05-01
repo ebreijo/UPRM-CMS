@@ -8,7 +8,7 @@ app.controller('LocationSearchCtrl', function($scope, $state, Registration) {
 
   $scope.companyLocations = Registration.companyLocations;
 
-  $scope.companyLocation = {};
+  $scope.companyLocation = null;
 
   $scope.selectLocation = function(isValid) {
     // check to make sure the form is completely valid

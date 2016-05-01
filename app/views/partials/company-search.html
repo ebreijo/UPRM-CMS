@@ -33,7 +33,7 @@
             <div class="col-md-4" style="padding-top:15px">
               <p><b>2. If your company/organization name is NOT listed:</b></p>
               <li>
-                <p style="margin-left:2em">Click the Can't Find my Company/Organization button below</p>
+                <p style="margin-left:2em">Click the Can't find my Company/Organization button below</p>
               </li>
             </div>
             <div class="col-md-1" style="padding-top:15px"> </div>
@@ -52,16 +52,16 @@
             <div class="row" style="padding-bottom:15px">
               <div class="col-md-6" style="padding-top:2px">
                 <div style="text-align: center">
-                  <a ui-sref="locationSearch" class="btn btn-theme" ng-disabled="disableContinueBtn">Continue</a>
-                </div>
-              </div>
-              <div class="col-md-6" style="padding-top:2px">
-                <div style="text-align: center">
                     <a ui-sref="companyRegistration">
                     <button type="button" class="btn btn-theme" style="text-align: center;">
                       Can't find my Company/Organization
                     </button>
                     </a>
+                </div>
+              </div>
+              <div class="col-md-6" style="padding-top:2px">
+                <div style="text-align: center">
+                  <a class="btn btn-theme pull-right" ng-click="continueToLocationSearch()" ng-disabled="disableContinueBtn">Continue</a>
                 </div>
               </div>
             </div>
