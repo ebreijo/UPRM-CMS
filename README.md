@@ -98,7 +98,7 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     Front-end:
         Client: AngularJS + Bootstrap
         File Upload: DropzoneJS
-        Test: Jasmine
+        Test: Karma + Jasmine
     Dev task runner: Grunt
     Production/Deployment: PM2
     
