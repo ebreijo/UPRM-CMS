@@ -49,9 +49,11 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
     │    │      ├── services      # Services of the application. Requests to the server are done here.
     │    │      └── app.js        # Angular app configuration.
     │    ├── styles               # CSS files.
-    │    └── views                # HTML files.
-    │           ├── partials      # Contains all the HTML files of the application. They are divided by students, companies and admins.
-    │           └── index.html    # All script and style files are added here.
+    │    ├── views                # HTML files.
+    │    │      ├── partials      # Contains all the HTML files of the application. They are divided by students, companies and admins.
+    │    │      └── index.html    # All script and style files are added here.
+    │    ├── .htaccess            # Apache configuration file
+    │    └── favicon.ico          # Fav icon
     ├── database                  # Database of the project.
     ├── lib                       # Server-side (Back-end) of the application.
     │    ├── config               # Configuaration of the project.
