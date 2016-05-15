@@ -896,7 +896,7 @@
                   </div>
                 </div>
               </div>
-              <label style="margin-top:10px"><h5 class="title text-highlight"><b>Announcement Number (Optional):</b><br></h5></label>
+              <label><h5 class="title text-highlight"><b>Announcement Number (Optional):</b><br></h5></label>
               <div class="form-group has-feedback" ng-class="{ 'has-error' : addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern}">
                 <input ng-model="addJobOfferAnnouncementNumber" name="jobOfferAnnouncementNumber" type="text" class="form-control" placeholder="Enter the announcement for the new job offer" style="border-radius:0;" ng-pattern="/^([-a-z0-9]{0,45})$/i"/>
                 <i class="glyphicon glyphicon-ok form-control-feedback" style="color:#57A89A" ng-show="!addCompanyJobOfferForm.jobOfferAnnouncementNumber.$error.pattern && !addCompanyJobOfferForm.jobOfferAnnouncementNumber.$modelValue === false"></i>
